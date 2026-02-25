@@ -1,0 +1,822 @@
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Submitted Specials</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%); min-height: 100vh; padding: 20px; scroll-behavior: smooth; }
+    .header { text-align: center; margin-bottom: 40px; }
+    .header h1 { color: #2c3e50; font-size: 2.5rem; margin-bottom: 30px; font-weight: 600; }
+    .search-filter-container { background: white; padding: 25px; border-radius: 15px; box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12); margin-bottom: 40px; max-width: 1000px; margin-left: auto; margin-right: auto; display: flex; gap: 15px; align-items: center; flex-wrap: wrap; justify-content: center; }
+    .search-wrapper { display: flex; gap: 10px; flex: 1; min-width: 300px; align-items: center; }
+    .search-input { flex: 1; padding: 12px 16px; border: 2px solid #e0e0e0; border-radius: 25px; font-size: 1rem; transition: all 0.3s ease; background: #f9f9f9; }
+    .search-input:focus { outline: none; border-color: #e74c3c; background: white; box-shadow: 0 0 0 3px rgba(231, 76, 60, 0.1); }
+    .search-btn { padding: 12px 30px; background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%); color: white; border: none; border-radius: 25px; font-weight: bold; cursor: pointer; transition: all 0.3s ease; font-size: 1rem; box-shadow: 0 4px 12px rgba(231, 76, 60, 0.3); }
+    .search-btn:hover { background: linear-gradient(135deg, #c0392b 0%, #a93226 100%); transform: translateY(-2px); box-shadow: 0 6px 18px rgba(231, 76, 60, 0.4); }
+    .filter-dropdown { padding: 10px 20px; border: 2px solid #e0e0e0; border-radius: 25px; font-size: 1rem; background: white; cursor: pointer; transition: all 0.3s ease; font-style: italic; min-width: 180px; }
+    .filter-dropdown:hover { border-color: #e74c3c; box-shadow: 0 2px 8px rgba(231, 76, 60, 0.2); }
+    .filter-dropdown:focus { outline: none; border-color: #e74c3c; box-shadow: 0 0 0 3px rgba(231, 76, 60, 0.1); }
+    #specialsContainer { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 25px; margin-bottom: 40px; max-width: 1400px; margin-left: auto; margin-right: auto; }
+    .special-card { background: white; border-radius: 15px; overflow: hidden; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); transition: all 0.3s ease; display: flex; flex-direction: column; height: 100%; border: 2px solid transparent; }
+    .special-card:hover { transform: translateY(-12px); box-shadow: 0 16px 40px rgba(0, 0, 0, 0.2); border-color: #e74c3c; }
+    .special-card img { width: 100%; height: 200px; object-fit: cover; display: block; }
+    .special-card-content { padding: 20px; flex-grow: 1; display: flex; flex-direction: column; }
+    .special-card h3 { margin: 0 0 12px; color: #2c3e50; font-size: 1.3rem; font-weight: 600; }
+    .special-card p { margin: 8px 0; font-size: 0.95rem; color: #555; line-height: 1.5; }
+    .special-card strong { color: #2c3e50; }
+    .price-section { margin: 15px 0; padding: 12px 0; border-top: 1px solid #eee; border-bottom: 1px solid #eee; }
+    .price-section p { margin: 8px 0; font-size: 1.1rem; }
+    .current-price { font-weight: bold; color: #e74c3c; font-size: 1.3rem; }
+    .original-price { text-decoration: line-through; color: #999; margin-left: 10px; }
+    .offer-badge { color: #e74c3c; font-weight: bold; font-size: 0.95rem; margin: 5px 0; display: inline-block; }
+    .special-card-actions { padding: 15px 0; text-align: center; display: flex; justify-content: center; gap: 12px; margin-top: auto; }
+    .book-btn { display: inline-block; padding: 12px 25px; background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%); color: white; text-decoration: none; border-radius: 25px; font-weight: bold; border: none; cursor: pointer; transition: all 0.3s ease; flex: 1; max-width: 200px; box-shadow: 0 4px 12px rgba(231, 76, 60, 0.3); }
+    .book-btn:hover { background: linear-gradient(135deg, #c0392b 0%, #a93226 100%); transform: translateY(-3px); box-shadow: 0 6px 20px rgba(231, 76, 60, 0.4); }
+    .cart-btn { background: #27ae60; color: white; font-size: 1.2rem; border: none; border-radius: 50%; width: 45px; height: 45px; cursor: pointer; transition: all 0.3s ease; display: flex; align-items: center; justify-content: center; }
+    .cart-btn:hover { background: #229954; transform: scale(1.1); }
+    .cart-toggle { position: fixed; top: 20px; right: 20px; z-index: 999; background: linear-gradient(135deg, #27ae60 0%, #229954 100%); color: white; border: none; padding: 12px 20px; border-radius: 30px; font-weight: bold; cursor: pointer; box-shadow: 0 6px 20px rgba(39, 174, 96, 0.4); transition: all 0.3s ease; position: relative; font-size: 1rem; }
+    .cart-toggle:hover { background: linear-gradient(135deg, #229954 0%, #1e8449 100%); transform: translateY(-3px); box-shadow: 0 8px 24px rgba(39, 174, 96, 0.5); }
+    .cart-count { background: #e74c3c; color: white; padding: 3px 10px; font-size: 0.75rem; border-radius: 20px; position: absolute; top: -10px; right: -10px; min-width: 25px; text-align: center; }
+    #bookingModal, #paymentSuccessModal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.6); display: none; justify-content: center; align-items: center; z-index: 1000; }
+    .modal-content { background: white; padding: 30px; border-radius: 15px; width: 90%; max-width: 450px; box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2); animation: slideUp 0.3s ease; }
+    @keyframes slideUp { from { transform: translateY(50px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+    .modal-content h3, .modal-content h2 { color: #2c3e50; margin-bottom: 20px; font-size: 1.5rem; }
+    .modal-content input { width: 100%; padding: 12px; margin: 10px 0; border: 2px solid #e0e0e0; border-radius: 8px; font-size: 1rem; transition: all 0.3s ease; }
+    .modal-content input:focus { outline: none; border-color: #e74c3c; box-shadow: 0 0 0 3px rgba(231, 76, 60, 0.1); }
+    .modal-content button { padding: 12px 20px; margin: 10px 5px; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; transition: all 0.3s ease; }
+    .modal-submit { background: #e74c3c; color: white; width: 100%; }
+    .modal-submit:hover { background: #c0392b; }
+    .modal-cancel { background: #ccc; color: #333; }
+    .modal-cancel:hover { background: #bbb; }
+    .selected { border-color: #e74c3c !important; background: #ffe8e8 !important; font-weight: 600 !important; }
+    #cartSidebar { position: fixed; top: 0; right: -350px; width: 350px; height: 100%; background: linear-gradient(180deg, #ffffff 0%, #f8f9fa 100%); box-shadow: -8px 0 25px rgba(0, 0, 0, 0.15); padding: 25px; overflow-y: auto; transition: right 0.3s ease; z-index: 1000; border-left: 3px solid #e74c3c; }
+    #cartSidebar.open { right: 0; }
+    #cartSidebar h3 { color: #2c3e50; margin-bottom: 20px; font-size: 1.4rem; font-weight: 700; border-bottom: 2px solid #e74c3c; padding-bottom: 12px; }
+    #cartList { list-style: none; padding: 0; margin: 0 0 20px; }
+    #cartList li { margin-bottom: 20px; padding: 15px; border: 1px solid #e8e8e8; border-radius: 10px; background: white; transition: all 0.3s ease; }
+    #cartList li:hover { box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); border-color: #e74c3c; }
+    #cartList li:last-child { border-color: #e8e8e8; }
+    #cartList img { width: 100%; height: 100px; object-fit: cover; border-radius: 8px; margin-bottom: 12px; border: 2px solid #f0f0f0; }
+    #cartList strong { color: #2c3e50; display: block; margin-bottom: 5px; font-size: 1rem; }
+    #cartList button { background: #e74c3c; color: white; border: none; padding: 6px 12px; border-radius: 5px; font-size: 0.85rem; cursor: pointer; transition: all 0.3s ease; }
+    #cartList button:hover { background: #c0392b; }
+    .cart-item-quantity { display: flex; align-items: center; gap: 8px; margin: 10px 0; background: #f5f5f5; padding: 8px 10px; border-radius: 6px; width: fit-content; }
+    .qty-btn { background: #e74c3c; color: white; border: none; width: 28px; height: 28px; border-radius: 4px; cursor: pointer; font-weight: bold; font-size: 16px; transition: all 0.2s ease; display: flex; align-items: center; justify-content: center; padding: 0; }
+    .qty-btn:hover { background: #c0392b; transform: scale(1.05); }
+    .qty-display { font-weight: bold; color: #2c3e50; min-width: 25px; text-align: center; }
+    .cart-item-price { display: flex; justify-content: space-between; align-items: center; margin: 8px 0; color: #2c3e50; font-weight: 600; }
+    .remove-cart-btn { background: #e74c3c; color: white; border: none; padding: 6px 12px; border-radius: 5px; font-size: 0.85rem; cursor: pointer; transition: all 0.3s ease; width: 100%; margin-top: 8px; }
+    .remove-cart-btn:hover { background: #c0392b; }
+    #cartTotal { font-weight: 700; font-size: 1.3rem; color: #2c3e50; text-align: right; margin: 20px 0; padding: 15px; border-top: 3px solid #e74c3c; border-bottom: 3px solid #e74c3c; background: linear-gradient(90deg, rgba(231, 76, 60, 0.05) 0%, rgba(231, 76, 60, 0) 100%); border-radius: 8px; }
+    .payment-options { display: flex; flex-direction: column; gap: 10px; margin: 15px 0; }
+    .payment-btn { background: white; border: 2px solid #e0e0e0; padding: 12px; border-radius: 8px; text-align: left; cursor: pointer; transition: all 0.3s ease; }
+    .payment-btn:hover { border-color: #e74c3c; background: #fff9f7; }
+    .payment-btn.selected { border-color: #e74c3c; background: #ffe8e8; font-weight: 600; }
+    .payment-btn span:first-child { font-weight: bold; color: #2c3e50; }
+    .payment-btn span:last-child { font-size: 0.85rem; color: #666; }
+    .sort-btn { padding: 8px 16px; border: 2px solid #e74c3c; border-radius: 25px; font-weight: bold; cursor: pointer; transition: all 0.3s ease; font-size: 0.9rem; background: white; color: #e74c3c; box-shadow: 0 2px 8px rgba(231, 76, 60, 0.15); }
+    .sort-btn:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(231, 76, 60, 0.3); }
+    .sort-btn.active { background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%); color: white; box-shadow: 0 4px 14px rgba(231, 76, 60, 0.4); }
+    @media (max-width: 768px) { #specialsContainer { grid-template-columns: 1fr; } .search-filter-container { flex-direction: column; } .search-wrapper { flex-direction: column; min-width: 100%; } #cartSidebar { width: 100%; right: -100%; } .header h1 { font-size: 1.8rem; } }
+    @media (min-width: 769px) { body { display: flex; flex-wrap: wrap; } .header { width: 100%; margin-bottom: 20px; } .header h1 { font-size: 2rem; margin-bottom: 10px; } .search-filter-container { width: calc(100% - 280px); margin-left: 280px; margin-bottom: 20px; margin-right: 20px; flex-direction: column; gap: 15px; } .search-wrapper { flex-direction: row; width: 100%; } .search-input { flex: 1; min-width: 200px; } .filter-dropdown { align-self: flex-start; min-width: 200px; } .sidebar-filters { position: fixed; left: 20px; top: 100px; width: 260px; height: auto; background: white; border-radius: 12px; padding: 20px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08); z-index: 100; } .sidebar-filters h3 { font-size: 1.1rem; color: #2c3e50; margin-bottom: 20px; display: flex; align-items: center; gap: 8px; } .filter-group { margin-bottom: 25px; padding-bottom: 20px; border-bottom: 1px solid #eee; } .filter-group:last-child { border-bottom: none; } .filter-group h4 { font-size: 0.95rem; color: #2c3e50; margin-bottom: 12px; font-weight: 600; display: flex; justify-content: space-between; align-items: center; } .filter-group input[type="checkbox"] { margin-right: 8px; cursor: pointer; } .filter-option { display: flex; align-items: center; padding: 6px 0; font-size: 0.9rem; color: #555; } .filter-count { color: #999; font-size: 0.85rem; margin-left: auto; } #specialsContainer { width: calc(100% - 280px); margin-left: 280px; margin-right: 20px; margin-bottom: 40px; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; } .special-card { background: #f8f9fa; border: 1px solid #e8e8e8; border-radius: 12px; overflow: hidden; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05); transition: all 0.3s ease; } .special-card:hover { background: white; box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1); transform: translateY(-4px); } .special-card img { height: 180px; } .special-card-content { padding: 15px; } .special-card h3 { font-size: 1.1rem; margin-bottom: 8px; } .special-card p { font-size: 0.85rem; margin: 4px 0; } .offer-badge { font-size: 0.8rem; padding: 4px 10px; margin: 5px 0; } .price-section { margin: 10px 0; padding: 8px 0; border-top: 1px solid #eee; border-bottom: 1px solid #eee; } .current-price { font-size: 1.2rem; } .special-card-actions { padding: 12px 0; gap: 8px; } .book-btn { padding: 10px 18px; font-size: 0.9rem; max-width: 180px; flex: 1; } .cart-btn { width: 40px; height: 40px; font-size: 1rem; } }
+  </style>
+</head>
+<body>
+  <div style="position:fixed; top:20px; right:20px; z-index:999;">
+    <button class="cart-toggle" onclick="toggleCart()">
+      🛒 Cart <span id="cartCount" class="cart-count">0</span>
+    </button>
+  </div>
+
+  <div class="header">
+    <h1>Restaurant Specials Near You</h1>
+  </div>
+
+  <!-- Sidebar Filters -->
+  <div class="sidebar-filters">
+    <h3>🔽 FILTERS</h3>
+    
+    <div class="filter-group">
+      <h4>COLLECTIONS</h4>
+      <div class="filter-option">
+        <input type="checkbox" id="cuisine-indian" onchange="filterSpecials()">
+        <label for="cuisine-indian">Indian</label>
+        <span class="filter-count">15</span>
+      </div>
+      <div class="filter-option">
+        <input type="checkbox" id="cuisine-chinese" onchange="filterSpecials()">
+        <label for="cuisine-chinese">Chinese</label>
+        <span class="filter-count">8</span>
+      </div>
+      <div class="filter-option">
+        <input type="checkbox" id="cuisine-italian" onchange="filterSpecials()">
+        <label for="cuisine-italian">Italian</label>
+        <span class="filter-count">5</span>
+      </div>
+      <div class="filter-option">
+        <input type="checkbox" id="cuisine-seafood" onchange="filterSpecials()">
+        <label for="cuisine-seafood">Seafood</label>
+        <span class="filter-count">6</span>
+      </div>
+      <div class="filter-option">
+        <input type="checkbox" id="cuisine-continental" onchange="filterSpecials()">
+        <label for="cuisine-continental">Continental</label>
+        <span class="filter-count">5</span>
+      </div>
+    </div>
+
+    <div class="filter-group">
+      <h4>PRICE RANGE</h4>
+      <div class="filter-option">
+        <input type="checkbox" id="price-low" onchange="filterSpecials()">
+        <label for="price-low">Under ₹50</label>
+      </div>
+      <div class="filter-option">
+        <input type="checkbox" id="price-medium" onchange="filterSpecials()">
+        <label for="price-medium">₹50 - ₹150</label>
+      </div>
+      <div class="filter-option">
+        <input type="checkbox" id="price-high" onchange="filterSpecials()">
+        <label for="price-high">Above ₹150</label>
+      </div>
+    </div>
+
+    <div class="filter-group">
+      <h4>RATINGS</h4>
+      <div class="filter-option">
+        <input type="checkbox" id="rating-4" onchange="filterSpecials()">
+        <label for="rating-4">⭐⭐⭐⭐ & up</label>
+      </div>
+      <div class="filter-option">
+        <input type="checkbox" id="rating-3" onchange="filterSpecials()">
+        <label for="rating-3">⭐⭐⭐ & up</label>
+      </div>
+    </div>
+  </div>
+
+  <div class="search-filter-container">
+    <div style="display:flex; align-items:center; gap:10px; justify-content:space-between; width:100%;">
+      <div style="display:flex; align-items:center; gap:8px;">
+        <span style="font-weight:bold; color:#2c3e50;">Discover <span id="productCount">0</span> Products</span>
+      </div>
+      <div class="search-wrapper" style="min-width:300px;">
+        <input type="text" id="searchInput" class="search-input" placeholder="Search special dishes or restaurants...">
+        <button class="search-btn" onclick="filterSpecials()">Search</button>
+      </div>
+    </div>
+    <div style="display:flex; gap:10px; justify-content:flex-end; align-items:center; flex-wrap:wrap;">
+      <span style="color:#666; font-weight:500;">Sort By:</span>
+      <button class="sort-btn active" onclick="sortSpecials('popular')" style="background:#e74c3c; color:white;">⭐ Popular</button>
+      <button class="sort-btn" onclick="sortSpecials('priceLow')" style="background:white; color:#e74c3c; border:2px solid #e74c3c;">📉 Price Low</button>
+      <button class="sort-btn" onclick="sortSpecials('priceHigh')" style="background:white; color:#e74c3c; border:2px solid #e74c3c;">📈 Price High</button>
+      <button class="sort-btn" onclick="sortSpecials('newest')" style="background:white; color:#e74c3c; border:2px solid #e74c3c;">🆕 Newest</button>
+    </div>
+  </div>
+
+  <div id="specialsContainer"></div>
+
+  <!-- Booking Modal -->
+  <div id="bookingModal">
+    <div class="modal-content">
+      <h3>Book This Special</h3>
+      <form id="bookingForm">
+        <input type="hidden" name="specialId" />
+        <div style="margin-bottom: 15px;">
+          <label style="display: block; margin-bottom: 6px; color: #2c3e50; font-weight: 600;">Your Name *</label>
+          <input type="text" name="customerName" placeholder="Enter your full name" required onchange="checkBookingMandatoryFields()" onblur="checkBookingMandatoryFields()" style="width: 100%; padding: 12px; border: 2px solid #e0e0e0; border-radius: 8px; font-size: 1rem; transition: all 0.3s ease;">
+        </div>
+        <div style="margin-bottom: 15px;">
+          <label style="display: block; margin-bottom: 6px; color: #2c3e50; font-weight: 600;">Mobile Number *</label>
+          <input type="tel" name="phone" placeholder="Enter your 10-digit mobile number" required onchange="checkBookingMandatoryFields()" onblur="checkBookingMandatoryFields()" style="width: 100%; padding: 12px; border: 2px solid #e0e0e0; border-radius: 8px; font-size: 1rem; transition: all 0.3s ease;">
+        </div>
+        <div style="margin-bottom: 15px;">
+          <label style="display: block; margin-bottom: 6px; color: #2c3e50; font-weight: 600;">Delivery Address *</label>
+          <textarea name="address" placeholder="Enter your complete delivery address" required onchange="checkBookingMandatoryFields()" onblur="checkBookingMandatoryFields()" style="width: 100%; padding: 12px; border: 2px solid #e0e0e0; border-radius: 8px; font-size: 1rem; resize: vertical; min-height: 80px; transition: all 0.3s ease;"></textarea>
+        </div>
+        <div id="paymentOptions" style="margin:15px 0; display:none;">
+          <h4 style="margin-bottom:10px; color:#2c3e50;">Select Payment Method:</h4>
+          <div class="payment-options">
+            <button type="button" class="payment-btn" onclick="selectPayment('upi')">
+              <span>UPI Payment</span>
+              <span>Pay instantly via UPI apps</span>
+            </button>
+            <button type="button" class="payment-btn" onclick="selectPayment('cod')">
+              <span>Cash on Delivery</span>
+              <span>Pay when you receive your order</span>
+            </button>
+          </div>
+        </div>
+        <div id="upiOptions" style="margin:15px 0; display:none;">
+          <h4 style="margin-bottom:10px; color:#2c3e50;">Choose UPI App:</h4>
+          <div style="display:grid; grid-template-columns:repeat(2, 1fr); gap:10px; margin-bottom:10px;">
+            <button type="button" onclick="payWithUpi('phonepe')" style="background:#fff; border:2px solid #ddd; padding:10px; border-radius:5px; cursor:pointer; transition:all 0.3s ease;">PhonePe</button>
+            <button type="button" onclick="payWithUpi('gpay')" style="background:#fff; border:2px solid #ddd; padding:10px; border-radius:5px; cursor:pointer; transition:all 0.3s ease;">Google Pay</button>
+            <button type="button" onclick="payWithUpi('paytm')" style="background:#fff; border:2px solid #ddd; padding:10px; border-radius:5px; cursor:pointer; transition:all 0.3s ease;">Paytm</button>
+            <button type="button" onclick="payWithUpi('other')" style="background:#fff; border:2px solid #ddd; padding:10px; border-radius:5px; cursor:pointer; transition:all 0.3s ease;">Other UPI</button>
+          </div>
+          <button type="button" onclick="backToPaymentOptions()" style="background:#ccc; padding:8px 12px; border:none; border-radius:5px; cursor:pointer; width:100%;">Back</button>
+        </div>
+        <button type="submit" id="submitBookingBtn" class="modal-submit">Book Now</button>
+        <button type="button" onclick="closeModal()" class="modal-cancel">Cancel</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Payment Success Modal -->
+  <div id="paymentSuccessModal">
+    <div class="modal-content" style="text-align:center;">
+      <div style="font-size:4rem; color:#27ae60; margin-bottom:15px;">✓</div>
+      <h2 style="margin-bottom:15px; color:#27ae60;">Payment Successful!</h2>
+      <p style="color:#555; margin-bottom:15px;">Your payment has been received and your order is confirmed.</p>
+      <p style="color:#555; margin-bottom:20px;">A confirmation email with receipt has been sent to your email address.</p>
+      <button onclick="closePaymentSuccessModal()" class="modal-submit">Continue</button>
+    </div>
+  </div>
+
+  <!-- Cart Sidebar -->
+  <div id="cartSidebar">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; padding-bottom: 12px; border-bottom: 2px solid #e74c3c;">
+      <h3 style="margin: 0; color: #2c3e50; font-size: 1.4rem; font-weight: 700;">🛒 Your Cart</h3>
+      <button onclick="toggleCart()" style="background: none; border: none; font-size: 1.5rem; color: #2c3e50; cursor: pointer; padding: 0 5px; font-weight: bold;">✕</button>
+    </div>
+    <ul id="cartList"></ul>
+    <div id="cartTotal">Total: ₹0</div>
+    <form id="checkoutForm">
+      <div style="margin-bottom: 15px;">
+        <label style="display: block; margin-bottom: 6px; color: #2c3e50; font-weight: 600;">Your Name *</label>
+        <input type="text" name="customerName" placeholder="Enter your full name" required onchange="checkMandatoryFields()" onblur="checkMandatoryFields()" style="width: 100%; padding: 12px; border: 2px solid #e0e0e0; border-radius: 8px; font-size: 1rem; transition: all 0.3s ease;">
+      </div>
+      <div style="margin-bottom: 15px;">
+        <label style="display: block; margin-bottom: 6px; color: #2c3e50; font-weight: 600;">Mobile Number *</label>
+        <input type="tel" name="phone" placeholder="Enter your 10-digit mobile number" required onchange="checkMandatoryFields()" onblur="checkMandatoryFields()" style="width: 100%; padding: 12px; border: 2px solid #e0e0e0; border-radius: 8px; font-size: 1rem; transition: all 0.3s ease;">
+      </div>
+      <div style="margin-bottom: 15px;">
+        <label style="display: block; margin-bottom: 6px; color: #2c3e50; font-weight: 600;">Delivery Address *</label>
+        <textarea name="address" placeholder="Enter your complete delivery address" required onchange="checkMandatoryFields()" onblur="checkMandatoryFields()" style="width: 100%; padding: 12px; border: 2px solid #e0e0e0; border-radius: 8px; font-size: 1rem; resize: vertical; min-height: 80px; transition: all 0.3s ease;"></textarea>
+      </div>
+      <div style="margin-bottom: 15px;">
+        <label style="display: block; margin-bottom: 6px; color: #2c3e50; font-weight: 600;">Email Address</label>
+        <input type="email" name="email" placeholder="Enter your email address" style="width: 100%; padding: 12px; border: 2px solid #e0e0e0; border-radius: 8px; font-size: 1rem; transition: all 0.3s ease;">
+      </div>
+      <div id="cartPaymentOptions" style="margin:15px 0; display:none;">
+        <h4 style="margin-bottom:10px; color:#2c3e50;">Select Payment Method:</h4>
+        <div class="payment-options">
+          <button type="button" class="payment-btn" onclick="selectCartPayment('upi')">
+            <span>UPI Payment</span>
+            <span>Pay instantly via UPI apps</span>
+          </button>
+          <button type="button" class="payment-btn" onclick="selectCartPayment('cod')">
+            <span>Cash on Delivery</span>
+            <span>Pay when you receive your order</span>
+          </button>
+        </div>
+      </div>
+      <div id="cartUpiOptions" style="margin:15px 0; display:none;">
+        <h4 style="margin-bottom:10px; color:#2c3e50;">Choose UPI App:</h4>
+        <div style="display:grid; grid-template-columns:repeat(2, 1fr); gap:10px; margin-bottom:10px;">
+          <button type="button" onclick="payCartWithUpi('phonepe')" style="background:#fff; border:2px solid #ddd; padding:10px; border-radius:5px; cursor:pointer; transition:all 0.3s ease;">PhonePe</button>
+          <button type="button" onclick="payCartWithUpi('gpay')" style="background:#fff; border:2px solid #ddd; padding:10px; border-radius:5px; cursor:pointer; transition:all 0.3s ease;">Google Pay</button>
+          <button type="button" onclick="payCartWithUpi('paytm')" style="background:#fff; border:2px solid #ddd; padding:10px; border-radius:5px; cursor:pointer; transition:all 0.3s ease;">Paytm</button>
+          <button type="button" onclick="payCartWithUpi('other')" style="background:#fff; border:2px solid #ddd; padding:10px; border-radius:5px; cursor:pointer; transition:all 0.3s ease;">Other UPI</button>
+        </div>
+        <button type="button" onclick="backToCartPaymentOptions()" style="background:#ccc; padding:8px 12px; border:none; border-radius:5px; cursor:pointer; width:100%;">Back</button>
+      </div>
+      <button type="submit" id="placeOrderBtn" class="modal-submit">Place Order</button>
+    </form>
+    <button onclick="clearCart()" style="margin-top:10px; background:#e74c3c; color:white; border:none; padding:12px; border-radius:8px; width:100%; cursor:pointer; font-weight:bold;">Clear Cart</button>
+  </div>
+
+  <!-- Script Section -->
+  <script>
+    let allSpecials = [];
+    let currentPaymentMethod = null;
+    let currentCartPaymentMethod = null;
+    let currentSpecialId = null;
+    let currentSort = 'popular';
+
+    async function fetchSpecials() {
+      const res = await fetch('http://127.0.0.1:5000/api/specials');
+      allSpecials = await res.json();
+      document.getElementById('productCount').innerText = allSpecials.length;
+      renderSpecials(allSpecials);
+    }
+
+    function initializeCart() {
+      let cart = JSON.parse(localStorage.getItem('cart')) || [];
+      if (!Array.isArray(cart)) cart = [];
+      
+      // Ensure each item has quantity property
+      cart = cart.map(item => ({
+        ...item,
+        quantity: item.quantity || 1
+      }));
+      
+      localStorage.setItem('cart', JSON.stringify(cart));
+      return cart;
+    }
+
+    function filterSpecials() {
+      const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+      
+      // Get selected cuisines from checkboxes
+      const selectedCuisines = [];
+      ['indian', 'chinese', 'italian', 'seafood', 'continental'].forEach(cuisine => {
+        if (document.getElementById(`cuisine-${cuisine}`) && document.getElementById(`cuisine-${cuisine}`).checked) {
+          selectedCuisines.push(cuisine);
+        }
+      });
+
+      // Get selected price ranges
+      const selectedPrices = [];
+      if (document.getElementById('price-low') && document.getElementById('price-low').checked) selectedPrices.push('low');
+      if (document.getElementById('price-medium') && document.getElementById('price-medium').checked) selectedPrices.push('medium');
+      if (document.getElementById('price-high') && document.getElementById('price-high').checked) selectedPrices.push('high');
+
+      const filtered = allSpecials.filter(item => {
+        const matchesSearch = !searchTerm || 
+          item.name.toLowerCase().includes(searchTerm) ||
+          item.special.toLowerCase().includes(searchTerm) ||
+          item.description.toLowerCase().includes(searchTerm) ||
+          item.searchTerms.toLowerCase().includes(searchTerm);
+
+        const matchesCuisine = selectedCuisines.length === 0 || selectedCuisines.includes(item.cuisine.toLowerCase());
+
+        let matchesPrice = selectedPrices.length === 0;
+        if (!matchesPrice) {
+          const price = parseFloat(item.price);
+          matchesPrice = 
+            (selectedPrices.includes('low') && price < 50) ||
+            (selectedPrices.includes('medium') && price >= 50 && price <= 150) ||
+            (selectedPrices.includes('high') && price > 150);
+        }
+
+        return matchesSearch && matchesCuisine && matchesPrice;
+      });
+
+      // Apply current sort
+      sortArray(filtered, currentSort);
+      renderSpecials(filtered);
+      document.getElementById('productCount').innerText = filtered.length;
+    }
+
+    function sortArray(arr, sortType) {
+      switch(sortType) {
+        case 'priceLow':
+          arr.sort((a, b) => parseFloat(a.price) - parseFloat(b.price));
+          break;
+        case 'priceHigh':
+          arr.sort((a, b) => parseFloat(b.price) - parseFloat(a.price));
+          break;
+        case 'newest':
+          arr.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
+          break;
+        case 'popular':
+        default:
+          arr.sort((a, b) => (b.id || 0) - (a.id || 0));
+      }
+    }
+
+    function sortSpecials(sortType) {
+      currentSort = sortType;
+      
+      // Update active button
+      document.querySelectorAll('.sort-btn').forEach(btn => btn.classList.remove('active'));
+      event.target.classList.add('active');
+      
+      filterSpecials();
+    }
+
+    function renderSpecials(data) {
+      const container = document.getElementById('specialsContainer');
+      container.innerHTML = '';
+
+      if (data.length === 0) {
+        container.innerHTML = '<div style="grid-column: 1/-1; text-align:center; padding:40px; color:#999;"><p style="font-size:1.1rem;">No specials found matching your search.</p></div>';
+        return;
+      }
+
+      data.forEach(item => {
+        const div = document.createElement('div');
+        div.className = 'special-card';
+
+        div.innerHTML = `
+          ${item.image ? `<img src="http://127.0.0.1:5000/uploads/${item.image}" alt="${item.name}" onerror="this.src='https://via.placeholder.com/300x200?text=No+Image'">` : '<img src="https://via.placeholder.com/300x200?text=No+Image" alt="">'}
+          <div class="special-card-content">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
+              <div class="offer-badge">${item.offer}</div>
+              <div style="font-size:0.9rem; color:#f39c12; font-weight:bold;">★ ${item.rating ? item.rating : 'N/A'}</div>
+            </div>
+            <h3>${item.name} – ${item.special}</h3>
+            <p><strong>Cuisine:</strong> ${item.cuisine}</p>
+            <p style="display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden;"><strong>Description:</strong> ${item.description}</p>
+            <div class="price-section">
+              <p><span class="current-price">₹${parseFloat(item.price).toFixed(0)}</span> ${item.originalPrice ? `<span class="original-price">₹${parseFloat(item.originalPrice).toFixed(0)}</span>` : ''}</p>
+            </div>
+            <div class="special-card-actions">
+              <button class="book-btn" onclick="openModal(${item.id}, ${item.price})">Book Now</button>
+              <button class="cart-btn" onclick='addToCart(${JSON.stringify(item).replace(/'/g, "&apos;")})' title="Add to cart">🛒</button>
+            </div>
+          </div>
+        `;
+        container.appendChild(div);
+      });
+    }
+
+    function updateCartCount() {
+      let cart = JSON.parse(localStorage.getItem('cart')) || [];
+      const totalItems = cart.reduce((sum, item) => sum + (item.quantity || 1), 0);
+      document.getElementById('cartCount').innerText = totalItems;
+      updateCartTotal();
+    }
+
+    function updateCartTotal() {
+      let cart = JSON.parse(localStorage.getItem('cart')) || [];
+      const total = cart.reduce((sum, item) => sum + (parseFloat(item.price) * (item.quantity || 1)), 0);
+      document.getElementById('cartTotal').innerText = `Total: ₹${total.toFixed(2)}`;
+    }
+
+    function addToCart(item) {
+      let cart = JSON.parse(localStorage.getItem('cart')) || [];
+      const existingItem = cart.find(c => c.id === item.id);
+      
+      if (existingItem) {
+        existingItem.quantity = (existingItem.quantity || 1) + 1;
+        alert(`✅ Quantity updated! "${item.name}" now has ${existingItem.quantity} in cart.`);
+      } else {
+        cart.push({ ...item, quantity: 1 });
+        alert(`🛒 "${item.name}" added to cart!`);
+      }
+      
+      localStorage.setItem('cart', JSON.stringify(cart));
+      updateCartCount();
+    }
+
+    function toggleCart() {
+      const cartSidebar = document.getElementById('cartSidebar');
+      cartSidebar.classList.toggle('open');
+      if (cartSidebar.classList.contains('open')) {
+        renderCartItems();
+      }
+    }
+
+    function renderCartItems() {
+      let cart = JSON.parse(localStorage.getItem('cart')) || [];
+      const cartList = document.getElementById('cartList');
+      cartList.innerHTML = '';
+
+      if (cart.length === 0) {
+        cartList.innerHTML = '<li style="color:#888;">Cart is empty.</li>';
+        return;
+      }
+
+      cart.forEach((item, index) => {
+        const li = document.createElement('li');
+        const itemTotal = parseFloat(item.price) * (item.quantity || 1);
+        li.innerHTML = `
+          ${item.image ? `<img src="http://127.0.0.1:5000/uploads/${item.image}" alt="${item.name}" onerror="this.src='https://via.placeholder.com/300x200?text=No+Image'">` : '<img src="https://via.placeholder.com/300x200?text=No+Image" alt="">'}
+          <div style="display:flex; justify-content:space-between; align-items:center;">
+            <strong>${item.name}</strong>
+            <span style="font-size:0.85rem; color:#f39c12; font-weight:bold;">★ ${item.rating ? item.rating : 'N/A'}</span>
+          </div>
+          <span style="color:#666; font-size:0.9rem;">${item.special}</span><br>
+          <div class="cart-item-quantity">
+            <button class="qty-btn" onclick="decreaseQuantity(${index})">−</button>
+            <span class="qty-display">${item.quantity || 1}</span>
+            <button class="qty-btn" onclick="increaseQuantity(${index})">+</button>
+          </div>
+          <div class="cart-item-price">
+            <span>Item Total:</span>
+            <span>₹${itemTotal.toFixed(2)}</span>
+          </div>
+          ${item.originalPrice ? `<span style="text-decoration:line-through; color:#999; font-size:0.85rem;">₹${parseFloat(item.originalPrice).toFixed(2)}</span>` : ''}<br>
+          <button class="remove-cart-btn" onclick="removeFromCart(${index})">🗑️ Remove</button>
+        `;
+        cartList.appendChild(li);
+      });
+    }
+
+    function increaseQuantity(index) {
+      let cart = JSON.parse(localStorage.getItem('cart')) || [];
+      if (cart[index]) {
+        cart[index].quantity = (cart[index].quantity || 1) + 1;
+        localStorage.setItem('cart', JSON.stringify(cart));
+        updateCartCount();
+        renderCartItems();
+      }
+    }
+
+    function decreaseQuantity(index) {
+      let cart = JSON.parse(localStorage.getItem('cart')) || [];
+      if (cart[index] && (cart[index].quantity || 1) > 1) {
+        cart[index].quantity = (cart[index].quantity || 1) - 1;
+        localStorage.setItem('cart', JSON.stringify(cart));
+        updateCartCount();
+        renderCartItems();
+      }
+    }
+
+    function removeFromCart(index) {
+      let cart = JSON.parse(localStorage.getItem('cart')) || [];
+      cart.splice(index, 1);
+      localStorage.setItem('cart', JSON.stringify(cart));
+      updateCartCount();
+      renderCartItems();
+    }
+
+    function clearCart() {
+      if (confirm('Are you sure you want to clear your cart?')) {
+        localStorage.removeItem('cart');
+        updateCartCount();
+        renderCartItems();
+      }
+    }
+
+    function openModal(id, price) {
+      currentSpecialId = id;
+      document.getElementById('bookingModal').style.display = 'flex';
+      document.querySelector('#bookingForm [name="specialId"]').value = id;
+      document.getElementById('paymentOptions').style.display = 'none';
+      document.getElementById('upiOptions').style.display = 'none';
+      document.getElementById('submitBookingBtn').style.display = 'inline-block';
+    }
+
+    function closeModal() {
+      document.getElementById('bookingModal').style.display = 'none';
+    }
+
+    function closePaymentSuccessModal() {
+      document.getElementById('paymentSuccessModal').style.display = 'none';
+    }
+
+    function selectPayment(method) {
+      // Toggle selection - if same method clicked again, deselect
+      if (currentPaymentMethod === method) {
+        currentPaymentMethod = null;
+        document.querySelectorAll('#paymentOptions .payment-btn').forEach(btn => btn.classList.remove('selected'));
+        document.getElementById('upiOptions').style.display = 'none';
+        return;
+      }
+
+      currentPaymentMethod = method;
+      // Highlight selected payment button
+      document.querySelectorAll('#paymentOptions .payment-btn').forEach(btn => btn.classList.remove('selected'));
+      event.target.closest('.payment-btn').classList.add('selected');
+
+      if (method === 'upi') {
+        document.getElementById('paymentOptions').style.display = 'block';
+        document.getElementById('upiOptions').style.display = 'block';
+      } else if (method === 'cod') {
+        document.getElementById('paymentOptions').style.display = 'block';
+        document.getElementById('upiOptions').style.display = 'none';
+      }
+    }
+
+    function checkBookingMandatoryFields() {
+      const form = document.getElementById('bookingForm');
+      const name = form.querySelector('[name="customerName"]').value.trim();
+      const phone = form.querySelector('[name="phone"]').value.trim();
+      const address = form.querySelector('[name="address"]').value.trim();
+      
+      // Show payment options if all mandatory fields are filled
+      if (name && phone && address) {
+        document.getElementById('paymentOptions').style.display = 'block';
+      } else {
+        document.getElementById('paymentOptions').style.display = 'none';
+        document.getElementById('upiOptions').style.display = 'none';
+        currentPaymentMethod = null;
+        document.querySelectorAll('#paymentOptions .payment-btn').forEach(btn => btn.classList.remove('selected'));
+      }
+    }
+
+    function selectCartPayment(method) {
+      // Toggle selection - if same method clicked again, deselect
+      if (currentCartPaymentMethod === method) {
+        currentCartPaymentMethod = null;
+        event.target.closest('.payment-btn').classList.remove('selected');
+        document.getElementById('cartUpiOptions').style.display = 'none';
+        return;
+      }
+      
+      currentCartPaymentMethod = method;
+      // Highlight selected payment button
+      document.querySelectorAll('#cartPaymentOptions .payment-btn').forEach(btn => btn.classList.remove('selected'));
+      event.target.closest('.payment-btn').classList.add('selected');
+      
+      if (method === 'upi') {
+        document.getElementById('cartPaymentOptions').style.display = 'block';
+        document.getElementById('cartUpiOptions').style.display = 'block';
+      } else if (method === 'cod') {
+        document.getElementById('cartPaymentOptions').style.display = 'block';
+        document.getElementById('cartUpiOptions').style.display = 'none';
+      }
+    }
+
+    function checkMandatoryFields() {
+      const form = document.getElementById('checkoutForm');
+      const name = form.querySelector('[name="customerName"]').value.trim();
+      const phone = form.querySelector('[name="phone"]').value.trim();
+      const address = form.querySelector('[name="address"]').value.trim();
+      
+      // Show payment options if all mandatory fields are filled
+      if (name && phone && address) {
+        document.getElementById('cartPaymentOptions').style.display = 'block';
+      } else {
+        document.getElementById('cartPaymentOptions').style.display = 'none';
+        document.getElementById('cartUpiOptions').style.display = 'none';
+        currentCartPaymentMethod = null;
+        document.querySelectorAll('#cartPaymentOptions .payment-btn').forEach(btn => btn.classList.remove('selected'));
+      }
+    }
+
+    function backToPaymentOptions() {
+      document.getElementById('paymentOptions').style.display = 'block';
+      document.getElementById('upiOptions').style.display = 'none';
+    }
+
+    function backToCartPaymentOptions() {
+      document.getElementById('cartPaymentOptions').style.display = 'block';
+      document.getElementById('cartUpiOptions').style.display = 'none';
+    }
+
+    function payWithUpi(app) {
+      // Toggle UPI app selection - if same app clicked, deselect
+      if (event.target.classList.contains('selected')) {
+        event.target.classList.remove('selected');
+        return;
+      }
+      // Remove selection from other UPI buttons
+      const buttons = document.querySelectorAll('#upiOptions button[type="button"]:not([onclick="backToPaymentOptions()"])');
+      buttons.forEach(btn => btn.classList.remove('selected'));
+      event.target.classList.add('selected');
+    }
+
+    function payCartWithUpi(app) {
+      // Toggle UPI app selection - if same app clicked, deselect
+      if (event.target.classList.contains('selected')) {
+        event.target.classList.remove('selected');
+        return;
+      }
+      // Remove selection from other UPI buttons
+      const buttons = document.querySelectorAll('#cartUpiOptions button[type="button"]:not([onclick="backToCartPaymentOptions()"])');
+      buttons.forEach(btn => btn.classList.remove('selected'));
+      event.target.classList.add('selected');
+    }
+
+    document.getElementById('bookingForm').addEventListener('submit', async function (e) {
+      e.preventDefault();
+      
+      const name = this.querySelector('[name="customerName"]').value.trim();
+      const phone = this.querySelector('[name="phone"]').value.trim();
+      const address = this.querySelector('[name="address"]').value.trim();
+
+      // Validate mandatory fields
+      if (!name) {
+        alert('❌ Please enter your name');
+        return;
+      }
+      if (!phone) {
+        alert('❌ Please enter your mobile number');
+        return;
+      }
+      if (!address) {
+        alert('❌ Please enter your delivery address');
+        return;
+      }
+
+      // Validate payment method selection
+      if (!currentPaymentMethod) {
+        alert('⚠️ Please select a payment method');
+        return;
+      }
+
+      const formData = new FormData(this);
+      const data = Object.fromEntries(formData.entries());
+      data.address = address; // Include address in booking data
+
+      try {
+        const res = await fetch('http://127.0.0.1:5000/api/bookings', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(data)
+        });
+
+        if (res.ok) {
+          // Show success modal ONLY after successful database storage
+          document.getElementById('paymentSuccessModal').style.display = 'flex';
+          closeModal();
+          this.reset();
+          currentPaymentMethod = null;
+        } else {
+          alert('❌ Failed to book. Try again.');
+        }
+      } catch (err) {
+        console.error(err);
+        alert('⚠️ Error submitting booking.');
+      }
+    });
+
+    document.getElementById('checkoutForm').addEventListener('submit', async function (e) {
+      e.preventDefault();
+      const cart = JSON.parse(localStorage.getItem('cart')) || [];
+      if (cart.length === 0) return alert('🛒 Your cart is empty!');
+
+      const name = this.querySelector('[name="customerName"]').value.trim();
+      const phone = this.querySelector('[name="phone"]').value.trim();
+      const address = this.querySelector('[name="address"]').value.trim();
+      const email = this.querySelector('[name="email"]').value.trim();
+
+      // Validate mandatory fields
+      if (!name) {
+        alert('❌ Please enter your name');
+        return;
+      }
+      if (!phone) {
+        alert('❌ Please enter your mobile number');
+        return;
+      }
+      if (!address) {
+        alert('❌ Please enter your delivery address');
+        return;
+      }
+
+      // Validate payment method selection
+      if (!currentCartPaymentMethod) {
+        alert('⚠️ Please select a payment method');
+        return;
+      }
+
+      // Save each cart item as a separate booking
+      try {
+        let allSuccess = true;
+        
+        for (let item of cart) {
+          const bookingData = {
+            specialId: item.id,
+            customerName: name,
+            phone: phone,
+            address: address
+          };
+
+          const res = await fetch('http://127.0.0.1:5000/api/bookings', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(bookingData)
+          });
+
+          if (!res.ok) {
+            allSuccess = false;
+            const errorData = await res.json();
+            console.error('Failed to save booking:', errorData);
+          }
+        }
+
+        if (allSuccess) {
+          // Show success modal for BOTH UPI and COD
+          document.getElementById('paymentSuccessModal').style.display = 'flex';
+          localStorage.removeItem('cart');
+          updateCartCount();
+          renderCartItems();
+          currentCartPaymentMethod = null;
+          this.reset();
+          // Close cart sidebar after success
+          setTimeout(() => {
+            document.getElementById('cartSidebar').classList.remove('open');
+          }, 2000);
+        } else {
+          alert('❌ Some bookings could not be saved. Please try again.');
+        }
+      } catch (err) {
+        console.error('Error:', err);
+        alert('⚠️ Could not send request. Please check if the server is running at http://127.0.0.1:5000');
+      }
+    });
+
+    // Init
+    initializeCart();
+    fetchSpecials();
+    updateCartCount();
+
+    // Allow Enter key in search
+    document.getElementById('searchInput').addEventListener('keypress', function(e) {
+      if (e.key === 'Enter') {
+        filterSpecials();
+      }
+    });
+  </script>
+</body>
+
+<div id="footer-container"></div>
+
+<script>
+fetch("footer.html")
+  .then(res => res.text())
+  .then(data => {
+    document.getElementById("footer-container").innerHTML = data;
+  });
+</script>
+</html>
+

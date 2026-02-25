@@ -1,0 +1,467 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="UrbanSphere's premium food courts offer gourmet dining experiences with diverse international cuisines, chef specialties, and uncompromising hygiene standards across India.">
+    <meta name="keywords" content="UrbanSphere food courts, gourmet dining, international cuisines, hygienic food courts, chef specialties, culinary experiences, Mumbai food court, Delhi dining">
+    <meta name="author" content="UrbanSphere Hospitality Services">
+    <meta property="og:title" content="Premium Food Courts | UrbanSphere Hospitality Services">
+    <meta property="og:description" content="Experience gourmet dining at UrbanSphere's premium food courts across India with diverse international cuisines and uncompromising hygiene standards.">
+    <meta property="og:type" content="website">
+    <title>Premium Food Courts | UrbanSphere Hospitality Services</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+</head>
+<body style="margin:0;padding:0;font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;line-height:1.6;color:#333;background-color:#f9f9f9;">
+
+      <div id="navbar-container"></div>
+    
+    <!-- Load Navbar Script -->
+  <script>
+  // Load shared navbar (injects navbar.html body and executes its scripts)
+  async function includeNavbar() {
+    try {
+      const res = await fetch('navbar.html');
+      const text = await res.text();
+      const parser = new DOMParser();
+      const doc = parser.parseFromString(text, 'text/html');
+      document.getElementById('navbar-container').innerHTML = doc.body.innerHTML;
+
+      // Execute scripts from navbar.html and wait for external scripts to load
+      const __createdScriptPromises = [];
+      doc.querySelectorAll('script').forEach(s => {
+        const newScript = document.createElement('script');
+        if (s.src) {
+          newScript.src = s.src;
+          newScript.async = false;
+          __createdScriptPromises.push(new Promise(resolve => {
+            newScript.addEventListener('load', resolve);
+            newScript.addEventListener('error', resolve);
+            setTimeout(resolve, 2000);
+          }));
+        } else {
+          newScript.textContent = s.textContent;
+        }
+        document.body.appendChild(newScript);
+      });
+      Promise.all(__createdScriptPromises).finally(() => {});
+
+      // Ensure navbar init functions run after dynamic injection (wait for external scripts to load)
+      const __navbarScriptPromises = [];
+      doc.querySelectorAll('script').forEach((s, i) => {
+        const existing = document.querySelectorAll('script')[document.querySelectorAll('script').length - 1 - i];
+        if (existing && existing.src) {
+          __navbarScriptPromises.push(new Promise(resolve => {
+            existing.addEventListener('load', resolve);
+            existing.addEventListener('error', resolve);
+            // also resolve after 2s as a safety
+            setTimeout(resolve, 2000);
+          }));
+        }
+      });
+      Promise.all(__navbarScriptPromises).finally(() => {
+        if (typeof checkScreenSize === 'function') checkScreenSize();
+        if (typeof addDesktopHoverEffects === 'function') addDesktopHoverEffects();
+        if (typeof updateUserUI === 'function') updateUserUI();
+        if (typeof updateCartBadge === 'function') updateCartBadge();
+        if (typeof setActiveNavLink === 'function') setActiveNavLink();
+      });
+    } catch (e) {
+      console.error('Failed to load navbar:', e);
+    }
+  }
+  includeNavbar();
+</script>
+
+
+
+ 
+
+    <!-- Hero Banner -->
+    <section style="background:linear-gradient(rgba(0,0,0,0.6),rgba(0,0,0,0.6)),url('https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');background-size:cover;background-position:center;height:80vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;color:#fff;padding:0 20px;">
+        <h1 style="font-size:3.5rem;margin-bottom:20px;text-shadow:2px 2px 5px rgba(0,0,0,0.5);">UrbanSphere Gourmet Food Courts</h1>
+        <p style="font-size:1.5rem;max-width:800px;margin-bottom:30px;text-shadow:1px 1px 3px rgba(0,0,0,0.5);">Redefining Food Court Experiences Across India</p>
+        <div style="display:flex;gap:15px;flex-wrap:wrap;justify-content:center;">
+            <a href="#cuisines" style="background:#e74c3c;color:#fff;padding:12px 25px;border-radius:30px;text-decoration:none;font-weight:bold;transition:all 0.3s;border:2px solid #e74c3c;" onmouseover="this.style.backgroundColor='transparent';this.style.color='#e74c3c'" onmouseout="this.style.backgroundColor='#e74c3c';this.style.color='#fff'">Explore Cuisines</a>
+            <a href="#locations" style="background:transparent;color:#fff;padding:12px 25px;border-radius:30px;text-decoration:none;font-weight:bold;transition:all 0.3s;border:2px solid #fff;" onmouseover="this.style.backgroundColor='#fff';this.style.color='#333'" onmouseout="this.style.backgroundColor='transparent';this.style.color='#fff'">Our Locations</a>
+        </div>
+    </section>
+
+    <!-- About UrbanSphere Food Courts -->
+    <section style="padding:80px 20px;background:#fff;">
+        <div style="max-width:1200px;margin:0 auto;display:flex;flex-wrap:wrap;align-items:center;gap:50px;">
+            <div style="flex:1;min-width:300px;">
+                <h2 style="font-size:2.5rem;margin-bottom:25px;color:#2c3e50;">The UrbanSphere Food Court Difference</h2>
+                <p style="font-size:1.1rem;margin-bottom:20px;">As part of UrbanSphere Hospitality Services, our food courts represent a revolution in casual dining. We've transformed the traditional food court concept into a premium culinary destination that combines the convenience of quick service with the quality of fine dining.</p>
+                <p style="font-size:1.1rem;margin-bottom:30px;">Each UrbanSphere food court location features:</p>
+                <ul style="list-style-type:none;padding:0;">
+                    <li style="padding:10px 0;border-bottom:1px solid #eee;display:flex;align-items:center;"><i class="fas fa-check" style="color:#e74c3c;margin-right:15px;"></i> Carefully curated mix of local and international cuisines</li>
+                    <li style="padding:10px 0;border-bottom:1px solid #eee;display:flex;align-items:center;"><i class="fas fa-check" style="color:#e74c3c;margin-right:15px;"></i> Executive chefs with 5-star hotel experience</li>
+                    <li style="padding:10px 0;border-bottom:1px solid #eee;display:flex;align-items:center;"><i class="fas fa-check" style="color:#e74c3c;margin-right:15px;"></i> Daily fresh ingredients from approved suppliers</li>
+                    <li style="padding:10px 0;display:flex;align-items:center;"><i class="fas fa-check" style="color:#e74c3c;margin-right:15px;"></i> Smart dining technology for seamless experiences</li>
+                </ul>
+            </div>
+            <div style="flex:1;min-width:300px;position:relative;">
+                <img src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="UrbanSphere Food Court Interior" style="width:100%;border-radius:10px;box-shadow:0 10px 30px rgba(0,0,0,0.1);" loading="lazy">
+                <div style="position:absolute;bottom:-20px;right:-20px;background:#e74c3c;color:#fff;padding:15px 25px;border-radius:10px;box-shadow:0 5px 15px rgba(0,0,0,0.2);">
+                    <div style="font-size:1.2rem;font-weight:bold;">Since 2010</div>
+                    <div style="font-size:0.9rem;">Serving culinary excellence</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Unique Selling Points -->
+    <section style="padding:60px 20px;background:#f8f9fa;">
+        <div style="max-width:1200px;margin:0 auto;">
+            <h2 style="text-align:center;font-size:2.5rem;margin-bottom:50px;color:#2c3e50;">Why UrbanSphere Stands Out</h2>
+            <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:30px;">
+                <div style="background:#fff;border-radius:10px;padding:30px;text-align:center;box-shadow:0 5px 15px rgba(0,0,0,0.05);transition:transform 0.3s;" onmouseover="this.style.transform='translateY(-10px)'" onmouseout="this.style.transform='translateY(0)'">
+                    <i class="fas fa-shield-alt" style="font-size:3rem;color:#e74c3c;margin-bottom:20px;"></i>
+                    <h3 style="font-size:1.5rem;margin-bottom:15px;">Hygiene First</h3>
+                    <p>Our HACCP-certified kitchens and ISO 22000 food safety management systems ensure the highest hygiene standards across all UrbanSphere food courts.</p>
+                </div>
+                <div style="background:#fff;border-radius:10px;padding:30px;text-align:center;box-shadow:0 5px 15px rgba(0,0,0,0.05);transition:transform 0.3s;" onmouseover="this.style.transform='translateY(-10px)'" onmouseout="this.style.transform='translateY(0)'">
+                    <i class="fas fa-utensils" style="font-size:3rem;color:#e74c3c;margin-bottom:20px;"></i>
+                    <h3 style="font-size:1.5rem;margin-bottom:15px;">Chef-Driven Concepts</h3>
+                    <p>Each counter is helmed by specialist chefs who craft authentic recipes using traditional techniques and premium ingredients.</p>
+                </div>
+                <div style="background:#fff;border-radius:10px;padding:30px;text-align:center;box-shadow:0 5px 15px rgba(0,0,0,0.05);transition:transform 0.3s;" onmouseover="this.style.transform='translateY(-10px)'" onmouseout="this.style.transform='translateY(0)'">
+                    <i class="fas fa-mobile-alt" style="font-size:3rem;color:#e74c3c;margin-bottom:20px;"></i>
+                    <h3 style="font-size:1.5rem;margin-bottom:15px;">Smart Dining</h3>
+                    <p>Skip queues with our app for pre-ordering, digital payments, and real-time updates on your food preparation.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Cuisines -->
+    <section id="cuisines" style="padding:60px 20px;background:#fff;">
+        <div style="max-width:1200px;margin:0 auto;">
+            <h2 style="text-align:center;font-size:2.5rem;margin-bottom:50px;color:#2c3e50;">Our Culinary Offerings</h2>
+            <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:25px;">
+                <div style="position:relative;border-radius:10px;overflow:hidden;box-shadow:0 5px 15px rgba(0,0,0,0.1);transition:transform 0.3s;" onmouseover="this.style.transform='scale(1.03)'" onmouseout="this.style.transform='scale(1)'">
+                    <img src="https://images.unsplash.com/photo-1551504734-5ee1c4a1479b?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Asian Cuisine" style="width:100%;height:200px;object-fit:cover;" loading="lazy">
+                    <div style="padding:20px;background:#fff;">
+                        <h3 style="font-size:1.3rem;margin-bottom:10px;">Asian Street Eats</h3>
+                        <p style="margin-bottom:15px;color:#666;">Authentic flavors from Japan, Thailand, Vietnam, and more.</p>
+                        <div style="display:flex;justify-content:space-between;align-items:center;">
+                            <span style="font-weight:bold;color:#e74c3c;">From ₹250</span>
+                            <a href="specials.html" style="color:#e74c3c;font-weight:bold;text-decoration:none;display:inline-flex;align-items:center;">View <i class="fas fa-chevron-right" style="margin-left:5px;font-size:0.8rem;"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div style="position:relative;border-radius:10px;overflow:hidden;box-shadow:0 5px 15px rgba(0,0,0,0.1);transition:transform 0.3s;" onmouseover="this.style.transform='scale(1.03)'" onmouseout="this.style.transform='scale(1)'">
+                    <img src="https://images.unsplash.com/photo-1534797258760-1bd2cc95a5bd?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Mediterranean Cuisine" style="width:100%;height:200px;object-fit:cover;" loading="lazy">
+                    <div style="padding:20px;background:#fff;">
+                        <h3 style="font-size:1.3rem;margin-bottom:10px;">Mediterranean</h3>
+                        <p style="margin-bottom:15px;color:#666;">Healthy and flavorful dishes from the Mediterranean region.</p>
+                        <div style="display:flex;justify-content:space-between;align-items:center;">
+                            <span style="font-weight:bold;color:#e74c3c;">From ₹300</span>
+                            <a href="specials.html" style="color:#e74c3c;font-weight:bold;text-decoration:none;display:inline-flex;align-items:center;">View <i class="fas fa-chevron-right" style="margin-left:5px;font-size:0.8rem;"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div style="position:relative;border-radius:10px;overflow:hidden;box-shadow:0 5px 15px rgba(0,0,0,0.1);transition:transform 0.3s;" onmouseover="this.style.transform='scale(1.03)'" onmouseout="this.style.transform='scale(1)'">
+                    <img src="https://images.unsplash.com/photo-1544025162-d76694265947?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Indian Cuisine" style="width:100%;height:200px;object-fit:cover;" loading="lazy">
+                    <div style="padding:20px;background:#fff;">
+                        <h3 style="font-size:1.3rem;margin-bottom:10px;">Indian Spice Trail</h3>
+                        <p style="margin-bottom:15px;color:#666;">Regional specialties from across India.</p>
+                        <div style="display:flex;justify-content:space-between;align-items:center;">
+                            <span style="font-weight:bold;color:#e74c3c;">From ₹180</span>
+                            <a href="specials.html" style="color:#e74c3c;font-weight:bold;text-decoration:none;display:inline-flex;align-items:center;">View <i class="fas fa-chevron-right" style="margin-left:5px;font-size:0.8rem;"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div style="position:relative;border-radius:10px;overflow:hidden;box-shadow:0 5px 15px rgba(0,0,0,0.1);transition:transform 0.3s;" onmouseover="this.style.transform='scale(1.03)'" onmouseout="this.style.transform='scale(1)'">
+                    <img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Western Cuisine" style="width:100%;height:200px;object-fit:cover;" loading="lazy">
+                    <div style="padding:20px;background:#fff;">
+                        <h3 style="font-size:1.3rem;margin-bottom:10px;">Western Classics</h3>
+                        <p style="margin-bottom:15px;color:#666;">Gourmet burgers, steaks, and comfort food.</p>
+                        <div style="display:flex;justify-content:space-between;align-items:center;">
+                            <span style="font-weight:bold;color:#e74c3c;">From ₹350</span>
+                            <a href="specials.html" style="color:#e74c3c;font-weight:bold;text-decoration:none;display:inline-flex;align-items:center;">View <i class="fas fa-chevron-right" style="margin-left:5px;font-size:0.8rem;"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div style="text-align:center;margin-top:40px;">
+                <a href="viewallspecials.html" style="background:#e74c3c;color:#fff;padding:12px 30px;border-radius:30px;text-decoration:none;font-weight:bold;display:inline-block;transition:all 0.3s;" onmouseover="this.style.transform='scale(1.05)';this.style.boxShadow='0 5px 15px rgba(231,76,60,0.4)'" onmouseout="this.style.transform='scale(1)';this.style.boxShadow='none'">View Full Menu</a>
+            </div>
+        </div>
+    </section>
+
+<!-- Chef's Special Section -->
+<section style="padding:60px 20px;background:linear-gradient(135deg,#e74c3c,#c0392b);color:#fff;">
+    <div style="max-width:1200px;margin:0 auto;">
+        <h2 style="text-align:center;font-size:2.5rem;margin-bottom:50px;">Chef's Spotlight</h2>
+        <div style="display:flex;flex-wrap:wrap;gap:40px;justify-content:center;align-items:center;">
+            <div style="flex:1;min-width:300px;max-width:500px;">
+                <h3 style="font-size:1.8rem;margin-bottom:20px;">This Week's Signature Creations</h3>
+                <p style="font-size:1.1rem;margin-bottom:30px;line-height:1.6;">Our culinary team rotates special dishes weekly, showcasing seasonal ingredients and innovative techniques.</p>
+                
+                <div style="background:rgba(255,255,255,0.1);padding:20px;border-radius:10px;margin-bottom:15px;backdrop-filter:blur(5px);transition:transform 0.3s;" onmouseover="this.style.transform='translateY(-5px)'" onmouseout="this.style.transform='translateY(0)'">
+                    <div style="display:flex;justify-content:space-between;margin-bottom:10px;align-items:center;">
+                        <h4 style="margin:0;font-size:1.3rem;font-weight:600;">Truffle Infused Risotto</h4>
+                        <span style="font-weight:bold;color:#f1c40f;">₹850</span>
+                    </div>
+                    <p style="margin:0;font-size:0.9rem;opacity:0.9;line-height:1.5;">Creamy Arborio rice with wild mushrooms and black truffle shavings</p>
+                </div>
+                
+                <div style="background:rgba(255,255,255,0.1);padding:20px;border-radius:10px;margin-bottom:15px;backdrop-filter:blur(5px);transition:transform 0.3s;" onmouseover="this.style.transform='translateY(-5px)'" onmouseout="this.style.transform='translateY(0)'">
+                    <div style="display:flex;justify-content:space-between;margin-bottom:10px;align-items:center;">
+                        <h4 style="margin:0;font-size:1.3rem;font-weight:600;">Kerala Prawn Moilee</h4>
+                        <span style="font-weight:bold;color:#f1c40f;">₹720</span>
+                    </div>
+                    <p style="margin:0;font-size:0.9rem;opacity:0.9;line-height:1.5;">Traditional coconut milk curry with fresh prawns and aromatic spices</p>
+                </div>
+                
+                <div style="background:rgba(255,255,255,0.1);padding:20px;border-radius:10px;backdrop-filter:blur(5px);transition:transform 0.3s;" onmouseover="this.style.transform='translateY(-5px)'" onmouseout="this.style.transform='translateY(0)'">
+                    <div style="display:flex;justify-content:space-between;margin-bottom:10px;align-items:center;">
+                        <h4 style="margin:0;font-size:1.3rem;font-weight:600;">Miso Glazed Eggplant</h4>
+                        <span style="font-weight:bold;color:#f1c40f;">₹580</span>
+                    </div>
+                    <p style="margin:0;font-size:0.9rem;opacity:0.9;line-height:1.5;">Japanese-inspired vegan dish with white miso and sesame</p>
+                </div>
+                
+                <div style="text-align:center;margin-top:30px;">
+                    <a href="specials.html" style="border:2px solid #fff;color:#fff;padding:12px 25px;border-radius:30px;text-decoration:none;font-weight:bold;display:inline-block;transition:all 0.3s;font-size:1rem;" onmouseover="this.style.backgroundColor='#fff';this.style.color='#e74c3c';this.style.transform='scale(1.05)'" onmouseout="this.style.backgroundColor='transparent';this.style.color='#fff';this.style.transform='scale(1)'">View All Specials</a>
+                </div>
+            </div>
+            
+            <div style="flex:1;min-width:300px;max-width:600px;position:relative;">
+                <img src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Chef Arjun's Signature Dish - Truffle Risotto and Kerala Prawn Moilee" style="width:100%;border-radius:10px;box-shadow:0 10px 30px rgba(0,0,0,0.3);transition:transform 0.3s;" loading="lazy" onmouseover="this.style.transform='scale(1.02)'" onmouseout="this.style.transform='scale(1)'">
+                <div style="position:absolute;bottom:20px;left:20px;background:rgba(231,76,60,0.9);color:#fff;padding:10px 15px;border-radius:5px;backdrop-filter:blur(2px);">
+                    <div style="font-size:0.8rem;margin-bottom:5px;font-weight:500;">Available until July 30</div>
+                    <div style="font-weight:bold;font-size:1.1rem;">Chef Arjun's Signature Dish</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+  <!-- Locations Section -->
+    <section id="locations" style="padding:60px 20px;background:#f8f9fa;">
+        <div style="max-width:1200px;margin:0 auto;">
+            <h2 style="text-align:center;font-size:2.5rem;margin-bottom:50px;color:#2c3e50;">Our Food Court Locations</h2>
+            
+            <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:30px;margin-bottom:40px;">
+                <div style="background:#fff;border-radius:10px;overflow:hidden;box-shadow:0 5px 15px rgba(0,0,0,0.05);">
+                    <img src="images/bandra_kurla_complex_mumbai.png" alt="Mumbai Food Court" style="width:100%;height:200px;object-fit:cover;" loading="lazy">
+                    <div style="padding:20px;">
+                        <h3 style="margin:0 0 10px 0;font-size:1.5rem;">Bandra Kurla Complex, Mumbai</h3>
+                        <p style="color:#666;margin-bottom:15px;">Located in the heart of Mumbai's business district, our flagship food court spans 15,000 sq.ft with 18 culinary counters.</p>
+                        <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;">
+                            <div>
+                                <div style="font-size:0.9rem;color:#666;"><i class="fas fa-clock" style="margin-right:5px;"></i> 7:30 AM - 11:30 PM</div>
+                                <div style="font-size:0.9rem;color:#666;"><i class="fas fa-phone" style="margin-right:5px;"></i> +91 22 1234 5678</div>
+                            </div>
+                            <a href="#" style="color:#e74c3c;font-weight:bold;text-decoration:none;">View Details →</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div style="background:#fff;border-radius:10px;overflow:hidden;box-shadow:0 5px 15px rgba(0,0,0,0.05);">
+                    <img src="images/conought_place.delhi_foodcourt.png" alt="Delhi Food Court" style="width:100%;height:200px;object-fit:cover;" loading="lazy">
+                    <div style="padding:20px;">
+                        <h3 style="margin:0 0 10px 0;font-size:1.5rem;">Connaught Place, Delhi</h3>
+                        <p style="color:#666;margin-bottom:15px;">Our Delhi location features a stunning rooftop dining area along with 12 specialty food counters.</p>
+                        <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;">
+                            <div>
+                                <div style="font-size:0.9rem;color:#666;"><i class="fas fa-clock" style="margin-right:5px;"></i> 8:00 AM - 11:00 PM</div>
+                                <div style="font-size:0.9rem;color:#666;"><i class="fas fa-phone" style="margin-right:5px;"></i> +91 11 2345 6789</div>
+                            </div>
+                            <a href="#" style="color:#e74c3c;font-weight:bold;text-decoration:none;">View Details →</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div style="background:#fff;border-radius:10px;overflow:hidden;box-shadow:0 5px 15px rgba(0,0,0,0.05);">
+                    <img src="images/food_court_banglore.png" alt="Bangalore Food Court" style="width:100%;height:200px;object-fit:cover;" loading="lazy">
+                    <div style="padding:20px;">
+                        <h3 style="margin:0 0 10px 0;font-size:1.5rem;">MG Road, Bangalore</h3>
+                        <p style="color:#666;margin-bottom:15px;">The tech hub's favorite dining destination with 14 counters and a dedicated microbrewery section.</p>
+                        <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;">
+                            <div>
+                                <div style="font-size:0.9rem;color:#666;"><i class="fas fa-clock" style="margin-right:5px;"></i> 7:00 AM - 11:00 PM</div>
+                                <div style="font-size:0.9rem;color:#666;"><i class="fas fa-phone" style="margin-right:5px;"></i> +91 80 3456 7890</div>
+                            </div>
+                            <a href="#" style="color:#e74c3c;font-weight:bold;text-decoration:none;">View Details →</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div style="text-align:center;">
+                <a href="#" style="background:#2c3e50;color:#fff;padding:12px 30px;border-radius:30px;text-decoration:none;font-weight:bold;display:inline-block;transition:all 0.3s;" onmouseover="this.style.backgroundColor='#1a252f'" onmouseout="this.style.backgroundColor='#2c3e50'">View All Locations</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Corporate Catering -->
+    <section style="padding:60px 20px;background:#fff;">
+        <div style="max-width:1200px;margin:0 auto;text-align:center;">
+            <h2 style="font-size:2.5rem;margin-bottom:20px;color:#2c3e50;">Corporate Food Court Solutions</h2>
+            <p style="font-size:1.2rem;max-width:800px;margin:0 auto 40px;color:#666;">UrbanSphere Hospitality Services designs and operates customized food courts for corporate campuses, tech parks, and educational institutions.</p>
+            
+            <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:30px;margin-bottom:40px;">
+                <div style="background:#f8f9fa;border-radius:10px;padding:30px;text-align:center;">
+                    <i class="fas fa-building" style="font-size:2.5rem;color:#e74c3c;margin-bottom:20px;"></i>
+                    <h3 style="font-size:1.3rem;margin-bottom:15px;">Office Cafeterias</h3>
+                    <p style="color:#666;">Custom-designed food courts for corporate environments with flexible dining solutions.</p>
+                </div>
+                <div style="background:#f8f9fa;border-radius:10px;padding:30px;text-align:center;">
+                    <i class="fas fa-university" style="font-size:2.5rem;color:#e74c3c;margin-bottom:20px;"></i>
+                    <h3 style="font-size:1.3rem;margin-bottom:15px;">Campus Dining</h3>
+                    <p style="color:#666;">Complete food court management for educational institutions and tech parks.</p>
+                </div>
+                <div style="background:#f8f9fa;border-radius:10px;padding:30px;text-align:center;">
+                    <i class="fas fa-utensils" style="font-size:2.5rem;color:#e74c3c;margin-bottom:20px;"></i>
+                    <h3 style="font-size:1.3rem;margin-bottom:15px;">Event Catering</h3>
+                    <p style="color:#666;">Pop-up food courts for corporate events, conferences, and celebrations.</p>
+                </div>
+            </div>
+            
+            <a href="#" style="border:2px solid #e74c3c;color:#e74c3c;padding:12px 30px;border-radius:30px;text-decoration:none;font-weight:bold;display:inline-block;transition:all 0.3s;" onmouseover="this.style.backgroundColor='#e74c3c';this.style.color='#fff'" onmouseout="this.style.backgroundColor='transparent';this.style.color='#e74c3c'">Request Corporate Proposal</a>
+        </div>
+    </section>
+
+    <!-- Hygiene Standards -->
+    <section style="padding:60px 20px;background:linear-gradient(135deg,#3498db,#2c3e50);color:#fff;">
+        <div style="max-width:1200px;margin:0 auto;">
+            <h2 style="text-align:center;font-size:2.5rem;margin-bottom:50px;">Our Hygiene Promise</h2>
+            
+            <div style="display:flex;flex-wrap:wrap;gap:40px;align-items:center;">
+                <div style="flex:1;min-width:300px;">
+                    <h3 style="font-size:1.8rem;margin-bottom:20px;">Food Safety First</h3>
+                    <p style="margin-bottom:25px;font-size:1.1rem;opacity:0.9;">At UrbanSphere, we implement rigorous hygiene protocols that exceed industry standards to ensure complete food safety.</p>
+                    
+                    <ul style="list-style-type:none;padding:0;">
+                        <li style="padding:15px 0;border-bottom:1px solid rgba(255,255,255,0.1);display:flex;align-items:center;">
+                            <i class="fas fa-check-circle" style="color:#27ae60;font-size:1.5rem;margin-right:15px;"></i>
+                            <span>Daily health screenings for all staff</span>
+                        </li>
+                        <li style="padding:15px 0;border-bottom:1px solid rgba(255,255,255,0.1);display:flex;align-items:center;">
+                            <i class="fas fa-check-circle" style="color:#27ae60;font-size:1.5rem;margin-right:15px;"></i>
+                            <span>HACCP-certified food preparation</span>
+                        </li>
+                        <li style="padding:15px 0;border-bottom:1px solid rgba(255,255,255,0.1);display:flex;align-items:center;">
+                            <i class="fas fa-check-circle" style="color:#27ae60;font-size:1.5rem;margin-right:15px;"></i>
+                            <span>Third-party hygiene audits monthly</span>
+                        </li>
+                        <li style="padding:15px 0;display:flex;align-items:center;">
+                            <i class="fas fa-check-circle" style="color:#27ae60;font-size:1.5rem;margin-right:15px;"></i>
+                            <span>Contactless dining options available</span>
+                        </li>
+                    </ul>
+                </div>
+                
+                <div style="flex:1;min-width:300px;">
+                    <div style="background:rgba(255,255,255,0.1);border-radius:10px;padding:30px;backdrop-filter:blur(5px);">
+                        <h3 style="font-size:1.5rem;margin-bottom:20px;">Our Certifications</h3>
+                        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:20px;">
+                            <div style="text-align:center;">
+                                <img src="images/iso_certified_foodcourts.png" alt="ISO 22000" style="height:60px;margin-bottom:10px;filter:brightness(0) invert(1);" loading="lazy">
+                                <div style="font-size:0.8rem;">Food Safety Management</div>
+                            </div>
+                            <div style="text-align:center;">
+                                <img src="images/haccp_food courts.png" alt="HACCP" style="height:60px;margin-bottom:10px;filter:brightness(0) invert(1);" loading="lazy">
+                                <div style="font-size:0.8rem;">HACCP Certified</div>
+                            </div>
+                            <div style="text-align:center;">
+                                <img src="images/fssai_foodcourts.png" alt="FSSAI" style="height:60px;margin-bottom:10px;filter:brightness(0) invert(1);" loading="lazy">
+                                <div style="font-size:0.8rem;">FSSAI Licensed</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section style="padding:60px 20px;background:#f8f9fa;">
+        <div style="max-width:1200px;margin:0 auto;">
+            <h2 style="text-align:center;font-size:2.5rem;margin-bottom:50px;color:#2c3e50;">What Our Guests Say</h2>
+            
+            <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:30px;">
+                <div style="background:#fff;border-radius:10px;padding:30px;box-shadow:0 5px 15px rgba(0,0,0,0.05);">
+                    <div style="display:flex;align-items:center;margin-bottom:20px;">
+                        <img src="images/priya_kapoor_plug and play.png" alt="Customer" style="width:60px;height:60px;border-radius:50%;object-fit:cover;margin-right:15px;" loading="lazy">
+                        <div>
+                            <h3 style="margin:0;font-size:1.2rem;">Priya Sharma</h3>
+                            <div style="color:#e74c3c;margin-top:5px;">
+                                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <p style="font-style:italic;margin-bottom:0;">"The UrbanSphere food court at BKC has become my regular lunch spot. The variety is incredible and the hygiene standards give me complete peace of mind."</p>
+                </div>
+                
+                <div style="background:#fff;border-radius:10px;padding:30px;box-shadow:0 5px 15px rgba(0,0,0,0.05);">
+                    <div style="display:flex;align-items:center;margin-bottom:20px;">
+                        <img src="images/rahul_plug and play.png" alt="Customer" style="width:60px;height:60px;border-radius:50%;object-fit:cover;margin-right:15px;" loading="lazy">
+                        <div>
+                            <h3 style="margin:0;font-size:1.2rem;">Rahul Mehta</h3>
+                            <div style="color:#e74c3c;margin-top:5px;">
+                                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <p style="font-style:italic;margin-bottom:0;">"Our office cafeteria is managed by UrbanSphere and it's transformed our lunch experience. The quality is restaurant-level but with food court convenience."</p>
+                </div>
+                
+                <div style="background:#fff;border-radius:10px;padding:30px;box-shadow:0 5px 15px rgba(0,0,0,0.05);">
+                    <div style="display:flex;align-items:center;margin-bottom:20px;">
+                        <img src="images/ananya_patel_plug and play.png" alt="Customer" style="width:60px;height:60px;border-radius:50%;object-fit:cover;margin-right:15px;" loading="lazy">
+                        <div>
+                            <h3 style="margin:0;font-size:1.2rem;">Ananya Patel</h3>
+                            <div style="color:#e74c3c;margin-top:5px;">
+                                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <p style="font-style:italic;margin-bottom:0;">"As a vegetarian, I appreciate how UrbanSphere labels all their dishes clearly. The Mediterranean veg platter is my favorite - so fresh and flavorful!"</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+    <script>
+        // Mobile responsiveness for navigation
+        function handleResize() {
+            const navLinks = document.getElementById('nav-links');
+            if (window.innerWidth <= 768) {
+                navLinks.style.display = 'none';
+            } else {
+                navLinks.style.display = 'flex';
+            }
+        }
+        
+        window.addEventListener('load', handleResize);
+        window.addEventListener('resize', handleResize);
+    </script>
+
+
+<div id="footer-container"></div>
+
+<script>
+fetch("footer.html")
+  .then(res => res.text())
+  .then(data => {
+    document.getElementById("footer-container").innerHTML = data;
+  });
+</script>
+
+</body>
+<script src="form-auth.js"></script>
+</html>
+
+

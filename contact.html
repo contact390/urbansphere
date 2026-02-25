@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Contact UrbanSphere Hospitality Services for premium accommodations, event bookings, and luxury stays. Reach our customer support 24/7.">
+    <meta name="keywords" content="UrbanSphere, hospitality contact, hotel booking, luxury stay, customer support, event booking">
+    <title>Contact UrbanSphere Hospitality - Premium Accommodation Services</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body style="margin: 0; background: #f5f5f5; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; padding-top: 10px;">
+
+
+  <div id="navbar-container"></div>
+    
+    <!-- Load Navbar Script -->
+  <script>
+  // Load shared navbar (injects navbar.html body and executes its scripts)
+  async function includeNavbar() {
+    try {
+      const res = await fetch('navbar.html');
+      const text = await res.text();
+      const parser = new DOMParser();
+      const doc = parser.parseFromString(text, 'text/html');
+      document.getElementById('navbar-container').innerHTML = doc.body.innerHTML;
+
+      // Execute scripts from navbar.html and wait for external scripts to load
+      const __createdScriptPromises = [];
+      doc.querySelectorAll('script').forEach(s => {
+        const newScript = document.createElement('script');
+        if (s.src) {
+          newScript.src = s.src;
+          newScript.async = false;
+          __createdScriptPromises.push(new Promise(resolve => {
+            newScript.addEventListener('load', resolve);
+            newScript.addEventListener('error', resolve);
+            setTimeout(resolve, 2000);
+          }));
+        } else {
+          newScript.textContent = s.textContent;
+        }
+        document.body.appendChild(newScript);
+      });
+      Promise.all(__createdScriptPromises).finally(() => {});
+
+      // Ensure navbar init functions run after dynamic injection (wait for external scripts to load)
+      const __navbarScriptPromises = [];
+      doc.querySelectorAll('script').forEach((s, i) => {
+        const existing = document.querySelectorAll('script')[document.querySelectorAll('script').length - 1 - i];
+        if (existing && existing.src) {
+          __navbarScriptPromises.push(new Promise(resolve => {
+            existing.addEventListener('load', resolve);
+            existing.addEventListener('error', resolve);
+            // also resolve after 2s as a safety
+            setTimeout(resolve, 2000);
+          }));
+        }
+      });
+      Promise.all(__navbarScriptPromises).finally(() => {
+        if (typeof checkScreenSize === 'function') checkScreenSize();
+        if (typeof addDesktopHoverEffects === 'function') addDesktopHoverEffects();
+        if (typeof updateUserUI === 'function') updateUserUI();
+        if (typeof updateCartBadge === 'function') updateCartBadge();
+        if (typeof setActiveNavLink === 'function') setActiveNavLink();
+      });
+    } catch (e) {
+      console.error('Failed to load navbar:', e);
+    }
+  }
+  includeNavbar();
+</script>
+
+
+
+    <section class="hero" style="height:100vh;height:700px;position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;background:linear-gradient(rgba(0,0,0,0.5),rgba(0,0,0,0.5)); margin-top:-130;">
+        <picture>
+            <source media="(max-width: 768px)" srcset="https://images.unsplash.com/photo-1566073771259-6a8506099945?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80">
+            <source media="(min-width: 769px)" srcset="https://images.unsplash.com/photo-1564501049412-61c2a3083791?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80">
+            <img src="https://images.unsplash.com/photo-1564501049412-61c2a3083791?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80" alt="UrbanSphere Hospitality Luxury Suite" loading="lazy" style="position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;z-index:-1;transform:scale(1);transition:transform 8s ease;will-change:transform;">
+        </picture>
+        <div style="text-align:center;padding:0 20px;max-width:800px;margin:0 auto;color:white;transform:translateY(20px);opacity:0;transition:all 0.8s ease;">
+            <h1 style="font-size:3.5rem;margin-bottom:20px;font-family:'Playfair Display',serif;text-shadow:2px 2px 5px rgba(0,0,0,0.5);">Contact UrbanSphere Hospitality</h1>
+            <p style="font-size:1.2rem;margin-bottom:30px;text-shadow:1px 1px 3px rgba(0,0,0,0.5);">Your comfort is our priority. Reach out to us anytime for reservations, inquiries, or special requests.</p>
+            <div style="display:flex;gap:15px;justify-content:center;flex-wrap:wrap;">
+                <a href="#contact-form" style="text-decoration:none;background:#d4af37;color:white;padding:12px 30px;border-radius:30px;font-weight:600;transition:all 0.3s;box-shadow:0 4px 8px rgba(0,0,0,0.2);display:inline-flex;align-items:center;gap:8px;"><i class="fas fa-envelope"></i> Send Message</a>
+                <a href="tel:+18005551234" style="text-decoration:none;background:rgba(255,255,255,0.2);color:white;padding:12px 30px;border-radius:30px;font-weight:600;transition:all 0.3s;backdrop-filter:blur(5px);border:1px solid rgba(255,255,255,0.3);display:inline-flex;align-items:center;gap:8px;"><i class="fas fa-phone-alt"></i> Call Now</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Information Section -->
+    <section style="padding:80px 5%;background:white;position:relative;">
+        <div style="max-width:1400px;margin:0 auto;">
+            <h2 style="text-align:center;font-size:2.5rem;margin-bottom:60px;color:#2a5a78;font-family:'Playfair Display',serif;position:relative;padding-bottom:15px;"><span style="position:absolute;bottom:0;left:50%;transform:translateX(-50%);width:80px;height:3px;background:#d4af37;"></span>How to Reach Us</h2>
+            
+            <div style="display:grid;grid-template-columns:repeat(auto-fit, minmax(300px, 1fr));gap:40px;margin-top:50px;">
+                <!-- Contact Card 1 -->
+                <div class="contact-card" style="background:#f5f5f5;border-radius:10px;padding:30px;text-align:center;transition:all 0.3s ease;box-shadow:0 5px 15px rgba(0,0,0,0.05);position:relative;overflow:hidden;transform:translateY(20px);opacity:0;">
+                    <div style="width:70px;height:70px;background:#2a5a78;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 25px;color:white;font-size:24px;"><i class="fas fa-map-marker-alt"></i></div>
+                    <h3 style="font-size:1.5rem;margin-bottom:15px;color:#2a5a78;">Our Headquarters</h3>
+                    <p style="margin-bottom:20px;">985 <br>pragathi Nagar,Hyderabad<br>TELANGANA, </p>
+                    <a href="https://www.google.com/maps/search/?api=1&query=985+Pragathi+Nagar+Hyderabad" target="_blank" style="text-decoration:none;color:#d4af37;font-weight:600;display:inline-flex;align-items:center;gap:8px;transition:color 0.3s;"><i class="fas fa-directions"></i> Get Directions</a>
+                </div>
+                
+                <!-- Contact Card 2 -->
+                <div class="contact-card" style="background:#f5f5f5;border-radius:10px;padding:30px;text-align:center;transition:all 0.3s ease;box-shadow:0 5px 15px rgba(0,0,0,0.05);position:relative;overflow:hidden;transform:translateY(20px);opacity:0;transition-delay:0.1s;">
+                    <div style="width:70px;height:70px;background:#2a5a78;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 25px;color:white;font-size:24px;"><i class="fas fa-phone-alt"></i></div>
+                    <h3 style="font-size:1.5rem;margin-bottom:15px;color:#2a5a78;">Phone & Email</h3>
+                    <p style="margin-bottom:10px;"><strong>Reservations:</strong> 9908793602 </p>
+                    <p style="margin-bottom:10px;"><strong>Customer Service:</strong> 8790170525</p>
+                    <p style="margin-bottom:20px;"><strong>Email:</strong> hitaishihospitalityservices@gmail.com</p>
+                    <a href="tel:+18005551234" style="text-decoration:none;background:#d4af37;color:white;padding:10px 20px;border-radius:30px;font-weight:600;transition:all 0.3s;display:inline-flex;align-items:center;gap:8px;"><i class="fas fa-phone-alt"></i> Call Now</a>
+                </div>
+                
+                <!-- Contact Card 3 -->
+                <div class="contact-card" style="background:#f5f5f5;border-radius:10px;padding:30px;text-align:center;transition:all 0.3s ease;box-shadow:0 5px 15px rgba(0,0,0,0.05);position:relative;overflow:hidden;transform:translateY(20px);opacity:0;transition-delay:0.2s;">
+                    <div style="width:70px;height:70px;background:#2a5a78;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 25px;color:white;font-size:24px;"><i class="fas fa-clock"></i></div>
+                    <h3 style="font-size:1.5rem;margin-bottom:15px;color:#2a5a78;">Business Hours</h3>
+                    <p style="margin-bottom:10px;"><strong>Monday-Friday:</strong> 8:00 AM - 10:00 PM</p>
+                    <p style="margin-bottom:10px;"><strong>Saturday:</strong> 9:00 AM - 8:00 PM</p>
+                    <p style="margin-bottom:20px;"><strong>Sunday:</strong> 9:00 AM - 6:00 PM</p>
+                    <p style="font-size:0.9rem;color:#666;"><i class="fas fa-info-circle"></i> 24/7 emergency contact available</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+<!-- Contact Form Section -->
+<section id="contact-form" style="padding:40px 5%;background:linear-gradient(135deg, #f5f7fa 0%, #e4e8eb 100%);">
+  <div style="max-width:1200px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:50px;align-items:stretch;">
+    
+    <!-- Left Info Block -->
+    <div style="background:white;padding:40px;border-radius:10px;box-shadow:0 10px 30px rgba(0,0,0,0.1);display:flex;flex-direction:column;justify-content:center;transform:translateX(-20px);opacity:0;transition:all 0.6s ease;">
+      <div>
+        <h2 style="font-size:2.5rem;margin-bottom:20px;color:#2a5a78;font-family:'Playfair Display',serif;">Send Us a Message</h2>
+        <p style="margin-bottom:30px;font-size:1.1rem;color:#555;">Have questions about our services, special requests, or need assistance with your reservation? Fill out the form and our team will get back to you within 24 hours.</p>
+        <div style="margin-top:40px;">
+          <h3 style="font-size:1.3rem;margin-bottom:15px;color:#2a5a78;">Why Choose UrbanSphere?</h3>
+          <ul style="list-style-type:none;padding:0;">
+            <li style="margin-bottom:15px;padding-left:30px;position:relative;"><i class="fas fa-check" style="position:absolute;left:0;top:3px;color:#d4af37;"></i> 24/7 customer support</li>
+            <li style="margin-bottom:15px;padding-left:30px;position:relative;"><i class="fas fa-check" style="position:absolute;left:0;top:3px;color:#d4af37;"></i> Personalized service for all guests</li>
+            <li style="margin-bottom:15px;padding-left:30px;position:relative;"><i class="fas fa-check" style="position:absolute;left:0;top:3px;color:#d4af37;"></i> Quick response time (usually within 2 hours)</li>
+            <li style="margin-bottom:15px;padding-left:30px;position:relative;"><i class="fas fa-check" style="position:absolute;left:0;top:3px;color:#d4af37;"></i> Multilingual support staff</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Contact Form -->
+    <form id="contactForm" style="background:white;padding:40px;border-radius:10px;box-shadow:0 10px 30px rgba(0,0,0,0.1);transform:translateX(20px);opacity:0;transition:all 0.6s ease;display:flex;flex-direction:column;justify-content:center;">
+      <div style="margin-bottom:25px;">
+        <label for="name" style="display:block;margin-bottom:8px;font-weight:500;color:#555;">Full Name*</label>
+        <input type="text" id="name" name="name" required style="width:100%;padding:12px 15px;border:1px solid #ddd;border-radius:5px;font-size:16px;transition:all 0.3s;background-color:#f9f9f9;">
+      </div>
+      
+      <div style="margin-bottom:25px;">
+        <label for="email" style="display:block;margin-bottom:8px;font-weight:500;color:#555;">Email Address*</label>
+        <input type="email" id="email" name="email" required style="width:100%;padding:12px 15px;border:1px solid #ddd;border-radius:5px;font-size:16px;transition:all 0.3s;background-color:#f9f9f9;">
+      </div>
+      
+      <div style="margin-bottom:25px;">
+        <label for="phone" style="display:block;margin-bottom:8px;font-weight:500;color:#555;">Phone Number</label>
+        <input type="tel" id="phone" name="phone" style="width:100%;padding:12px 15px;border:1px solid #ddd;border-radius:5px;font-size:16px;transition:all 0.3s;background-color:#f9f9f9;">
+      </div>
+      
+      <div style="margin-bottom:25px;">
+        <label for="subject" style="display:block;margin-bottom:8px;font-weight:500;color:#555;">Subject*</label>
+        <select id="subject" name="subject" required style="width:100%;padding:12px 15px;border:1px solid #ddd;border-radius:5px;font-size:16px;transition:all 0.3s;background-color:#f9f9f9;appearance:none;background-image:url('data:image/svg+xml;utf8,<svg fill=\'%23333\' height=\'24\' viewBox=\'0 0 24 24\' width=\'24\' xmlns=\'http://www.w3.org/2000/svg\'><path d=\'M7 10l5 5 5-5z\'/></svg>');background-repeat:no-repeat;background-position:right 10px center;">
+          <option value="">Select a subject</option>
+          <option value="reservation">Reservation Inquiry</option>
+          <option value="feedback">Feedback/Complaint</option>
+          <option value="event">Event Booking</option>
+          <option value="corporate">Corporate Services</option>
+          <option value="other">Other</option>
+        </select>
+      </div>
+      
+      <div style="margin-bottom:30px;">
+        <label for="message" style="display:block;margin-bottom:8px;font-weight:500;color:#555;">Your Message*</label>
+        <textarea id="message" name="message" rows="5" required style="width:100%;padding:12px 15px;border:1px solid #ddd;border-radius:5px;font-size:16px;transition:all 0.3s;background-color:#f9f9f9;resize:vertical;"></textarea>
+      </div>
+      
+      <button type="submit" style="width:100%;padding:15px;background:#2a5a78;color:white;border:none;border-radius:5px;font-size:16px;font-weight:600;cursor:pointer;transition:all 0.3s;display:flex;align-items:center;justify-content:center;gap:10px;"><i class="fas fa-paper-plane"></i> Send Message</button>
+      
+      <p style="margin-top:15px;font-size:0.9rem;color:#666;text-align:center;">We'll get back to you as soon as possible. For urgent matters, please call us directly.</p>
+    </form>
+<script>
+  document.getElementById("contactForm").addEventListener("submit", async function (e) {
+    e.preventDefault();
+
+    const form = e.target;
+    const formData = {
+      name: form.name.value,
+      email: form.email.value,
+      phone: form.phone.value,
+      subject: form.subject.value,
+      message: form.message.value,
+    };
+
+    try {
+      const response = await fetch("http://localhost:5000/api/send_message", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        alert("Message sent successfully!");
+        form.reset();
+      } else {
+        alert("Error: " + data.message);
+      }
+    } catch (error) {
+      alert("Failed to send message. Please try again later.");
+      console.error("Submission Error:", error);
+    }
+  });
+</script>
+
+
+  </div>
+</section>
+
+
+
+
+ <section style="padding:80px 5%;background:white;">
+  <div style="max-width:1200px;margin:0 auto;">
+    <h2 style="text-align:center;font-size:2.5rem;margin-bottom:60px;color:#2a5a78;font-family:'Playfair Display',serif;position:relative;padding-bottom:15px;">
+      <span style="position:absolute;bottom:0;left:50%;transform:translateX(-50%);width:80px;height:3px;background:#d4af37;"></span>
+      Frequently Asked Questions
+    </h2>
+
+    <div style="max-width:800px;margin:0 auto;">
+      <!-- FAQ Items -->
+      <div class="faq-item" style="margin-bottom:20px;border:1px solid #eee;border-radius:8px;overflow:hidden;">
+        <button class="faq-question" style="width:100%;padding:20px;text-align:left;background:none;border:none;font-weight:600;font-size:1.1rem;color:#2a5a78;cursor:pointer;display:flex;justify-content:space-between;align-items:center;">
+          <span>How do I modify or cancel my reservation?</span>
+          <i class="arrow" style="transition:transform 0.3s ease;">&#9662;</i>
+        </button>
+        <div class="faq-answer" style="padding:0 20px;max-height:0;overflow:hidden;transition:all 0.3s ease;">
+          <div style="padding:0 0 20px;">
+            <p>You can modify or cancel your reservation by logging into your UrbanSphere account...</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="faq-item" style="margin-bottom:20px;border:1px solid #eee;border-radius:8px;overflow:hidden;">
+        <button class="faq-question" style="width:100%;padding:20px;text-align:left;background:none;border:none;font-weight:600;font-size:1.1rem;color:#2a5a78;cursor:pointer;display:flex;justify-content:space-between;align-items:center;">
+          <span>What payment methods do you accept?</span>
+          <i class="arrow" style="transition:transform 0.3s ease;">&#9662;</i>
+        </button>
+        <div class="faq-answer" style="padding:0 20px;max-height:0;overflow:hidden;transition:all 0.3s ease;">
+          <div style="padding:0 0 20px;">
+            <p>We accept all major credit cards including Visa, MasterCard...</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="faq-item" style="margin-bottom:20px;border:1px solid #eee;border-radius:8px;overflow:hidden;">
+        <button class="faq-question" style="width:100%;padding:20px;text-align:left;background:none;border:none;font-weight:600;font-size:1.1rem;color:#2a5a78;cursor:pointer;display:flex;justify-content:space-between;align-items:center;">
+          <span>Do you offer group or event booking services?</span>
+          <i class="arrow" style="transition:transform 0.3s ease;">&#9662;</i>
+        </button>
+        <div class="faq-answer" style="padding:0 20px;max-height:0;overflow:hidden;transition:all 0.3s ease;">
+          <div style="padding:0 0 20px;">
+            <p>Yes, we specialize in group bookings and event accommodations...</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="faq-item" style="margin-bottom:20px;border:1px solid #eee;border-radius:8px;overflow:hidden;">
+        <button class="faq-question" style="width:100%;padding:20px;text-align:left;background:none;border:none;font-weight:600;font-size:1.1rem;color:#2a5a78;cursor:pointer;display:flex;justify-content:space-between;align-items:center;">
+          <span>What COVID-19 safety measures are in place?</span>
+          <i class="arrow" style="transition:transform 0.3s ease;">&#9662;</i>
+        </button>
+        <div class="faq-answer" style="padding:0 20px;max-height:0;overflow:hidden;transition:all 0.3s ease;">
+          <div style="padding:0 0 20px;">
+            <p>UrbanSphere Hospitality maintains the highest standards of cleanliness and safety...</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="faq-item" style="margin-bottom:20px;border:1px solid #eee;border-radius:8px;overflow:hidden;">
+        <button class="faq-question" style="width:100%;padding:20px;text-align:left;background:none;border:none;font-weight:600;font-size:1.1rem;color:#2a5a78;cursor:pointer;display:flex;justify-content:space-between;align-items:center;">
+          <span>How can I join the UrbanSphere loyalty program?</span>
+          <i class="arrow" style="transition:transform 0.3s ease;">&#9662;</i>
+        </button>
+        <div class="faq-answer" style="padding:0 20px;max-height:0;overflow:hidden;transition:all 0.3s ease;">
+          <div style="padding:0 0 20px;">
+            <p>Our Nest Rewards program is free to join and offers exclusive benefits...</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Improved FAQ toggle script -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const faqItems = document.querySelectorAll('.faq-item');
+
+      faqItems.forEach(item => {
+        const button = item.querySelector('.faq-question');
+        const answer = item.querySelector('.faq-answer');
+        const arrow = item.querySelector('.arrow');
+
+        // Initialize all answers as closed
+        answer.style.maxHeight = '0px';
+        answer.style.paddingTop = '0';
+        answer.style.paddingBottom = '0';
+        arrow.style.transform = 'rotate(0deg)';
+
+        button.addEventListener('click', function() {
+          const isOpen = answer.style.maxHeight !== '0px';
+          
+          // Close all items first
+          faqItems.forEach(otherItem => {
+            if (otherItem !== item) {
+              otherItem.querySelector('.faq-answer').style.maxHeight = '0px';
+              otherItem.querySelector('.faq-answer').style.paddingTop = '0';
+              otherItem.querySelector('.faq-answer').style.paddingBottom = '0';
+              otherItem.querySelector('.arrow').style.transform = 'rotate(0deg)';
+            }
+          });
+
+          // Toggle current item
+          if (isOpen) {
+            answer.style.maxHeight = '0px';
+            answer.style.paddingTop = '0';
+            answer.style.paddingBottom = '0';
+            arrow.style.transform = 'rotate(0deg)';
+          } else {
+            answer.style.maxHeight = answer.scrollHeight + 'px';
+            answer.style.paddingTop = '0px';
+            answer.style.paddingBottom = '20px';
+            arrow.style.transform = 'rotate(180deg)';
+          }
+        });
+      });
+    });
+  </script>
+</section>
+
+
+    <!-- Testimonials Section -->
+    <section style="padding:80px 5%;background:linear-gradient(135deg, #2a5a78 0%, #1a3a4e 100%);color:white;">
+        <div style="max-width:1200px;margin:0 auto;">
+            <h2 style="text-align:center;font-size:2.5rem;margin-bottom:60px;font-family:'Playfair Display',serif;position:relative;padding-bottom:15px;"><span style="position:absolute;bottom:0;left:50%;transform:translateX(-50%);width:80px;height:3px;background:#d4af37;"></span>What Our Guests Say</h2>
+            
+            <div style="display:grid;grid-template-columns:repeat(auto-fit, minmax(300px, 1fr));gap:30px;">
+                <!-- Testimonial 1 -->
+                <div class="testimonial" style="background:rgba(255,255,255,0.1);backdrop-filter:blur(5px);padding:30px;border-radius:10px;transform:translateY(20px);opacity:0;transition:all 0.6s ease;">
+                    <div style="display:flex;align-items:center;margin-bottom:20px;">
+                        <img src="https://randomuser.me/api/portraits/women/45.jpg" alt="Sarah Johnson" loading="lazy" style="width:60px;height:60px;border-radius:50%;object-fit:cover;border:3px solid #d4af37;">
+                        <div style="margin-left:15px;">
+                            <h4 style="margin:0;font-size:1.2rem;">Sarah Johnson</h4>
+                            <div style="color:#d4af37;margin-top:5px;"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                        </div>
+                    </div>
+                    <p style="font-style:italic;margin-bottom:15px;">"The customer service at UrbanSphere is exceptional. When I had an issue with my reservation, they resolved it immediately and even upgraded my room as an apology. Truly above and beyond!"</p>
+                    <p style="font-size:0.9rem;color:#ccc;">Business Traveler - May 2023</p>
+                </div>
+                
+                <!-- Testimonial 2 -->
+                <div class="testimonial" style="background:rgba(255,255,255,0.1);backdrop-filter:blur(5px);padding:30px;border-radius:10px;transform:translateY(20px);opacity:0;transition:all 0.6s ease;transition-delay:0.2s;">
+                    <div style="display:flex;align-items:center;margin-bottom:20px;">
+                        <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Michael Chen" loading="lazy" style="width:60px;height:60px;border-radius:50%;object-fit:cover;border:3px solid #d4af37;">
+                        <div style="margin-left:15px;">
+                            <h4 style="margin:0;font-size:1.2rem;">Michael Chen</h4>
+                            <div style="color:#d4af37;margin-top:5px;"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                        </div>
+                    </div>
+                    <p style="font-style:italic;margin-bottom:15px;">"We planned our wedding at a UrbanSphere property and their events team made everything seamless. Quick responses to all our questions and attention to every detail made our special day perfect."</p>
+                    <p style="font-size:0.9rem;color:#ccc;">Wedding Guest - April 2023</p>
+                </div>
+                
+                <!-- Testimonial 3 -->
+                <div class="testimonial" style="background:rgba(255,255,255,0.1);backdrop-filter:blur(5px);padding:30px;border-radius:10px;transform:translateY(20px);opacity:0;transition:all 0.6s ease;transition-delay:0.4s;">
+                    <div style="display:flex;align-items:center;margin-bottom:20px;">
+                        <img src="https://randomuser.me/api/portraits/women/68.jpg" alt="Emily Rodriguez" loading="lazy" style="width:60px;height:60px;border-radius:50%;object-fit:cover;border:3px solid #d4af37;">
+                        <div style="margin-left:15px;">
+                            <h4 style="margin:0;font-size:1.2rem;">Emily Rodriguez</h4>
+                            <div style="color:#d4af37;margin-top:5px;"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i></div>
+                        </div>
+                    </div>
+                    <p style="font-style:italic;margin-bottom:15px;">"As a frequent traveler, I appreciate UrbanSphere's consistent quality and responsive customer support. Their mobile app makes managing reservations so easy, and their staff always remembers my preferences."</p>
+                    <p style="font-size:0.9rem;color:#ccc;">Loyalty Member - June 2023</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+ 
+
+    <!-- Back to Top Button -->
+    <button id="backToTop" style="position:fixed;bottom:30px;right:30px;width:50px;height:50px;border-radius:50%;background:#2a5a78;color:white;border:none;cursor:pointer;box-shadow:0 4px 10px rgba(0,0,0,0.2);display:none;justify-content:center;align-items:center;font-size:20px;z-index:999;transition:all 0.3s;"><i class="fas fa-arrow-up"></i></button>
+
+    <script>
+        // Animation on scroll
+        document.addEventListener('DOMContentLoaded', function() {
+            // Animate hero content
+            setTimeout(() => {
+                document.querySelector('.hero div').style.transform = 'translateY(0)';
+                document.querySelector('.hero div').style.opacity = '1';
+            }, 300);
+            
+            // Animate hero image zoom
+            setTimeout(() => {
+                document.querySelector('.hero img').style.transform = 'scale(1.1)';
+            }, 500);
+            
+            // Animate elements on scroll
+            const animateOnScroll = function() {
+                const elements = document.querySelectorAll('.contact-card, .faq-item, .testimonial, #contact-form > div > div, #contact-form > div > form');
+                
+                elements.forEach(element => {
+                    const elementPosition = element.getBoundingClientRect().top;
+                    const screenPosition = window.innerHeight / 1.2;
+                    
+                    if(elementPosition < screenPosition) {
+                        element.style.transform = 'translateY(0)';
+                        element.style.opacity = '1';
+                    }
+                });
+            };
+            
+            window.addEventListener('scroll', animateOnScroll);
+            animateOnScroll(); // Run once on load
+            
+            // FAQ accordion functionality
+            // const faqQuestions = document.querySelectorAll('.faq-question');
+            // faqQuestions.forEach(question => {
+            //     question.addEventListener('click', () => {
+            //         const answer = question.nextElementSibling;
+            //         const icon = question.querySelector('i');
+                    
+            //         if(answer.style.maxHeight) {
+            //             answer.style.maxHeight = null;
+            //             answer.style.padding = '0 20px';
+            //             icon.style.transform = 'rotate(0deg)';
+            //         } else {
+            //             answer.style.maxHeight = answer.scrollHeight + 'px';
+            //             answer.style.padding = '0 20px 20px';
+            //             icon.style.transform = 'rotate(180deg)';
+            //         }
+            //     });
+            // });
+            
+            // Back to top button
+            const backToTopBtn = document.getElementById('backToTop');
+            window.addEventListener('scroll', () => {
+                if(window.pageYOffset > 300) {
+                    backToTopBtn.style.display = 'flex';
+                } else {
+                    backToTopBtn.style.display = 'none';
+                }
+            });
+            
+            backToTopBtn.addEventListener('click', () => {
+                window.scrollTo({top: 0, behavior: 'smooth'});
+            });
+            
+            // Mobile menu toggle
+            const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+            const navLinks = document.querySelector('nav div');
+            
+            mobileMenuBtn.addEventListener('click', () => {
+                navLinks.style.display = navLinks.style.display === 'flex' ? 'none' : 'flex';
+            });
+            
+            // Check screen size and adjust menu
+            function checkScreenSize() {
+                if(window.innerWidth <= 992) {
+                    navLinks.style.display = 'none';
+                    mobileMenuBtn.style.display = 'block';
+                } else {
+                    navLinks.style.display = 'flex';
+                    mobileMenuBtn.style.display = 'none';
+                }
+            }
+            
+            window.addEventListener('resize', checkScreenSize);
+            checkScreenSize();
+            
+            // Form submission
+            const contactForm = document.getElementById('contactForm');
+            contactForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                alert('Thank you for your message! We will get back to you shortly.');
+                this.reset();
+            });
+        });
+    </script>
+</body>
+<script src="form-auth.js"></script>
+</html>
+
+
+
+
+
+<div id="footer-container"></div>
+
+<script>
+fetch("footer.html")
+  .then(res => res.text())
+  .then(data => {
+    document.getElementById("footer-container").innerHTML = data;
+  });
+</script>

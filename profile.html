@@ -1,0 +1,718 @@
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile - UrbanSphere Hospitality Services</title>
+           <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body style="margin: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%); min-height: 100vh;">
+
+<div id="navbar-container"></div>
+    
+    <!-- Load Navbar Script -->
+  <script>
+  // Load shared navbar (injects navbar.html body and executes its scripts)
+  async function includeNavbar() {
+    try {
+      const res = await fetch('navbar.html');
+      const text = await res.text();
+      const parser = new DOMParser();
+      const doc = parser.parseFromString(text, 'text/html');
+      document.getElementById('navbar-container').innerHTML = doc.body.innerHTML;
+
+      // Execute scripts from navbar.html and wait for external scripts to load
+      const __createdScriptPromises = [];
+      doc.querySelectorAll('script').forEach(s => {
+        const newScript = document.createElement('script');
+        if (s.src) {
+          newScript.src = s.src;
+          newScript.async = false;
+          __createdScriptPromises.push(new Promise(resolve => {
+            newScript.addEventListener('load', resolve);
+            newScript.addEventListener('error', resolve);
+            setTimeout(resolve, 2000);
+          }));
+        } else {
+          newScript.textContent = s.textContent;
+        }
+        document.body.appendChild(newScript);
+      });
+      Promise.all(__createdScriptPromises).finally(() => {});
+
+      // Ensure navbar init functions run after dynamic injection (wait for external scripts to load)
+      const __navbarScriptPromises = [];
+      doc.querySelectorAll('script').forEach((s, i) => {
+        const existing = document.querySelectorAll('script')[document.querySelectorAll('script').length - 1 - i];
+        if (existing && existing.src) {
+          __navbarScriptPromises.push(new Promise(resolve => {
+            existing.addEventListener('load', resolve);
+            existing.addEventListener('error', resolve);
+            // also resolve after 2s as a safety
+            setTimeout(resolve, 2000);
+          }));
+        }
+      });
+      Promise.all(__navbarScriptPromises).finally(() => {
+        if (typeof checkScreenSize === 'function') checkScreenSize();
+        if (typeof addDesktopHoverEffects === 'function') addDesktopHoverEffects();
+        if (typeof updateUserUI === 'function') updateUserUI();
+        if (typeof updateCartBadge === 'function') updateCartBadge();
+        if (typeof setActiveNavLink === 'function') setActiveNavLink();
+      });
+    } catch (e) {
+      console.error('Failed to load navbar:', e);
+    }
+  }
+  includeNavbar();
+</script>
+
+    <!-- Profile Form Content -->
+    <div style="margin: 120px 0 0 40px; padding: 30px 20px; min-height: calc(100vh - 140px); display: flex; align-items: center; justify-content: center;">
+        <div style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; max-width: 800px; width: 100%; padding: 30px; background: linear-gradient(135deg, #f5f7fa 0%, #e4e8f0 100%); border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.1);">
+            <div style="text-align: center; margin-bottom: 30px;">
+                <h1 style="color: #2c5aa0; font-size: 28px; font-weight: 600; margin-bottom: 10px;">URBANSPHERE HOSPITALITY SERVICES</h1>
+                <p id="userGreeting" style="color: #2c5aa0; font-size: 16px; font-weight: 500; margin: 6px 0 12px;"></p>
+                <p style="color: #7f8c8d; font-size: 16px;">Complete your profile to access our premium services</p>
+                <button id="logoutBtn" style="background:#e74c3c;color:#fff;border:none;padding:8px 14px;border-radius:8px;cursor:pointer;margin-top:8px;display:none;">Logout</button>
+            </div>
+            
+            <form style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                <!-- Personal Information -->
+                <div style="grid-column: span 2; background: white; padding: 20px; border-radius: 10px; box-shadow: 0 5px 15px rgba(0,0,0,0.05);">
+                    <h2 style="color: #2c5aa0; font-size: 18px; margin-bottom: 15px; border-bottom: 2px solid #2c5aa0; padding-bottom: 8px;">Personal Information</h2>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+                        <div>
+                            <label style="display: block; color: #34495e; margin-bottom: 5px; font-size: 14px; font-weight: 500;">Full Name*</label>
+                            <input type="text" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px; font-size: 14px; transition: all 0.3s;" placeholder="Enter full name" required>
+                        </div>
+                        <div>
+                            <label style="display: block; color: #34495e; margin-bottom: 5px; font-size: 14px; font-weight: 500;">Email*</label>
+                            <input type="email" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px; font-size: 14px; transition: all 0.3s;" placeholder="Enter email" required>
+                        </div>
+                        <div>
+                            <label style="display: block; color: #34495e; margin-bottom: 5px; font-size: 14px; font-weight: 500;">Phone*</label>
+                            <input type="tel" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px; font-size: 14px; transition: all 0.3s;" placeholder="Enter phone number" required>
+                        </div>
+                        <div>
+                            <label style="display: block; color: #34495e; margin-bottom: 5px; font-size: 14px; font-weight: 500;">Date of Birth</label>
+                            <input type="date" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px; font-size: 14px; transition: all 0.3s;">
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Service Selection -->
+                <div style="grid-column: span 2; background: white; padding: 20px; border-radius: 10px; box-shadow: 0 5px 15px rgba(0,0,0,0.05);">
+                    <h2 style="color: #4CAF50; font-size: 18px; margin-bottom: 15px; border-bottom: 2px solid #4CAF50; padding-bottom: 8px;">Service Selection</h2>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 15px;">
+                        <div style="display: flex; align-items: center;">
+                            <input type="checkbox" id="foodcourt" style="margin-right: 10px;">
+                            <label for="foodcourt" style="color: #34495e; font-size: 14px;">Food Courts</label>
+                        </div>
+                        <div style="display: flex; align-items: center;">
+                            <input type="checkbox" id="hostel" style="margin-right: 10px;">
+                            <label for="hostel" style="color: #34495e; font-size: 14px;">Hostels</label>
+                        </div>
+                        <div style="display: flex; align-items: center;">
+                            <input type="checkbox" id="preschool" style="margin-right: 10px;">
+                            <label for="preschool" style="color: #34495e; font-size: 14px;">Preschool</label>
+                        </div>
+                        <div style="display: flex; align-items: center;">
+                            <input type="checkbox" id="school" style="margin-right: 10px;">
+                            <label for="school" style="color: #34495e; font-size: 14px;">10+2 School</label>
+                        </div>
+                        <div style="display: flex; align-items: center;">
+                            <input type="checkbox" id="office" style="margin-right: 10px;">
+                            <label for="office" style="color: #34495e; font-size: 14px;">Plug & Play Offices</label>
+                        </div>
+                        <div style="display: flex; align-items: center;">
+                            <input type="checkbox" id="services" style="margin-right: 10px;">
+                            <label for="services" style="color: #34495e; font-size: 14px;">Other Services</label>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Address Information -->
+                <div style="grid-column: span 2; background: white; padding: 20px; border-radius: 10px; box-shadow: 0 5px 15px rgba(0,0,0,0.05);">
+                    <h2 style="color: #2196F3; font-size: 18px; margin-bottom: 15px; border-bottom: 2px solid #2196F3; padding-bottom: 8px;">Address Information</h2>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+                        <div style="grid-column: span 2;">
+                            <label style="display: block; color: #34495e; margin-bottom: 5px; font-size: 14px; font-weight: 500;">Street Address*</label>
+                            <input type="text" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px; font-size: 14px; transition: all 0.3s;" placeholder="Enter street address" required>
+                        </div>
+                        <div>
+                            <label style="display: block; color: #34495e; margin-bottom: 5px; font-size: 14px; font-weight: 500;">City*</label>
+                            <input type="text" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px; font-size: 14px; transition: all 0.3s;" placeholder="Enter city" required>
+                        </div>
+                        <div>
+                            <label style="display: block; color: #34495e; margin-bottom: 5px; font-size: 14px; font-weight: 500;">State*</label>
+                            <input type="text" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px; font-size: 14px; transition: all 0.3s;" placeholder="Enter state" required>
+                        </div>
+                        <div>
+                            <label style="display: block; color: #34495e; margin-bottom: 5px; font-size: 14px; font-weight: 500;">ZIP Code*</label>
+                            <input type="text" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px; font-size: 14px; transition: all 0.3s;" placeholder="Enter ZIP code" required>
+                        </div>
+                        <div>
+                            <label style="display: block; color: #34495e; margin-bottom: 5px; font-size: 14px; font-weight: 500;">Country*</label>
+                            <select style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px; font-size: 14px; transition: all 0.3s;" required>
+                                <option value="">Select country</option>
+                                <option value="India">India</option>
+                                <option value="Other">Other</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Additional Information -->
+                <div style="grid-column: span 2; background: white; padding: 20px; border-radius: 10px; box-shadow: 0 5px 15px rgba(0,0,0,0.05);">
+                    <h2 style="color: #9C27B0; font-size: 18px; margin-bottom: 15px; border-bottom: 2px solid #9C27B0; padding-bottom: 8px;">Additional Information</h2>
+                    <div>
+                        <label style="display: block; color: #34495e; margin-bottom: 5px; font-size: 14px; font-weight: 500;">How did you hear about us?</label>
+                        <select style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px; font-size: 14px; transition: all 0.3s; margin-bottom: 15px;">
+                            <option value="">Select option</option>
+                            <option value="friend">Friend/Family</option>
+                            <option value="social">Social Media</option>
+                            <option value="search">Search Engine</option>
+                            <option value="advertisement">Advertisement</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label style="display: block; color: #34495e; margin-bottom: 5px; font-size: 14px; font-weight: 500;">Special Requirements</label>
+                        <textarea style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px; font-size: 14px; transition: all 0.3s; min-height: 80px;" placeholder="Any special requirements or notes"></textarea>
+                    </div>
+                </div>
+                
+                <!-- Terms and Submit -->
+                <div style="grid-column: span 2; text-align: center; margin-top: 20px;">
+                    <div style="margin-bottom: 15px;">
+                        <input type="checkbox" id="terms" style="margin-right: 10px;" required>
+                        <label for="terms" style="color: #34495e; font-size: 14px;">I agree to the <a href="#" style="color: #2c5aa0; text-decoration: none;">Terms of Service</a> and <a href="#" style="color: #2c5aa0; text-decoration: none;">Privacy Policy</a></label>
+                    </div>
+                    <button type="submit" style="background: linear-gradient(135deg, #2c5aa0 0%, #4CAF50 100%); color: white; border: none; padding: 12px 30px; font-size: 16px; border-radius: 50px; cursor: pointer; transition: all 0.3s; box-shadow: 0 5px 15px rgba(44, 90, 160, 0.4); font-weight: 600;">Complete Registration</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <style>
+        /* Mobile Responsiveness */
+        @media (max-width: 768px) {
+            .portfolio-sidebar {
+                width: 30px !important;
+                padding-top: 50px !important;
+            }
+            
+            .portfolio-button {
+                font-size: 12px !important;
+                padding: 6px 3px !important;
+            }
+            
+            .header {
+                margin-left: 30px !important;
+                width: calc(100% - 30px) !important;
+            }
+            
+            .top-bar-content {
+                flex-direction: column !important;
+                align-items: center !important;
+                gap: 5px !important;
+            }
+            
+            .welcome-text {
+                order: 1 !important;
+                font-size: 14px !important;
+                margin-bottom: 5px !important;
+            }
+            
+            .social-links {
+                order: 2 !important;
+                justify-content: center !important;
+            }
+            
+            .mobile-menu-toggle {
+                display: block !important;
+            }
+            
+            .nav-menu {
+                display: none !important;
+                position: absolute !important;
+                top: 100% !important;
+                left: 0 !important;
+                right: 0 !important;
+                background: linear-gradient(135deg, #2c5aa0, #1e3d72) !important;
+                flex-direction: column !important;
+                padding: 20px !important;
+                gap: 10px !important;
+                box-shadow: 0 10px 30px rgba(0,0,0,0.2) !important;
+                border-radius: 0 0 15px 15px !important;
+            }
+            
+            .nav-menu.active {
+                display: flex !important;
+            }
+            
+            .nav-menu li {
+                width: 100% !important;
+                text-align: center !important;
+            }
+            
+            .nav-menu a {
+                display: block !important;
+                padding: 12px 15px !important;
+                font-size: 14px !important;
+            }
+            
+            /* Adjust dropdowns for mobile */
+            .nav-menu li[onmouseover] ul {
+                position: static !important;
+                width: 100% !important;
+                margin-top: 5px !important;
+                display: none !important;
+            }
+            
+            .nav-menu li[onmouseover]:hover ul,
+            .nav-menu li[onmouseover]:active ul {
+                display: block !important;
+            }
+            
+            /* Adjust profile form */
+            div[style*="margin: 120px 0 0 40px"] {
+                margin-left: 30px !important;
+                padding: 20px 15px !important;
+            }
+            
+            div[style*="max-width: 800px"] {
+                padding: 20px !important;
+            }
+            
+            form[style*="grid-template-columns: 1fr 1fr"] {
+                grid-template-columns: 1fr !important;
+                gap: 15px !important;
+            }
+            
+            div[style*="grid-template-columns: 1fr 1fr"] {
+                grid-template-columns: 1fr !important;
+            }
+            
+            div[style*="grid-template-columns: repeat(auto-fill, minmax(200px, 1fr))"] {
+                grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)) !important;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .portfolio-sidebar {
+                width: 25px !important;
+            }
+            
+            .welcome-text {
+                font-size: 12px !important;
+            }
+            
+            .social-links a {
+                padding: 6px !important;
+                font-size: 14px !important;
+            }
+            
+            .company-name {
+                font-size: 16px !important;
+            }
+            
+            .tagline {
+                font-size: 8px !important;
+            }
+            
+            h1 {
+                font-size: 24px !important;
+            }
+            
+            div[style*="padding: 20px"] {
+                padding: 15px !important;
+            }
+            
+            input, select, textarea {
+                padding: 8px !important;
+                font-size: 13px !important;
+            }
+            
+            button[type="submit"], #logoutBtn {
+                padding: 10px 20px !important;
+                font-size: 14px !important;
+            }
+        }
+        
+        /* Animation for welcome text */
+        @keyframes slideIn {
+            0% { transform: translateX(-10px); opacity: 0.8; }
+            100% { transform: translateX(10px); opacity: 1; }
+        }
+        
+        /* Portfolio panel animation */
+        .portfolio-panel.open-panel {
+            transform: translateX(0) !important;
+        }
+        
+        .portfolio-sidebar.move-right {
+            left: 100vw !important;
+        }
+        
+        /* Hover effects */
+        .social-links a::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: left 0.5s;
+        }
+        
+        .social-links a:hover::before {
+            left: 100%;
+        }
+        
+        .social-links a:hover {
+            transform: translateY(-3px) scale(1.1);
+            background: rgba(255,255,255,0.2);
+        }
+        
+        .nav-menu a::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.6s;
+        }
+        
+        .nav-menu a:hover::before {
+            left: 100%;
+        }
+        
+        .nav-menu a:hover {
+            background: rgba(255,255,255,0.15);
+            transform: translateY(-3px);
+        }
+        
+        /* Portfolio item hover */
+        .portfolio-item:hover {
+            transform: translateY(-10px) !important;
+            box-shadow: 0 15px 30px rgba(0,0,0,0.2) !important;
+        }
+        
+        /* Form input focus effects */
+        input:focus, select:focus, textarea:focus {
+            outline: none !important;
+            border-color: #2c5aa0 !important;
+            box-shadow: 0 0 0 3px rgba(44, 90, 160, 0.1) !important;
+        }
+        
+        /* Submit button hover */
+        button[type="submit"]:hover {
+            transform: translateY(-3px) !important;
+            box-shadow: 0 8px 25px rgba(44, 90, 160, 0.4) !important;
+        }
+        
+        /* Logout button hover */
+        #logoutBtn:hover {
+            transform: translateY(-3px) !important;
+            box-shadow: 0 5px 15px rgba(231, 76, 60, 0.4) !important;
+            background: #c0392b !important;
+        }
+        
+        /* Checkbox hover */
+        input[type="checkbox"]:hover {
+            cursor: pointer;
+        }
+        
+        /* Link hover effects */
+        a:hover {
+            color: #4CAF50 !important;
+            text-decoration: underline !important;
+        }
+        
+        /* Form section hover */
+        div[style*="background: white"]:hover {
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1) !important;
+        }
+    </style>
+
+    <script>
+        // Portfolio Panel Toggle
+        function togglePortfolioPanel() {
+            const panel = document.getElementById("portfolioPanel");
+            const sidebar = document.getElementById("portfolioSidebar");
+            
+            panel.classList.toggle("open-panel");
+            sidebar.classList.toggle("move-right");
+        }
+
+        // Mobile Menu Toggle
+        const mobileToggle = document.getElementById('mobileToggle');
+        const navMenu = document.getElementById('navMenu');
+
+        mobileToggle.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+            const icon = mobileToggle.querySelector('i');
+            if (navMenu.classList.contains('active')) {
+                icon.classList.remove('fa-bars');
+                icon.classList.add('fa-times');
+            } else {
+                icon.classList.remove('fa-times');
+                icon.classList.add('fa-bars');
+            }
+        });
+
+        // Close portfolio panel when clicking outside
+        document.addEventListener('click', function(event) {
+            const panel = document.getElementById("portfolioPanel");
+            const sidebar = document.getElementById("portfolioSidebar");
+            const button = document.querySelector('.portfolio-button');
+            
+            if (panel.classList.contains('open-panel') && 
+                !panel.contains(event.target) && 
+                event.target !== button) {
+                panel.classList.remove("open-panel");
+                sidebar.classList.remove("move-right");
+            }
+        });
+
+        // Header scroll effect
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('.header');
+            const currentScroll = window.pageYOffset;
+            
+            if (currentScroll > 100) {
+                header.style.background = 'rgba(44, 90, 160, 0.95)';
+                header.style.backdropFilter = 'blur(15px)';
+            } else {
+                header.style.background = 'linear-gradient(135deg, #2c5aa0, #1e3d72)';
+                header.style.backdropFilter = 'none';
+            }
+        });
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    const headerHeight = document.querySelector('.header').offsetHeight;
+                    const targetPosition = target.offsetTop - headerHeight;
+                    
+                    window.scrollTo({
+                        top: targetPosition,
+                        behavior: 'smooth'
+                    });
+
+                    // Close mobile menu if open
+                    if (navMenu.classList.contains('active')) {
+                        navMenu.classList.remove('active');
+                        const icon = mobileToggle.querySelector('i');
+                        icon.classList.remove('fa-times');
+                        icon.classList.add('fa-bars');
+                    }
+                }
+            });
+        });
+
+        // Expand/Collapse functionality
+        function toggleExpandCollapse() {
+            const btn = document.getElementById('expandCollapseBtn');
+            if (btn.textContent === '+') {
+                btn.textContent = '-';
+            } else {
+                btn.textContent = '+';
+            }
+        }
+
+        // Handle window resize
+        function handleResize() {
+            if (window.innerWidth > 768) {
+                navMenu.classList.remove('active');
+                const icon = mobileToggle.querySelector('i');
+                icon.classList.remove('fa-times');
+                icon.classList.add('fa-bars');
+            }
+        }
+
+        window.addEventListener('resize', handleResize);
+
+        // Profile form persistence and session handling
+        function getSelects() {
+            const selects = document.querySelectorAll('form select');
+            // country is the first select in the form, referral is the second
+            return { countrySelect: selects[0], referralSelect: selects[1] };
+        }
+
+        function collectFormData() {
+            const form = document.querySelector('form');
+            const fd = {
+                fullName: form.querySelector('input[placeholder="Enter full name"]').value,
+                email: form.querySelector('input[placeholder="Enter email"]').value,
+                phone: form.querySelector('input[placeholder="Enter phone number"]').value,
+                dob: form.querySelector('input[type="date"]').value,
+                services: Array.from(form.querySelectorAll('input[type="checkbox"]')).filter(cb => cb.checked).map(cb => cb.id),
+                address: {
+                    street: form.querySelector('input[placeholder="Enter street address"]').value,
+                    city: form.querySelector('input[placeholder="Enter city"]').value,
+                    state: form.querySelector('input[placeholder="Enter state"]').value,
+                    zip: form.querySelector('input[placeholder="Enter ZIP code"]').value,
+                    country: getSelects().countrySelect ? getSelects().countrySelect.value : ''
+                },
+                referral: getSelects().referralSelect ? getSelects().referralSelect.value : '',
+                specialRequirements: form.querySelector('textarea').value,
+                agreedToTerms: form.querySelector('#terms').checked
+            };
+            return fd;
+        }
+
+        function populateFormFromData(data) {
+            try {
+                const form = document.querySelector('form');
+                if (!data) return;
+                form.querySelector('input[placeholder="Enter full name"]').value = data.fullName || '';
+                form.querySelector('input[placeholder="Enter email"]').value = data.email || '';
+                form.querySelector('input[placeholder="Enter phone number"]').value = data.phone || '';
+                form.querySelector('input[type="date"]').value = data.dob || '';
+
+                // services: ids
+                const allCheckboxes = form.querySelectorAll('input[type="checkbox"]');
+                allCheckboxes.forEach(cb => {
+                    cb.checked = Array.isArray(data.services) ? data.services.includes(cb.id) : false;
+                });
+
+                if (data.address) {
+                    form.querySelector('input[placeholder="Enter street address"]').value = data.address.street || '';
+                    form.querySelector('input[placeholder="Enter city"]').value = data.address.city || '';
+                    form.querySelector('input[placeholder="Enter state"]').value = data.address.state || '';
+                    form.querySelector('input[placeholder="Enter ZIP code"]').value = data.address.zip || '';
+                    const { countrySelect } = getSelects();
+                    if (countrySelect) countrySelect.value = data.address.country || '';
+                }
+
+                const { referralSelect } = getSelects();
+                if (referralSelect) referralSelect.value = data.referral || '';
+
+                form.querySelector('textarea').value = data.specialRequirements || '';
+                form.querySelector('#terms').checked = !!data.agreedToTerms;
+            } catch (e) {
+                console.warn('Could not populate profile form', e);
+            }
+        }
+
+        async function submitProfile(e) {
+            e.preventDefault();
+            const formData = collectFormData();
+
+            try {
+                const response = await fetch('http://localhost:5000/api/register', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(formData)
+                });
+
+                // try to parse JSON only if content-type is application/json
+                let result = {};
+                try { result = await response.json(); } catch (err) { /* ignore parse errors */ }
+
+                if (response.ok) {
+                    // Persist the profile locally so it remains on the page until logout
+                    try { localStorage.setItem('profileData', JSON.stringify(formData)); } catch (err) { console.warn('Could not save profile locally', err); }
+                    alert('Registration successful! Your details are saved on this device until you logout.');
+                    // do not reset the form — keep fields visible
+                } else {
+                    alert('Error: ' + (result.message || 'Something went wrong.'));
+                }
+            } catch (err) {
+                console.error('Submission failed:', err);
+                alert('Submission failed. Please try again later.');
+            }
+        }
+
+        // Session handling and initial population
+        function initProfilePage() {
+            const loggedIn = localStorage.getItem('userLoggedIn') === 'true';
+            if (!loggedIn) {
+                window.location.href = 'login.html';
+                return;
+            }
+
+            // greeting
+            const userName = localStorage.getItem('userName') || localStorage.getItem('userEmail') || '';
+            const greetingEl = document.getElementById('userGreeting');
+            if (greetingEl) greetingEl.textContent = userName ? `Welcome, ${userName}` : '';
+
+            // show logout and clear stored profile on logout
+            const logoutBtn = document.getElementById('logoutBtn');
+            if (logoutBtn) {
+                logoutBtn.style.display = 'inline-block';
+                logoutBtn.addEventListener('click', () => {
+                    try {
+                        localStorage.removeItem('userLoggedIn');
+                        localStorage.removeItem('userName');
+                        localStorage.removeItem('userEmail');
+                        localStorage.removeItem('profileData');
+                    } catch (e) { console.warn('Error clearing session', e); }
+                    window.location.href = 'login.html';
+                });
+            }
+
+            // prefill: prefer server-provided email/name, then profileData
+            const profileJson = localStorage.getItem('profileData');
+            if (profileJson) {
+                try {
+                    const data = JSON.parse(profileJson);
+                    populateFormFromData(data);
+                } catch (e) { console.warn('Invalid profileData in storage', e); }
+            } else {
+                // if no saved profile, prefill email from login info
+                const emailInput = document.querySelector('input[placeholder="Enter email"]');
+                if (emailInput) emailInput.value = localStorage.getItem('userEmail') || '';
+            }
+
+            // Hook form submit
+            const form = document.querySelector('form');
+            if (form) {
+                form.addEventListener('submit', submitProfile);
+            }
+        }
+
+        // Initialize on load
+        document.addEventListener('DOMContentLoaded', function() {
+            handleResize();
+            
+            // Add active class to current page link
+            const currentPage = window.location.pathname.split('/').pop();
+            const navLinks = document.querySelectorAll('.nav-menu a');
+            navLinks.forEach(link => {
+                if (link.getAttribute('href') === currentPage) {
+                    link.style.background = 'rgba(255,255,255,0.2)';
+                    link.style.color = '#4CAF50';
+                }
+            });
+            
+            // Initialize profile page functionality
+            initProfilePage();
+        });
+    </script>
+    
+<div id="footer-container"></div>
+
+<script>
+fetch("footer.html")
+  .then(res => res.text())
+  .then(data => {
+    document.getElementById("footer-container").innerHTML = data;
+  });
+</script>
+</body>
+</html>

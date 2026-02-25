@@ -1,0 +1,699 @@
+<div id="navbar-container"></div>
+    
+    <!-- Load Navbar Script -->
+  <script>
+  // Load shared navbar (injects navbar.html body and executes its scripts)
+  async function includeNavbar() {
+    try {
+      const res = await fetch('navbar.html');
+      const text = await res.text();
+      const parser = new DOMParser();
+      const doc = parser.parseFromString(text, 'text/html');
+      document.getElementById('navbar-container').innerHTML = doc.body.innerHTML;
+
+      // Execute scripts from navbar.html and wait for external scripts to load
+      const __createdScriptPromises = [];
+      doc.querySelectorAll('script').forEach(s => {
+        const newScript = document.createElement('script');
+        if (s.src) {
+          newScript.src = s.src;
+          newScript.async = false;
+          __createdScriptPromises.push(new Promise(resolve => {
+            newScript.addEventListener('load', resolve);
+            newScript.addEventListener('error', resolve);
+            setTimeout(resolve, 2000);
+          }));
+        } else {
+          newScript.textContent = s.textContent;
+        }
+        document.body.appendChild(newScript);
+      });
+      Promise.all(__createdScriptPromises).finally(() => {});
+
+      // Ensure navbar init functions run after dynamic injection (wait for external scripts to load)
+      const __navbarScriptPromises = [];
+      doc.querySelectorAll('script').forEach((s, i) => {
+        const existing = document.querySelectorAll('script')[document.querySelectorAll('script').length - 1 - i];
+        if (existing && existing.src) {
+          __navbarScriptPromises.push(new Promise(resolve => {
+            existing.addEventListener('load', resolve);
+            existing.addEventListener('error', resolve);
+            // also resolve after 2s as a safety
+            setTimeout(resolve, 2000);
+          }));
+        }
+      });
+      Promise.all(__navbarScriptPromises).finally(() => {
+        if (typeof checkScreenSize === 'function') checkScreenSize();
+        if (typeof addDesktopHoverEffects === 'function') addDesktopHoverEffects();
+        if (typeof updateUserUI === 'function') updateUserUI();
+        if (typeof updateCartBadge === 'function') updateCartBadge();
+        if (typeof setActiveNavLink === 'function') setActiveNavLink();
+      });
+    } catch (e) {
+      console.error('Failed to load navbar:', e);
+    }
+  }
+  includeNavbar();
+</script>
+    <!-- Registration Form Content -->
+    <div style="margin: 0; padding: 30px 20px; min-height: calc(100vh - 140px); display: flex; align-items: center; justify-content: center;">
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 40px; max-width: 1100px; width: 100%;">
+            
+            <!-- Left Column: Benefits & Information -->
+            <div style="background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%); padding: 40px; border-radius: 20px; box-shadow: 0 15px 40px rgba(0,0,0,0.08); border: 1px solid rgba(0,0,0,0.05);">
+                <h2 style="color: #2c5aa0; margin-bottom: 25px; font-size: 28px; position: relative; padding-bottom: 15px;">
+                    <span style="display: block; margin-bottom: 5px;">Why Join UrbanSphere?</span>
+                    <div style="width: 60px; height: 4px; background: linear-gradient(45deg, #4CAF50, #2196F3); border-radius: 2px;"></div>
+                </h2>
+                
+                <div style="margin-bottom: 30px;">
+                    <div style="display: flex; align-items: flex-start; gap: 15px; margin-bottom: 20px; padding: 15px; background: rgba(44, 90, 160, 0.05); border-radius: 12px; border-left: 4px solid #4CAF50;">
+                        <div style="width: 40px; height: 40px; background: linear-gradient(45deg, #4CAF50, #45a049); border-radius: 50%; display: flex; align-items: center; justify-content: center;">
+                            <i class="fas fa-check-circle" style="color: white; font-size: 18px;"></i>
+                        </div>
+                        <div>
+                            <h3 style="color: #2c5aa0; margin: 0 0 5px 0; font-size: 16px;">Exclusive Access</h3>
+                            <p style="color: #666; margin: 0; line-height: 1.5; font-size: 14px;">Get priority access to our hospitality services, special offers, and industry insights.</p>
+                        </div>
+                    </div>
+                    
+                    <div style="display: flex; align-items: flex-start; gap: 15px; margin-bottom: 20px; padding: 15px; background: rgba(44, 90, 160, 0.05); border-radius: 12px; border-left: 4px solid #2196F3;">
+                        <div style="width: 40px; height: 40px; background: linear-gradient(45deg, #2196F3, #1976D2); border-radius: 50%; display: flex; align-items: center; justify-content: center;">
+                            <i class="fas fa-business-time" style="color: white; font-size: 18px;"></i>
+                        </div>
+                        <div>
+                            <h3 style="color: #2c5aa0; margin: 0 0 5px 0; font-size: 16px;">Business Opportunities</h3>
+                            <p style="color: #666; margin: 0; line-height: 1.5; font-size: 14px;">Connect with potential partners and explore franchise opportunities in hospitality sector.</p>
+                        </div>
+                    </div>
+                    
+                    <div style="display: flex; align-items: flex-start; gap: 15px; margin-bottom: 20px; padding: 15px; background: rgba(44, 90, 160, 0.05); border-radius: 12px; border-left: 4px solid #FF9800;">
+                        <div style="width: 40px; height: 40px; background: linear-gradient(45deg, #FF9800, #F57C00); border-radius: 50%; display: flex; align-items: center; justify-content: center;">
+                            <i class="fas fa-chart-line" style="color: white; font-size: 18px;"></i>
+                        </div>
+                        <div>
+                            <h3 style="color: #2c5aa0; margin: 0 0 5px 0; font-size: 16px;">Growth Support</h3>
+                            <p style="color: #666; margin: 0; line-height: 1.5; font-size: 14px;">Access financial funding options and business expansion support tailored for hospitality.</p>
+                        </div>
+                    </div>
+                    
+                    <div style="display: flex; align-items: flex-start; gap: 15px; padding: 15px; background: rgba(44, 90, 160, 0.05); border-radius: 12px; border-left: 4px solid #9C27B0;">
+                        <div style="width: 40px; height: 40px; background: linear-gradient(45deg, #9C27B0, #7B1FA2); border-radius: 50%; display: flex; align-items: center; justify-content: center;">
+                            <i class="fas fa-user-shield" style="color: white; font-size: 18px;"></i>
+                        </div>
+                        <div>
+                            <h3 style="color: #2c5aa0; margin: 0 0 5px 0; font-size: 16px;">Secure Platform</h3>
+                            <p style="color: #666; margin: 0; line-height: 1.5; font-size: 14px;">Your data is protected with enterprise-grade security and privacy controls.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Stats Section -->
+                <div style="background: linear-gradient(135deg, #2c5aa0, #1e3d72); padding: 25px; border-radius: 15px; color: white; margin-top: 30px;">
+                    <h3 style="margin: 0 0 15px 0; font-size: 18px; text-align: center;">Join Our Community</h3>
+                    <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; text-align: center;">
+                        <div>
+                            <div style="font-size: 28px; font-weight: bold; color: #4CAF50;">500+</div>
+                            <div style="font-size: 12px; opacity: 0.9;">Active Members</div>
+                        </div>
+                        <div>
+                            <div style="font-size: 28px; font-weight: bold; color: #2196F3;">50+</div>
+                            <div style="font-size: 12px; opacity: 0.9;">Cities Served</div>
+                        </div>
+                        <div>
+                            <div style="font-size: 28px; font-weight: bold; color: #FF9800;">15+</div>
+                            <div style="font-size: 12px; opacity: 0.9;">Years Experience</div>
+                        </div>
+                        <div>
+                            <div style="font-size: 28px; font-weight: bold; color: #9C27B0;">1000+</div>
+                            <div style="font-size: 12px; opacity: 0.9;">Projects Completed</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Column: Registration Form -->
+            <div style="background: white; padding: 40px; border-radius: 20px; box-shadow: 0 15px 40px rgba(0,0,0,0.1); border: 1px solid rgba(0,0,0,0.05); position: relative; overflow: hidden;">
+                <!-- Decorative Elements -->
+                <div style="position: absolute; top: 0; right: 0; width: 100px; height: 100px; background: linear-gradient(135deg, rgba(44, 90, 160, 0.1), rgba(76, 175, 80, 0.1)); border-radius: 0 20px 0 100px;"></div>
+                
+                <div style="text-align: center; margin-bottom: 30px;">
+                    <div style="width: 70px; height: 70px; background: linear-gradient(45deg, #2c5aa0, #4CAF50); border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; margin-bottom: 15px; box-shadow: 0 8px 20px rgba(44, 90, 160, 0.3);">
+                        <i class="fas fa-user-plus" style="color: white; font-size: 28px;"></i>
+                    </div>
+                    <h2 style="color: #2c5aa0; margin-bottom: 10px; font-size: 32px;">Create Account</h2>
+                    <p style="color: #666; margin-bottom: 30px; font-size: 16px;">Join our hospitality community today</p>
+                </div>
+
+                <form id="registrationForm" style="margin-bottom: 20px;">
+                    <div style="margin-bottom: 20px;">
+                        <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 8px;">
+                            <i class="fas fa-user" style="color: #2c5aa0; font-size: 14px;"></i>
+                            <label for="fullName" style="color: #555; font-weight: 600; font-size: 14px;">Full Name</label>
+                        </div>
+                        <input id="fullName" placeholder="Enter your full name" style="width: 100%; padding: 14px 16px; border: 2px solid #e9ecef; border-radius: 10px; font-size: 15px; transition: all 0.3s ease; outline: none; background: #f8f9fa;">
+                    </div>
+
+                    <div style="margin-bottom: 20px;">
+                        <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 8px;">
+                            <i class="fas fa-envelope" style="color: #2c5aa0; font-size: 14px;"></i>
+                            <label for="email" style="color: #555; font-weight: 600; font-size: 14px;">Email Address</label>
+                        </div>
+                        <input id="email" type="email" placeholder="your.email@example.com" style="width: 100%; padding: 14px 16px; border: 2px solid #e9ecef; border-radius: 10px; font-size: 15px; transition: all 0.3s ease; outline: none; background: #f8f9fa;">
+                    </div>
+
+                    <div style="margin-bottom: 20px;">
+                        <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 8px;">
+                            <i class="fas fa-phone" style="color: #2c5aa0; font-size: 14px;"></i>
+                            <label for="phone" style="color: #555; font-weight: 600; font-size: 14px;">Phone Number</label>
+                        </div>
+                        <input id="phone" placeholder="+91 9876543210" style="width: 100%; padding: 14px 16px; border: 2px solid #e9ecef; border-radius: 10px; font-size: 15px; transition: all 0.3s ease; outline: none; background: #f8f9fa;">
+                    </div>
+
+                    <div style="margin-bottom: 20px;">
+                        <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 8px;">
+                            <i class="fas fa-lock" style="color: #2c5aa0; font-size: 14px;"></i>
+                            <label for="password" style="color: #555; font-weight: 600; font-size: 14px;">Password</label>
+                        </div>
+                        <input id="password" type="password" placeholder="Create a strong password" style="width: 100%; padding: 14px 16px; border: 2px solid #e9ecef; border-radius: 10px; font-size: 15px; transition: all 0.3s ease; outline: none; background: #f8f9fa;">
+                    </div>
+
+                    <div style="margin-bottom: 25px;">
+                        <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 8px;">
+                            <i class="fas fa-lock" style="color: #2c5aa0; font-size: 14px;"></i>
+                            <label for="confirmPassword" style="color: #555; font-weight: 600; font-size: 14px;">Confirm Password</label>
+                        </div>
+                        <input id="confirmPassword" type="password" placeholder="Re-enter your password" style="width: 100%; padding: 14px 16px; border: 2px solid #e9ecef; border-radius: 10px; font-size: 15px; transition: all 0.3s ease; outline: none; background: #f8f9fa;">
+                    </div>
+
+                    <button type="button" onclick="registerUser()" style="width: 100%; padding: 16px; background: linear-gradient(45deg, #2c5aa0, #4CAF50); color: white; border: none; border-radius: 10px; font-size: 16px; font-weight: 600; cursor: pointer; transition: all 0.3s ease; box-shadow: 0 4px 15px rgba(44, 90, 160, 0.3); position: relative; overflow: hidden;">
+                        <span>Create Account</span>
+                    </button>
+                </form>
+
+                <div style="text-align: center; margin-top: 25px; padding-top: 25px; border-top: 1px solid #e9ecef;">
+                    <p style="color: #666; font-size: 15px;">
+                        Already have an account? 
+                        <a href="login.html" style="color: #2c5aa0; text-decoration: none; font-weight: 600; margin-left: 5px;">
+                            Sign In <i class="fas fa-arrow-right" style="margin-left: 5px; font-size: 12px;"></i>
+                        </a>
+                    </p>
+                </div>
+
+                <div style="margin-top: 20px; padding: 15px; background: #f8f9fa; border-radius: 10px; border-left: 4px solid #4CAF50;">
+                    <p style="color: #666; font-size: 13px; margin: 0; line-height: 1.5;">
+                        <i class="fas fa-shield-alt" style="color: #4CAF50; margin-right: 8px;"></i>
+                        Your information is secure. We never share your personal data with third parties.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <style>
+        /* Mobile Responsiveness */
+        @media (max-width: 768px) {
+            .portfolio-sidebar {
+                width: 30px !important;
+                padding-top: 50px !important;
+            }
+            
+            .portfolio-button {
+                font-size: 12px !important;
+                padding: 6px 3px !important;
+            }
+            
+            .header {
+                margin-left: 30px !important;
+                width: calc(100% - 30px) !important;
+            }
+            
+            .top-bar-content {
+                flex-direction: column !important;
+                align-items: center !important;
+                gap: 5px !important;
+            }
+            
+            .welcome-text {
+                order: 1 !important;
+                font-size: 14px !important;
+                margin-bottom: 5px !important;
+            }
+            
+            .social-links {
+                order: 2 !important;
+                justify-content: center !important;
+            }
+            
+            .mobile-menu-toggle {
+                display: block !important;
+            }
+            
+            .nav-menu {
+                display: none !important;
+                position: absolute !important;
+                top: 100% !important;
+                left: 0 !important;
+                right: 0 !important;
+                background: linear-gradient(135deg, #2c5aa0, #1e3d72) !important;
+                flex-direction: column !important;
+                padding: 20px !important;
+                gap: 10px !important;
+                box-shadow: 0 10px 30px rgba(0,0,0,0.2) !important;
+                border-radius: 0 0 15px 15px !important;
+            }
+            
+            .nav-menu.active {
+                display: flex !important;
+            }
+            
+            .nav-menu li {
+                width: 100% !important;
+                text-align: center !important;
+            }
+            
+            .nav-menu a {
+                display: block !important;
+                padding: 12px 15px !important;
+                font-size: 14px !important;
+            }
+            
+            /* Adjust dropdowns for mobile */
+            .nav-menu li[onmouseover] ul {
+                position: static !important;
+                width: 100% !important;
+                margin-top: 5px !important;
+                display: none !important;
+            }
+            
+            .nav-menu li[onmouseover]:hover ul,
+            .nav-menu li[onmouseover]:active ul {
+                display: block !important;
+            }
+            
+            /* Adjust registration form layout */
+            div[style*="grid-template-columns: 1fr 1fr"] {
+                grid-template-columns: 1fr !important;
+                gap: 30px !important;
+            }
+            
+            div[style*="margin: 120px 0 0 40px"] {
+                margin-left: 30px !important;
+                padding: 20px !important;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .portfolio-sidebar {
+                width: 25px !important;
+            }
+            
+            .welcome-text {
+                font-size: 12px !important;
+            }
+            
+            .social-links a {
+                padding: 6px !important;
+                font-size: 14px !important;
+            }
+            
+            .company-name {
+                font-size: 16px !important;
+            }
+            
+            .tagline {
+                font-size: 8px !important;
+            }
+            
+            div[style*="padding: 40px"] {
+                padding: 25px !important;
+            }
+            
+            input[type="text"], input[type="password"], input[type="email"] {
+                padding: 12px !important;
+                font-size: 14px !important;
+            }
+            
+            button {
+                padding: 14px !important;
+                font-size: 14px !important;
+            }
+            
+            h2 {
+                font-size: 24px !important;
+            }
+        }
+        
+        /* Animation for welcome text */
+        @keyframes slideIn {
+            0% { transform: translateX(-10px); opacity: 0.8; }
+            100% { transform: translateX(10px); opacity: 1; }
+        }
+        
+        /* Portfolio panel animation */
+        .portfolio-panel.open-panel {
+            transform: translateX(0) !important;
+        }
+        
+        .portfolio-sidebar.move-right {
+            left: 100vw !important;
+        }
+        
+        /* Hover effects */
+        .social-links a::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: left 0.5s;
+        }
+        
+        .social-links a:hover::before {
+            left: 100%;
+        }
+        
+        .social-links a:hover {
+            transform: translateY(-3px) scale(1.1);
+            background: rgba(255,255,255,0.2);
+        }
+        
+        .nav-menu a::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.6s;
+        }
+        
+        .nav-menu a:hover::before {
+            left: 100%;
+        }
+        
+        .nav-menu a:hover {
+            background: rgba(255,255,255,0.15);
+            transform: translateY(-3px);
+        }
+        
+        /* Portfolio item hover */
+        .portfolio-item:hover {
+            transform: translateY(-10px) !important;
+            box-shadow: 0 15px 30px rgba(0,0,0,0.2) !important;
+        }
+        
+        /* Registration form specific styles */
+        input[type="text"]:focus, input[type="password"]:focus, input[type="email"]:focus {
+            border-color: #2c5aa0 !important;
+            box-shadow: 0 0 0 3px rgba(44, 90, 160, 0.1) !important;
+            background: white !important;
+        }
+        
+        button[onclick="registerUser()"]:hover {
+            transform: translateY(-3px) !important;
+            box-shadow: 0 8px 25px rgba(44, 90, 160, 0.4) !important;
+        }
+        
+        button[onclick="registerUser()"]::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s;
+        }
+        
+        button[onclick="registerUser()"]:hover::after {
+            left: 100%;
+        }
+        
+        div[style*="background: rgba(44, 90, 160, 0.05)"]:hover {
+            background: rgba(44, 90, 160, 0.08) !important;
+            transform: translateX(5px) !important;
+        }
+        
+        a:hover {
+            color: #4CAF50 !important;
+        }
+        
+        /* Benefits cards animation */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+
+    <script>
+        // Portfolio Panel Toggle
+        function togglePortfolioPanel() {
+            const panel = document.getElementById("portfolioPanel");
+            const sidebar = document.getElementById("portfolioSidebar");
+            
+            panel.classList.toggle("open-panel");
+            sidebar.classList.toggle("move-right");
+        }
+
+        // Mobile Menu Toggle
+        const mobileToggle = document.getElementById('mobileToggle');
+        const navMenu = document.getElementById('navMenu');
+
+        mobileToggle.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+            const icon = mobileToggle.querySelector('i');
+            if (navMenu.classList.contains('active')) {
+                icon.classList.remove('fa-bars');
+                icon.classList.add('fa-times');
+            } else {
+                icon.classList.remove('fa-times');
+                icon.classList.add('fa-bars');
+            }
+        });
+
+        // Close portfolio panel when clicking outside
+        document.addEventListener('click', function(event) {
+            const panel = document.getElementById("portfolioPanel");
+            const sidebar = document.getElementById("portfolioSidebar");
+            const button = document.querySelector('.portfolio-button');
+            
+            if (panel.classList.contains('open-panel') && 
+                !panel.contains(event.target) && 
+                event.target !== button) {
+                panel.classList.remove("open-panel");
+                sidebar.classList.remove("move-right");
+            }
+        });
+
+        // Header scroll effect
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('.header');
+            const currentScroll = window.pageYOffset;
+            
+            if (currentScroll > 100) {
+                header.style.background = 'rgba(44, 90, 160, 0.95)';
+                header.style.backdropFilter = 'blur(15px)';
+            } else {
+                header.style.background = 'linear-gradient(135deg, #2c5aa0, #1e3d72)';
+                header.style.backdropFilter = 'none';
+            }
+        });
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    const headerHeight = document.querySelector('.header').offsetHeight;
+                    const targetPosition = target.offsetTop - headerHeight;
+                    
+                    window.scrollTo({
+                        top: targetPosition,
+                        behavior: 'smooth'
+                    });
+
+                    // Close mobile menu if open
+                    if (navMenu.classList.contains('active')) {
+                        navMenu.classList.remove('active');
+                        const icon = mobileToggle.querySelector('i');
+                        icon.classList.remove('fa-times');
+                        icon.classList.add('fa-bars');
+                    }
+                }
+            });
+        });
+
+        // Expand/Collapse functionality
+        function toggleExpandCollapse() {
+            const btn = document.getElementById('expandCollapseBtn');
+            if (btn.textContent === '+') {
+                btn.textContent = '-';
+            } else {
+                btn.textContent = '+';
+            }
+        }
+
+        // Handle window resize
+        function handleResize() {
+            if (window.innerWidth > 768) {
+                navMenu.classList.remove('active');
+                const icon = mobileToggle.querySelector('i');
+                icon.classList.remove('fa-times');
+                icon.classList.add('fa-bars');
+            }
+        }
+
+        window.addEventListener('resize', handleResize);
+
+        // Initialize on load
+        document.addEventListener('DOMContentLoaded', function() {
+            handleResize();
+            
+            // Add active class to current page link
+            const currentPage = window.location.pathname.split('/').pop();
+            const navLinks = document.querySelectorAll('.nav-menu a');
+            navLinks.forEach(link => {
+                if (link.getAttribute('href') === currentPage) {
+                    link.style.background = 'rgba(255,255,255,0.2)';
+                    link.style.color = '#4CAF50';
+                }
+            });
+            
+            // Animate benefits cards on load
+            const benefits = document.querySelectorAll('div[style*="background: rgba(44, 90, 160, 0.05)"]');
+            benefits.forEach((card, index) => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(20px)';
+                setTimeout(() => {
+                    card.style.transition = 'all 0.5s ease';
+                    card.style.opacity = '1';
+                    card.style.transform = 'translateY(0)';
+                }, index * 100);
+            });
+        });
+
+        // Enhanced Registration function
+        async function registerUser() {
+            const fullName = document.getElementById("fullName").value.trim();
+            const email = document.getElementById("email").value.trim();
+            const phone = document.getElementById("phone").value.trim();
+            const password = document.getElementById("password").value;
+            const confirmPassword = document.getElementById("confirmPassword").value;
+
+            // Validation
+            const errors = [];
+            
+            if (!fullName) errors.push("Full name is required");
+            if (!email) errors.push("Email is required");
+            if (!phone) errors.push("Phone number is required");
+            if (!password) errors.push("Password is required");
+            if (!confirmPassword) errors.push("Confirm password is required");
+            
+            if (email && !validateEmail(email)) errors.push("Please enter a valid email address");
+            if (phone && !validatePhone(phone)) errors.push("Please enter a valid phone number");
+            if (password && password.length < 6) errors.push("Password must be at least 6 characters long");
+            if (password !== confirmPassword) errors.push("Passwords do not match");
+
+            if (errors.length > 0) {
+                alert("❌ " + errors.join("\n"));
+                return;
+            }
+
+            // Add loading state to button
+            const submitBtn = document.querySelector('button[onclick="registerUser()"]');
+            const originalText = submitBtn.innerHTML;
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Creating Account...';
+            submitBtn.disabled = true;
+
+            try {
+                const res = await fetch("http://localhost:5000/api/register-user", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ fullName, email, phone, password, confirmPassword })
+                });
+
+                const result = await res.json();
+
+                if (!res.ok) {
+                    alert("❌ Registration Error: " + result.message);
+                    return;
+                }
+
+                // Success animation
+                submitBtn.innerHTML = '<i class="fas fa-check-circle"></i> Account Created!';
+                submitBtn.style.background = 'linear-gradient(45deg, #4CAF50, #45a049)';
+                
+                setTimeout(() => {
+                    alert("✅ " + result.message);
+                    window.location.href = "login.html";
+                }, 1500);
+            } catch (error) {
+                console.error("Registration error:", error);
+                alert("❌ Network error. Please check your connection and try again.");
+                submitBtn.innerHTML = originalText;
+                submitBtn.disabled = false;
+            }
+        }
+
+        // Validation functions
+        function validateEmail(email) {
+            const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return re.test(email);
+        }
+
+        function validatePhone(phone) {
+            const re = /^[+]?[0-9\s\-\(\)]{10,}$/;
+            return re.test(phone);
+        }
+
+        // Add enter key support and focus effects when DOM is loaded
+        document.addEventListener('DOMContentLoaded', function() {
+            // Add enter key support for registration form
+            const confirmPasswordField = document.getElementById("confirmPassword");
+            if (confirmPasswordField) {
+                confirmPasswordField.addEventListener("keypress", function(event) {
+                    if (event.key === "Enter") {
+                        event.preventDefault();
+                        registerUser();
+                    }
+                });
+            }
+
+            // Add focus effects to form inputs
+            const inputs = document.querySelectorAll('input[type="text"], input[type="password"], input[type="email"]');
+            inputs.forEach(input => {
+                input.addEventListener('focus', function() {
+                    this.parentElement.style.transform = 'translateY(-2px)';
+                });
+                
+                input.addEventListener('blur', function() {
+                    this.parentElement.style.transform = 'translateY(0)';
+                });
+            });
+        });
+    </script>
+    <script src="form-auth.js"></script>
+    
+<div id="footer-container"></div>
+
+<script>
+fetch("footer.html")
+  .then(res => res.text())
+  .then(data => {
+    document.getElementById("footer-container").innerHTML = data;
+  });
+</script>
+</body>
+</html>

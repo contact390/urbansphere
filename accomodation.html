@@ -1,0 +1,143 @@
+ 
+<div id="navbar-container"></div>
+    
+    <!-- Load Navbar Script -->
+  <script>
+  // Load shared navbar (injects navbar.html body and executes its scripts)
+  async function includeNavbar() {
+    try {
+      const res = await fetch('navbar.html');
+      const text = await res.text();
+      const parser = new DOMParser();
+      const doc = parser.parseFromString(text, 'text/html');
+      document.getElementById('navbar-container').innerHTML = doc.body.innerHTML;
+
+      // Execute scripts from navbar.html and wait for external scripts to load
+      const __createdScriptPromises = [];
+      doc.querySelectorAll('script').forEach(s => {
+        const newScript = document.createElement('script');
+        if (s.src) {
+          newScript.src = s.src;
+          newScript.async = false;
+          __createdScriptPromises.push(new Promise(resolve => {
+            newScript.addEventListener('load', resolve);
+            newScript.addEventListener('error', resolve);
+            setTimeout(resolve, 2000);
+          }));
+        } else {
+          newScript.textContent = s.textContent;
+        }
+        document.body.appendChild(newScript);
+      });
+      Promise.all(__createdScriptPromises).finally(() => {});
+
+      // Ensure navbar init functions run after dynamic injection (wait for external scripts to load)
+      const __navbarScriptPromises = [];
+      doc.querySelectorAll('script').forEach((s, i) => {
+        const existing = document.querySelectorAll('script')[document.querySelectorAll('script').length - 1 - i];
+        if (existing && existing.src) {
+          __navbarScriptPromises.push(new Promise(resolve => {
+            existing.addEventListener('load', resolve);
+            existing.addEventListener('error', resolve);
+            // also resolve after 2s as a safety
+            setTimeout(resolve, 2000);
+          }));
+        }
+      });
+      Promise.all(__navbarScriptPromises).finally(() => {
+        if (typeof checkScreenSize === 'function') checkScreenSize();
+        if (typeof addDesktopHoverEffects === 'function') addDesktopHoverEffects();
+        if (typeof updateUserUI === 'function') updateUserUI();
+        if (typeof updateCartBadge === 'function') updateCartBadge();
+        if (typeof setActiveNavLink === 'function') setActiveNavLink();
+      });
+    } catch (e) {
+      console.error('Failed to load navbar:', e);
+    }
+  }
+  includeNavbar();
+</script>
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Accommodation & Facility Management</title>
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="canonical" href="https://www.hitaishihospitality.com/about">
+
+</head>
+
+<body style="margin:0;font-family:'Arial',sans-serif;line-height:1.6;color:#333;">
+
+
+
+
+<!-- MAIN PAGE TITLE -->
+<div style="padding:20px;text-align:center;margin-top: 100px;">
+  <h1 style="margin:0;color:#0b3c5d;">Accommodation & Facility Management</h1>
+  <p style="font-size:15px;color:#444;">Complete operational solutions for hostels and facility operations.</p>
+</div>
+
+<!-- SECTION 1: HOSTEL MANAGEMENT -->
+<div id="hostel" style="padding:20px;">
+  <h2 style="color:#0b3c5d;margin-top:0;">Hostel Management</h2>
+
+  <!-- 1. Overview -->
+  <h3 style="margin-bottom:5px;color:#333;">Overview</h3>
+  <p style="margin-top:0;color:#555;">We manage student and staff hostels with efficient check-in, housekeeping, billing, and daily operational systems.</p>
+
+  <!-- 2. Key Services -->
+  <h3 style="margin-bottom:5px;color:#333;">Key Services</h3>
+  <ul style="margin-top:0;color:#555;">
+    <li>Room allocation and front-office operations</li>
+    <li>Housekeeping and cleanliness standards</li>
+    <li>Guest support and 24/7 maintenance</li>
+    <li>Inventory and asset tracking</li>
+  </ul>
+
+  <!-- 3. Why Choose Us -->
+  <h3 style="margin-bottom:5px;color:#333;">Why Choose Us</h3>
+  <p style="margin-top:0;color:#555;">We ensure smooth operations, safety, and comfort with professional management systems.</p>
+</div>
+
+<hr style="border:0;border-top:1px solid #ddd;" NJJJXZC                    >
+
+<!-- SECTION 2: FACILITY MANAGEMENT -->
+<div id="facility" style="padding:20px;">
+  <h2 style="color:#0b3c5d;margin-top:0;">Facility Management</h2>
+
+  <!-- 1. Overview -->
+  <h3 style="margin-bottom:5px;color:#333;">Overview</h3>
+  <p style="margin-top:0;color:#555;">We provide end-to-end facility management including maintenance, security, and vendor coordination.</p>
+
+  <!-- 2. Key Services -->
+  <h3 style="margin-bottom:5px;color:#333;">Key Services</h3>
+  <ul style="margin-top:0;color:#555;">
+    <li>Preventive maintenance schedules</li>
+    <li>Vendor and SLA management</li>
+    <li>Asset and equipment tracking</li>
+    <li>Waste management and utilities monitoring</li>
+  </ul>
+
+  <!-- 3. Why Choose Us -->
+  <h3 style="margin-bottom:5px;color:#333;">Why Choose Us</h3>
+  <p style="margin-top:0;color:#555;">We streamline facility operations to reduce downtime and improve overall efficiency.</p>
+</div>
+
+
+<div id="footer-container"></div>
+
+<script>
+fetch("footer.html")
+  .then(res => res.text())
+  .then(data => {
+    document.getElementById("footer-container").innerHTML = data;
+  });
+</script>
+
+
+</body>
+</html>

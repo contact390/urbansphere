@@ -1,0 +1,368 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Styled Location Form</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            padding: 20px;
+        }
+        
+        .form-container {
+            width: 100%;
+            max-width: 600px;
+            background-color: white;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            padding: 40px;
+            margin: 20px;
+        }
+        
+        .form-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .form-header h1 {
+            color: #2c3e50;
+            font-size: 28px;
+            margin-bottom: 8px;
+        }
+        
+        .form-header p {
+            color: #7f8c8d;
+            font-size: 16px;
+        }
+        
+        #locationForm {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        
+        .form-group label {
+            font-weight: 600;
+            color: #2c3e50;
+            font-size: 15px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .form-group label i {
+            color: #3498db;
+            width: 20px;
+        }
+        
+        input[type="text"],
+        textarea {
+            padding: 14px 16px;
+            border: 2px solid #eef2f7;
+            border-radius: 10px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            background-color: #f8fafc;
+        }
+        
+        input[type="text"]:focus,
+        textarea:focus {
+            outline: none;
+            border-color: #3498db;
+            background-color: white;
+            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
+        }
+        
+        textarea {
+            min-height: 120px;
+            resize: vertical;
+            font-family: inherit;
+        }
+        
+        .file-input-container {
+            position: relative;
+        }
+        
+        input[type="file"] {
+            width: 100%;
+            padding: 14px 16px;
+            border: 2px solid #eef2f7;
+            border-radius: 10px;
+            font-size: 16px;
+            background-color: #f8fafc;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        input[type="file"]:hover {
+            border-color: #bdc3c7;
+        }
+        
+        input[type="file"]:focus {
+            outline: none;
+            border-color: #3498db;
+            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
+        }
+        
+        .file-input-container::before {
+            content: "Choose an image";
+            position: absolute;
+            right: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: #3498db;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 500;
+            pointer-events: none;
+        }
+        
+        button[type="submit"] {
+            background: linear-gradient(to right, #3498db, #2980b9);
+            color: white;
+            border: none;
+            padding: 16px;
+            border-radius: 10px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        
+        button[type="submit"]:hover {
+            background: linear-gradient(to right, #2980b9, #1c5a87);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(52, 152, 219, 0.3);
+        }
+        
+        button[type="submit"]:active {
+            transform: translateY(0);
+        }
+        
+        #message {
+            margin-top: 25px;
+            padding: 16px;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            transition: all 0.3s ease;
+        }
+        
+        .required-note {
+            color: #e74c3c;
+            font-size: 14px;
+            margin-top: 5px;
+            text-align: center;
+        }
+        
+        @media (max-width: 768px) {
+            .form-container {
+                padding: 30px 20px;
+            }
+            
+            .form-header h1 {
+                font-size: 24px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .form-container {
+                padding: 25px 15px;
+            }
+            
+            input[type="text"],
+            textarea,
+            input[type="file"] {
+                padding: 12px 14px;
+            }
+            
+            button[type="submit"] {
+                padding: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+      <div id="navbar-container"></div>
+    
+    <!-- Load Navbar Script -->
+  <script>
+  // Load shared navbar (injects navbar.html body and executes its scripts)
+  async function includeNavbar() {
+    try {
+      const res = await fetch('navbar.html');
+      const text = await res.text();
+      const parser = new DOMParser();
+      const doc = parser.parseFromString(text, 'text/html');
+      document.getElementById('navbar-container').innerHTML = doc.body.innerHTML;
+
+      // Execute scripts from navbar.html and wait for external scripts to load
+      const __createdScriptPromises = [];
+      doc.querySelectorAll('script').forEach(s => {
+        const newScript = document.createElement('script');
+        if (s.src) {
+          newScript.src = s.src;
+          newScript.async = false;
+          __createdScriptPromises.push(new Promise(resolve => {
+            newScript.addEventListener('load', resolve);
+            newScript.addEventListener('error', resolve);
+            setTimeout(resolve, 2000);
+          }));
+        } else {
+          newScript.textContent = s.textContent;
+        }
+        document.body.appendChild(newScript);
+      });
+      Promise.all(__createdScriptPromises).finally(() => {});
+
+      // Ensure navbar init functions run after dynamic injection (wait for external scripts to load)
+      const __navbarScriptPromises = [];
+      doc.querySelectorAll('script').forEach((s, i) => {
+        const existing = document.querySelectorAll('script')[document.querySelectorAll('script').length - 1 - i];
+        if (existing && existing.src) {
+          __navbarScriptPromises.push(new Promise(resolve => {
+            existing.addEventListener('load', resolve);
+            existing.addEventListener('error', resolve);
+            // also resolve after 2s as a safety
+            setTimeout(resolve, 2000);
+          }));
+        }
+      });
+      Promise.all(__navbarScriptPromises).finally(() => {
+        if (typeof checkScreenSize === 'function') checkScreenSize();
+        if (typeof addDesktopHoverEffects === 'function') addDesktopHoverEffects();
+        if (typeof updateUserUI === 'function') updateUserUI();
+        if (typeof updateCartBadge === 'function') updateCartBadge();
+        if (typeof setActiveNavLink === 'function') setActiveNavLink();
+      });
+    } catch (e) {
+      console.error('Failed to load navbar:', e);
+    }
+  }
+  includeNavbar();
+</script>
+
+
+    <div class="form-container">
+        <div class="form-header">
+            <h1>Add a New Location</h1>
+            <p>Fill out the form below to add a featured destination</p>
+        </div>
+        
+        <!-- Original form with styling applied via CSS -->
+        <form id="locationForm" enctype="multipart/form-data">
+            <div class="form-group">
+                <label for="title"><i class="fas fa-heading"></i> Title</label>
+                <input type="text" name="title" placeholder="Enter location title" required />
+            </div>
+            
+            <div class="form-group">
+                <label for="description"><i class="fas fa-align-left"></i> Description</label>
+                <textarea name="description" placeholder="Describe this location in detail" required></textarea>
+            </div>
+            
+            <div class="form-group">
+                <label for="image"><i class="fas fa-image"></i> Location Image</label>
+                <div class="file-input-container">
+                    <input type="file" name="image" accept="image/*" required />
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label for="region"><i class="fas fa-globe"></i> Region</label>
+                <input type="text" name="region" placeholder="Asia / Europe / North America" required />
+            </div>
+            
+            <button type="submit">
+                <i class="fas fa-plus-circle"></i> Add Location
+            </button>
+        </form>
+        
+        <p class="required-note">All fields are required</p>
+        
+        <div id="message" style="display: none;"></div>
+    </div>
+
+    <!-- Original JavaScript (unchanged) -->
+    <script>
+        document.getElementById('locationForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const messageDiv = document.getElementById('message');
+            messageDiv.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending data...';
+            messageDiv.style.background = '#e3f2fd';
+            messageDiv.style.color = '#0066cc';
+            messageDiv.style.display = 'flex';
+
+            const formData = new FormData(e.target);
+
+            console.log('📤 Sending FormData:');
+            for (let [key, value] of formData.entries()) {
+                console.log(`  ${key}:`, value);
+            }
+
+            try {
+                const res = await fetch('http://localhost:5000/api/featured-locations', {
+                    method: 'POST',
+                    body: formData
+                });
+
+                console.log('📬 Response Status:', res.status);
+                const result = await res.json();
+                console.log('📥 Response Data:', result);
+
+                if (res.ok) {
+                    messageDiv.innerHTML = `<i class="fas fa-check-circle"></i> Success: ${result.message}`;
+                    messageDiv.style.background = '#e8f5e9';
+                    messageDiv.style.color = 'green';
+                    e.target.reset();
+                    setTimeout(() => { messageDiv.innerHTML = ''; messageDiv.style.display = 'none'; }, 5000);
+                } else {
+                    messageDiv.innerHTML = `<i class="fas fa-exclamation-circle"></i> Error: ${result.message || result.error || 'Unknown error'}`;
+                    messageDiv.style.background = '#ffebee';
+                    messageDiv.style.color = 'red';
+                }
+            } catch (error) {
+                console.error('🔥 Fetch Error:', error);
+                messageDiv.innerHTML = `<i class="fas fa-wifi"></i> Network Error: ${error.message}`;
+                messageDiv.style.background = '#ffebee';
+                messageDiv.style.color = 'red';
+            }
+        });
+    </script>
+</body>
+</html>

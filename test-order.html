@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Test Order Submission</title>
+</head>
+<body style="font-family: sans-serif; padding: 40px;">
+  <h2>🧪 Test Order Form</h2>
+  <form id="orderForm" style="max-width: 400px;">
+    <input type="text" name="customerName" placeholder="Customer Name" required style="width:100%;padding:10px;margin-bottom:10px;"><br>
+    <input type="tel" name="phone" placeholder="Phone" required style="width:100%;padding:10px;margin-bottom:10px;"><br>
+    <input type="email" name="email" placeholder="Email (optional)" style="width:100%;padding:10px;margin-bottom:10px;"><br>
+    <textarea name="items" placeholder='Order Items (JSON format)' rows="6" required style="width:100%;padding:10px;">[
+  { "name": "Spicy Biryani", "special": "Weekend Deal", "price": 199 },
+  { "name": "Paneer Butter Masala", "special": "Chef Special", "price": 249 }
+]</textarea><br>
+    <button type="submit" style="padding:10px 20px; background:#27ae60; color:white; border:none;">Place Test Order</button>
+  </form>
+
+<script>
+  document.getElementById("orderForm").addEventListener("submit", async function (e) {
+    e.preventDefault();
+
+    const formData = new FormData(this);
+    const customerName = formData.get("customerName");
+    const phone = formData.get("phone");
+    const email = formData.get("email") || null;
+
+    let items;
+    try {
+      items = JSON.parse(formData.get("items"));
+    } catch (err) {
+      return alert("❌ Items format should be valid JSON.");
+    }
+
+    const data = { customerName, phone, email, items };
+
+    try {
+      const res = await fetch("http://localhost:5000/api/orders", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data)
+      });
+
+      const result = await res.json();
+      if (res.ok) {
+        alert("✅ Order placed. Receipt will be emailed if email was provided.");
+
+        // PDF Download
+        const pdfLink = document.createElement('a');
+        pdfLink.href = `/receipts/order_${result.orderId}.pdf`;
+        pdfLink.download = `receipt_order_${result.orderId}.pdf`;
+        pdfLink.textContent = '📥 Download Receipt PDF';
+        pdfLink.style = "display:block; margin-top:10px; color:#27ae60; font-weight:bold;";
+        this.appendChild(pdfLink);
+
+        const printBtn = document.createElement('button');
+        printBtn.textContent = '🖨️ Print Receipt';
+        printBtn.style = "margin-top:10px; padding:8px 15px; background:#3498db; color:white; border:none; border-radius:5px;";
+        printBtn.onclick = () => window.open(`/receipts/order_${result.orderId}.pdf`, '_blank').print();
+        this.appendChild(printBtn);
+
+        this.reset();
+      } else {
+        alert("❌ Order failed: " + (result.error || "Server error"));
+      }
+    } catch (err) {
+      console.error(err);
+      alert("⚠️ Could not send request.");
+    }
+  });
+</script>
+
+</body>
+</html>

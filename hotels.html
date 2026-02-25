@@ -1,0 +1,2047 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Responsive Navbar - UrbanSphere Hospitality</title>
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Ensure body doesn't have margin that could affect 100% width */
+        body {
+            margin: 0;
+            padding-top: 140px; /* Increased padding for taller header */
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        /* Mobile responsive styles */
+        @media (max-width: 768px) {
+            body {
+                padding-top: 140px; /* Space for both header sections */
+            }
+            
+            .mobile-menu-toggle {
+                display: block !important;
+            }
+            
+            .nav-menu {
+                position: fixed !important;
+                top: 0 !important;
+                left: -100% !important;
+                width: 80% !important;
+                height: 100vh !important;
+                background: #1e3d72 !important;
+                flex-direction: column !important;
+                align-items: flex-start !important;
+                padding: 80px 20px 20px !important;
+                box-shadow: 5px 0 15px rgba(0,0,0,0.3) !important;
+                z-index: 999 !important;
+                overflow-y: auto !important;
+                transition: left 0.3s ease !important;
+                margin: 0 !important;
+            }
+            
+            .nav-menu.active {
+                left: 0 !important;
+            }
+            
+            .nav-menu li {
+                width: 100% !important;
+                margin: 8px 0 !important;
+            }
+            
+            .nav-menu li a {
+                display: block !important;
+                padding: 12px 15px !important;
+                border-radius: 5px !important;
+                font-size: 16px !important;
+                background: rgba(255, 255, 255, 0.1) !important;
+                color: white !important;
+                text-decoration: none !important;
+                position: relative !important;
+            }
+            
+            /* Main menu items */
+            .nav-menu > li > a {
+                font-size: 17px !important;
+                font-weight: 600 !important;
+                margin: 8px 0 !important;
+                border-left: 4px solid transparent !important;
+            }
+            
+            .nav-menu > li > a:hover {
+                border-left: 4px solid #4CAF50 !important;
+                background: rgba(255, 255, 255, 0.15) !important;
+            }
+            
+            /* Dropdown styling for mobile */
+            .nav-menu li ul {
+                position: static !important;
+                width: 100% !important;
+                display: none !important;
+                background: transparent !important;
+                padding: 0 !important;
+                margin: 5px 0 15px 0 !important;
+                box-shadow: none !important;
+            }
+            
+            .nav-menu li.dropdown-active > ul {
+                display: block !important;
+            }
+            
+            .nav-menu li ul li a {
+                font-size: 14px !important;
+                padding: 10px 25px !important;
+                background: rgba(255, 255, 255, 0.05) !important;
+                margin: 4px 0 !important;
+                border-left: 3px solid #4CAF50 !important;
+            }
+            
+            /* Services dropdown columns for mobile - single column */
+            .nav-menu li ul div {
+                width: 100% !important;
+                display: block !important;
+            }
+            
+            .top-bar-content {
+                flex-direction: column !important;
+                align-items: center !important;
+            }
+            
+            .welcome-text {
+                order: 1 !important;
+                margin-bottom: 8px !important;
+                text-align: center !important;
+                font-size: 14px !important;
+                line-height: 1.3 !important;
+            }
+            
+            .social-links {
+                order: 2 !important;
+                justify-content: center !important;
+                flex-wrap: wrap !important;
+                gap: 8px !important;
+            }
+            
+            .nav-container {
+                padding: 0 15px !important;
+                height: 70px !important;
+                display: flex !important;
+                align-items: center !important;
+                justify-content: space-between !important;
+                background: linear-gradient(135deg, #2c5aa0, #1e3d72) !important;
+                position: relative !important;
+            }
+            
+            /* Logo adjustments */
+            .logo .company-name {
+                font-size: 18px !important;
+            }
+            
+            .logo .tagline {
+                font-size: 8px !important;
+            }
+            
+            /* Hamburger menu in second navbar */
+            .mobile-menu-toggle {
+                position: absolute !important;
+                right: 15px !important;
+                top: 50% !important;
+                transform: translateY(-50%) !important;
+                z-index: 1000 !important;
+                background: rgba(255, 255, 255, 0.1) !important;
+                padding: 10px !important;
+                border-radius: 5px !important;
+            }
+            
+            /* Mobile menu overlay */
+            .mobile-menu-overlay {
+                display: none !important;
+                position: fixed !important;
+                top: 0 !important;
+                left: 0 !important;
+                width: 100% !important;
+                height: 100% !important;
+                background: rgba(0, 0, 0, 0.5) !important;
+                z-index: 998 !important;
+            }
+            
+            .mobile-menu-overlay.active {
+                display: block !important;
+            }
+            
+            /* Hide desktop dropdown hover effects on mobile */
+            .nav-menu li:hover ul,
+            .nav-menu li:focus-within ul {
+                display: none !important;
+            }
+            
+            .dropdown-arrow {
+                float: right !important;
+                transition: transform 0.3s ease !important;
+                margin-left: 10px !important;
+            }
+            
+            .dropdown-active .dropdown-arrow {
+                transform: rotate(180deg) !important;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            body {
+                padding-top: 130px;
+            }
+            
+            .nav-menu {
+                width: 85% !important;
+            }
+            
+            .welcome-text {
+                font-size: 12px !important;
+            }
+            
+            .social-links a {
+                font-size: 14px !important;
+            }
+            
+            .logo .company-name {
+                font-size: 16px !important;
+            }
+            
+            .logo .tagline {
+                font-size: 7px !important;
+            }
+            
+            .nav-menu > li > a {
+                font-size: 15px !important;
+                padding: 10px 12px !important;
+            }
+            
+            .nav-menu li ul li a {
+                font-size: 13px !important;
+                padding: 8px 20px !important;
+            }
+        }
+        
+        /* Desktop dropdown styling */
+        .nav-menu li ul {
+            display: none;
+            position: absolute;
+            background: #333;
+            list-style: none;
+            padding: 10px;
+            border-radius: 10px;
+            z-index: 1000;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            min-width: 200px;
+        }
+        
+        .nav-menu li:hover > ul {
+            display: block !important;
+        }
+        
+        .nav-menu li ul li {
+            width: 100%;
+            margin: 0;
+        }
+        
+        .nav-menu li ul li a {
+            display: block;
+            padding: 10px 15px;
+            color: white;
+            text-decoration: none;
+            font-size: 13px;
+            transition: background 0.3s;
+        }
+        
+        .nav-menu li ul li a:hover {
+            background: #4CAF50;
+        }
+        
+        /* Multi-column Services dropdown for desktop */
+        .services-dropdown {
+            width: 360px !important;
+            padding: 15px !important;
+        }
+        
+        .services-columns {
+            display: flex;
+            gap: 20px;
+        }
+        
+        .services-column {
+            flex: 1;
+        }
+        
+        /* Smooth transitions */
+        * {
+            transition: all 0.3s ease;
+        }
+        
+        /* Mobile Menu Overlay */
+        .mobile-menu-overlay {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+<main style="display:block;width:100%;">
+ 
+
+ 
+
+
+
+
+
+<body style="margin:0;font-family:'Montserrat',sans-serif;line-height:1.6;color:#333;overflow-x:hidden;">
+    
+
+  <div id="navbar-container"></div>
+    
+    <!-- Load Navbar Script -->
+  <script>
+  // Load shared navbar (injects navbar.html body and executes its scripts)
+  async function includeNavbar() {
+    try {
+      const res = await fetch('navbar.html');
+      const text = await res.text();
+      const parser = new DOMParser();
+      const doc = parser.parseFromString(text, 'text/html');
+      document.getElementById('navbar-container').innerHTML = doc.body.innerHTML;
+
+      // Execute scripts from navbar.html and wait for external scripts to load
+      const __createdScriptPromises = [];
+      doc.querySelectorAll('script').forEach(s => {
+        const newScript = document.createElement('script');
+        if (s.src) {
+          newScript.src = s.src;
+          newScript.async = false;
+          __createdScriptPromises.push(new Promise(resolve => {
+            newScript.addEventListener('load', resolve);
+            newScript.addEventListener('error', resolve);
+            setTimeout(resolve, 2000);
+          }));
+        } else {
+          newScript.textContent = s.textContent;
+        }
+        document.body.appendChild(newScript);
+      });
+      Promise.all(__createdScriptPromises).finally(() => {});
+
+      // Ensure navbar init functions run after dynamic injection (wait for external scripts to load)
+      const __navbarScriptPromises = [];
+      doc.querySelectorAll('script').forEach((s, i) => {
+        const existing = document.querySelectorAll('script')[document.querySelectorAll('script').length - 1 - i];
+        if (existing && existing.src) {
+          __navbarScriptPromises.push(new Promise(resolve => {
+            existing.addEventListener('load', resolve);
+            existing.addEventListener('error', resolve);
+            // also resolve after 2s as a safety
+            setTimeout(resolve, 2000);
+          }));
+        }
+      });
+      Promise.all(__navbarScriptPromises).finally(() => {
+        if (typeof checkScreenSize === 'function') checkScreenSize();
+        if (typeof addDesktopHoverEffects === 'function') addDesktopHoverEffects();
+        if (typeof updateUserUI === 'function') updateUserUI();
+        if (typeof updateCartBadge === 'function') updateCartBadge();
+        if (typeof setActiveNavLink === 'function') setActiveNavLink();
+      });
+    } catch (e) {
+      console.error('Failed to load navbar:', e);
+    }
+  }
+  includeNavbar();
+</script>
+    <!-- Hero Section with Sliding Backgrounds -->
+    <section style="height:90vh;position:relative;overflow:hidden;margin-top: -70px;">
+        <div style="position:absolute;top:0;left:0;width:100%;height:100%;background:url('https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80') center/cover no-repeat;animation:slideShow 24s infinite;opacity:1;" class="hero-slide"></div>
+        <div style="position:absolute;top:0;left:0;width:100%;height:100%;background:url('https://images.unsplash.com/photo-1566073771259-6a8506099945?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80') center/cover no-repeat;animation:slideShow 24s infinite 8s;opacity:0;" class="hero-slide"></div>
+        <div style="position:absolute;top:0;left:0;width:100%;height:100%;background:url('https://images.unsplash.com/photo-1535827841776-24afc1e255ac?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80') center/cover no-repeat;animation:slideShow 24s infinite 16s;opacity:0;" class="hero-slide"></div>
+        <div style="position:absolute;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.4);display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:0 2rem;">
+            <h1 style="font-family:'Playfair Display',serif;font-size:4rem;color:white;margin-bottom:1rem;text-shadow:2px 2px 8px rgba(0,0,0,0.5);">Luxury Redefined</h1>
+            <p style="font-size:1.5rem;color:white;max-width:800px;margin-bottom:2rem;text-shadow:1px 1px 4px rgba(0,0,0,0.5);">Experience world-class hospitality with UrbanSphere's premium collection of hotels and resorts</p>
+<div style="display:flex;gap:1rem;flex-wrap:wrap;justify-content:center;">
+    <a href="#destinations" style="text-decoration:none;">
+        <button style="background:#00FFFF;color:#000;border:none;padding:1rem 2rem;border-radius:6px;font-weight:600;cursor:pointer;transition:all 0.3s ease;font-size:1.1rem;"
+            onmouseover="this.style.background='#00CED1';this.style.transform='translateY(-3px)'"
+            onmouseout="this.style.background='#00FFFF';this.style.transform='translateY(0)'">
+            Explore Resorts
+        </button>
+    </a>
+
+    <a href="#offers" style="text-decoration:none;">
+        <button style="background:transparent;color:white;border:2px solid white;padding:1rem 2rem;border-radius:6px;font-weight:600;cursor:pointer;transition:all 0.3s ease;font-size:1.1rem;"
+            onmouseover="this.style.background='rgba(255,255,255,0.2)';this.style.transform='translateY(-3px)'"
+            onmouseout="this.style.background='transparent';this.style.transform='translateY(0)'">
+            Special Offers
+        </button>
+    </a>
+</div>
+
+        </div>
+    </section>
+<section style="background:white;padding:0.5rem 0;box-shadow:0 5px 15px rgba(0,0,0,0.1);margin-top:-30px;position:relative;z-index:100;border-radius:10px;max-width:1300px;margin-left:auto;margin-right:auto;">
+  <div style="display:flex;flex-wrap:wrap;gap:1rem;padding:0.5rem 2rem;align-items:stretch;">
+
+    <!-- Destination (linked, not dropdown) -->
+    <div style="flex:1 1 220px;display:flex;align-items:stretch;">
+      <a href="hotels_hero_subpage" style="display:flex;justify-content:space-between;align-items:center;width:100%;padding:0.6rem;border:1px solid #ddd;border-radius:6px;font-family:inherit;background:white;color:#333;text-decoration:none;font-weight:600;font-size:0.95rem;">
+        <span>DESTINATION - Select Hotel, City, Region</span> <span>🔍</span>
+      </a>
+    </div>
+
+    <!-- Travel Dates (linked, not editable) -->
+    <div style="flex:1 1 220px;display:flex;align-items:stretch;">
+      <a href="hotels_hero_subpage" id="datesDisplay" style="display:flex;justify-content:space-between;align-items:center;width:100%;padding:0.6rem;border:1px solid #ddd;border-radius:6px;font-family:inherit;background:white;color:#333;text-decoration:none;font-weight:600;font-size:0.95rem;">
+        <span>TRAVEL DATES - 08/08/2025 - 09/08/2025</span> <span>📅</span>
+      </a>
+    </div>
+
+    <!-- Guests (linked, not dropdown) -->
+    <div style="flex:1 1 220px;display:flex;align-items:stretch;">
+      <a href="#" style="display:flex;justify-content:space-between;align-items:center;width:100%;padding:0.6rem;border:1px solid #ddd;border-radius:6px;font-family:inherit;background:white;color:#333;text-decoration:none;font-weight:600;font-size:0.95rem;">
+        <span>ROOMS & GUESTS - 2 Adults</span> <span>⬇</span>
+      </a>
+    </div>
+
+    <!-- Check Availability Button -->
+    <div style="flex:1 1 220px;display:flex;align-items:stretch;">
+      <a href="hotels_hero_subpage.html" style="display:flex;justify-content:center;align-items:center;width:100%;padding:0.6rem 1rem;background:#00CED1;color:white;border:none;border-radius:6px;font-weight:600;cursor:pointer;text-decoration:none;transition:all 0.3s ease;font-size:0.95rem;" onmouseover="this.style.background='#00A8A8';this.style.transform='translateY(-2px)'" onmouseout="this.style.background='#00CED1';this.style.transform='translateY(0)';">
+        Check Availability
+      </a>
+    </div>
+
+  </div>
+</section>
+
+<script>
+  // Set default date string in display (e.g., today and tomorrow)
+  const today = new Date();
+  const tomorrow = new Date();
+  tomorrow.setDate(today.getDate() + 1);
+
+  function formatDate(date) {
+    const day = String(date.getDate()).padStart(2, '0');
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const year = date.getFullYear();
+    return `${day}/${month}/${year}`;
+  }
+
+  document.getElementById('datesDisplay').innerHTML = `<span>TRAVEL DATES - ${formatDate(today)} - ${formatDate(tomorrow)}</span> <span>📅</span>`;
+</script>
+
+<section id="destinations" style="padding:5rem 2rem;max-width:1200px;margin:0 auto;">
+    <div style="text-align:center;margin-bottom:3rem;">
+        <h2 style="font-family:'Playfair Display',serif;font-size:2.5rem;color:#0f2027;margin-bottom:1rem;">Our Premier Destinations</h2>
+        <p style="max-width:700px;margin:0 auto;color:#666;">Discover UrbanSphere's curated collection of luxury hotels in the world's most sought-after locations</p>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(350px,1fr));gap:2rem;">
+        <!-- Card 1 -->
+        <div style="border-radius:10px;overflow:hidden;box-shadow:0 5px 15px rgba(0,0,0,0.1);transition:all 0.3s ease;position:relative;animation:float 6s ease-in-out infinite;" onmouseover="this.style.animation='none';this.style.transform='translateY(-10px)';this.style.boxShadow='0 15px 30px rgba(0,0,0,0.2)'" onmouseout="this.style.animation='float 6s ease-in-out infinite';this.style.transform='translateY(0)';this.style.boxShadow='0 5px 15px rgba(0,0,0,0.1)'">
+            <img src="https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="UrbanSphere Beach Resort" loading="lazy" style="width:100%;height:250px;object-fit:cover;">
+            <div style="padding:1.5rem;">
+                <h3 style="font-size:1.5rem;margin-bottom:0.5rem;color:#0f2027;">UrbanSphere Beach Resort</h3>
+                <p style="color:#666;margin-bottom:1rem;">Maldives</p>
+                <p style="margin-bottom:1.5rem;">Private villas with direct beach access and panoramic ocean views</p>
+                <a href="#" style="color:#00CED1;text-decoration:none;font-weight:600;display:inline-flex;align-items:center;">Explore <span style="margin-left:5px;transition:transform 0.3s ease;">→</span></a>
+            </div>
+        </div>
+
+        <!-- Card 2 -->
+        <div style="border-radius:10px;overflow:hidden;box-shadow:0 5px 15px rgba(0,0,0,0.1);transition:all 0.3s ease;position:relative;animation:float 6s ease-in-out infinite 2s;" onmouseover="this.style.animation='none';this.style.transform='translateY(-10px)';this.style.boxShadow='0 15px 30px rgba(0,0,0,0.2)'" onmouseout="this.style.animation='float 6s ease-in-out infinite 2s';this.style.transform='translateY(0)';this.style.boxShadow='0 5px 15px rgba(0,0,0,0.1)'">
+            <img src="https://images.unsplash.com/photo-1530521954074-e64f6810b32d?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="UrbanSphere Mountain Retreat" loading="lazy" style="width:100%;height:250px;object-fit:cover;">
+            <div style="padding:1.5rem;">
+                <h3 style="font-size:1.5rem;margin-bottom:0.5rem;color:#0f2027;">UrbanSphere Mountain Retreat</h3>
+                <p style="color:#666;margin-bottom:1rem;">Swiss Alps</p>
+                <p style="margin-bottom:1.5rem;">Luxury chalets with breathtaking alpine views and private ski access</p>
+                <a href="#" style="color:#00CED1;text-decoration:none;font-weight:600;display:inline-flex;align-items:center;">Explore <span style="margin-left:5px;transition:transform 0.3s ease;">→</span></a>
+            </div>
+        </div>
+
+        <!-- Card 3 -->
+        <div style="border-radius:10px;overflow:hidden;box-shadow:0 5px 15px rgba(0,0,0,0.1);transition:all 0.3s ease;position:relative;animation:float 6s ease-in-out infinite 4s;" onmouseover="this.style.animation='none';this.style.transform='translateY(-10px)';this.style.boxShadow='0 15px 30px rgba(0,0,0,0.2)'" onmouseout="this.style.animation='float 6s ease-in-out infinite 4s';this.style.transform='translateY(0)';this.style.boxShadow='0 5px 15px rgba(0,0,0,0.1)'">
+            <img src="images/urban_spaces_hotels.png" alt="UrbanSphere Urban Oasis" loading="lazy" style="width:100%;height:250px;object-fit:cover;">
+            <div style="padding:1.5rem;">
+                <h3 style="font-size:1.5rem;margin-bottom:0.5rem;color:#0f2027;">UrbanSphere Urban Oasis</h3>
+                <p style="color:#666;margin-bottom:1rem;">Tokyo</p>
+                <p style="margin-bottom:1.5rem;">Sky-high luxury with panoramic city views and Michelin-star dining</p>
+                <a href="#" style="color:#00CED1;text-decoration:none;font-weight:600;display:inline-flex;align-items:center;">Explore <span style="margin-left:5px;transition:transform 0.3s ease;">→</span></a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<style>
+    @keyframes float {
+        0% { transform: translateY(0px); }
+        50% { transform: translateY(-15px); }
+        100% { transform: translateY(0px); }
+    }
+    
+    #destinations a:hover span {
+        transform: translateX(5px);
+    }
+</style>
+
+    <!-- More sections would follow the same pattern -->
+    <!-- Sections would include: Unique Experiences, Luxury Suites, Dining, Spa & Wellness, Business Facilities, Wedding Venues, Testimonials, Awards, Sustainability, Special Offers, Loyalty Program, Gallery, Contact, Footer -->
+
+<section id="dining" style="padding:5rem 2rem;background:#f8f9fa;position:relative;">
+    <div style="max-width:1200px;margin:0 auto;">
+        <div style="text-align:center;margin-bottom:3rem;">
+            <h2 style="font-family:'Playfair Display',serif;font-size:2.5rem;color:#0f2027;margin-bottom:1rem;position:relative;display:inline-block;">
+                Culinary Excellence
+                <span style="content:'';position:absolute;bottom:-10px;left:50%;transform:translateX(-50%);width:80px;height:3px;background:#00CED1;"></span>
+            </h2>
+            <p style="max-width:700px;margin:1rem auto;color:#666;font-size:1.1rem;">Award-winning dining experiences curated by world-renowned chefs</p>
+        </div>
+        
+        <!-- Tab Buttons -->
+        <div style="display:flex;justify-content:center;margin-bottom:3rem;flex-wrap:wrap;gap:1rem;">
+            <button onclick="changeDiningTab('restaurants')" 
+                    style="background:#00CED1;color:white;border:none;padding:0.8rem 2.5rem;border-radius:30px;font-weight:600;cursor:pointer;transition:all 0.4s ease;font-size:1rem;box-shadow:0 4px 15px rgba(0,206,209,0.3);" 
+                    id="restaurantsTab" class="dining-tab active-tab">
+                Restaurants
+            </button>
+            <button onclick="changeDiningTab('bars')" 
+                    style="background:#f0f0f0;color:#333;border:none;padding:0.8rem 2.5rem;border-radius:30px;font-weight:600;cursor:pointer;transition:all 0.4s ease;font-size:1rem;" 
+                    id="barsTab" class="dining-tab">
+                Bars & Lounges
+            </button>
+            <button onclick="changeDiningTab('private')" 
+                    style="background:#f0f0f0;color:#333;border:none;padding:0.8rem 2.5rem;border-radius:30px;font-weight:600;cursor:pointer;transition:all 0.4s ease;font-size:1rem;" 
+                    id="privateTab" class="dining-tab">
+                Private Dining
+            </button>
+        </div>
+        
+        <!-- Restaurants Content -->
+        <div id="restaurantsContent" class="tab-content" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:2.5rem;">
+            <!-- Card 1 -->
+            <div class="dining-card" style="background:white;border-radius:15px;overflow:hidden;transition:all 0.4s ease;position:relative;box-shadow:0 5px 25px rgba(0,0,0,0.05);">
+                <div style="position:relative;overflow:hidden;">
+                    <img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Azure Restaurant" loading="lazy" 
+                         style="width:100%;height:220px;object-fit:cover;transition:transform 0.5s ease;">
+                    <div style="position:absolute;top:15px;right:15px;background:rgba(0,206,209,0.9);color:white;padding:0.3rem 0.8rem;border-radius:20px;font-size:0.8rem;font-weight:600;">
+                        Ocean View
+                    </div>
+                </div>
+                <div style="padding:1.8rem;">
+                    <h3 style="margin-bottom:0.5rem;color:#0f2027;font-size:1.4rem;font-weight:700;">Azure</h3>
+                    <p style="color:#00CED1;margin-bottom:1rem;font-weight:600;font-size:0.95rem;">Mediterranean Cuisine</p>
+                    <p style="color:#666;margin-bottom:1.5rem;font-size:0.95rem;line-height:1.6;">Fresh seafood and seasonal ingredients with panoramic ocean views from our cliffside location.</p>
+                    <div style="display:flex;justify-content:space-between;align-items:center;">
+                        <div>
+                            <span style="display:block;font-weight:600;font-size:0.9rem;color:#333;">Dinner: 6PM - 11PM</span>
+                            <span style="display:block;font-size:0.8rem;color:#888;">Last seating at 10PM</span>
+                        </div>
+                        <button class="reserve-btn" 
+                                style="background:transparent;color:#00CED1;border:2px solid #00CED1;padding:0.5rem 1.5rem;border-radius:25px;font-weight:600;cursor:pointer;transition:all 0.3s ease;">
+                            Reserve
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Card 2 -->
+            <div class="dining-card" style="background:white;border-radius:15px;overflow:hidden;transition:all 0.4s ease;position:relative;box-shadow:0 5px 25px rgba(0,0,0,0.05);">
+                <div style="position:relative;overflow:hidden;">
+                    <img src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Sakura Teppanyaki" loading="lazy" 
+                         style="width:100%;height:220px;object-fit:cover;transition:transform 0.5s ease;">
+                    <div style="position:absolute;top:15px;right:15px;background:rgba(0,206,209,0.9);color:white;padding:0.3rem 0.8rem;border-radius:20px;font-size:0.8rem;font-weight:600;">
+                        Chef's Table
+                    </div>
+                </div>
+                <div style="padding:1.8rem;">
+                    <h3 style="margin-bottom:0.5rem;color:#0f2027;font-size:1.4rem;font-weight:700;">Sakura</h3>
+                    <p style="color:#00CED1;margin-bottom:1rem;font-weight:600;font-size:0.95rem;">Japanese Teppanyaki</p>
+                    <p style="color:#666;margin-bottom:1.5rem;font-size:0.95rem;line-height:1.6;">Interactive dining experience with master chefs preparing premium wagyu and seafood.</p>
+                    <div style="display:flex;justify-content:space-between;align-items:center;">
+                        <div>
+                            <span style="display:block;font-weight:600;font-size:0.9rem;color:#333;">Dinner: 5:30PM - 10:30PM</span>
+                            <span style="display:block;font-size:0.8rem;color:#888;">3 seatings per evening</span>
+                        </div>
+                        <button class="reserve-btn" 
+                                style="background:transparent;color:#00CED1;border:2px solid #00CED1;padding:0.5rem 1.5rem;border-radius:25px;font-weight:600;cursor:pointer;transition:all 0.3s ease;">
+                            Reserve
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Card 3 (hidden initially, shown when screen is larger) -->
+            <div class="dining-card" style="background:white;border-radius:15px;overflow:hidden;transition:all 0.4s ease;position:relative;box-shadow:0 5px 25px rgba(0,0,0,0.05);">
+                <div style="position:relative;overflow:hidden;">
+                    <img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="La Terrazza" loading="lazy" 
+                         style="width:100%;height:220px;object-fit:cover;transition:transform 0.5s ease;">
+                    <div style="position:absolute;top:15px;right:15px;background:rgba(0,206,209,0.9);color:white;padding:0.3rem 0.8rem;border-radius:20px;font-size:0.8rem;font-weight:600;">
+                        Rooftop
+                    </div>
+                </div>
+                <div style="padding:1.8rem;">
+                    <h3 style="margin-bottom:0.5rem;color:#0f2027;font-size:1.4rem;font-weight:700;">La Terrazza</h3>
+                    <p style="color:#00CED1;margin-bottom:1rem;font-weight:600;font-size:0.95rem;">Italian Fine Dining</p>
+                    <p style="color:#666;margin-bottom:1.5rem;font-size:0.95rem;line-height:1.6;">Authentic Italian cuisine with handcrafted pasta and an extensive wine cellar.</p>
+                    <div style="display:flex;justify-content:space-between;align-items:center;">
+                        <div>
+                            <span style="display:block;font-weight:600;font-size:0.9rem;color:#333;">Dinner: 6PM - 11PM</span>
+                            <span style="display:block;font-size:0.8rem;color:#888;">Weekend brunch available</span>
+                        </div>
+                        <button class="reserve-btn" 
+                                style="background:transparent;color:#00CED1;border:2px solid #00CED1;padding:0.5rem 1.5rem;border-radius:25px;font-weight:600;cursor:pointer;transition:all 0.3s ease;">
+                            Reserve
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Bars & Lounges Content -->
+        <div id="barsContent" class="tab-content" style="display:none;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:2.5rem;">
+            <!-- Bar Card 1 -->
+            <div class="dining-card" style="background:white;border-radius:15px;overflow:hidden;transition:all 0.4s ease;position:relative;box-shadow:0 5px 25px rgba(0,0,0,0.05);">
+                <div style="position:relative;overflow:hidden;">
+                    <img src="https://images.unsplash.com/photo-1536935338788-846bb9981813?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Sky Lounge" loading="lazy" 
+                         style="width:100%;height:220px;object-fit:cover;transition:transform 0.5s ease;">
+                    <div style="position:absolute;top:15px;right:15px;background:rgba(0,206,209,0.9);color:white;padding:0.3rem 0.8rem;border-radius:20px;font-size:0.8rem;font-weight:600;">
+                        Live Music
+                    </div>
+                </div>
+                <div style="padding:1.8rem;">
+                    <h3 style="margin-bottom:0.5rem;color:#0f2027;font-size:1.4rem;font-weight:700;">Celestial Lounge</h3>
+                    <p style="color:#00CED1;margin-bottom:1rem;font-weight:600;font-size:0.95rem;">Rooftop Bar</p>
+                    <p style="color:#666;margin-bottom:1.5rem;font-size:0.95rem;line-height:1.6;">Signature cocktails with 360° city views and nightly jazz performances.</p>
+                    <div style="display:flex;justify-content:space-between;align-items:center;">
+                        <div>
+                            <span style="display:block;font-weight:600;font-size:0.9rem;color:#333;">5PM - 2AM Daily</span>
+                            <span style="display:block;font-size:0.8rem;color:#888;">Happy Hour 5-7PM</span>
+                        </div>
+                        <button class="reserve-btn" 
+                                style="background:transparent;color:#00CED1;border:2px solid #00CED1;padding:0.5rem 1.5rem;border-radius:25px;font-weight:600;cursor:pointer;transition:all 0.3s ease;">
+                            View Menu
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Bar Card 2 -->
+            <div class="dining-card" style="background:white;border-radius:15px;overflow:hidden;transition:all 0.4s ease;position:relative;box-shadow:0 5px 25px rgba(0,0,0,0.05);">
+                <div style="position:relative;overflow:hidden;">
+                    <img src="https://images.unsplash.com/photo-1572116469696-31de0f17cc34?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Whiskey Library" loading="lazy" 
+                         style="width:100%;height:220px;object-fit:cover;transition:transform 0.5s ease;">
+                    <div style="position:absolute;top:15px;right:15px;background:rgba(0,206,209,0.9);color:white;padding:0.3rem 0.8rem;border-radius:20px;font-size:0.8rem;font-weight:600;">
+                        Premium Spirits
+                    </div>
+                </div>
+                <div style="padding:1.8rem;">
+                    <h3 style="margin-bottom:0.5rem;color:#0f2027;font-size:1.4rem;font-weight:700;">The Oak Room</h3>
+                    <p style="color:#00CED1;margin-bottom:1rem;font-weight:600;font-size:0.95rem;">Whiskey & Cigar Lounge</p>
+                    <p style="color:#666;margin-bottom:1.5rem;font-size:0.95rem;line-height:1.6;">Over 200 rare whiskeys in our members-only speakeasy with humidor.</p>
+                    <div style="display:flex;justify-content:space-between;align-items:center;">
+                        <div>
+                            <span style="display:block;font-weight:600;font-size:0.9rem;color:#333;">6PM - 1AM Daily</span>
+                            <span style="display:block;font-size:0.8rem;color:#888;">Membership available</span>
+                        </div>
+                        <button class="reserve-btn" 
+                                style="background:transparent;color:#00CED1;border:2px solid #00CED1;padding:0.5rem 1.5rem;border-radius:25px;font-weight:600;cursor:pointer;transition:all 0.3s ease;">
+                            Enquire
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Private Dining Content -->
+        <div id="privateContent" class="tab-content" style="display:none;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:2.5rem;">
+            <!-- Private Dining Card 1 -->
+            <div class="dining-card" style="background:white;border-radius:15px;overflow:hidden;transition:all 0.4s ease;position:relative;box-shadow:0 5px 25px rgba(0,0,0,0.05);">
+                <div style="position:relative;overflow:hidden;">
+                    <img src="https://images.unsplash.com/photo-1600891964599-f61ba0e24092?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Chef's Table" loading="lazy" 
+                         style="width:100%;height:220px;object-fit:cover;transition:transform 0.5s ease;">
+                    <div style="position:absolute;top:15px;right:15px;background:rgba(0,206,209,0.9);color:white;padding:0.3rem 0.8rem;border-radius:20px;font-size:0.8rem;font-weight:600;">
+                        Chef's Experience
+                    </div>
+                </div>
+                <div style="padding:1.8rem;">
+                    <h3 style="margin-bottom:0.5rem;color:#0f2027;font-size:1.4rem;font-weight:700;">The Chef's Table</h3>
+                    <p style="color:#00CED1;margin-bottom:1rem;font-weight:600;font-size:0.95rem;">Exclusive Kitchen View</p>
+                    <p style="color:#666;margin-bottom:1.5rem;font-size:0.95rem;line-height:1.6;">Intimate 8-seat dining within our kitchen with personalized menu.</p>
+                    <div style="display:flex;justify-content:space-between;align-items:center;">
+                        <div>
+                            <span style="display:block;font-weight:600;font-size:0.9rem;color:#333;">By reservation only</span>
+                            <span style="display:block;font-size:0.8rem;color:#888;">Advance notice required</span>
+                        </div>
+                        <button class="reserve-btn" 
+                                style="background:transparent;color:#00CED1;border:2px solid #00CED1;padding:0.5rem 1.5rem;border-radius:25px;font-weight:600;cursor:pointer;transition:all 0.3s ease;">
+                            Book Now
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Private Dining Card 2 -->
+            <div class="dining-card" style="background:white;border-radius:15px;overflow:hidden;transition:all 0.4s ease;position:relative;box-shadow:0 5px 25px rgba(0,0,0,0.05);">
+                <div style="position:relative;overflow:hidden;">
+                    <img src="https://images.unsplash.com/photo-1565538810643-b5bdb714032a?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Wine Cellar" loading="lazy" 
+                         style="width:100%;height:220px;object-fit:cover;transition:transform 0.5s ease;">
+                    <div style="position:absolute;top:15px;right:15px;background:rgba(0,206,209,0.9);color:white;padding:0.3rem 0.8rem;border-radius:20px;font-size:0.8rem;font-weight:600;">
+                        Wine Pairing
+                    </div>
+                </div>
+                <div style="padding:1.8rem;">
+                    <h3 style="margin-bottom:0.5rem;color:#0f2027;font-size:1.4rem;font-weight:700;">The Vault</h3>
+                    <p style="color:#00CED1;margin-bottom:1rem;font-weight:600;font-size:0.95rem;">Private Wine Cellar</p>
+                    <p style="color:#666;margin-bottom:1.5rem;font-size:0.95rem;line-height:1.6;">Exclusive dining in our temperature-controlled wine cellar for up to 12 guests.</p>
+                    <div style="display:flex;justify-content:space-between;align-items:center;">
+                        <div>
+                            <span style="display:block;font-weight:600;font-size:0.9rem;color:#333;">Groups of 6-12</span>
+                            <span style="display:block;font-size:0.8rem;color:#888;">Sommelier service</span>
+                        </div>
+                        <button class="reserve-btn" 
+                                style="background:transparent;color:#00CED1;border:2px solid #00CED1;padding:0.5rem 1.5rem;border-radius:25px;font-weight:600;cursor:pointer;transition:all 0.3s ease;">
+                            Enquire
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<style>
+    /* Animation for the dining cards */
+    .dining-card:hover {
+        transform: translateY(-10px) !important;
+        box-shadow:0 15px 30px rgba(0,0,0,0.1) !important;
+    }
+    
+    .dining-card:hover img {
+        transform: scale(1.05);
+    }
+    
+    .reserve-btn:hover {
+        background:#00CED1 !important;
+        color:white !important;
+        box-shadow:0 5px 15px rgba(0,206,209,0.4);
+    }
+    
+    .active-tab {
+        background:#00CED1 !important;
+        color:white !important;
+        box-shadow:0 4px 15px rgba(0,206,209,0.3) !important;
+    }
+    
+    .tab-content {
+        animation: fadeIn 0.6s ease-out;
+    }
+    
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+</style>
+
+<script>
+    function changeDiningTab(tabName) {
+        // Hide all tab contents
+        document.querySelectorAll('.tab-content').forEach(content => {
+            content.style.display = 'none';
+        });
+        
+        // Remove active class from all tabs
+        document.querySelectorAll('.dining-tab').forEach(tab => {
+            tab.classList.remove('active-tab');
+            tab.style.background = '#f0f0f0';
+            tab.style.color = '#333';
+            tab.style.boxShadow = 'none';
+        });
+        
+        // Show selected tab content
+        document.getElementById(tabName + 'Content').style.display = 'grid';
+        
+        // Add active class to selected tab
+        document.getElementById(tabName + 'Tab').classList.add('active-tab');
+        document.getElementById(tabName + 'Tab').style.background = '#00CED1';
+        document.getElementById(tabName + 'Tab').style.color = 'white';
+        document.getElementById(tabName + 'Tab').style.boxShadow = '0 4px 15px rgba(0,206,209,0.3)';
+    }
+</script>
+<!-- Spa & Wellness Section -->
+<section id="spa-wellness" style="padding:6rem 2rem;background:linear-gradient(135deg, #0a1929, #1a3a4a);color:white;position:relative;overflow:hidden;">
+    <!-- Decorative elements -->
+    <div style="position:absolute;top:-50px;right:-50px;width:200px;height:200px;border-radius:50%;background:radial-gradient(circle, rgba(0,206,209,0.15) 0%, transparent 70%);"></div>
+    <div style="position:absolute;bottom:-100px;left:-100px;width:300px;height:300px;border-radius:50%;background:radial-gradient(circle, rgba(0,206,209,0.1) 0%, transparent 70%);"></div>
+    
+    <div style="max-width:1200px;margin:0 auto;position:relative;z-index:1;">
+        <!-- Section Header -->
+        <div style="text-align:center;margin-bottom:4rem;">
+            <h2 style="font-family:'Playfair Display',serif;font-size:2.8rem;margin-bottom:1rem;position:relative;display:inline-block;">
+                Spa & Wellness
+                <span style="content:'';position:absolute;bottom:-10px;left:50%;transform:translateX(-50%);width:80px;height:3px;background:#00CED1;"></span>
+            </h2>
+            <p style="max-width:700px;margin:1rem auto;font-size:1.1rem;opacity:0.9;line-height:1.6;">
+                Rejuvenate your mind, body and soul with our holistic wellness programs curated by world-class therapists
+            </p>
+        </div>
+        
+        <!-- Wellness Cards Grid -->
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:2.5rem;">
+            <!-- Card 1 - Signature Massages -->
+            <div class="wellness-card" style="background:rgba(255,255,255,0.05);border-radius:20px;padding:2.5rem;text-align:center;transition:all 0.6s cubic-bezier(0.25, 0.8, 0.25, 1);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,0.08);position:relative;overflow:hidden;">
+                <div class="wellness-icon" style="width:90px;height:90px;background:rgba(0,206,209,0.15);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 2rem;transition:all 0.5s ease;border:1px solid rgba(0,206,209,0.3);">
+                    <span style="font-size:2.5rem;">💆</span>
+                </div>
+                <h3 style="margin-bottom:1.2rem;font-size:1.4rem;font-weight:600;">Signature Massages</h3>
+                <p style="opacity:0.9;font-size:0.95rem;line-height:1.7;margin-bottom:1.5rem;">
+                    Traditional techniques blended with modern therapies for complete relaxation and muscle relief
+                </p>
+                <a href="#" style="color:#00CED1;text-decoration:none;font-weight:500;display:inline-flex;align-items:center;justify-content:center;gap:8px;">
+                    Explore Treatments
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="transition:transform 0.3s ease;">
+                        <path d="M5 12h14M12 5l7 7-7 7"></path>
+                    </svg>
+                </a>
+                <div class="card-hover-bg" style="position:absolute;top:0;left:0;width:100%;height:100%;background:linear-gradient(135deg, rgba(0,206,209,0.1) 0%, transparent 100%);opacity:0;transition:opacity 0.5s ease;z-index:-1;"></div>
+            </div>
+            
+            <!-- Card 2 - Holistic Therapies -->
+            <div class="wellness-card" style="background:rgba(255,255,255,0.05);border-radius:20px;padding:2.5rem;text-align:center;transition:all 0.6s cubic-bezier(0.25, 0.8, 0.25, 1);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,0.08);position:relative;overflow:hidden;">
+                <div class="wellness-icon" style="width:90px;height:90px;background:rgba(0,206,209,0.15);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 2rem;transition:all 0.5s ease;border:1px solid rgba(0,206,209,0.3);">
+                    <span style="font-size:2.5rem;">🌿</span>
+                </div>
+                <h3 style="margin-bottom:1.2rem;font-size:1.4rem;font-weight:600;">Holistic Therapies</h3>
+                <p style="opacity:0.9;font-size:0.95rem;line-height:1.7;margin-bottom:1.5rem;">
+                    Ancient healing practices including Ayurveda, acupuncture and energy balancing treatments
+                </p>
+                <a href="#" style="color:#00CED1;text-decoration:none;font-weight:500;display:inline-flex;align-items:center;justify-content:center;gap:8px;">
+                    Explore Treatments
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="transition:transform 0.3s ease;">
+                        <path d="M5 12h14M12 5l7 7-7 7"></path>
+                    </svg>
+                </a>
+                <div class="card-hover-bg" style="position:absolute;top:0;left:0;width:100%;height:100%;background:linear-gradient(135deg, rgba(0,206,209,0.1) 0%, transparent 100%);opacity:0;transition:opacity 0.5s ease;z-index:-1;"></div>
+            </div>
+            
+            <!-- Card 3 - Beauty Treatments -->
+            <div class="wellness-card" style="background:rgba(255,255,255,0.05);border-radius:20px;padding:2.5rem;text-align:center;transition:all 0.6s cubic-bezier(0.25, 0.8, 0.25, 1);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,0.08);position:relative;overflow:hidden;">
+                <div class="wellness-icon" style="width:90px;height:90px;background:rgba(0,206,209,0.15);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 2rem;transition:all 0.5s ease;border:1px solid rgba(0,206,209,0.3);">
+                    <span style="font-size:2.5rem;">💅</span>
+                </div>
+                <h3 style="margin-bottom:1.2rem;font-size:1.4rem;font-weight:600;">Beauty Rituals</h3>
+                <p style="opacity:0.9;font-size:0.95rem;line-height:1.7;margin-bottom:1.5rem;">
+                    Luxurious facials, body treatments and nail services using premium organic products
+                </p>
+                <a href="#" style="color:#00CED1;text-decoration:none;font-weight:500;display:inline-flex;align-items:center;justify-content:center;gap:8px;">
+                    Explore Treatments
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="transition:transform 0.3s ease;">
+                        <path d="M5 12h14M12 5l7 7-7 7"></path>
+                    </svg>
+                </a>
+                <div class="card-hover-bg" style="position:absolute;top:0;left:0;width:100%;height:100%;background:linear-gradient(135deg, rgba(0,206,209,0.1) 0%, transparent 100%);opacity:0;transition:opacity 0.5s ease;z-index:-1;"></div>
+            </div>
+            
+         
+</section>
+
+<style>
+    /* Wellness Card Animations */
+    .wellness-card {
+        transform: translateY(0);
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    }
+    
+    .wellness-card:hover {
+        transform: translateY(-15px) scale(1.02) !important;
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3) !important;
+        background: rgba(255, 255, 255, 0.1) !important;
+        border-color: rgba(0, 206, 209, 0.3) !important;
+    }
+    
+    .wellness-card:hover .wellness-icon {
+        transform: rotate(15deg) scale(1.1) !important;
+        background: rgba(0, 206, 209, 0.3) !important;
+        box-shadow: 0 5px 15px rgba(0, 206, 209, 0.2);
+    }
+    
+    .wellness-card:hover .card-hover-bg {
+        opacity: 1 !important;
+    }
+    
+    .wellness-card:hover a svg {
+        transform: translateX(5px);
+    }
+    
+    /* Section Animation */
+    #spa-wellness {
+        animation: fadeIn 1s ease-out;
+    }
+    
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+</style>
+
+
+
+<!-- Enhanced Special Offers Section with Countdown Timer -->
+<section id="offers" style="padding:5rem 2rem;background:linear-gradient(135deg,#0f2027,#203a43,#2c5364);color:white;">
+    <div style="max-width:1200px;margin:0 auto;">
+        <div style="text-align:center;margin-bottom:3rem;">
+            <h2 style="font-family:'Playfair Display',serif;font-size:2.5rem;margin-bottom:1rem;position:relative;">
+                <span style="position:absolute;bottom:-10px;left:50%;transform:translateX(-50%);width:80px;height:3px;background:#00CED1;"></span>
+                Exclusive Offers
+            </h2>
+            <p style="max-width:700px;margin:0 auto;opacity:0.8;font-size:1.1rem;">Limited-time packages for unforgettable experiences</p>
+        </div>
+        
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:2rem;" id="offers-container">
+            <!-- Offer Card 1 - Links to Rooms -->
+            <div class="offer-card" style="background:rgba(255,255,255,0.08);border-radius:15px;overflow:hidden;transition:all 0.5s ease;backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,0.1);position:relative;">
+                <div class="offer-badge" style="position:absolute;top:1rem;left:1rem;background:#FF6B6B;color:white;padding:0.3rem 1rem;border-radius:20px;font-weight:600;font-size:0.8rem;z-index:2;">Most Popular</div>
+                <div style="height:200px;position:relative;overflow:hidden;">
+                    <img src="https://images.unsplash.com/photo-1566073771259-6a8506099945?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" 
+                         alt="Summer Escape Offer" 
+                         loading="lazy" 
+                         class="offer-image"
+                         style="width:100%;height:100%;object-fit:cover;transition:transform 0.8s ease;">
+                    <div class="offer-timer" style="position:absolute;bottom:1rem;left:1rem;right:1rem;background:rgba(15,32,39,0.8);padding:0.5rem;border-radius:8px;text-align:center;">
+                        <div style="font-size:0.8rem;margin-bottom:0.3rem;">Offer ends in:</div>
+                        <div id="countdown-1" style="display:flex;justify-content:center;gap:0.8rem;">
+                            <!-- Countdown will be inserted here by JavaScript -->
+                        </div>
+                    </div>
+                </div>
+                <div style="padding:1.8rem;">
+                    <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:0.5rem;">
+                        <h3 style="margin:0;font-size:1.4rem;font-weight:500;">Summer Escape</h3>
+                        <div style="display:flex;flex-direction:column;align-items:flex-end;">
+                            <span style="text-decoration:line-through;opacity:0.7;font-size:0.9rem;">$1,200</span>
+                            <span style="font-weight:700;font-size:1.4rem;color:#00CED1;">$899</span>
+                            <span style="font-size:0.7rem;opacity:0.8;">per night</span>
+                        </div>
+                    </div>
+                    <p style="opacity:0.8;margin-bottom:1.5rem;font-size:0.95rem;min-height:50px;">Enjoy 3 nights in our luxury suite with daily breakfast and $200 spa credit</p>
+                    <ul style="padding-left:1rem;margin-bottom:1.5rem;font-size:0.9rem;opacity:0.9;">
+                        <li style="margin-bottom:0.5rem;">Complimentary airport transfer</li>
+                        <li style="margin-bottom:0.5rem;">Late checkout until 2pm</li>
+                        <li>Welcome drink upon arrival</li>
+                    </ul>
+                    <a href="#rooms" class="offer-button" 
+                            style="display:block;text-align:center;text-decoration:none;width:100%;background:#00CED1;color:#0f2027;border:none;padding:1rem;border-radius:8px;font-weight:600;cursor:pointer;transition:all 0.3s ease;font-size:1rem;">
+                        Book Now
+                    </a>
+                </div>
+            </div>
+            
+            <!-- Offer Card 2 - Links to Dining -->
+            <div class="offer-card" style="background:rgba(255,255,255,0.08);border-radius:15px;overflow:hidden;transition:all 0.5s ease;backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,0.1);position:relative;">
+                <div class="offer-badge" style="position:absolute;top:1rem;left:1rem;background:#00CED1;color:#0f2027;padding:0.3rem 1rem;border-radius:20px;font-weight:600;font-size:0.8rem;z-index:2;">Family Deal</div>
+                <div style="height:200px;position:relative;overflow:hidden;">
+                    <img src="https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" 
+                         alt="Family Getaway" 
+                         loading="lazy" 
+                         class="offer-image"
+                         style="width:100%;height:100%;object-fit:cover;transition:transform 0.8s ease;">
+                    <div class="offer-timer" style="position:absolute;bottom:1rem;left:1rem;right:1rem;background:rgba(15,32,39,0.8);padding:0.5rem;border-radius:8px;text-align:center;">
+                        <div style="font-size:0.8rem;margin-bottom:0.3rem;">Offer ends in:</div>
+                        <div id="countdown-2" style="display:flex;justify-content:center;gap:0.8rem;">
+                            <!-- Countdown will be inserted here by JavaScript -->
+                        </div>
+                    </div>
+                </div>
+                <div style="padding:1.8rem;">
+                    <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:0.5rem;">
+                        <h3 style="margin:0;font-size:1.4rem;font-weight:500;">Family Getaway</h3>
+                        <div style="display:flex;flex-direction:column;align-items:flex-end;">
+                            <span style="text-decoration:line-through;opacity:0.7;font-size:0.9rem;">$1,800</span>
+                            <span style="font-weight:700;font-size:1.4rem;color:#00CED1;">$1,299</span>
+                            <span style="font-size:0.7rem;opacity:0.8;">for 4 nights</span>
+                        </div>
+                    </div>
+                    <p style="opacity:0.8;margin-bottom:1.5rem;font-size:0.95rem;min-height:50px;">Perfect family vacation with connecting rooms and kids stay free</p>
+                    <ul style="padding-left:1rem;margin-bottom:1.5rem;font-size:0.9rem;opacity:0.9;">
+                        <li style="margin-bottom:0.5rem;">Kids eat free (under 12)</li>
+                        <li style="margin-bottom:0.5rem;">Complimentary family activities</li>
+                        <li>Free room upgrade (subject to availability)</li>
+                    </ul>
+                    <a href="#dining" class="offer-button" 
+                            style="display:block;text-align:center;text-decoration:none;width:100%;background:#00CED1;color:#0f2027;border:none;padding:1rem;border-radius:8px;font-weight:600;cursor:pointer;transition:all 0.3s ease;font-size:1rem;">
+                        Book Now
+                    </a>
+                </div>
+            </div>
+            
+            <!-- Offer Card 3 - Links to Amenities -->
+            <div class="offer-card" style="background:rgba(255,255,255,0.08);border-radius:15px;overflow:hidden;transition:all 0.5s ease;backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,0.1);position:relative;">
+                <div class="offer-badge" style="position:absolute;top:1rem;left:1rem;background:#FFD166;color:#0f2027;padding:0.3rem 1rem;border-radius:20px;font-weight:600;font-size:0.8rem;z-index:2;">Romantic</div>
+                <div style="height:200px;position:relative;overflow:hidden;">
+                    <img src="https://images.unsplash.com/photo-1564501049412-61c2a3083791?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" 
+                         alt="Honeymoon Package" 
+                         loading="lazy" 
+                         class="offer-image"
+                         style="width:100%;height:100%;object-fit:cover;transition:transform 0.8s ease;">
+                    <div class="offer-timer" style="position:absolute;bottom:1rem;left:1rem;right:1rem;background:rgba(15,32,39,0.8);padding:0.5rem;border-radius:8px;text-align:center;">
+                        <div style="font-size:0.8rem;margin-bottom:0.3rem;">Offer ends in:</div>
+                        <div id="countdown-3" style="display:flex;justify-content:center;gap:0.8rem;">
+                            <!-- Countdown will be inserted here by JavaScript -->
+                        </div>
+                    </div>
+                </div>
+                <div style="padding:1.8rem;">
+                    <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:0.5rem;">
+                        <h3 style="margin:0;font-size:1.4rem;font-weight:500;">Honeymoon Package</h3>
+                        <div style="display:flex;flex-direction:column;align-items:flex-end;">
+                            <span style="text-decoration:line-through;opacity:0.7;font-size:0.9rem;">$2,500</span>
+                            <span style="font-weight:700;font-size:1.4rem;color:#00CED1;">$1,899</span>
+                            <span style="font-size:0.7rem;opacity:0.8;">for 5 nights</span>
+                        </div>
+                    </div>
+                    <p style="opacity:0.8;margin-bottom:1.5rem;font-size:0.95rem;min-height:50px;">Ultimate romantic experience with champagne and couple's massage</p>
+                    <ul style="padding-left:1rem;margin-bottom:1.5rem;font-size:0.9rem;opacity:0.9;">
+                        <li style="margin-bottom:0.5rem;">Private candlelit dinner</li>
+                        <li style="margin-bottom:0.5rem;">Complimentary room decoration</li>
+                        <li>Sunset cruise for two</li>
+                    </ul>
+                    <a href="#amenities" class="offer-button" 
+                            style="display:block;text-align:center;text-decoration:none;width:100%;background:#00CED1;color:#0f2027;border:none;padding:1rem;border-radius:8px;font-weight:600;cursor:pointer;transition:all 0.3s ease;font-size:1rem;">
+                        Book Now
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+    // Countdown Timer Functionality
+    function initializeCountdown(endDate, elementId) {
+        const countdownElement = document.getElementById(elementId);
+        
+        function updateCountdown() {
+            const now = new Date().getTime();
+            const distance = endDate - now;
+            
+            if (distance < 0) {
+                countdownElement.innerHTML = '<div style="font-weight:600;">Offer Expired</div>';
+                return;
+            }
+            
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+            
+            countdownElement.innerHTML = `
+                <div style="text-align:center;">
+                    <div style="font-weight:600;font-size:1.1rem;">${days}</div>
+                    <div style="font-size:0.7rem;opacity:0.7;">Days</div>
+                </div>
+                <div style="text-align:center;">
+                    <div style="font-weight:600;font-size:1.1rem;">${hours}</div>
+                    <div style="font-size:0.7rem;opacity:0.7;">Hours</div>
+                </div>
+                <div style="text-align:center;">
+                    <div style="font-weight:600;font-size:1.1rem;">${minutes}</div>
+                    <div style="font-size:0.7rem;opacity:0.7;">Mins</div>
+                </div>
+                <div style="text-align:center;">
+                    <div style="font-weight:600;font-size:1.1rem;">${seconds}</div>
+                    <div style="font-size:0.7rem;opacity:0.7;">Secs</div>
+                </div>
+            `;
+        }
+        
+        updateCountdown();
+        const countdownInterval = setInterval(updateCountdown, 1000);
+    }
+    
+    // Set end dates for countdowns (3 days from now, 5 days from now, 7 days from now)
+    const now = new Date();
+    initializeCountdown(new Date(now.getTime() + 3 * 24 * 60 * 60 * 1000), 'countdown-1');
+    initializeCountdown(new Date(now.getTime() + 5 * 24 * 60 * 60 * 1000), 'countdown-2');
+    initializeCountdown(new Date(now.getTime() + 7 * 24 * 60 * 60 * 1000), 'countdown-3');
+    
+    // Add hover effects to all offer cards
+    document.querySelectorAll('.offer-card').forEach(card => {
+        card.addEventListener('mouseenter', function() {
+            this.style.transform = 'translateY(-10px)';
+            this.style.boxShadow = '0 15px 40px rgba(0,206,209,0.3)';
+            this.querySelector('.offer-image').style.transform = 'scale(1.1)';
+        });
+        
+        card.addEventListener('mouseleave', function() {
+            this.style.transform = 'translateY(0)';
+            this.style.boxShadow = 'none';
+            this.querySelector('.offer-image').style.transform = 'scale(1)';
+        });
+    });
+    
+    // Add hover effects to all offer buttons
+    document.querySelectorAll('.offer-button').forEach(button => {
+        button.addEventListener('mouseenter', function() {
+            this.style.background = 'white';
+            this.style.transform = 'scale(1.02)';
+        });
+        
+        button.addEventListener('mouseleave', function() {
+            this.style.background = '#00CED1';
+            this.style.transform = 'scale(1)';
+        });
+    });
+
+    // Smooth scroll for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+            e.preventDefault();
+            const targetId = this.getAttribute('href');
+            const targetElement = document.querySelector(targetId);
+            
+            if (targetElement) {
+                // First filter the gallery if needed
+                if (targetId === '#rooms' || targetId === '#dining' || targetId === '#amenities') {
+                    filterGallery(targetId.substring(1));
+                }
+                
+                // Then scroll to the section
+                targetElement.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            }
+        });
+    });
+
+    // Gallery Filter Functionality (for linking to filtered views)
+    function filterGallery(category) {
+        const items = document.querySelectorAll('.gallery-item');
+        const buttons = document.querySelectorAll('#gallery button');
+        
+        // Update active button
+        buttons.forEach(btn => {
+            if (btn.textContent.toLowerCase().includes(category)) {
+                btn.style.background = '#00CED1';
+                btn.style.color = 'white';
+            } else {
+                btn.style.background = '#f0f0f0';
+                btn.style.color = '#333';
+            }
+        });
+        
+        // Filter items
+        items.forEach(item => {
+            if (category === 'all' || item.dataset.category === category) {
+                item.style.display = 'block';
+            } else {
+                item.style.display = 'none';
+            }
+        });
+    }
+</script>
+
+<style>
+    @media (max-width: 768px) {
+        #offers {
+            padding: 3rem 1rem;
+        }
+        
+        .offer-card {
+            margin-bottom: 1.5rem;
+        }
+        
+        #offers-container {
+            grid-template-columns: 1fr;
+        }
+    }
+</style>
+
+<!-- Enhanced Gallery Section with Lightbox -->
+<section id="gallery" style="padding:5rem 2rem;background:#fff;">
+    <div style="max-width:1200px;margin:0 auto;">
+        <div style="text-align:center;margin-bottom:3rem;">
+            <h2 style="font-family:'Playfair Display',serif;font-size:2.5rem;color:#0f2027;margin-bottom:1rem;position:relative;">
+                <span style="position:absolute;bottom:-10px;left:50%;transform:translateX(-50%);width:80px;height:3px;background:#00CED1;"></span>
+                Property Gallery
+            </h2>
+            <p style="max-width:700px;margin:0 auto;color:#666;font-size:1.1rem;">Immerse yourself in the UrbanSphere experience through our visual journey</p>
+            <div style="display:flex;justify-content:center;gap:1rem;margin-top:2rem;">
+                <button onclick="filterAndScroll('all')" style="background:#00CED1;color:white;border:none;padding:0.5rem 1.5rem;border-radius:20px;font-weight:600;cursor:pointer;transition:all 0.3s ease;">All</button>
+                <button onclick="filterAndScroll('rooms')" style="background:#f0f0f0;color:#333;border:none;padding:0.5rem 1.5rem;border-radius:20px;font-weight:600;cursor:pointer;transition:all 0.3s ease;">Rooms & Suites</button>
+                <button onclick="filterAndScroll('dining')" style="background:#f0f0f0;color:#333;border:none;padding:0.5rem 1.5rem;border-radius:20px;font-weight:600;cursor:pointer;transition:all 0.3s ease;">Dining</button>
+                <button onclick="filterAndScroll('amenities')" style="background:#f0f0f0;color:#333;border:none;padding:0.5rem 1.5rem;border-radius:20px;font-weight:600;cursor:pointer;transition:all 0.3s ease;">Amenities</button>
+            </div>
+        </div>
+        
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.5rem;" id="galleryGrid">
+            <!-- Gallery Item 1 -->
+            <div class="gallery-item" data-category="rooms" id="rooms-card-1" style="overflow:hidden;border-radius:12px;height:300px;position:relative;cursor:pointer;box-shadow:0 5px 15px rgba(0,0,0,0.1);transition:all 0.4s ease;" 
+                 onclick="openLightbox('https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?ixlib=rb-1.2.1&auto=format&fit=crop&w=1600&q=80', 'Luxury Suite')"
+                 onmouseover="this.style.transform='translateY(-10px)';this.querySelector('.gallery-overlay').style.opacity='1';this.querySelector('.gallery-caption').style.bottom='0'"
+                 onmouseout="this.style.transform='translateY(0)';this.querySelector('.gallery-overlay').style.opacity='0';this.querySelector('.gallery-caption').style.bottom='-50px'">
+                <img src="https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" 
+                     alt="Luxury Suite" 
+                     loading="lazy" 
+                     style="width:100%;height:100%;object-fit:cover;transition:transform 0.5s ease;">
+                <div class="gallery-overlay" style="position:absolute;top:0;left:0;right:0;bottom:0;background:linear-gradient(to top,rgba(15,32,39,0.8),transparent);opacity:0;transition:opacity 0.3s ease;"></div>
+                <div class="gallery-caption" style="position:absolute;bottom:-50px;left:0;right:0;padding:1.5rem;color:white;transition:all 0.3s ease;">
+                    <h3 style="margin-bottom:0.5rem;font-size:1.2rem;">Luxury Suite</h3>
+                    <p style="font-size:0.9rem;opacity:0.9;">Ocean view with private balcony</p>
+                </div>
+                <div style="position:absolute;top:1rem;right:1rem;background:#00CED1;color:white;width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.2rem;">+</div>
+            </div>
+            
+            <!-- Gallery Item 2 -->
+            <div class="gallery-item" data-category="dining" id="dining-card-1" style="overflow:hidden;border-radius:12px;height:300px;position:relative;cursor:pointer;box-shadow:0 5px 15px rgba(0,0,0,0.1);transition:all 0.4s ease;" 
+                 onclick="openLightbox('https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?ixlib=rb-1.2.1&auto=format&fit=crop&w=1600&q=80', 'Azure Restaurant')"
+                 onmouseover="this.style.transform='translateY(-10px)';this.querySelector('.gallery-overlay').style.opacity='1';this.querySelector('.gallery-caption').style.bottom='0'"
+                 onmouseout="this.style.transform='translateY(0)';this.querySelector('.gallery-overlay').style.opacity='0';this.querySelector('.gallery-caption').style.bottom='-50px'">
+                <img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" 
+                     alt="Azure Restaurant" 
+                     loading="lazy" 
+                     style="width:100%;height:100%;object-fit:cover;transition:transform 0.5s ease;">
+                <div class="gallery-overlay" style="position:absolute;top:0;left:0;right:0;bottom:0;background:linear-gradient(to top,rgba(15,32,39,0.8),transparent);opacity:0;transition:opacity 0.3s ease;"></div>
+                <div class="gallery-caption" style="position:absolute;bottom:-50px;left:0;right:0;padding:1.5rem;color:white;transition:all 0.3s ease;">
+                    <h3 style="margin-bottom:0.5rem;font-size:1.2rem;">Azure Restaurant</h3>
+                    <p style="font-size:0.9rem;opacity:0.9;">Mediterranean fine dining</p>
+                </div>
+                <div style="position:absolute;top:1rem;right:1rem;background:#00CED1;color:white;width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.2rem;">+</div>
+            </div>
+            
+            <!-- Gallery Item 3 -->
+            <div class="gallery-item" data-category="amenities" id="amenities-card-1" style="overflow:hidden;border-radius:12px;height:300px;position:relative;cursor:pointer;box-shadow:0 5px 15px rgba(0,0,0,0.1);transition:all 0.4s ease;" 
+                 onclick="openLightbox('https://images.unsplash.com/photo-1531058020387-3be344556be6?ixlib=rb-1.2.1&auto=format&fit=crop&w=1600&q=80', 'Infinity Pool')"
+                 onmouseover="this.style.transform='translateY(-10px)';this.querySelector('.gallery-overlay').style.opacity='1';this.querySelector('.gallery-caption').style.bottom='0'"
+                 onmouseout="this.style.transform='translateY(0)';this.querySelector('.gallery-overlay').style.opacity='0';this.querySelector('.gallery-caption').style.bottom='-50px'">
+                <img src="https://images.unsplash.com/photo-1531058020387-3be344556be6?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" 
+                     alt="Infinity Pool" 
+                     loading="lazy" 
+                     style="width:100%;height:100%;object-fit:cover;transition:transform 0.5s ease;">
+                <div class="gallery-overlay" style="position:absolute;top:0;left:0;right:0;bottom:0;background:linear-gradient(to top,rgba(15,32,39,0.8),transparent);opacity:0;transition:opacity 0.3s ease;"></div>
+                <div class="gallery-caption" style="position:absolute;bottom:-50px;left:0;right:0;padding:1.5rem;color:white;transition:all 0.3s ease;">
+                    <h3 style="margin-bottom:0.5rem;font-size:1.2rem;">Infinity Pool</h3>
+                    <p style="font-size:0.9rem;opacity:0.9;">Panoramic ocean views</p>
+                </div>
+                <div style="position:absolute;top:1rem;right:1rem;background:#00CED1;color:white;width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.2rem;">+</div>
+            </div>
+            
+            <!-- Gallery Item 4 -->
+            <div class="gallery-item" data-category="rooms" id="rooms-card-2" style="overflow:hidden;border-radius:12px;height:300px;position:relative;cursor:pointer;box-shadow:0 5px 15px rgba(0,0,0,0.1);transition:all 0.4s ease;" 
+                 onclick="openLightbox('https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?ixlib=rb-1.2.1&auto=format&fit=crop&w=1600&q=80', 'Presidential Suite')"
+                 onmouseover="this.style.transform='translateY(-10px)';this.querySelector('.gallery-overlay').style.opacity='1';this.querySelector('.gallery-caption').style.bottom='0'"
+                 onmouseout="this.style.transform='translateY(0)';this.querySelector('.gallery-overlay').style.opacity='0';this.querySelector('.gallery-caption').style.bottom='-50px'">
+                <img src="https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" 
+                     alt="Presidential Suite" 
+                     loading="lazy" 
+                     style="width:100%;height:100%;object-fit:cover;transition:transform 0.5s ease;">
+                <div class="gallery-overlay" style="position:absolute;top:0;left:0;right:0;bottom:0;background:linear-gradient(to top,rgba(15,32,39,0.8),transparent);opacity:0;transition:opacity 0.3s ease;"></div>
+                <div class="gallery-caption" style="position:absolute;bottom:-50px;left:0;right:0;padding:1.5rem;color:white;transition:all 0.3s ease;">
+                    <h3 style="margin-bottom:0.5rem;font-size:1.2rem;">Presidential Suite</h3>
+                    <p style="font-size:0.9rem;opacity:0.9;">Ultimate luxury experience</p>
+                </div>
+                <div style="position:absolute;top:1rem;right:1rem;background:#00CED1;color:white;width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.2rem;">+</div>
+            </div>
+            
+            <!-- Gallery Item 5 -->
+            <div class="gallery-item" data-category="dining" id="dining-card-2" style="overflow:hidden;border-radius:12px;height:300px;position:relative;cursor:pointer;box-shadow:0 5px 15px rgba(0,0,0,0.1);transition:all 0.4s ease;" 
+                 onclick="openLightbox('https://images.unsplash.com/photo-1555396273-367ea4eb4db5?ixlib=rb-1.2.1&auto=format&fit=crop&w=1600&q=80', 'Sunset Lounge')"
+                 onmouseover="this.style.transform='translateY(-10px)';this.querySelector('.gallery-overlay').style.opacity='1';this.querySelector('.gallery-caption').style.bottom='0'"
+                 onmouseout="this.style.transform='translateY(0)';this.querySelector('.gallery-overlay').style.opacity='0';this.querySelector('.gallery-caption').style.bottom='-50px'">
+                <img src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" 
+                     alt="Sunset Lounge" 
+                     loading="lazy" 
+                     style="width:100%;height:100%;object-fit:cover;transition:transform 0.5s ease;">
+                <div class="gallery-overlay" style="position:absolute;top:0;left:0;right:0;bottom:0;background:linear-gradient(to top,rgba(15,32,39,0.8),transparent);opacity:0;transition:opacity 0.3s ease;"></div>
+                <div class="gallery-caption" style="position:absolute;bottom:-50px;left:0;right:0;padding:1.5rem;color:white;transition:all 0.3s ease;">
+                    <h3 style="margin-bottom:0.5rem;font-size:1.2rem;">Sunset Lounge</h3>
+                    <p style="font-size:0.9rem;opacity:0.9;">Craft cocktails with a view</p>
+                </div>
+                <div style="position:absolute;top:1rem;right:1rem;background:#00CED1;color:white;width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.2rem;">+</div>
+            </div>
+            
+            <!-- Gallery Item 6 -->
+            <div class="gallery-item" data-category="amenities" id="amenities-card-2" style="overflow:hidden;border-radius:12px;height:300px;position:relative;cursor:pointer;box-shadow:0 5px 15px rgba(0,0,0,0.1);transition:all 0.4s ease;" 
+                 onclick="openLightbox('https://images.unsplash.com/photo-1544161515-4ab6ce6db874?ixlib=rb-1.2.1&auto=format&fit=crop&w=1600&q=80', 'Spa Retreat')"
+                 onmouseover="this.style.transform='translateY(-10px)';this.querySelector('.gallery-overlay').style.opacity='1';this.querySelector('.gallery-caption').style.bottom='0'"
+                 onmouseout="this.style.transform='translateY(0)';this.querySelector('.gallery-overlay').style.opacity='0';this.querySelector('.gallery-caption').style.bottom='-50px'">
+                <img src="https://images.unsplash.com/photo-1544161515-4ab6ce6db874?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" 
+                     alt="Spa Retreat" 
+                     loading="lazy" 
+                     style="width:100%;height:100%;object-fit:cover;transition:transform 0.5s ease;">
+                <div class="gallery-overlay" style="position:absolute;top:0;left:0;right:0;bottom:0;background:linear-gradient(to top,rgba(15,32,39,0.8),transparent);opacity:0;transition:opacity 0.3s ease;"></div>
+                <div class="gallery-caption" style="position:absolute;bottom:-50px;left:0;right:0;padding:1.5rem;color:white;transition:all 0.3s ease;">
+                    <h3 style="margin-bottom:0.5rem;font-size:1.2rem;">Spa Retreat</h3>
+                    <p style="font-size:0.9rem;opacity:0.9;">Ultimate relaxation</p>
+                </div>
+                <div style="position:absolute;top:1rem;right:1rem;background:#00CED1;color:white;width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.2rem;">+</div>
+            </div>
+            
+            <!-- Gallery Item 7 -->
+            <div class="gallery-item" data-category="rooms" id="rooms-card-3" style="overflow:hidden;border-radius:12px;height:300px;position:relative;cursor:pointer;box-shadow:0 5px 15px rgba(0,0,0,0.1);transition:all 0.4s ease;" 
+                 onclick="openLightbox('https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?ixlib=rb-1.2.1&auto=format&fit=crop&w=1600&q=80', 'Deluxe Room')"
+                 onmouseover="this.style.transform='translateY(-10px)';this.querySelector('.gallery-overlay').style.opacity='1';this.querySelector('.gallery-caption').style.bottom='0'"
+                 onmouseout="this.style.transform='translateY(0)';this.querySelector('.gallery-overlay').style.opacity='0';this.querySelector('.gallery-caption').style.bottom='-50px'">
+                <img src="https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" 
+                     alt="Deluxe Room" 
+                     loading="lazy" 
+                     style="width:100%;height:100%;object-fit:cover;transition:transform 0.5s ease;">
+                <div class="gallery-overlay" style="position:absolute;top:0;left:0;right:0;bottom:0;background:linear-gradient(to top,rgba(15,32,39,0.8),transparent);opacity:0;transition:opacity 0.3s ease;"></div>
+                <div class="gallery-caption" style="position:absolute;bottom:-50px;left:0;right:0;padding:1.5rem;color:white;transition:all 0.3s ease;">
+                    <h3 style="margin-bottom:0.5rem;font-size:1.2rem;">Deluxe Room</h3>
+                    <p style="font-size:0.9rem;opacity:0.9;">Elegant comfort with city views</p>
+                </div>
+                <div style="position:absolute;top:1rem;right:1rem;background:#00CED1;color:white;width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.2rem;">+</div>
+            </div>
+            
+            <!-- Gallery Item 8 -->
+            <div class="gallery-item" data-category="amenities" id="amenities-card-3" style="overflow:hidden;border-radius:12px;height:300px;position:relative;cursor:pointer;box-shadow:0 5px 15px rgba(0,0,0,0.1);transition:all 0.4s ease;" 
+                 onclick="openLightbox('https://images.unsplash.com/photo-1571902943202-507ec2618e8f?ixlib=rb-1.2.1&auto=format&fit=crop&w=1600&q=80', 'Fitness Center')"
+                 onmouseover="this.style.transform='translateY(-10px)';this.querySelector('.gallery-overlay').style.opacity='1';this.querySelector('.gallery-caption').style.bottom='0'"
+                 onmouseout="this.style.transform='translateY(0)';this.querySelector('.gallery-overlay').style.opacity='0';this.querySelector('.gallery-caption').style.bottom='-50px'">
+                <img src="https://images.unsplash.com/photo-1571902943202-507ec2618e8f?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" 
+                     alt="Fitness Center" 
+                     loading="lazy" 
+                     style="width:100%;height:100%;object-fit:cover;transition:transform 0.5s ease;">
+                <div class="gallery-overlay" style="position:absolute;top:0;left:0;right:0;bottom:0;background:linear-gradient(to top,rgba(15,32,39,0.8),transparent);opacity:0;transition:opacity 0.3s ease;"></div>
+                <div class="gallery-caption" style="position:absolute;bottom:-50px;left:0;right:0;padding:1.5rem;color:white;transition:all 0.3s ease;">
+                    <h3 style="margin-bottom:0.5rem;font-size:1.2rem;">Fitness Center</h3>
+                    <p style="font-size:0.9rem;opacity:0.9;">State-of-the-art equipment</p>
+                </div>
+                <div style="position:absolute;top:1rem;right:1rem;background:#00CED1;color:white;width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.2rem;">+</div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Loyalty Program Section -->
+<!-- <section style="padding:5rem 2rem;background:#f9f9f9;">
+    <div style="max-width:1200px;margin:0 auto;background:white;border-radius:15px;box-shadow:0 10px 30px rgba(0,0,0,0.05);overflow:hidden;">
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));">
+            <div style="padding:3rem;background:linear-gradient(135deg,#0f2027,#203a43);color:white;">
+                <h2 style="font-family:'Playfair Display',serif;font-size:2rem;margin-bottom:1.5rem;">UrbanSphere Circle</h2>
+                <p style="margin-bottom:2rem;line-height:1.8;opacity:0.9;">Join our exclusive loyalty program and enjoy privileged access to benefits and experiences</p>
+                <ul style="margin-bottom:2rem;">
+                    <li style="margin-bottom:1rem;position:relative;padding-left:2rem;">
+                        <span style="position:absolute;left:0;top:0;color:#00CED1;font-size:1.2rem;">•</span> Complimentary room upgrades
+                    </li>
+                    <!-- More benefits would go here -->
+                <!-- </ul>
+                <button style="background:#00CED1;color:#0f2027;border:none;padding:1rem 2rem;border-radius:6px;font-weight:600;cursor:pointer;transition:all 0.3s ease;" 
+                        onmouseover="this.style.background='white';this.style.transform='translateY(-3px)'" 
+                        onmouseout="this.style.background='#00CED1';this.style.transform='translateY(0)'">Join Now</button>
+            </div>
+            <div style="padding:3rem;display:flex;align-items:center;justify-content:center;">
+                <div style="width:100%;max-width:400px;">
+                    <div style="display:flex;justify-content:space-between;margin-bottom:2rem;">
+                        <div style="text-align:center;">
+                            <div style="width:60px;height:60px;background:#00CED1;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 0.5rem;font-weight:600;color:#0f2027;">1</div>
+                            <div style="font-weight:600;">Silver</div>
+                        </div>
+                        <!-- More tier indicators would go here -->
+                    <!-- </div>
+                    <div style="height:6px;background:#f0f0f0;border-radius:3px;margin-bottom:2rem;overflow:hidden;">
+                        <div style="height:100%;width:30%;background:#00CED1;border-radius:3px;"></div>
+                    </div>
+                    <div style="text-align:center;">
+                        <p style="margin-bottom:1rem;font-weight:600;">You're 2 stays away from Gold status</p>
+                        <button style="background:transparent;color:#00CED1;border:1px solid #00CED1;padding:0.5rem 1.5rem;border-radius:20px;font-weight:600;cursor:pointer;transition:all 0.3s ease;" 
+                                onmouseover="this.style.background='#00CED1';this.style.color='white'" 
+                                onmouseout="this.style.background='transparent';this.style.color='#00CED1'">Track Progress</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> -->
+</section> --> -->
+<!-- Luxury Suites Section with Parallax Effect -->
+<!-- <section style="padding:8rem 2rem;background:url('https://images.unsplash.com/photo-1582719471386-3c0673f4562a?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80') center/cover no-repeat fixed;position:relative;">
+    <div style="max-width:1200px;margin:0 auto;position:relative;z-index:1;background:rgba(255,255,255,0.9);padding:3rem;border-radius:15px;backdrop-filter:blur(5px);box-shadow:0 10px 30px rgba(0,0,0,0.1);">
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:center;">
+            <div>
+                <h2 style="font-family:'Playfair Display',serif;font-size:2.5rem;color:#0f2027;margin-bottom:1.5rem;">Signature Suites</h2>
+                <p style="color:#666;margin-bottom:2rem;line-height:1.8;">Our meticulously designed suites blend contemporary luxury with local craftsmanship, offering unparalleled comfort and breathtaking views.</p>
+                <div style="display:flex;gap:1.5rem;">
+                    <div style="text-align:center;">
+                        <div style="font-size:2.5rem;font-weight:700;color:#00CED1;margin-bottom:0.5rem;">24</div>
+                        <div style="font-size:0.9rem;color:#666;">Suite Categories</div>
+                    </div>
+                    <div style="text-align:center;">
+                        <div style="font-size:2.5rem;font-weight:700;color:#00CED1;margin-bottom:0.5rem;">500+</div>
+                        <div style="font-size:0.9rem;color:#666;">Luxury Suites</div>
+                    </div>
+                    <div style="text-align:center;">
+                        <div style="font-size:2.5rem;font-weight:700;color:#00CED1;margin-bottom:0.5rem;">100%</div>
+                        <div style="font-size:0.9rem;color:#666;">Butler Service</div>
+                    </div>
+                </div>
+            </div>
+            <div style="position:relative;">
+                <img src="https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" 
+                     alt="Presidential Suite" 
+                     loading="lazy" 
+                     style="width:100%;border-radius:10px;box-shadow:0 15px 40px rgba(0,0,0,0.2);">
+                <div style="position:absolute;bottom:-20px;right:-20px;background:#0f2027;color:white;padding:1.5rem;border-radius:10px;width:60%;box-shadow:0 10px 30px rgba(0,0,0,0.2);">
+                    <h3 style="margin-bottom:0.5rem;color:#00CED1;">Oceanfront Penthouse</h3>
+                    <p style="font-size:0.9rem;margin-bottom:0;">From $1,200/night</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div style="position:absolute;top:0;left:0;width:100%;height:100%;background:rgba(15,32,39,0.4);z-index:0;"></div>
+</section> -->
+
+<!-- Awards Section with Animated Logos
+<section style="padding:5rem 2rem;background:linear-gradient(135deg,#0f2027,#203a43);color:white;">
+    <div style="max-width:1200px;margin:0 auto;">
+        <div style="text-align:center;margin-bottom:3rem;">
+            <h2 style="font-family:'Playfair Display',serif;font-size:2.5rem;margin-bottom:1rem;">Awards & Recognition</h2>
+            <p style="max-width:700px;margin:0 auto;opacity:0.8;">Our commitment to excellence has been recognized by the most prestigious organizations in hospitality</p>
+        </div>
+        <div style="display:flex;justify-content:space-around;align-items:center;flex-wrap:wrap;gap:2rem;">
+            <img src="https://via.placeholder.com/150x80?text=Travel+Award" alt="Travel Excellence Award" loading="lazy" style="height:60px;filter:brightness(0) invert(1);opacity:0.8;transition:all 0.5s ease;" 
+                 onmouseover="this.style.opacity='1';this.style.transform='scale(1.1)'" 
+                 onmouseout="this.style.opacity='0.8';this.style.transform='scale(1)'">
+            <!-- More award logos would go here -->
+        </div>
+    </div>
+</section> -->
+
+
+<!-- Modern Wedding Venues Section with Inline CSS -->
+<section style="position:relative;padding:6rem 2rem;background:linear-gradient(135deg,#0f2027 0%,#203a43 50%,#2c5364 100%);color:white;overflow:hidden;scroll-behavior:smooth;" aria-label="Premium Wedding Venues">
+  <div style="position:absolute;top:0;left:0;width:100%;height:100%;background:url('https://images.unsplash.com/photo-1519671482749-fd09be7ccebf') center/cover no-repeat;opacity:0.15;z-index:0;"></div>
+  
+  <div style="text-align:center;margin-bottom:4rem;position:relative;z-index:1;">
+    <h2 style="font-family:'Playfair Display',serif;font-size:clamp(2.5rem,5vw,3.5rem);margin-bottom:1rem;font-weight:700;background:linear-gradient(to right,#fff,#00CED1);-webkit-background-clip:text;background-clip:text;color:transparent;">Where Dreams Become Forever</h2>
+    <p style="font-size:1.25rem;opacity:0.9;max-width:700px;margin:0 auto;">Discover our exquisite collection of wedding venues</p>
+  </div>
+  
+  
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:2rem;max-width:1400px;margin:0 auto 3rem;position:relative;z-index:1;">
+    <!-- Beachfront Card -->
+    <div id="beachfront" style="background:rgba(255,255,255,0.05);border-radius:16px;overflow:hidden;backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,0.1);transition:transform 0.4s ease,box-shadow 0.4s ease;" class="venue-card">
+      <div style="height:250px;background-size:cover;background-position:center;position:relative;background-image:url('https://images.unsplash.com/photo-1519671482749-fd09be7ccebf');">
+        <div style="position:absolute;top:20px;right:20px;background:rgba(0,206,209,0.9);color:#0f2027;padding:0.5rem 1rem;border-radius:50px;font-weight:600;font-size:0.9rem;">Beachfront</div>
+      </div>
+      <div style="padding:1.5rem;">
+        <h3 style="font-family:'Playfair Display',serif;font-size:1.5rem;margin-bottom:0.75rem;color:white;">Oceanview Paradise</h3>
+        <p style="margin-bottom:1.25rem;opacity:0.9;line-height:1.6;">Stunning beach ceremonies with sunset receptions</p>
+        <div style="display:flex;flex-wrap:wrap;gap:0.75rem;margin-bottom:1.5rem;font-size:0.9rem;">
+          <span style="background:rgba(255,255,255,0.1);padding:0.4rem 0.8rem;border-radius:50px;display:inline-flex;align-items:center;gap:0.3rem;">⛱️ Private beach</span>
+          <span style="background:rgba(255,255,255,0.1);padding:0.4rem 0.8rem;border-radius:50px;display:inline-flex;align-items:center;gap:0.3rem;">🍾 Luxury reception</span>
+          <span style="background:rgba(255,255,255,0.1);padding:0.4rem 0.8rem;border-radius:50px;display:inline-flex;align-items:center;gap:0.3rem;">👰 Capacity: 250</span>
+        </div>
+        <a href="#contact" style="width:100%;padding:0.8rem;border-radius:8px;background:rgba(0,206,209,0.2);color:white;font-weight:600;transition:all 0.3s ease;border:1px solid rgba(0,206,209,0.4);text-align:center;display:inline-flex;align-items:center;justify-content:center;text-decoration:none;" class="card-btn">Inquire Now</a>
+      </div>
+    </div>
+    
+    <!-- Historic Card -->
+    <div id="historic" style="background:rgba(255,255,255,0.05);border-radius:16px;overflow:hidden;backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,0.1);transition:transform 0.4s ease,box-shadow 0.4s ease;" class="venue-card">
+      <div style="height:250px;background-size:cover;background-position:center;position:relative;background-image:url('https://images.unsplash.com/photo-1517825738774-7de9363ef735');">
+        <div style="position:absolute;top:20px;right:20px;background:rgba(0,206,209,0.9);color:#0f2027;padding:0.5rem 1rem;border-radius:50px;font-weight:600;font-size:0.9rem;">Historic</div>
+      </div>
+      <div style="padding:1.5rem;">
+        <h3 style="font-family:'Playfair Display',serif;font-size:1.5rem;margin-bottom:0.75rem;color:white;">Grand Manor Estate</h3>
+        <p style="margin-bottom:1.25rem;opacity:0.9;line-height:1.6;">Timeless elegance in our historic mansion</p>
+        <div style="display:flex;flex-wrap:wrap;gap:0.75rem;margin-bottom:1.5rem;font-size:0.9rem;">
+          <span style="background:rgba(255,255,255,0.1);padding:0.4rem 0.8rem;border-radius:50px;display:inline-flex;align-items:center;gap:0.3rem;">🏰 18th century manor</span>
+          <span style="background:rgba(255,255,255,0.1);padding:0.4rem 0.8rem;border-radius:50px;display:inline-flex;align-items:center;gap:0.3rem;">🌹 Formal gardens</span>
+          <span style="background:rgba(255,255,255,0.1);padding:0.4rem 0.8rem;border-radius:50px;display:inline-flex;align-items:center;gap:0.3rem;">👰 Capacity: 180</span>
+        </div>
+        <a href="#contact" style="width:100%;padding:0.8rem;border-radius:8px;background:rgba(0,206,209,0.2);color:white;font-weight:600;transition:all 0.3s ease;border:1px solid rgba(0,206,209,0.4);text-align:center;display:inline-flex;align-items:center;justify-content:center;text-decoration:none;" class="card-btn">Inquire Now</a>
+      </div>
+    </div>
+    
+    <!-- Modern Card -->
+    <div id="modern" style="background:rgba(255,255,255,0.05);border-radius:16px;overflow:hidden;backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,0.1);transition:transform 0.4s ease,box-shadow 0.4s ease;" class="venue-card">
+      <div style="height:250px;background-size:cover;background-position:center;position:relative;background-image:url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c');">
+        <div style="position:absolute;top:20px;right:20px;background:rgba(0,206,209,0.9);color:#0f2027;padding:0.5rem 1rem;border-radius:50px;font-weight:600;font-size:0.9rem;">Modern</div>
+      </div>
+      <div style="padding:1.5rem;">
+        <h3 style="font-family:'Playfair Display',serif;font-size:1.5rem;margin-bottom:0.75rem;color:white;">Skyline Pavilion</h3>
+        <p style="margin-bottom:1.25rem;opacity:0.9;line-height:1.6;">Contemporary luxury with panoramic city views</p>
+        <div style="display:flex;flex-wrap:wrap;gap:0.75rem;margin-bottom:1.5rem;font-size:0.9rem;">
+          <span style="background:rgba(255,255,255,0.1);padding:0.4rem 0.8rem;border-radius:50px;display:inline-flex;align-items:center;gap:0.3rem;">🏙️ Rooftop ceremony</span>
+          <span style="background:rgba(255,255,255,0.1);padding:0.4rem 0.8rem;border-radius:50px;display:inline-flex;align-items:center;gap:0.3rem;">🍽️ Gourmet catering</span>
+          <span style="background:rgba(255,255,255,0.1);padding:0.4rem 0.8rem;border-radius:50px;display:inline-flex;align-items:center;gap:0.3rem;">👰 Capacity: 300</span>
+        </div>
+        <a href="#contact" style="width:100%;padding:0.8rem;border-radius:8px;background:rgba(0,206,209,0.2);color:white;font-weight:600;transition:all 0.3s ease;border:1px solid rgba(0,206,209,0.4);text-align:center;display:inline-flex;align-items:center;justify-content:center;text-decoration:none;" class="card-btn">Inquire Now</a>
+      </div>
+    </div>
+  </div>
+
+   <!-- Contact Section with Interactive Map -->
+    <!-- <section id="contact" style="padding:5rem 2rem;background:#f9f9f9;">
+        <div style="max-width:1200px;margin:0 auto;">
+            <div style="text-align:center;margin-bottom:3rem;">
+                <h2 style="font-family:'Playfair Display',serif;font-size:2.5rem;color:#0f2027;margin-bottom:1rem;">Contact Us</h2>
+                <p style="max-width:700px;margin:0 auto;color:#666;">Our team is ready to assist with your inquiries and reservations</p>
+            </div>
+            
+                <div>
+                    <div style="height:100%;border-radius:10px;overflow:hidden;box-shadow:0 10px 30px rgba(0,0,0,0.1);">
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3022.215209126327!2d-73.98784492423996!3d40.75798597138942!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c25855c6480299%3A0x55194ec5a1ae072e!2sTimes%20Square!5e0!3m2!1sen!2sus!4v1620000000000!5m2!1sen!2sus" 
+                                width="100%" 
+                                height="100%" 
+                                style="border:0;min-height:400px;" 
+                                allowfullscreen="" 
+                                loading="lazy"></iframe>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section> -->
+
+  <!-- Unique Experiences Section -->
+<section id="experiences" style="padding:5rem 2rem;background:linear-gradient(to bottom,#f9f9f9,#fff);position:relative;overflow:hidden;">
+    <div style="max-width:1200px;margin:0 auto;position:relative;z-index:1;">
+        <div style="text-align:center;margin-bottom:3rem;">
+            <h2 style="font-family:'Playfair Display',serif;font-size:2.5rem;color:#0f2027;margin-bottom:1rem;position:relative;display:inline-block;">
+                <span style="position:absolute;bottom:-10px;left:0;width:100%;height:3px;background:#00CED1;transform:scaleX(0);transform-origin:left;transition:transform 0.5s ease;" class="underline-animation"></span>
+                Curated Experiences
+            </h2>
+            <p style="max-width:700px;margin:0 auto;color:#666;">Immerse yourself in unforgettable moments crafted by UrbanSphere Hospitality</p>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:2rem;perspective:1000px;">
+            <div style="background:white;border-radius:15px;overflow:hidden;box-shadow:0 10px 30px rgba(0,0,0,0.08);transition:all 0.5s ease;transform-style:preserve-3d;" 
+                 onmouseover="this.style.transform='rotateY(10deg) scale(1.03)';this.querySelector('.exp-content').style.transform='translateY(0)'" 
+                 onmouseout="this.style.transform='rotateY(0) scale(1)';this.querySelector('.exp-content').style.transform='translateY(100%)'">
+                <div style="height:250px;position:relative;overflow:hidden;">
+                    <img src="https://images.unsplash.com/photo-1531058020387-3be344556be6?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" 
+                         alt="Private Dining Experience" 
+                         loading="lazy" 
+                         style="width:100%;height:100%;object-fit:cover;transition:transform 0.5s ease;" 
+                         onmouseover="this.style.transform='scale(1.1)'" 
+                         onmouseout="this.style.transform='scale(1)'">
+                    <div class="exp-content" style="position:absolute;bottom:0;left:0;right:0;background:rgba(15,32,39,0.9);color:white;padding:1.5rem;transform:translateY(100%);transition:transform 0.5s ease;">
+                        <h3 style="margin-bottom:0.5rem;font-size:1.3rem;">Private Beach Dining</h3>
+                        <p style="margin-bottom:1rem;font-size:0.9rem;">Exclusive candlelit dinners with personalized menus</p>
+                        <button style="background:transparent;color:#00CED1;border:1px solid #00CED1;padding:0.5rem 1.5rem;border-radius:20px;font-weight:600;cursor:pointer;transition:all 0.3s ease;" 
+                                onmouseover="this.style.background='#00CED1';this.style.color='white'" 
+                                onmouseout="this.style.background='transparent';this.style.color='#00CED1'">Book Experience</button>
+                    </div>
+                </div>
+            </div>
+            <!-- More experience cards would go here -->
+        </div>
+    </div>
+    <div style="position:absolute;top:0;left:0;width:100%;height:100%;background:url('https://images.unsplash.com/photo-1519046904884-53103b34b206?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80') center/cover no-repeat;opacity:0.03;z-index:0;"></div>
+</section>
+
+ <!-- Enhanced Testimonials Carousel Section -->
+<section style="padding:5rem 1rem;background:#f8f9fa;position:relative;">
+  <div style="max-width:1400px;margin:0 auto;overflow:hidden;position:relative;">
+    <!-- Section Header -->
+    <div style="text-align:center;margin-bottom:3rem;padding:0 1rem;">
+      <h2 style="font-family:'Playfair Display',serif;font-size:clamp(1.8rem, 4vw, 2.5rem);color:#0f2027;margin-bottom:1rem;">Guest Experiences</h2>
+      <p style="max-width:700px;margin:0 auto;color:#666;font-size:clamp(0.9rem, 2vw, 1.1rem);">What our guests say about their stay with UrbanSphere Hospitality</p>
+    </div>
+
+    <!-- Carousel Container -->
+    <div style="position:relative;padding:0 2rem;">
+      <!-- Carousel Track -->
+      <div id="testimonialTrack" style="display:flex;gap:2rem;transition:transform 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);padding:1rem 0;">
+        <!-- Testimonial Card 1 -->
+        <div style="min-width:calc(100% - 2rem);flex:0 0 calc(100% - 2rem);padding:1rem;box-sizing:border-box;transition:all 0.3s ease;" class="testimonial-card">
+          <div style="background:white;border-radius:15px;padding:2rem;height:100%;box-shadow:0 10px 30px rgba(0,0,0,0.05);">
+            <div style="width:80px;height:80px;border-radius:50%;overflow:hidden;margin:0 auto 1.5rem;border:3px solid #00CED1;">
+              <img src="https://randomuser.me/api/portraits/women/45.jpg" alt="Sarah Johnson" loading="lazy" style="width:100%;height:100%;object-fit:cover;">
+            </div>
+            <p style="font-style:italic;margin-bottom:1.5rem;font-size:clamp(0.9rem, 2vw, 1.1rem);line-height:1.7;color:#555;">"Our stay at UrbanSphere Beach Resort exceeded all expectations. The attention to detail and personalized service made our anniversary truly special."</p>
+            <h3 style="margin-bottom:0.5rem;color:#0f2027;font-size:1.2rem;">Sarah Johnson</h3>
+            <p style="color:#00CED1;font-weight:600;font-size:0.9rem;">New York, USA</p>
+            <div style="display:flex;justify-content:center;gap:0.3rem;margin-top:1.5rem;">
+              <span style="color:#FFD700;font-size:1.2rem;">★</span>
+              <span style="color:#FFD700;font-size:1.2rem;">★</span>
+              <span style="color:#FFD700;font-size:1.2rem;">★</span>
+              <span style="color:#FFD700;font-size:1.2rem;">★</span>
+              <span style="color:#FFD700;font-size:1.2rem;">★</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Testimonial Card 2 -->
+        <div style="min-width:calc(100% - 2rem);flex:0 0 calc(100% - 2rem);padding:1rem;box-sizing:border-box;transition:all 0.3s ease;" class="testimonial-card">
+          <div style="background:white;border-radius:15px;padding:2rem;height:100%;box-shadow:0 10px 30px rgba(0,0,0,0.05);">
+            <div style="width:80px;height:80px;border-radius:50%;overflow:hidden;margin:0 auto 1.5rem;border:3px solid #00CED1;">
+              <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Michael Chen" loading="lazy" style="width:100%;height:100%;object-fit:cover;">
+            </div>
+            <p style="font-style:italic;margin-bottom:1.5rem;font-size:clamp(0.9rem, 2vw, 1.1rem);line-height:1.7;color:#555;">"The luxury villa was absolutely stunning with breathtaking ocean views. Staff went above and beyond to accommodate our every need."</p>
+            <h3 style="margin-bottom:0.5rem;color:#0f2027;font-size:1.2rem;">Michael Chen</h3>
+            <p style="color:#00CED1;font-weight:600;font-size:0.9rem;">Toronto, Canada</p>
+            <div style="display:flex;justify-content:center;gap:0.3rem;margin-top:1.5rem;">
+              <span style="color:#FFD700;font-size:1.2rem;">★</span>
+              <span style="color:#FFD700;font-size:1.2rem;">★</span>
+              <span style="color:#FFD700;font-size:1.2rem;">★</span>
+              <span style="color:#FFD700;font-size:1.2rem;">★</span>
+              <span style="color:#FFD700;font-size:1.2rem;">★</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Testimonial Card 3 -->
+        <div style="min-width:calc(100% - 2rem);flex:0 0 calc(100% - 2rem);padding:1rem;box-sizing:border-box;transition:all 0.3s ease;" class="testimonial-card">
+          <div style="background:white;border-radius:15px;padding:2rem;height:100%;box-shadow:0 10px 30px rgba(0,0,0,0.05);">
+            <div style="width:80px;height:80px;border-radius:50%;overflow:hidden;margin:0 auto 1.5rem;border:3px solid #00CED1;">
+              <img src="https://randomuser.me/api/portraits/women/68.jpg" alt="Priya Patel" loading="lazy" style="width:100%;height:100%;object-fit:cover;">
+            </div>
+            <p style="font-style:italic;margin-bottom:1.5rem;font-size:clamp(0.9rem, 2vw, 1.1rem);line-height:1.7;color:#555;">"Perfect wedding venue! The team handled everything flawlessly from decorations to catering. Our guests are still raving about it!"</p>
+            <h3 style="margin-bottom:0.5rem;color:#0f2027;font-size:1.2rem;">Priya Patel</h3>
+            <p style="color:#00CED1;font-weight:600;font-size:0.9rem;">Mumbai, India</p>
+            <div style="display:flex;justify-content:center;gap:0.3rem;margin-top:1.5rem;">
+              <span style="color:#FFD700;font-size:1.2rem;">★</span>
+              <span style="color:#FFD700;font-size:1.2rem;">★</span>
+              <span style="color:#FFD700;font-size:1.2rem;">★</span>
+              <span style="color:#FFD700;font-size:1.2rem;">★</span>
+              <span style="color:#FFD700;font-size:1.2rem;">★</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Testimonial Card 4 -->
+        <div style="min-width:calc(100% - 2rem);flex:0 0 calc(100% - 2rem);padding:1rem;box-sizing:border-box;transition:all 0.3s ease;" class="testimonial-card">
+          <div style="background:white;border-radius:15px;padding:2rem;height:100%;box-shadow:0 10px 30px rgba(0,0,0,0.05);">
+            <div style="width:80px;height:80px;border-radius:50%;overflow:hidden;margin:0 auto 1.5rem;border:3px solid #00CED1;">
+              <img src="https://randomuser.me/api/portraits/men/75.jpg" alt="David Müller" loading="lazy" style="width:100%;height:100%;object-fit:cover;">
+            </div>
+            <p style="font-style:italic;margin-bottom:1.5rem;font-size:clamp(0.9rem, 2vw, 1.1rem);line-height:1.7;color:#555;">"Exceptional service from start to finish. The private beach dinner was the highlight of our vacation. Will definitely return!"</p>
+            <h3 style="margin-bottom:0.5rem;color:#0f2027;font-size:1.2rem;">David Müller</h3>
+            <p style="color:#00CED1;font-weight:600;font-size:0.9rem;">Berlin, Germany</p>
+            <div style="display:flex;justify-content:center;gap:0.3rem;margin-top:1.5rem;">
+              <span style="color:#FFD700;font-size:1.2rem;">★</span>
+              <span style="color:#FFD700;font-size:1.2rem;">★</span>
+              <span style="color:#FFD700;font-size:1.2rem;">★</span>
+              <span style="color:#FFD700;font-size:1.2rem;">★</span>
+              <span style="color:#FFD700;font-size:1.2rem;">★</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Navigation Arrows -->
+      <button id="prevBtn" style="position:absolute;left:0;top:50%;transform:translateY(-50%);width:50px;height:50px;border-radius:50%;border:none;background:white;box-shadow:0 5px 15px rgba(0,0,0,0.1);cursor:pointer;z-index:10;display:flex;align-items:center;justify-content:center;transition:all 0.3s ease;" 
+              onmouseover="this.style.background='#00CED1';this.querySelector('svg').style.stroke='white'" 
+              onmouseout="this.style.background='white';this.querySelector('svg').style.stroke='#00CED1'">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#00CED1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M15 18l-6-6 6-6"/>
+        </svg>
+      </button>
+      <button id="nextBtn" style="position:absolute;right:0;top:50%;transform:translateY(-50%);width:50px;height:50px;border-radius:50%;border:none;background:white;box-shadow:0 5px 15px rgba(0,0,0,0.1);cursor:pointer;z-index:10;display:flex;align-items:center;justify-content:center;transition:all 0.3s ease;" 
+              onmouseover="this.style.background='#00CED1';this.querySelector('svg').style.stroke='white'" 
+              onmouseout="this.style.background='white';this.querySelector('svg').style.stroke='#00CED1'">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#00CED1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M9 18l6-6-6-6"/>
+        </svg>
+      </button>
+    </div>
+
+    <!-- Dots Indicator -->
+    <div style="display:flex;justify-content:center;gap:0.5rem;margin-top:2rem;">
+      <span class="dot active" style="width:12px;height:12px;border-radius:50%;background:#00CED1;cursor:pointer;transition:all 0.3s ease;"></span>
+      <span class="dot" style="width:12px;height:12px;border-radius:50%;background:#ddd;cursor:pointer;transition:all 0.3s ease;"></span>
+      <span class="dot" style="width:12px;height:12px;border-radius:50%;background:#ddd;cursor:pointer;transition:all 0.3s ease;"></span>
+      <span class="dot" style="width:12px;height:12px;border-radius:50%;background:#ddd;cursor:pointer;transition:all 0.3s ease;"></span>
+    </div>
+  </div>
+</section>
+  <!-- Contact Section -->
+   <section>
+
+    <div id="contact" style="max-width:800px;margin:4rem auto;padding:3rem;background:rgba(255,255,255,0.05);border-radius:16px;backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,0.1);text-align:center;">
+        <h3 style="font-size:1.8rem;margin-bottom:2rem;color:white;">Ready to Book Your Dream Venue?</h3>
+        <form style="display:grid;gap:1.5rem;max-width:500px;margin:0 auto;">
+            <div style="position:relative;">
+                <input type="text" placeholder="Your Name" required style="width:100%;padding:1rem;border-radius:8px;border:1px solid rgba(255,255,255,0.2);background:rgba(255,255,255,0.1);color:white;font-size:1rem;">
+            </div>
+            <div style="position:relative;">
+                <input type="email" placeholder="Email Address" required style="width:100%;padding:1rem;border-radius:8px;border:1px solid rgba(255,255,255,0.2);background:rgba(255,255,255,0.1);color:white;font-size:1rem;">
+            </div>
+            <div style="position:relative;">
+                <select style="width:100%;padding:1rem;border-radius:8px;border:1px solid rgba(255,255,255,0.2);background:rgba(255,255,255,0.1);color:white;font-size:1rem;">
+                    <option value="" disabled selected>Select Venue Type</option>
+                    <option value="beachfront">Beachfront</option>
+                    <option value="historic">Historic</option>
+                    <option value="modern">Modern</option>
+                </select>
+            </div>
+            <button type="submit" style="background:#00CED1;color:#0f2027;border:none;padding:1rem;border-radius:8px;font-weight:600;cursor:pointer;transition:all 0.3s ease;margin-top:1rem;">Request Information</button>
+        </form>
+        <!-- Moved Explore/Reserve/Explore Treatments and similar links here -->
+        <div style="display:flex;flex-direction:column;align-items:center;gap:1rem;margin-top:2rem;">
+            <a href="#beachfront" style="padding:1rem 2rem;border-radius:50px;font-weight:600;cursor:pointer;transition:all 0.4s cubic-bezier(0.25,0.8,0.25,1);min-width:220px;font-size:1rem;display:inline-flex;align-items:center;justify-content:center;gap:0.5rem;background:#00CED1;color:#0f2027;border:none;text-decoration:none;" class="cta-primary">View Beachfront Venues</a>
+            <a href="#contact" style="padding:1rem 2rem;border-radius:50px;font-weight:600;cursor:pointer;transition:all 0.4s cubic-bezier(0.25,0.8,0.25,1);min-width:220px;font-size:1rem;display:inline-flex;align-items:center;justify-content:center;gap:0.5rem;background:transparent;color:white;border:2px solid #00CED1;text-decoration:none;" class="cta-secondary">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:middle;">
+                    <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+                </svg>
+                Contact Us
+            </a>
+            <!-- All Explore/Reserve/Explore Treatments/Check Availability/Reserve buttons moved here -->
+            <!-- <a href="#resorts" style="background:#00CED1;color:white;border:none;padding:1rem 2rem;border-radius:6px;font-weight:600;cursor:pointer;transition:all 0.3s ease;font-size:1.1rem;text-decoration:none;margin-top:0.5rem;">Explore Resorts</a>
+            <a href="#offers" style="background:transparent;color:white;border:2px solid white;padding:1rem 2rem;border-radius:6px;font-weight:600;cursor:pointer;transition:all 0.3s ease;font-size:1.1rem;text-decoration:none;margin-top:0.5rem;">Explore Offers</a>
+            <a href="hotels_hero_subpage.html" style="display:flex;justify-content:center;align-items:center;width:100%;padding:0.6rem 1rem;background:#00CED1;color:white;border:none;border-radius:6px;font-weight:600;cursor:pointer;text-decoration:none;transition:all 0.3s ease;font-size:0.95rem;margin-top:0.5rem;">Check Availability</a>
+            <a href="#treatments" style="color:#00CED1;text-decoration:none;font-weight:600;display:inline-flex;align-items:center;margin-top:0.5rem;">Explore Treatments <span style="margin-left:5px;transition:transform 0.3s ease;">→</span></a>
+            <a href="#treatments" style="color:#00CED1;text-decoration:none;font-weight:600;display:inline-flex;align-items:center;margin-top:0.5rem;">Explore <span style="margin-left:5px;transition:transform 0.3s ease;">→</span></a>
+            <a href="#treatments" style="color:#00CED1;text-decoration:none;font-weight:600;display:inline-flex;align-items:center;margin-top:0.5rem;">Explore <span style="margin-left:5px;transition:transform 0.3s ease;">→</span></a>
+            <a href="#treatments" style="color:#00CED1;text-decoration:none;font-weight:600;display:inline-flex;align-items:center;margin-top:0.5rem;">Explore <span style="margin-left:5px;transition:transform 0.3s ease;">→</span></a>
+            <button class="reserve-btn" style="background:transparent;color:#00CED1;border:2px solid #00CED1;padding:0.5rem 1.5rem;border-radius:25px;font-weight:600;cursor:pointer;transition:all 0.3s ease;margin-top:0.5rem;">Reserve</button> -->
+        </div>
+    </div>
+</section>
+
+<script>
+  document.addEventListener('DOMContentLoaded',function(){
+    const navLinks=document.querySelectorAll('.nav-link');
+    const sections=document.querySelectorAll('.venue-card, #contact');
+    
+    navLinks[0].classList.add('active');
+    
+    navLinks.forEach(link=>{
+      link.addEventListener('click',function(e){
+        e.preventDefault();
+        navLinks.forEach(l=>l.classList.remove('active'));
+        this.classList.add('active');
+        document.querySelector(this.getAttribute('href')).scrollIntoView({behavior:'smooth',block:'start'});
+      });
+    });
+    
+    window.addEventListener('scroll',function(){
+      let current='';
+      sections.forEach(section=>{
+        const sectionTop=section.offsetTop;
+        if(pageYOffset>=(sectionTop-200)){current=section.getAttribute('id');}
+      });
+      navLinks.forEach(link=>{
+        link.classList.remove('active');
+        if(link.getAttribute('href')===`#${current}`){link.classList.add('active');}
+      });
+    });
+  });
+</script>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const track = document.getElementById('testimonialTrack');
+    const cards = document.querySelectorAll('.testimonial-card');
+    const dots = document.querySelectorAll('.dot');
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+    
+    let currentIndex = 0;
+    const cardWidth = cards[0].offsetWidth + 32; // width + gap
+    
+    function updateCarousel() {
+      track.style.transform = `translateX(-${currentIndex * cardWidth}px)`;
+      
+      // Update dots
+      dots.forEach((dot, index) => {
+        dot.style.background = index === currentIndex ? '#00CED1' : '#ddd';
+      });
+      
+      // Disable buttons at boundaries
+      prevBtn.disabled = currentIndex === 0;
+      nextBtn.disabled = currentIndex === cards.length - 1;
+    }
+    
+    function handleResize() {
+      // Recalculate card width on resize
+      cardWidth = cards[0].offsetWidth + 32;
+      updateCarousel();
+    }
+    
+    // Button click handlers
+    prevBtn.addEventListener('click', () => {
+      if (currentIndex > 0) {
+        currentIndex--;
+        updateCarousel();
+      }
+    });
+    
+    nextBtn.addEventListener('click', () => {
+      if (currentIndex < cards.length - 1) {
+        currentIndex++;
+        updateCarousel();
+      }
+    });
+    
+    // Dot click handlers
+    dots.forEach((dot, index) => {
+      dot.addEventListener('click', () => {
+        currentIndex = index;
+        updateCarousel();
+      });
+    });
+    
+    // Responsive adjustments
+    let resizeTimer;
+    window.addEventListener('resize', () => {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(handleResize, 250);
+    });
+    
+    // Initialize
+    updateCarousel();
+  });
+</script>   
+    <!-- Lightbox Overlay -->
+    <div id="lightbox" style="position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.9);z-index:2000;display:none;align-items:center;justify-content:center;padding:2rem;">
+        <div style="position:relative;max-width:90%;max-height:90%;">
+            <img id="lightbox-img" src="" alt="" style="max-width:100%;max-height:80vh;object-fit:contain;border-radius:8px;">
+            <div id="lightbox-caption" style="color:white;text-align:center;margin-top:1rem;font-size:1.2rem;"></div>
+            <button onclick="closeLightbox()" style="position:absolute;top:-40px;right:0;background:#00CED1;color:white;border:none;width:30px;height:30px;border-radius:50%;font-size:1.2rem;cursor:pointer;">×</button>
+            <div style="display:flex;justify-content:center;gap:1rem;margin-top:1.5rem;">
+                <button onclick="navigateLightbox(-1)" style="background:#00CED1;color:white;border:none;width:40px;height:40px;border-radius:50%;font-size:1.2rem;cursor:pointer;">❮</button>
+                <button onclick="navigateLightbox(1)" style="background:#00CED1;color:white;border:none;width:40px;height:40px;border-radius:50%;font-size:1.2rem;cursor:pointer;">❯</button>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+
+
+<div id="footer-container"></div>
+
+<script>
+fetch("footer.html")
+  .then(res => res.text())
+  .then(data => {
+    document.getElementById("footer-container").innerHTML = data;
+  });
+</script>
+
+
+<script>
+    // Gallery Filter and Scroll Functionality
+    function filterAndScroll(category) {
+        filterGallery(category);
+        
+        if (category === 'all') {
+            // Scroll to the gallery section
+            document.getElementById('gallery').scrollIntoView({
+                behavior: 'smooth'
+            });
+        } else {
+            // Find the first visible item in the filtered category
+            const items = document.querySelectorAll(`.gallery-item[data-category="${category}"]`);
+            for (let item of items) {
+                if (item.style.display !== 'none') {
+                    item.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                    break;
+                }
+            }
+        }
+    }
+    
+    // Gallery Filter Functionality
+    function filterGallery(category) {
+        const items = document.querySelectorAll('.gallery-item');
+        const buttons = document.querySelectorAll('#gallery button');
+        
+        // Update active button
+        buttons.forEach(btn => {
+            if (btn.textContent.toLowerCase().includes(category)) {
+                btn.style.background = '#00CED1';
+                btn.style.color = 'white';
+            } else {
+                btn.style.background = '#f0f0f0';
+                btn.style.color = '#333';
+            }
+        });
+        
+        // Filter items
+        items.forEach(item => {
+            if (category === 'all' || item.dataset.category === category) {
+                item.style.display = 'block';
+            } else {
+                item.style.display = 'none';
+            }
+        });
+    }
+    
+    // Lightbox Functionality
+    let currentImageIndex = 0;
+    const galleryImages = [
+        { src: 'https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?ixlib=rb-1.2.1&auto=format&fit=crop&w=1600&q=80', caption: 'Luxury Suite' },
+        { src: 'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?ixlib=rb-1.2.1&auto=format&fit=crop&w=1600&q=80', caption: 'Azure Restaurant' },
+        { src: 'https://images.unsplash.com/photo-1531058020387-3be344556be6?ixlib=rb-1.2.1&auto=format&fit=crop&w=1600&q=80', caption: 'Infinity Pool' },
+        { src: 'https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?ixlib=rb-1.2.1&auto=format&fit=crop&w=1600&q=80', caption: 'Presidential Suite' },
+        { src: 'https://images.unsplash.com/photo-1555396273-367ea4eb4db5?ixlib=rb-1.2.1&auto=format&fit=crop&w=1600&q=80', caption: 'Sunset Lounge' },
+        { src: 'https://images.unsplash.com/photo-1544161515-4ab6ce6db874?ixlib=rb-1.2.1&auto=format&fit=crop&w=1600&q=80', caption: 'Spa Retreat' },
+        { src: 'https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?ixlib=rb-1.2.1&auto=format&fit=crop&w=1600&q=80', caption: 'Deluxe Room' },
+        { src: 'https://images.unsplash.com/photo-1571902943202-507ec2618e8f?ixlib=rb-1.2.1&auto=format&fit=crop&w=1600&q=80', caption: 'Fitness Center' }
+    ];
+    
+    function openLightbox(src, caption) {
+        const lightbox = document.getElementById('lightbox');
+        const lightboxImg = document.getElementById('lightbox-img');
+        const lightboxCaption = document.getElementById('lightbox-caption');
+        
+        // Find the index of the clicked image
+        currentImageIndex = galleryImages.findIndex(img => img.src === src);
+        
+        lightboxImg.src = src;
+        lightboxCaption.textContent = caption;
+        lightbox.style.display = 'flex';
+        document.body.style.overflow = 'hidden';
+    }
+    
+    function closeLightbox() {
+        document.getElementById('lightbox').style.display = 'none';
+        document.body.style.overflow = 'auto';
+    }
+    
+    function navigateLightbox(direction) {
+        currentImageIndex += direction;
+        
+        // Wrap around if at beginning or end
+        if (currentImageIndex < 0) {
+            currentImageIndex = galleryImages.length - 1;
+        } else if (currentImageIndex >= galleryImages.length) {
+            currentImageIndex = 0;
+        }
+        
+        const lightboxImg = document.getElementById('lightbox-img');
+        const lightboxCaption = document.getElementById('lightbox-caption');
+        
+        lightboxImg.src = galleryImages[currentImageIndex].src;
+        lightboxCaption.textContent = galleryImages[currentImageIndex].caption;
+    }
+    
+    // Close lightbox when clicking outside the image
+    document.getElementById('lightbox').addEventListener('click', function(e) {
+        if (e.target === this) {
+            closeLightbox();
+        }
+    });
+    
+    // Keyboard navigation
+    document.addEventListener('keydown', function(e) {
+        const lightbox = document.getElementById('lightbox');
+        if (lightbox.style.display === 'flex') {
+            if (e.key === 'Escape') {
+                closeLightbox();
+            } else if (e.key === 'ArrowLeft') {
+                navigateLightbox(-1);
+            } else if (e.key === 'ArrowRight') {
+                navigateLightbox(1);
+            }
+        }
+    });
+</script>
+
+<style>
+    @media (max-width: 768px) {
+        #gallery button {
+            padding: 0.4rem 1rem;
+            font-size: 0.9rem;
+        }
+        .gallery-item {
+            height: 250px !important;
+        }
+    }
+</style>
+
+
+
+
+    <!-- Floating Booking Button -->
+    <div style="position:fixed;bottom:2rem;right:2rem;z-index:1000;">
+        <a href="#contact" style="background:#00CED1;color:#0f2027;border:none;padding:1rem 1.5rem;border-radius:50px;font-weight:600;cursor:pointer;box-shadow:0 5px 20px rgba(0,206,209,0.3);display:flex;align-items:center;gap:0.5rem;transition:all 0.3s ease;text-decoration:none;" 
+           onmouseover="this.style.background='white';this.style.transform='translateY(-5px)';this.style.boxShadow='0 10px 25px rgba(0,206,209,0.4)'" 
+           onmouseout="this.style.background='#00CED1';this.style.transform='translateY(0)';this.style.boxShadow='0 5px 20px rgba(0,206,209,0.3)'">
+            <span style="font-size:1.2rem;">🏨</span> Book Now
+        </a>
+    </div>
+
+    <!-- Additional Styles and Scripts -->
+    <style>
+        @keyframes slideShow {
+            0% { opacity:0; }
+            10% { opacity:1; }
+            33% { opacity:1; }
+            43% { opacity:0; }
+            100% { opacity:0; }
+        }
+        @keyframes progressBar {
+            from { width:0; }
+            to { width:92%; }
+        }
+        @keyframes float {
+            0% { transform:translateY(0); }
+            50% { transform:translateY(-10px); }
+            100% { transform:translateY(0); }
+        }
+        .floating-element {
+            animation:float 3s ease-in-out infinite;
+        }
+        @media (max-width:768px) {
+            header div { flex-direction:column; padding:1rem; }
+            nav { margin-top:1rem; flex-wrap:wrap; justify-content:center; }
+            .hero-content h1 { font-size:2.5rem !important; }
+            .hero-content p { font-size:1.2rem !important; }
+            section { padding:3rem 1rem !important; }
+        }
+    </style>
+
+    <script>
+        // Dining Tab Functionality
+        function changeDiningTab(tabName) {
+            // Hide all content
+            document.getElementById('restaurantsContent').style.display = 'none';
+            document.getElementById('barsContent').style.display = 'none';
+            document.getElementById('privateContent').style.display = 'none';
+            
+            // Reset all tabs
+            document.getElementById('restaurantsTab').style.background = '#f0f0f0';
+            document.getElementById('restaurantsTab').style.color = '#333';
+            document.getElementById('barsTab').style.background = '#f0f0f0';
+            document.getElementById('barsTab').style.color = '#333';
+            document.getElementById('privateTab').style.background = '#f0f0f0';
+            document.getElementById('privateTab').style.color = '#333';
+            
+            // Show selected content and style its tab
+            document.getElementById(tabName + 'Content').style.display = 'grid';
+            document.getElementById(tabName + 'Tab').style.background = '#00CED1';
+            document.getElementById(tabName + 'Tab').style.color = 'white';
+        }
+        
+        // Testimonial Carousel
+        let currentTestimonial = 0;
+        const testimonials = document.querySelectorAll('#testimonialCarousel > div');
+        
+        function moveCarousel(direction) {
+            currentTestimonial += direction;
+            if(currentTestimonial >= testimonials.length) currentTestimonial = 0;
+            if(currentTestimonial < 0) currentTestimonial = testimonials.length - 1;
+            
+            document.getElementById('testimonialCarousel').style.transform = `translateX(-${currentTestimonial * 100}%)`;
+        }
+        
+        // Initialize first dining tab
+        changeDiningTab('restaurants');
+        
+        // Animate elements when they come into view
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if(entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, { threshold: 0.1 });
+        
+        document.querySelectorAll('.animate-on-scroll').forEach(el => {
+            observer.observe(el);
+        });
+    </script>
+</main>
+<script src="form-auth.js"></script>
+</body>
+</html>
+
+

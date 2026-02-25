@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hotel Admin Form - Add Items</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Montserrat', sans-serif;
+      margin: 0;
+      padding: 20px;
+      background: #f5f7fa;
+      color: #222;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    header {
+      background: linear-gradient(135deg, #2c5aa0, #1e3d72);
+      color: white;
+      padding: 30px;
+      border-radius: 12px;
+      margin-bottom: 30px;
+      text-align: center;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 28px;
+    }
+
+    .card {
+      background: white;
+      border-radius: 12px;
+      padding: 30px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+      margin-bottom: 30px;
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    label {
+      display: block;
+      font-weight: 600;
+      margin-bottom: 8px;
+      color: #0f2027;
+    }
+
+    input[type="text"],
+    input[type="number"],
+    input[type="url"],
+    input[type="file"],
+    select,
+    textarea {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #e6e9ee;
+      border-radius: 8px;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 14px;
+      transition: border 0.3s;
+    }
+
+    input[type="text"]:focus,
+    input[type="number"]:focus,
+    input[type="url"]:focus,
+    input[type="file"]:focus,
+    select:focus,
+    textarea:focus {
+      outline: none;
+      border-color: #2c5aa0;
+      box-shadow: 0 0 0 3px rgba(44, 90, 160, 0.1);
+    }
+
+    textarea {
+      resize: vertical;
+      min-height: 80px;
+    }
+
+    button {
+      background: #2c5aa0;
+      color: white;
+      border: none;
+      padding: 12px 20px;
+      border-radius: 8px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    button:hover {
+      background: #1e3d72;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(44, 90, 160, 0.3);
+    }
+
+    .btn-submit {
+      width: 100%;
+      padding: 14px;
+      font-size: 16px;
+      margin-top: 20px;
+    }
+
+    .alert {
+      padding: 12px 15px;
+      border-radius: 8px;
+      margin-bottom: 15px;
+      display: none;
+    }
+
+    .alert.success {
+      background: #d4edda;
+      color: #155724;
+      border: 1px solid #c3e6cb;
+      display: block;
+    }
+
+    .alert.error {
+      background: #f8d7da;
+      color: #721c24;
+      border: 1px solid #f5c6cb;
+      display: block;
+    }
+
+    .section-title {
+      font-size: 18px;
+      font-weight: 600;
+      color: #0f2027;
+      margin: 30px 0 20px 0;
+      padding-bottom: 10px;
+      border-bottom: 2px solid #2c5aa0;
+    }
+
+    .image-preview {
+      width: 100%;
+      max-width: 200px;
+      margin-top: 10px;
+      border-radius: 8px;
+      display: none;
+    }
+
+    @media (max-width: 768px) {
+      .form-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1><i class="fas fa-plus-circle"></i> Add Hotel Items & Services</h1>
+      <p>Create new items, treatments, food, and amenities for hotel filters</p>
+    </header>
+
+    <div class="card">
+      <div id="successAlert" class="alert success"></div>
+      <div id="errorAlert" class="alert error"></div>
+
+      <form id="itemForm">
+        <div class="section-title">Basic Information</div>
+
+        <div class="form-grid">
+          <div class="form-group">
+            <label for="category">Filter Category *</label>
+            <select id="category" required onchange="updateSubcategories()">
+              <option value="">-- Select Category --</option>
+              <option value="Dining">Dining & Nightlife</option>
+              <option value="Spa">Spa & Wellness</option>
+              <option value="Amenities">Amenities</option>
+              <option value="Rooms">Rooms & Suites</option>
+              <option value="Special Offers">Special Offers</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="subcategory">Sub Category *</label>
+            <select id="subcategory" required>
+              <option value="">-- Select Subcategory --</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-grid">
+          <div class="form-group">
+            <label for="itemName">Item Name *</label>
+            <input type="text" id="itemName" placeholder="e.g., Mephil, Bawachi, Spa Retreat" required>
+          </div>
+
+          <div class="form-group">
+            <label for="price">Price (Optional)</label>
+            <input type="number" id="price" placeholder="e.g., 299" step="0.01">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="description">Description *</label>
+          <textarea id="description" placeholder="Describe this item in detail..." required></textarea>
+        </div>
+
+        <div class="section-title">Image & Details</div>
+
+        <div class="form-grid">
+          <div class="form-group">
+            <label for="imageUrl">Image URL *</label>
+            <input type="url" id="imageUrl" placeholder="https://example.com/image.jpg" required>
+            <img id="imagePreview" class="image-preview" alt="Preview">
+          </div>
+
+          <div class="form-group">
+            <label for="location">Location (Optional)</label>
+            <input type="text" id="location" placeholder="e.g., Maldives, Swiss Alps">
+          </div>
+        </div>
+
+        <div class="form-grid">
+          <div class="form-group">
+            <label for="rating">Rating (1-5) (Optional)</label>
+            <input type="number" id="rating" min="1" max="5" step="0.1" placeholder="4.5">
+          </div>
+
+          <div class="form-group">
+            <label for="features">Features (Comma separated)</label>
+            <input type="text" id="features" placeholder="e.g., Beachfront, Spa, Infinity pool">
+          </div>
+        </div>
+
+        <button type="submit" class="btn-submit">
+          <i class="fas fa-save"></i> Add Item
+        </button>
+      </form>
+
+
+
+    </div>
+  </div>
+
+  <script>
+    // Category to subcategory mapping
+    const categoryMap = {
+      'Dining': ['Restaurants', 'Bars & Lounges', 'Private Dining'],
+      'Spa': ['Treatments', 'Spa Retreat', 'Couples Massage', 'Sauna'],
+      'Amenities': ['Infinity Pool', 'Spa Retreat', 'Fitness Center', 'Free Wi-Fi', 'Parking', 'Kids Pool'],
+      'Rooms': ['Suites', 'Family Rooms', 'Private Villas', 'King Bed', 'Ocean View'],
+      'Special Offers': ['Most Popular', 'Family Deals', 'Seasonal Promo', 'Free Breakfast']
+    };
+
+    function updateSubcategories() {
+      const category = document.getElementById('category').value;
+      const subcategorySelect = document.getElementById('subcategory');
+      subcategorySelect.innerHTML = '<option value="">-- Select Subcategory --</option>';
+
+      if (category && categoryMap[category]) {
+        categoryMap[category].forEach(sub => {
+          const option = document.createElement('option');
+          option.value = sub;
+          option.textContent = sub;
+          subcategorySelect.appendChild(option);
+        });
+      }
+    }
+
+    // Image preview
+    document.getElementById('imageUrl').addEventListener('change', function() {
+      const preview = document.getElementById('imagePreview');
+      if (this.value) {
+        preview.src = this.value;
+        preview.style.display = 'block';
+      } else {
+        preview.style.display = 'none';
+      }
+    });
+
+    // Form submission
+    document.getElementById('itemForm').addEventListener('submit', async function(e) {
+      e.preventDefault();
+
+      const item = {
+        category: document.getElementById('category').value,
+        subcategory: document.getElementById('subcategory').value,
+        name: document.getElementById('itemName').value.trim(),
+        description: document.getElementById('description').value.trim(),
+        imageUrl: document.getElementById('imageUrl').value.trim(),
+        price: document.getElementById('price').value || null,
+        location: document.getElementById('location').value.trim(),
+        rating: document.getElementById('rating').value || null,
+        features: document.getElementById('features').value.split(',').map(f => f.trim()).filter(f => f)
+      };
+
+      // Validate
+      if (!item.category || !item.subcategory || !item.name || !item.description || !item.imageUrl) {
+        showError('Please fill all required fields');
+        return;
+      }
+
+      try {
+        console.log('Sending item to API:', item);
+        
+        const response = await fetch('http://localhost:5000/api/hotels-items', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(item)
+        });
+
+        console.log('Response status:', response.status);
+        const data = await response.json();
+        console.log('Response data:', data);
+
+        if (!response.ok) {
+          showError(data.message || 'Error adding item. Status: ' + response.status);
+          return;
+        }
+
+        // Also save to localStorage for real-time display
+        let items = JSON.parse(localStorage.getItem('hotelItems')) || [];
+        items.push({
+          id: data.itemId,
+          ...item,
+          createdAt: new Date().toISOString()
+        });
+        localStorage.setItem('hotelItems', JSON.stringify(items));
+
+        showSuccess(`"${item.name}" added successfully to database! It will appear in the filters and main page.`);
+        
+        // Reset form
+        document.getElementById('itemForm').reset();
+        document.getElementById('imagePreview').style.display = 'none';
+        document.getElementById('subcategory').innerHTML = '<option value="">-- Select Subcategory --</option>';
+        
+        setTimeout(() => {
+          location.reload();
+        }, 2000);
+      } catch (error) {
+        console.error('Fetch error:', error);
+        showError('Failed to add item: ' + error.message + '. Check console for details.');
+      }
+    });
+
+    function showSuccess(msg) {
+      const el = document.getElementById('successAlert');
+      el.textContent = msg;
+      el.style.display = 'block';
+    }
+
+    function showError(msg) {
+      const el = document.getElementById('errorAlert');
+      el.textContent = msg;
+      el.style.display = 'block';
+      setTimeout(() => el.style.display = 'none', 3000);
+    }
+  </script>
+  
+</body>
+</html>
+

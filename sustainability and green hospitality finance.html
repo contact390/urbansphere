@@ -1,0 +1,854 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Responsive Navbar - Hitaishi Hospitality</title>
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Ensure body doesn't have margin that could affect 100% width */
+        body {
+            margin: 0;
+            padding-top: 140px; /* Increased padding for taller header */
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        /* Mobile responsive styles */
+        @media (max-width: 768px) {
+            body {
+                padding-top: 140px; /* Space for both header sections */
+            }
+            
+            .mobile-menu-toggle {
+                display: block !important;
+            }
+            
+            .nav-menu {
+                position: fixed !important;
+                top: 0 !important;
+                left: -100% !important;
+                width: 80% !important;
+                height: 100vh !important;
+                background: #1e3d72 !important;
+                flex-direction: column !important;
+                align-items: flex-start !important;
+                padding: 80px 20px 20px !important;
+                box-shadow: 5px 0 15px rgba(0,0,0,0.3) !important;
+                z-index: 999 !important;
+                overflow-y: auto !important;
+                transition: left 0.3s ease !important;
+                margin: 0 !important;
+            }
+            
+            .nav-menu.active {
+                left: 0 !important;
+            }
+            
+            .nav-menu li {
+                width: 100% !important;
+                margin: 8px 0 !important;
+            }
+            
+            .nav-menu li a {
+                display: block !important;
+                padding: 12px 15px !important;
+                border-radius: 5px !important;
+                font-size: 16px !important;
+                background: rgba(255, 255, 255, 0.1) !important;
+                color: white !important;
+                text-decoration: none !important;
+                position: relative !important;
+            }
+            
+            /* Main menu items */
+            .nav-menu > li > a {
+                font-size: 17px !important;
+                font-weight: 600 !important;
+                margin: 8px 0 !important;
+                border-left: 4px solid transparent !important;
+            }
+            
+            .nav-menu > li > a:hover {
+                border-left: 4px solid #4CAF50 !important;
+                background: rgba(255, 255, 255, 0.15) !important;
+            }
+            
+            /* Dropdown styling for mobile */
+            .nav-menu li ul {
+                position: static !important;
+                width: 100% !important;
+                display: none !important;
+                background: transparent !important;
+                padding: 0 !important;
+                margin: 5px 0 15px 0 !important;
+                box-shadow: none !important;
+            }
+            
+            .nav-menu li.dropdown-active > ul {
+                display: block !important;
+            }
+            
+            .nav-menu li ul li a {
+                font-size: 14px !important;
+                padding: 10px 25px !important;
+                background: rgba(255, 255, 255, 0.05) !important;
+                margin: 4px 0 !important;
+                border-left: 3px solid #4CAF50 !important;
+            }
+            
+            /* Services dropdown columns for mobile - single column */
+            .nav-menu li ul div {
+                width: 100% !important;
+                display: block !important;
+            }
+            
+            .top-bar-content {
+                flex-direction: column !important;
+                align-items: center !important;
+            }
+            
+            .welcome-text {
+                order: 1 !important;
+                margin-bottom: 8px !important;
+                text-align: center !important;
+                font-size: 14px !important;
+                line-height: 1.3 !important;
+            }
+            
+            .social-links {
+                order: 2 !important;
+                justify-content: center !important;
+                flex-wrap: wrap !important;
+                gap: 8px !important;
+            }
+            
+            .nav-container {
+                padding: 0 15px !important;
+                height: 70px !important;
+                display: flex !important;
+                align-items: center !important;
+                justify-content: space-between !important;
+                background: linear-gradient(135deg, #2c5aa0, #1e3d72) !important;
+                position: relative !important;
+            }
+            
+            /* Logo adjustments */
+            .logo .company-name {
+                font-size: 18px !important;
+            }
+            
+            .logo .tagline {
+                font-size: 8px !important;
+            }
+            
+            /* Hamburger menu in second navbar */
+            .mobile-menu-toggle {
+                position: absolute !important;
+                right: 15px !important;
+                top: 50% !important;
+                transform: translateY(-50%) !important;
+                z-index: 1000 !important;
+                background: rgba(255, 255, 255, 0.1) !important;
+                padding: 10px !important;
+                border-radius: 5px !important;
+            }
+            
+            /* Mobile menu overlay */
+            .mobile-menu-overlay {
+                display: none !important;
+                position: fixed !important;
+                top: 0 !important;
+                left: 0 !important;
+                width: 100% !important;
+                height: 100% !important;
+                background: rgba(0, 0, 0, 0.5) !important;
+                z-index: 998 !important;
+            }
+            
+            .mobile-menu-overlay.active {
+                display: block !important;
+            }
+            
+            /* Hide desktop dropdown hover effects on mobile */
+            .nav-menu li:hover ul,
+            .nav-menu li:focus-within ul {
+                display: none !important;
+            }
+            
+            .dropdown-arrow {
+                float: right !important;
+                transition: transform 0.3s ease !important;
+                margin-left: 10px !important;
+            }
+            
+            .dropdown-active .dropdown-arrow {
+                transform: rotate(180deg) !important;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            body {
+                padding-top: 130px;
+            }
+            
+            .nav-menu {
+                width: 85% !important;
+            }
+            
+            .welcome-text {
+                font-size: 12px !important;
+            }
+            
+            .social-links a {
+                font-size: 14px !important;
+            }
+            
+            .logo .company-name {
+                font-size: 16px !important;
+            }
+            
+            .logo .tagline {
+                font-size: 7px !important;
+            }
+            
+            .nav-menu > li > a {
+                font-size: 15px !important;
+                padding: 10px 12px !important;
+            }
+            
+            .nav-menu li ul li a {
+                font-size: 13px !important;
+                padding: 8px 20px !important;
+            }
+        }
+        
+        /* Desktop dropdown styling */
+        .nav-menu li ul {
+            display: none;
+            position: absolute;
+            background: #333;
+            list-style: none;
+            padding: 10px;
+            border-radius: 10px;
+            z-index: 1000;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            min-width: 200px;
+        }
+        
+        .nav-menu li:hover > ul {
+            display: block !important;
+        }
+        
+        .nav-menu li ul li {
+            width: 100%;
+            margin: 0;
+        }
+        
+        .nav-menu li ul li a {
+            display: block;
+            padding: 10px 15px;
+            color: white;
+            text-decoration: none;
+            font-size: 13px;
+            transition: background 0.3s;
+        }
+        
+        .nav-menu li ul li a:hover {
+            background: #4CAF50;
+        }
+        
+        /* Multi-column Services dropdown for desktop */
+        .services-dropdown {
+            width: 360px !important;
+            padding: 15px !important;
+        }
+        
+        .services-columns {
+            display: flex;
+            gap: 20px;
+        }
+        
+        .services-column {
+            flex: 1;
+        }
+        
+        /* Smooth transitions */
+        * {
+            transition: all 0.3s ease;
+        }
+        
+        /* Mobile Menu Overlay */
+        .mobile-menu-overlay {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <!-- Mobile Menu Overlay -->
+    <div class="mobile-menu-overlay" id="mobileOverlay"></div>
+    
+    <!-- Navbar Header -->
+    <header class="header" style="background: linear-gradient(135deg, #2c5aa0, #1e3d72); padding: 0; position: fixed; width: 100%; top: 0; left: 0; z-index: 1000; box-shadow: 0 2px 10px rgba(0,0,0,0.1);" id="mainHeader">
+        
+        <!-- Top Bar -->
+        <div class="top-bar" style="background: #000; padding: 5px 0; text-align: center;">
+            <div class="top-bar-content" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; padding: 0 20px; max-width: 1400px; margin: 0 auto;">
+                
+                <!-- Welcome Text -->
+                <div class="welcome-text" style="flex: 1; text-align: center; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; font-size: 16px; color: #fff; font-weight: bold;">
+                    WELCOME TO <span style="color: #4CAF50;">LODGENEST</span> HOSPITALITY SERVICES
+                </div>
+
+                <!-- Social Icons and Profile Button -->
+                <div class="social-links" style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap; justify-content: flex-end;">
+                    <a href="https://www.facebook.com/" aria-label="Facebook" style="color: white;"><i class="fab fa-facebook"></i></a>
+                    <a href="https://x.com/Hitaishi_HUB" aria-label="Twitter" style="color: white;"><i class="fab fa-twitter"></i></a>
+                    <a href="https://www.instagram.com/hitaishihospitalityservices/" aria-label="Instagram" style="color: white;"><i class="fab fa-instagram"></i></a>
+                    <a href="https://in.linkedin.com/" aria-label="LinkedIn" style="color: white;"><i class="fab fa-linkedin"></i></a>
+                    <a href="profile.html" aria-label="Profile" style="background-color: #4CAF50; color: white; padding: 6px 12px; border-radius: 20px; font-size: 14px; font-weight: 500; text-decoration: none;">
+                        <i class="fas fa-user-circle" style="margin-right: 5px;"></i> Profile
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Navigation -->
+        <nav class="nav-container" style="max-width: 1400px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; padding: 0 20px; height: 70px; position: relative;">
+            <div class="logo" style="display: flex; align-items: center; gap: 8px;">
+                <img src="images/hitaishi logo.jpg" alt="Hitaishi Logo" style="width: 30px; height: auto;">
+                <div>
+                    <div class="company-name" style="color: white; font-size: 20px; font-weight: bold; text-shadow: 2px 2px 4px rgba(0,0,0,0.3);">Hitaishi</div>
+                    <div class="tagline" style="color: #b8d4f1; font-size: 9px; text-transform: uppercase; letter-spacing: 1px; margin-top: 2px;">Hospitality Services</div>
+                </div>
+            </div>
+
+            <!-- Mobile Menu Toggle (Hamburger in second navbar) -->
+            <div class="mobile-menu-toggle" id="mobileToggle" style="display: none; color: white; font-size: 24px; cursor: pointer; padding: 8px; border-radius: 5px;">
+                <i class="fas fa-bars"></i>
+            </div>
+
+            <!-- Desktop Menu -->
+            <ul class="nav-menu" id="navMenu" style="display: flex; list-style: none; gap: 6px; margin: 0; padding: 0;">
+                <li><a href="index.html" style="color: white; text-decoration: none; padding: 10px 10px; border-radius: 10px; font-weight: 500; white-space: nowrap; font-size: 13px;">Home</a></li>
+                <li><a href="about.html" style="color: white; text-decoration: none; padding: 10px 10px; border-radius: 10px; font-weight: 500; white-space: nowrap; font-size: 13px;">About Us</a></li>
+                
+                <!-- Services with Automatic Dropdown -->
+                <li class="dropdown-item" style="position: relative;">
+                    <a href="services.html" style="color: white; text-decoration: none; padding: 10px 10px; border-radius: 10px; font-weight: 500; white-space: nowrap; font-size: 13px;">
+                        Services <i class="fas fa-chevron-down dropdown-arrow" style="font-size: 10px; margin-left: 5px;"></i>
+                    </a>
+                    
+                    <ul class="services-dropdown" style="width: 360px; padding: 15px;">
+                        <div class="services-columns">
+                            <!-- LEFT COLUMN -->
+                            <div class="services-column" style="width: 50%;">
+                                <li><a href="services inside.html" style="color: white; text-decoration: none; font-size: 13px; display: block; padding: 10px 15px; transition: background 0.3s;">Hostel Management</a></li>
+                                <li><a href="services inside.html" style="color: white; text-decoration: none; font-size: 13px; display: block; padding: 10px 15px; transition: background 0.3s;">Food & Beverage</a></li>
+                                <li><a href="services inside.html" style="color: white; text-decoration: none; font-size: 13px; display: block; padding: 10px 15px; transition: background 0.3s;">Event Management</a></li>
+                                <li><a href="services inside.html" style="color: white; text-decoration: none; font-size: 13px; display: block; padding: 10px 15px; transition: background 0.3s;">Banquets</a></li>
+                                <li><a href="services inside.html" style="color: white; text-decoration: none; font-size: 13px; display: block; padding: 10px 15px; transition: background 0.3s;">Catering Services</a></li>
+                                <li><a href="foodcourts.html" style="color: white; text-decoration: none; font-size: 13px; display: block; padding: 10px 15px; transition: background 0.3s;">Food Courts</a></li>
+                                <li><a href="plug and playoffice spaces..html" style="color: white; text-decoration: none; font-size: 13px; display: block; padding: 10px 15px; transition: background 0.3s;">Front Office</a></li>
+                                <li><a href="preschool to 10+2.html" style="color: white; text-decoration: none; font-size: 13px; display: block; padding: 10px 15px; transition: background 0.3s;">Preschool & 10+2</a></li>
+                            </div>
+
+                            <!-- RIGHT COLUMN -->
+                            <div class="services-column" style="width: 50%;">
+                                <li><a href="trainingprograms.html" style="color: white; text-decoration: none; font-size: 13px; display: block; padding: 10px 15px; transition: background 0.3s;">Training Programs</a></li>
+                                <li><a href="plug and playoffice spaces..html" style="color: white; text-decoration: none; font-size: 13px; display: block; padding: 10px 15px; transition: background 0.3s;">Plug & Play</a></li>
+                                <li><a href="financialfunding.html" style="color: white; text-decoration: none; font-size: 13px; display: block; padding: 10px 15px; transition: background 0.3s;">Funding Support</a></li>
+                                <li><a href="services inside.html" style="color: white; text-decoration: none; font-size: 13px; display: block; padding: 10px 15px; transition: background 0.3s;">Facility Management</a></li>
+                                <li><a href="hotels.html#spa-wellness" style="color: white; text-decoration: none; font-size: 13px; display: block; padding: 10px 15px; transition: background 0.3s;">Spa & Wellness</a></li>
+                                <li><a href="services inside.html" style="color: white; text-decoration: none; font-size: 13px; display: block; padding: 10px 15px; transition: background 0.3s;">CRM Services</a></li>
+                                <li><a href="services inside.html" style="color: white; text-decoration: none; font-size: 13px; display: block; padding: 10px 15px; transition: background 0.3s;">Travel & Tourism</a></li>
+                                <li><a href="services inside.html" style="color: white; text-decoration: none; font-size: 13px; display: block; padding: 10px 15px; transition: background 0.3s;">Sustainability</a></li>
+                                <li><a href="services inside.html" style="color: white; text-decoration: none; font-size: 13px; display: block; padding: 10px 15px; transition: background 0.3s;">Careers</a></li>
+                            </div>
+                        </div>
+                    </ul>
+                </li>
+
+                <li><a href="portfolio.html" style="color: white; text-decoration: none; padding: 10px 10px; border-radius: 10px; font-weight: 500; white-space: nowrap; font-size: 13px;">Portfolio</a></li>
+                <li><a href="plug and playoffice spaces..html" style="color: white; text-decoration: none; padding: 10px 10px; border-radius: 10px; font-weight: 500; white-space: nowrap; font-size: 13px;">Plug & Play Office</a></li>
+                <li><a href="foodcourts.html" style="color: white; text-decoration: none; padding: 10px 10px; border-radius: 10px; font-weight: 500; white-space: nowrap; font-size: 13px;">Food Courts</a></li>
+                <li><a href="hotels.html" style="color: white; text-decoration: none; padding: 10px 10px; border-radius: 10px; font-weight: 500; white-space: nowrap; font-size: 13px;">Hotels</a></li>
+                <li><a href="preschool to 10+2.html" style="color: white; text-decoration: none; padding: 10px 10px; border-radius: 10px; font-weight: 500; white-space: nowrap; font-size: 13px;">Pre-School to 10+2</a></li>
+
+                <!-- Financial Funding with Automatic Dropdown -->
+                <li class="dropdown-item" style="position: relative;">
+                    <a href="financialfunding.html" style="color: white; text-decoration: none; padding: 10px 10px; border-radius: 10px; font-weight: 500; white-space: nowrap; font-size: 13px;">
+                        Financial Funding <i class="fas fa-chevron-down dropdown-arrow" style="font-size: 10px; margin-left: 5px;"></i>
+                    </a>
+                    
+                    <ul style="width: 260px; padding: 0; border-radius: 10px;">
+                        <li><a href="startup fundingpage.html" style="color: white; text-decoration: none; font-size: 13px; display: block; padding: 10px 15px; transition: background 0.3s; border-bottom: 1px solid #444;">Startup Funding</a></li>
+                        <li><a href="business expansion loans.html" style="color: white; text-decoration: none; font-size: 13px; display: block; padding: 10px 15px; transition: background 0.3s; border-bottom: 1px solid #444;">Business Expansion Loans</a></li>
+                        <li><a href="franchise and partnership models.html" style="color: white; text-decoration: none; font-size: 13px; display: block; padding: 10px 15px; transition: background 0.3s; border-bottom: 1px solid #444;">Franchise & Partnership Models</a></li>
+                        <li><a href="training and skill development grants.html" style="color: white; text-decoration: none; font-size: 13px; display: block; padding: 10px 15px; transition: background 0.3s; border-bottom: 1px solid #444;">Training & Skill Development Grants</a></li>
+                        <li><a href="sustainability and green hospitality finance.html" style="color: white; text-decoration: none; font-size: 13px; display: block; padding: 10px 15px; transition: background 0.3s; border-bottom: 1px solid #444;">Sustainability & Green Hospitality</a></li>
+                        <li><a href="plug and play hospitality finance.html" style="color: white; text-decoration: none; font-size: 13px; display: block; padding: 10px 15px; transition: background 0.3s; border-bottom: 1px solid #444;">Plug & Play Facility Setup Finance</a></li>
+                        <li><a href="venture capital and private equity funding.html" style="color: white; text-decoration: none; font-size: 13px; display: block; padding: 10px 15px; transition: background 0.3s; border-bottom: 1px solid #444;">Private Equity & Venture Capital</a></li>
+                        <li><a href="operational and working support.html" style="color: white; text-decoration: none; font-size: 13px; display: block; padding: 10px 15px; transition: background 0.3s; border-bottom: 1px solid #444;">Operational & Working Capital Support</a></li>
+                        <li><a href="digital transformation and crm funding.html" style="color: white; text-decoration: none; font-size: 13px; display: block; padding: 10px 15px; transition: background 0.3s;">Digital Transformation & CRM Funding</a></li>
+                    </ul>
+                </li>
+
+                <li><a href="locations.html" style="color: white; text-decoration: none; padding: 10px 10px; border-radius: 10px; font-weight: 500; white-space: nowrap; font-size: 13px;">Locations</a></li>
+                <li><a href="contact.html" style="color: white; text-decoration: none; padding: 10px 10px; border-radius: 10px; font-weight: 500; white-space: nowrap; font-size: 13px;">Contact Us</a></li>
+            </ul>
+        </nav>
+    </header>
+
+ 
+
+    <script>
+        // Mobile menu functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const mobileToggle = document.getElementById('mobileToggle');
+            const navMenu = document.getElementById('navMenu');
+            const mobileOverlay = document.getElementById('mobileOverlay');
+            
+            // Show/hide mobile menu toggle based on screen size
+            function checkScreenSize() {
+                if (window.innerWidth <= 768) {
+                    mobileToggle.style.display = 'block';
+                    navMenu.style.display = 'block';
+                    navMenu.style.left = '-100%';
+                } else {
+                    mobileToggle.style.display = 'none';
+                    navMenu.style.display = 'flex';
+                    navMenu.style.left = 'auto';
+                    navMenu.classList.remove('active');
+                    mobileOverlay.classList.remove('active');
+                    
+                    // Reset all dropdowns on desktop
+                    const dropdowns = document.querySelectorAll('.nav-menu li ul');
+                    dropdowns.forEach(dropdown => {
+                        dropdown.style.display = 'none';
+                    });
+                    
+                    const dropdownParents = document.querySelectorAll('.dropdown-item');
+                    dropdownParents.forEach(parent => {
+                        parent.classList.remove('dropdown-active');
+                    });
+                }
+            }
+            
+            // Initial check
+            checkScreenSize();
+            
+            // Toggle mobile menu
+            if (mobileToggle && navMenu) {
+                mobileToggle.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    
+                    if (navMenu.classList.contains('active')) {
+                        closeMobileMenu();
+                    } else {
+                        openMobileMenu();
+                    }
+                });
+                
+                // Close menu when clicking on overlay
+                if (mobileOverlay) {
+                    mobileOverlay.addEventListener('click', function() {
+                        closeMobileMenu();
+                    });
+                }
+            }
+            
+            function openMobileMenu() {
+                navMenu.classList.add('active');
+                mobileOverlay.classList.add('active');
+                const icon = mobileToggle.querySelector('i');
+                icon.classList.remove('fa-bars');
+                icon.classList.add('fa-times');
+            }
+            
+            function closeMobileMenu() {
+                navMenu.classList.remove('active');
+                mobileOverlay.classList.remove('active');
+                const icon = mobileToggle.querySelector('i');
+                icon.classList.remove('fa-times');
+                icon.classList.add('fa-bars');
+                
+                // Close all dropdowns
+                const dropdowns = document.querySelectorAll('.nav-menu li ul');
+                dropdowns.forEach(dropdown => {
+                    dropdown.style.display = 'none';
+                });
+                
+                const dropdownParents = document.querySelectorAll('.dropdown-item');
+                dropdownParents.forEach(parent => {
+                    parent.classList.remove('dropdown-active');
+                });
+            }
+            
+            // Handle dropdown clicks on mobile - FIXED VERSION
+            const dropdownParents = document.querySelectorAll('.dropdown-item');
+            dropdownParents.forEach(parent => {
+                const link = parent.querySelector('a');
+                const dropdown = parent.querySelector('ul');
+                const arrow = parent.querySelector('.dropdown-arrow');
+                
+                if (link && dropdown) {
+                    // Prevent default on dropdown parent links
+                    link.addEventListener('click', function(e) {
+                        if (window.innerWidth <= 768) {
+                            e.preventDefault();
+                            e.stopPropagation();
+                            
+                            // Close other dropdowns
+                            dropdownParents.forEach(otherParent => {
+                                if (otherParent !== parent) {
+                                    const otherDropdown = otherParent.querySelector('ul');
+                                    if (otherDropdown) {
+                                        otherDropdown.style.display = 'none';
+                                    }
+                                    otherParent.classList.remove('dropdown-active');
+                                    const otherArrow = otherParent.querySelector('.dropdown-arrow');
+                                    if (otherArrow) {
+                                        otherArrow.style.transform = 'rotate(0deg)';
+                                    }
+                                }
+                            });
+                            
+                            // Toggle current dropdown
+                            if (dropdown.style.display === 'block') {
+                                dropdown.style.display = 'none';
+                                parent.classList.remove('dropdown-active');
+                                if (arrow) {
+                                    arrow.style.transform = 'rotate(0deg)';
+                                }
+                            } else {
+                                dropdown.style.display = 'block';
+                                parent.classList.add('dropdown-active');
+                                if (arrow) {
+                                    arrow.style.transform = 'rotate(180deg)';
+                                }
+                            }
+                        }
+                    });
+                    
+                    // FIXED: Close dropdown when clicking on sub-links
+                    const subLinks = dropdown.querySelectorAll('a');
+                    subLinks.forEach(subLink => {
+                        subLink.addEventListener('click', function(e) {
+                            if (window.innerWidth <= 768) {
+                                // Allow the link to navigate normally
+                                // Just close the mobile menu
+                                closeMobileMenu();
+                            }
+                        });
+                    });
+                }
+            });
+            
+            // Close menu when clicking on regular links
+            const regularLinks = document.querySelectorAll('.nav-menu > li:not(.dropdown-item) > a');
+            regularLinks.forEach(link => {
+                link.addEventListener('click', function() {
+                    if (window.innerWidth <= 768) {
+                        closeMobileMenu();
+                    }
+                });
+            });
+            
+            // FIXED: Close dropdowns when clicking on sub-links
+            const allSubLinks = document.querySelectorAll('.nav-menu li ul li a');
+            allSubLinks.forEach(subLink => {
+                subLink.addEventListener('click', function(e) {
+                    if (window.innerWidth <= 768) {
+                        // Close the entire mobile menu when a sub-link is clicked
+                        closeMobileMenu();
+                    }
+                });
+            });
+            
+            // Close menu when clicking outside on mobile
+            document.addEventListener('click', function(e) {
+                if (window.innerWidth <= 768 && navMenu.classList.contains('active')) {
+                    const isClickInsideMenu = navMenu.contains(e.target);
+                    const isClickOnToggle = mobileToggle.contains(e.target);
+                    
+                    if (!isClickInsideMenu && !isClickOnToggle) {
+                        closeMobileMenu();
+                    }
+                }
+            });
+            
+            // Close menu with Escape key
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape' && navMenu.classList.contains('active')) {
+                    closeMobileMenu();
+                }
+            });
+            
+            // Handle window resize
+            window.addEventListener('resize', checkScreenSize);
+            
+            // Automatic dropdowns for desktop
+            if (window.innerWidth > 768) {
+                const dropdownParents = document.querySelectorAll('.dropdown-item');
+                dropdownParents.forEach(parent => {
+                    parent.addEventListener('mouseenter', function() {
+                        const dropdown = this.querySelector('ul');
+                        if (dropdown) {
+                            dropdown.style.display = 'block';
+                        }
+                    });
+                    
+                    parent.addEventListener('mouseleave', function() {
+                        const dropdown = this.querySelector('ul');
+                        if (dropdown) {
+                            dropdown.style.display = 'none';
+                        }
+                    });
+                });
+            }
+            
+            // Initialize the page
+            checkScreenSize();
+        });
+    </script>
+</body>
+</html>
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sustainability & Green Hospitality Finance | Hitaishi Hospitality Services</title>
+    <meta name="description" content="Discover eco-friendly funding solutions for hospitality businesses - grants for green facilities, renewable energy projects, waste management, and sustainability certifications.">
+    <link rel="canonical" href="https://www.hitaishihospitality.com/sustainability-finance">
+    <style>body{margin:0;font-family:'Poppins',sans-serif;line-height:1.6;color:#333}a{text-decoration:none}.container{max-width:1200px;margin:0 auto;padding:0 20px}.btn{display:inline-block;padding:12px 30px;background:#27ae60;color:#fff;border-radius:30px;font-weight:600;transition:all 0.3s ease;box-shadow:0 4px 6px rgba(0,0,0,0.1)}.btn:hover{background:#2ecc71;transform:translateY(-3px);box-shadow:0 6px 8px rgba(0,0,0,0.15)}.text-center{text-align:center}.section-padding{padding:80px 0}@keyframes fadeIn{0%{opacity:0}100%{opacity:1}}@keyframes slideInLeft{0%{transform:translateX(-100px);opacity:0}100%{transform:translateX(0);opacity:1}}@keyframes slideInRight{0%{transform:translateX(100px);opacity:0}100%{transform:translateX(0);opacity:1}}@keyframes float{0%{transform:translateY(0)}50%{transform:translateY(-10px)}100%{transform:translateY(0)}}</style>
+</head>
+<body>
+    <!-- Animated Hero Section with Eco Backgrounds -->
+    <header style="position:relative;height:100vh;overflow:hidden;background:#000">
+        <div id="hero-slideshow" style="position:absolute;width:100%;height:100%;display:flex">
+            <div class="slide" style="min-width:100%;height:100%;background:url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80') center/cover;animation:fadeIn 1.5s ease-in-out;opacity:0;position:relative"></div>
+            <div class="slide" style="min-width:100%;height:100%;background:url('https://images.unsplash.com/photo-1508514177221-188b1cf16e9d?ixlib=rb-1.2.1&auto=format&fit=crop&w=1352&q=80') center/cover;animation:fadeIn 1.5s ease-in-out;opacity:0;position:relative"></div>
+            <div class="slide" style="min-width:100%;height:100%;background:url('https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80') center/cover;animation:fadeIn 1.5s ease-in-out;opacity:0;position:relative"></div>
+        </div>
+        <div style="position:absolute;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.5);z-index:1"></div>
+        <nav style="position:relative;z-index:2;padding:20px 0;display:flex;justify-content:space-between;align-items:center">
+            <a href="/" style="color:#fff;font-size:24px;font-weight:700">Hitaishi Hospitality</a>
+            <div style="display:flex;gap:20px">
+                <a href="/" style="color:#fff;font-weight:500">Home</a>
+                <a href="/services" style="color:#fff;font-weight:500">Services</a>
+                <a href="/about" style="color:#fff;font-weight:500">About</a>
+                <a href="/contact" style="color:#fff;font-weight:500">Contact</a>
+            </div>
+        </nav>
+        <div style="position:relative;z-index:2;height:calc(100% - 80px);display:flex;flex-direction:column;justify-content:center;align-items:center;color:#fff;padding:0 20px;text-align:center">
+            <h1 style="font-size:3.5rem;margin-bottom:20px;animation:slideInLeft 1s ease-out">Green Hospitality Finance</h1>
+            <p style="font-size:1.2rem;max-width:700px;margin-bottom:30px;animation:slideInRight 1s ease-out">Sustainable funding that drives business growth and protects the planet. Explore green loans and eco-conscious finance for a future-ready enterprise</p>
+            <a href="#solutions" class="btn" style="animation:float 3s ease-in-out infinite">Explore Eco-Funding</a>
+        </div>
+    </header>
+
+    <!-- Value Proposition Section -->
+    <section class="section-padding" style="background:#f1f8f1">
+          <!-- Breadcrumb Navigation -->
+    <div class="breadcrumb" style="position:relative;z-index:3">
+        <div class="container">
+            <a href="/">Home</a>
+            <span> &gt; </span>
+            <a href="/financialfunding.html">financialfunding</a>
+            <span> &gt; </span>
+            <span>Green Finance</span>
+        </div>
+    </div>
+        <div class="container">
+            <div style="max-width:800px;margin:0 auto;text-align:center">
+                <h2 style="font-size:2.5rem;color:#2c3e50;margin-bottom:20px">Finance Your Sustainable Transformation</h2>
+                <p style="font-size:1.1rem;margin-bottom:30px">Hitaishi Hospitality Services connects you with green financing options that reduce operational costs while enhancing your environmental credentials. Our experts navigate the complex landscape of sustainability funding so you can focus on delivering exceptional guest experiences.</p>
+                <div style="display:flex;justify-content:center;gap:30px;flex-wrap:wrap">
+                    <div style="background:#fff;padding:30px;border-radius:10px;box-shadow:0 5px 15px rgba(0,0,0,0.1);flex:1;min-width:250px;transition:all 0.3s ease;border-top:4px solid #27ae60">
+                        <h3 style="color:#27ae60;margin-bottom:15px">Government Incentives</h3>
+                        <p>Access 100+ green hospitality grants and tax incentives across India and internationally.</p>
+                    </div>
+                    <div style="background:#fff;padding:30px;border-radius:10px;box-shadow:0 5px 15px rgba(0,0,0,0.1);flex:1;min-width:250px;transition:all 0.3s ease;border-top:4px solid #27ae60">
+                        <h3 style="color:#27ae60;margin-bottom:15px">ROI Focused</h3>
+                        <p>Our solutions prioritize both environmental impact and financial returns.</p>
+                    </div>
+                    <div style="background:#fff;padding:30px;border-radius:10px;box-shadow:0 5px 15px rgba(0,0,0,0.1);flex:1;min-width:250px;transition:all 0.3s ease;border-top:4px solid #27ae60">
+                        <h3 style="color:#27ae60;margin-bottom:15px">End-to-End Support</h3>
+                        <p>From application to implementation and compliance reporting.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Solutions Section -->
+    <section id="solutions" class="section-padding" style="background:#fff">
+        <div class="container">
+            <h2 style="text-align:center;font-size:2.5rem;color:#2c3e50;margin-bottom:50px">Our Green Finance Solutions</h2>
+            
+            <!-- Solution 1 -->
+            <div style="display:flex;gap:50px;align-items:center;margin-bottom:60px;flex-wrap:wrap">
+                <div style="flex:1;min-width:300px">
+                    <img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Eco-Friendly Facility Grants" loading="lazy" style="width:100%;border-radius:10px;box-shadow:0 10px 30px rgba(0,0,0,0.1)">
+                </div>
+                <div style="flex:1;min-width:300px">
+                    <h3 style="font-size:1.8rem;color:#27ae60;margin-bottom:15px">Eco-Friendly Facility Grants</h3>
+                    <p style="margin-bottom:20px">Transform your property with green building upgrades funded through special hospitality grants:</p>
+                    <ul style="margin-bottom:25px;padding-left:20px">
+                        <li style="margin-bottom:10px">Energy-efficient HVAC system upgrades (up to 40% subsidy)</li>
+                        <li style="margin-bottom:10px">Water conservation and recycling systems</li>
+                        <li style="margin-bottom:10px">Sustainable construction materials</li>
+                        <li>Green roofing and landscaping projects</li>
+                    </ul>
+                    <div style="background:#f1f8f1;padding:15px;border-radius:8px;margin-bottom:20px">
+                        <p style="margin:0;font-weight:600">Average grant covers 30-50% of project costs</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Solution 2 -->
+            <div style="display:flex;gap:50px;align-items:center;margin-bottom:60px;flex-wrap:wrap-reverse">
+                <div style="flex:1;min-width:300px">
+                    <h3 style="font-size:1.8rem;color:#27ae60;margin-bottom:15px">Renewable Energy & Waste Funding</h3>
+                    <p style="margin-bottom:20px">Access specialized financing for sustainability infrastructure projects:</p>
+                    <ul style="margin-bottom:25px;padding-left:20px">
+                        <li style="margin-bottom:10px">Solar panel installations with 25-40% capital subsidies</li>
+                        <li style="margin-bottom:10px">Biogas and alternative energy systems</li>
+                        <li style="margin-bottom:10px">Zero-waste kitchen and operational systems</li>
+                        <li>Food waste-to-energy conversion technology</li>
+                    </ul>
+                    <div style="background:#f1f8f1;padding:15px;border-radius:8px;margin-bottom:20px">
+                        <p style="margin:0;font-weight:600">7-10 year payback periods typical for energy projects</p>
+                    </div>
+                </div>
+                <div style="flex:1;min-width:300px">
+                    <img src="https://images.unsplash.com/photo-1508514177221-188b1cf16e9d?ixlib=rb-1.2.1&auto=format&fit=crop&w=1352&q=80" alt="Renewable Energy Funding" loading="lazy" style="width:100%;border-radius:10px;box-shadow:0 10px 30px rgba(0,0,0,0.1)">
+                </div>
+            </div>
+            
+            <!-- Solution 3 -->
+            <div style="display:flex;gap:50px;align-items:center;flex-wrap:wrap">
+                <div style="flex:1;min-width:300px">
+                    <img src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Sustainability Certifications" loading="lazy" style="width:100%;border-radius:10px;box-shadow:0 10px 30px rgba(0,0,0,0.1)">
+                </div>
+                <div style="flex:1;min-width:300px">
+                    <h3 style="font-size:1.8rem;color:#27ae60;margin-bottom:15px">Certifications & Carbon Incentives</h3>
+                    <p style="margin-bottom:20px">Financial support for achieving sustainability certifications and reducing carbon footprint:</p>
+                    <ul style="margin-bottom:25px;padding-left:20px">
+                        <li style="margin-bottom:10px">LEED, Green Key, and EarthCheck certification grants</li>
+                        <li style="margin-bottom:10px">Carbon credit financing programs</li>
+                        <li style="margin-bottom:10px">Energy audit and efficiency assessment funding</li>
+                        <li>Guest engagement program development</li>
+                    </ul>
+                    <div style="background:#f1f8f1;padding:15px;border-radius:8px;margin-bottom:20px">
+                        <p style="margin:0;font-weight:600">Certified properties see 15-30% higher ADR on average</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+<!-- Sustainability & Green Hospitality Finance Section -->
+<section style="padding:80px 20px;background:#f9f9f9;">
+    <div style="max-width:1200px;margin:0 auto;">
+        <h2 style="text-align:center;font-size:2.5rem;margin-bottom:50px;color:#2c3e50;">Sustainability & Green Hospitality Finance</h2>
+        
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:30px;margin-bottom:40px;">
+            <!-- Card 1 -->
+            <div style="background:#fff;border-radius:10px;padding:30px;box-shadow:0 5px 15px rgba(0,0,0,0.1);transition:all 0.3s ease;border-top:4px solid #27ae60;opacity:0;transform:translateY(30px);animation:fadeIn 0.6s ease forwards" onmouseover="this.style.transform='translateY(-10px)'" onmouseout="this.style.transform='translateY(0)'">
+                <h3 style="font-size:1.5rem;color:#27ae60;margin-bottom:15px;">Eco-Friendly Facility Grants</h3>
+                <p style="margin-bottom:20px;color:#666;">Expert guidance to secure green funding for sustainable facility upgrades and eco-certifications.</p>
+                <a href="#" style="color:#27ae60;font-weight:bold;display:inline-flex;align-items:center;">Read More <i class="fas fa-chevron-right" style="margin-left:5px;font-size:0.8rem;"></i></a>
+            </div>
+            
+            <!-- Card 2 -->
+            <div style="background:#fff;border-radius:10px;padding:30px;box-shadow:0 5px 15px rgba(0,0,0,0.1);transition:all 0.3s ease;border-top:4px solid #27ae60;opacity:0;transform:translateY(30px);animation:fadeIn 0.6s ease 0.2s forwards" onmouseover="this.style.transform='translateY(-10px)'" onmouseout="this.style.transform='translateY(0)'">
+                <h3 style="font-size:1.5rem;color:#27ae60;margin-bottom:15px;">Renewable Energy & Waste Management Funding</h3>
+                <p style="margin-bottom:20px;color:#666;">Flexible financial solutions for solar installations, biogas systems, and zero-waste initiatives.</p>
+                <a href="#" style="color:#27ae60;font-weight:bold;display:inline-flex;align-items:center;">Read More <i class="fas fa-chevron-right" style="margin-left:5px;font-size:0.8rem;"></i></a>
+            </div>
+            
+            <!-- Card 3 -->
+            <div style="background:#fff;border-radius:10px;padding:30px;box-shadow:0 5px 15px rgba(0,0,0,0.1);transition:all 0.3s ease;border-top:4px solid #27ae60;opacity:0;transform:translateY(30px);animation:fadeIn 0.6s ease 0.4s forwards" onmouseover="this.style.transform='translateY(-10px)'" onmouseout="this.style.transform='translateY(0)'">
+                <h3 style="font-size:1.5rem;color:#27ae60;margin-bottom:15px;">Certifications & Carbon Footprint Reduction Incentives</h3>
+                <p style="margin-bottom:20px;color:#666;">Financial support for LEED, Green Key certifications and carbon credit programs.</p>
+                <a href="#" style="color:#27ae60;font-weight:bold;display:inline-flex;align-items:center;">Read More <i class="fas fa-chevron-right" style="margin-left:5px;font-size:0.8rem;"></i></a>
+            </div>
+        </div>
+        
+        <div style="text-align:center;">
+            <a href="#" style="background:#27ae60;color:#fff;padding:12px 30px;border-radius:30px;text-decoration:none;font-weight:bold;display:inline-block;transition:all 0.3s;" onmouseover="this.style.transform='scale(1.05)';this.style.boxShadow='0 5px 15px rgba(39,174,96,0.4)'" onmouseout="this.style.transform='scale(1)';this.style.boxShadow='none'">View More</a>
+        </div>
+    </div>
+</section>
+
+<style>
+    @keyframes fadeIn {
+        0% { opacity:0; transform:translateY(30px); }
+        100% { opacity:1; transform:translateY(0); }
+    }
+</style>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Animate cards when they come into view
+        const cards = document.querySelectorAll('section > div > div > div');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.animationPlayState = 'running';
+                }
+            });
+        }, {threshold: 0.1});
+        
+        cards.forEach(card => {
+            observer.observe(card);
+            card.style.animationPlayState = 'paused';
+        });
+    });
+</script>
+
+  <section style="padding:3rem 20px;background:#0f4c81;color:white;text-align:center;">
+    <div style="max-width:800px;margin:0 auto;">
+      <h2 style="font-size:1.8rem;margin-bottom:1rem;">Ready to Discuss Your Funding Needs?</h2>
+      <p style="font-size:1rem;line-height:1.5;margin-bottom:1.5rem;max-width:600px;margin-left:auto;margin-right:auto;">Our hospitality funding experts are ready to help you find the perfect financial solution for your business.</p>
+      <a href="/get-funding-consultation" style="display:inline-block;background:white;color:#0f4c81;padding:12px 30px;border-radius:50px;text-decoration:none;font-weight:600;font-size:1rem;transition:all 0.3s;box-shadow:0 5px 15px rgba(0,0,0,0.1);">Get Funding Consultation</a>
+    </div>
+  </section>
+
+  <style>
+    @keyframes slideImages{0%{background-image:url('https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=1920&q=80');}33%{background-image:url('https://images.unsplash.com/photo-1502920917128-1aa500764b0e?auto=format&fit=crop&w=1920&q=80');}66%{background-image:url('https://images.unsplash.com/photo-1556740749-887f6717d7e4?auto=format&fit=crop&w=1920&q=80');}100%{background-image:url('https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=1920&q=80');}}
+    @keyframes fadeInLeft{from{opacity:0;transform:translateX(-40px);}to{opacity:1;transform:translateX(0);}}
+    @keyframes fadeInRight{from{opacity:0;transform:translateX(40px);}to{opacity:1;transform:translateX(0);}}
+    @keyframes cardSlide{to{opacity:1;transform:translateX(0) rotate(0);}}
+    @keyframes fadeInUp{0%{opacity:0;transform:translateY(30px);}100%{opacity:1;transform:translateY(0);}}
+    @media (max-width:768px){
+      header{padding:15px;}
+      section{padding:40px 15px;}
+      h1{font-size:32px;}
+      h2{font-size:1.8rem;}
+      .hero-content{padding-top:10vh;}
+      .why-choose-us-text,.why-choose-us-image{flex:100%;min-width:100%;}
+      .commitment-text,.commitment-cards{flex:100%;min-width:100%;}
+      .partner-image,.partner-text{flex:100%;min-width:100%;}
+      .services-grid{grid-template-columns:1fr;gap:20px;padding:20px;}
+      .consultation-content{padding:0 15px;}
+    }
+    @media (max-width:480px){
+      h1{font-size:28px;}
+      h2{font-size:1.5rem;}
+      .hero-content{padding-top:8vh;}
+      .hero-description{font-size:16px;padding:20px;}
+      .card{font-size:14px;}
+      .service-card{padding:15px;}
+      .consultation-button{padding:10px 20px;font-size:14px;}
+    }
+  </style>
+
+</body>
+</html>

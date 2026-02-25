@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Hotels — Smart Filters | UrbanSphere Hospitality</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root{--accent:#00CED1;--dark:#0f2027;--muted:#666}
+    *{box-sizing:border-box}
+    body{font-family:'Montserrat',sans-serif;margin:0;color:#222;background:#fff}
+    a{color:inherit}
+
+    /* Top header (kept visually consistent with existing site) */
+    header{position:sticky;top:0;background:linear-gradient(135deg,#2c5aa0,#1e3d72);color:#fff;z-index:1200}
+    .topbar{display:flex;justify-content:space-between;align-items:center;max-width:1400px;margin:0 auto;padding:10px 18px}
+    .logo{display:flex;align-items:center;gap:10px}
+    .logo img{width:36px;height:auto;border-radius:4px}
+    .logo .title{font-weight:700;font-size:18px}
+
+    /* Page layout */
+    .container{max-width:1400px;margin:2rem auto;display:grid;grid-template-columns:340px 1fr;gap:24px;padding:0 18px}
+    /* Keep side-by-side layout on all screens */
+    .results-column{grid-column:2}
+    .filters-column{grid-column:1}
+    /* Collapsible subfilters styling */
+    details.subfilters{background:transparent;border-radius:8px}
+    details.subfilters summary{cursor:pointer;list-style:none;padding:6px 0;color:var(--muted);font-weight:600}
+    details.subfilters[open] summary{color:var(--dark)}
+    details.subfilters .filter-row{margin-top:8px}
+
+    /* Search bar row (kept similar to hotels.html) */
+    .search-row{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:18px}
+    .search-card{flex:1 1 220px;background:#fff;border:1px solid #e6e9ee;padding:12px;border-radius:8px;display:flex;justify-content:space-between;align-items:center;font-weight:600}
+    .cta{background:var(--accent);color:#072; padding:10px 16px;border-radius:8px;text-decoration:none;font-weight:700}
+
+    /* Results */
+    .results{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:18px}
+    .hotel-card{background:#fff;border-radius:12px;overflow:hidden;box-shadow:0 8px 24px rgba(15,32,39,0.06);transition:transform .25s}
+    .hotel-card:hover{transform:translateY(-6px)}
+    .hotel-media{height:180px;background-size:cover;background-position:center}
+    .hotel-body{padding:16px}
+    .hotel-title{font-weight:700;margin:0 0 6px;color:var(--dark)}
+    .hotel-meta{color:var(--muted);font-size:0.95rem;margin-bottom:10px}
+    .hotel-actions{display:flex;justify-content:space-between;align-items:center;gap:8px}
+    .button-ghost{border:1px solid #e6e9ee;padding:8px 12px;border-radius:8px;background:transparent}
+
+    /* Sidebar Filters */
+    .filters{background:linear-gradient(180deg,#fff,#f8fafd);border-radius:12px;padding:18px;border:1px solid #e9f0f6;height:fit-content}
+    .filters.sticky{position:sticky;top:96px}
+    .filter-group{margin-bottom:18px}
+    .filter-group h4{margin:0 0 10px;font-size:1rem;color:var(--dark)}
+    .filter-row{display:flex;gap:8px;flex-wrap:wrap}
+    label.chk{display:flex;gap:8px;align-items:center;padding:8px 10px;background:white;border-radius:8px;border:1px solid #eef4f6;cursor:pointer}
+    .small{font-size:0.95rem;color:#333}
+
+    /* Amenities tags */
+    .amenities{display:flex;flex-wrap:wrap;gap:8px}
+    .amenity{background:#fff;padding:8px 10px;border-radius:999px;border:1px solid #e6eef0;font-size:0.95rem}
+
+    /* Wedding toggles */
+    .venues{display:flex;flex-direction:column;gap:8px}
+
+    /* Mobile filter button */
+    .mobile-filter-btn{display:none;position:fixed;right:16px;bottom:110px;background:var(--accent);color:#072;padding:12px 14px;border-radius:999px;box-shadow:0 10px 30px rgba(0,206,209,0.15);z-index:1500}
+    @media (max-width:980px){.mobile-filter-btn{display:flex}}
+
+    /* Filter drawer (mobile) */
+    .drawer{position:fixed;right:0;top:0;height:100vh;width:92%;max-width:420px;background:#fff;z-index:1501;padding:18px;transform:translateX(105%);transition:transform .28s ease;box-shadow:-12px 0 40px rgba(0,0,0,0.12);overflow:auto}
+    .drawer.open{transform:translateX(0)}
+    .drawer .close{display:flex;justify-content:flex-end}
+
+    /* Small helpers */
+    .muted{color:var(--muted);font-size:0.95rem}
+    .pill{padding:6px 10px;border-radius:999px;background:rgba(0,206,209,0.08);color:var(--dark);font-weight:600}
+
+    /* Sub-option name pills shown next to options when selected */
+    .option-names{display:inline-flex;gap:8px;flex-wrap:wrap;margin-left:10px}
+    .option-names .name-pill{background:#e8f4ff;color:#1e3d72;padding:6px 10px;border-radius:999px;font-size:0.85rem;border:1px solid #d0e8ff;cursor:pointer}
+  </style>
+</head>
+<body>
+  <header>
+   
+  </header>
+
+  <main>
+    <div class="container">
+      <!-- Main results column -->
+      <div class="results-column">
+        <section class="search-row" aria-label="search controls">
+          <div class="search-card">DESTINATION - Select Hotel, City <i class="fa-solid fa-magnifying-glass"></i></div>
+          <div class="search-card" id="datesDisplay">TRAVEL DATES - <span id="dateText">--/--/---- - --/--/----</span> <i class="fa-solid fa-calendar-days"></i></div>
+          <div class="search-card">ROOMS & GUESTS - 2 Adults <i class="fa-solid fa-person"></i></div>
+          <a class="cta" href="#availability">Check Availability</a>
+        </section>
+
+        <section style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
+          <div style="display:flex;gap:12px;align-items:center">
+            <h2 style="margin:0;font-family:'Playfair Display',serif">Available Properties</h2>
+            <span class="muted">(Showing 24 results)</span>
+          </div>
+          <div class="muted">Sort by: <select style="padding:6px;border-radius:6px;margin-left:8px"><option>Recommended</option><option>Price</option><option>Rating</option></select></div>
+        </section>
+
+        <section class="results" aria-live="polite" id="resultsContainer">
+          <!-- Items will be loaded here from localStorage -->
+        </section>
+
+        <div style="margin-top:18px;display:flex;justify-content:center">
+          <button class="button-ghost">Load more</button>
+        </div>
+      </div>
+
+      <aside class="filters-column" style="margin-top: -600px;">
+        <div class="filters sticky" id="filtersPanel">
+          <!-- Filters will be generated here dynamically from localStorage items -->
+        </div>
+      </aside>
+    </div>
+  </main>
+
+  <!-- Mobile filter drawer -->
+  <button class="mobile-filter-btn" id="openFiltersBtn"><i class="fa-solid fa-filter"></i>&nbsp; Filters</button>
+  <div class="drawer" id="mobileDrawer" aria-hidden="true">
+    <div class="close"><button id="closeDrawer" class="button-ghost">Close</button></div>
+    <div style="margin-top:8px">
+      <!-- Reuse same filter form markup but keep concise for mobile -->
+      <div style="font-weight:700;margin-bottom:8px">Filters</div>
+      <div id="mobileFiltersContainer"></div>
+    </div>
+  </div>
+
+  <script>
+    // Load items from API or localStorage fallback
+    async function getItems() {
+      try {
+        const response = await fetch('http://localhost:5000/api/hotels-items');
+        if (!response.ok) throw new Error('API error');
+        const data = await response.json();
+        return data.items || [];
+      } catch (error) {
+        console.error('Error fetching from API, falling back to localStorage:', error);
+        const stored = localStorage.getItem('hotelItems');
+        return stored ? JSON.parse(stored) : [];
+      }
+    }
+    // Display items as cards
+    async function displayResults(items = null) {
+      const allItems = items || await getItems();
+      const container = document.getElementById('resultsContainer');
+      
+      if (!container) return;
+      
+      if (allItems.length === 0) {
+        container.innerHTML = '<div style="grid-column: 1 / -1; padding: 40px; text-align: center; color: #666;"><p style="font-size: 1.1rem;">No items added yet. Visit the admin form to add items!</p></div>';
+        return;
+      }
+
+      container.innerHTML = allItems.map(item => `
+        <div class="hotel-card">
+          <div class="hotel-media" style="background-image: url('${item.imageUrl}')"></div>
+          <div class="hotel-body">
+            <h3 class="hotel-title">${item.name}</h3>
+            <div class="hotel-meta">${item.category} • ${item.subcategory}</div>
+            <p style="font-size: 0.95rem; color: #666; margin: 8px 0;">${item.description}</p>
+            <div style="display: flex; justify-content: space-between; font-size: 0.9rem; color: #999; margin: 8px 0;">
+              <span>${item.location || 'Location not specified'}</span>
+              <span>⭐ ${item.rating || 'N/A'}</span>
+            </div>
+            ${item.price ? `<div style="font-weight: 700; color: #2c5aa0; margin: 8px 0;">$${item.price}</div>` : ''}
+            <div class="hotel-actions">
+              <button class="button-ghost">View Details</button>
+              <button class="button-ghost">Book Now</button>
+            </div>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    // Build dynamic filters from stored items
+    async function buildDynamicFilters() {
+      const items = await getItems();
+      const dynamicContainer = document.getElementById('filtersPanel');
+      
+      if (!dynamicContainer) return;
+
+      // Extract unique categories
+      const categories = {};
+      items.forEach(item => {
+        if (!categories[item.category]) {
+          categories[item.category] = new Set();
+        }
+        categories[item.category].add(item.subcategory);
+      });
+
+      // Create dynamic filter HTML
+      let filterHTML = `
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
+          <h3 style="margin:0">Filters</h3>
+          <button class="button-ghost" id="clearFilters">Clear</button>
+        </div>
+
+        <!-- Selected Filters Display -->
+        <div id="selectedFiltersContainer" style="margin-bottom:16px;padding:12px;background:#f0f8ff;border-radius:8px;border:1px solid #d0e8ff;display:none">
+          <div style="font-size:0.9rem;color:#666;margin-bottom:8px;font-weight:600">Active Filters:</div>
+          <div id="selectedFiltersTags" style="display:flex;flex-wrap:wrap;gap:8px"></div>
+        </div>
+
+        <form id="filtersForm">
+      `;
+
+      // Generate filter groups from categories
+      Object.keys(categories).sort().forEach(category => {
+        const subcats = Array.from(categories[category]).sort();
+        filterHTML += `
+          <div class="filter-group">
+            <h4>${category}</h4>
+            <details class="subfilters" open>
+              <summary class="small">Select ${category.toLowerCase()}</summary>
+              <div class="filter-row">
+        `;
+        
+        subcats.forEach(subcat => {
+          filterHTML += `<label class="chk"><input type="checkbox" name="${category}" value="${subcat}"> <span class="small">${subcat}</span></label>`;
+        });
+
+        filterHTML += `
+              </div>
+            </details>
+          </div>
+        `;
+      });
+
+      filterHTML += `
+          <div style="display:flex;gap:8px;margin-top:6px">
+            <button type="button" class="cta" id="applyFilters">Apply</button>
+            <button type="reset" class="button-ghost">Reset</button>
+          </div>
+        </form>
+      `;
+
+      dynamicContainer.innerHTML = filterHTML;
+
+      // Re-attach filter event listeners
+      attachFilterListeners();
+    }
+
+    // Filter results based on selected filters
+    async function filterResults() {
+      const form = document.getElementById('filtersForm');
+      if (!form) return;
+
+      const checkedFilters = {};
+      form.querySelectorAll('input[type="checkbox"]:checked').forEach(cb => {
+        if (!checkedFilters[cb.name]) checkedFilters[cb.name] = [];
+        checkedFilters[cb.name].push(cb.value);
+      });
+
+      const items = await getItems();
+      const filtered = items.filter(item => {
+        for (const [category, subcats] of Object.entries(checkedFilters)) {
+          if (item.category === category && !subcats.includes(item.subcategory)) {
+            return false;
+          }
+        }
+        return true;
+      });
+
+      displayResults(filtered);
+    }
+
+    // Attach event listeners to filter checkboxes
+    function attachFilterListeners() {
+      const form = document.getElementById('filtersForm');
+      if (!form) return;
+
+      form.querySelectorAll('input[type="checkbox"]').forEach(checkbox => {
+        const label = checkbox.parentElement.textContent.trim();
+        checkbox.setAttribute('data-filter-label', label);
+
+        checkbox.addEventListener('change', function() {
+          const filterLabel = this.getAttribute('data-filter-label');
+          const selectedFilters = document.getElementById('selectedFiltersContainer');
+
+          if (this.checked) {
+            selectedFilters.style.display = 'block';
+          }
+
+          updateSelectedFiltersDisplay();
+          filterResults();
+        });
+      });
+
+      // Clear filters
+      const clearBtn = document.getElementById('clearFilters');
+      if (clearBtn) {
+        clearBtn.addEventListener('click', async () => {
+          form.reset();
+          await displayResults();
+          updateSelectedFiltersDisplay();
+        });
+      }
+
+      // Apply button
+      const applyBtn = document.getElementById('applyFilters');
+      if (applyBtn) {
+        applyBtn.addEventListener('click', (e) => {
+          e.preventDefault();
+          filterResults();
+        });
+      }
+    }
+
+    // Track and display selected filters
+    const selectedFilters = new Map();
+
+    function updateSelectedFiltersDisplay() {
+      const selectedFiltersTags = document.getElementById('selectedFiltersTags');
+      const selectedFiltersContainer = document.getElementById('selectedFiltersContainer');
+      if (!selectedFiltersTags || !selectedFiltersContainer) return;
+
+      selectedFiltersTags.innerHTML = '';
+      selectedFilters.clear();
+
+      const form = document.getElementById('filtersForm');
+      if (!form) return;
+
+      form.querySelectorAll('input[type="checkbox"]:checked').forEach(cb => {
+        const label = `${cb.name}: ${cb.value}`;
+        selectedFilters.set(label, cb.value);
+      });
+
+      if (selectedFilters.size === 0) {
+        selectedFiltersContainer.style.display = 'none';
+        return;
+      }
+
+      selectedFiltersContainer.style.display = 'block';
+
+      selectedFilters.forEach((value, label) => {
+        const tag = document.createElement('div');
+        tag.style.cssText = 'display:inline-flex;align-items:center;gap:6px;background:#2c5aa0;color:white;padding:6px 12px;border-radius:20px;font-size:0.9rem;font-weight:500;cursor:pointer;transition:all 0.2s';
+        tag.innerHTML = `${label} <i class="fas fa-times" style="font-size:12px;cursor:pointer;opacity:0.8"></i>`;
+
+        tag.addEventListener('mouseover', () => tag.style.background = '#1e3d72');
+        tag.addEventListener('mouseout', () => tag.style.background = '#2c5aa0');
+
+        tag.addEventListener('click', () => {
+          const checkbox = form.querySelector(`input[type="checkbox"][value="${value}"]`);
+          if (checkbox) {
+            checkbox.checked = false;
+            checkbox.dispatchEvent(new Event('change'));
+          }
+        });
+
+        selectedFiltersTags.appendChild(tag);
+      });
+    }
+
+    // Populate mobile drawer with same form HTML (clone) to avoid changing site JS elsewhere
+    document.addEventListener('DOMContentLoaded', async function(){
+      // Initialize: load items and build dynamic filters
+      await buildDynamicFilters();
+      await displayResults();
+
+      const filtersForm = document.getElementById('filtersForm');
+      const mobileContainer = document.getElementById('mobileFiltersContainer');
+      if (filtersForm && mobileContainer) {
+        mobileContainer.appendChild(filtersForm.cloneNode(true));
+      }
+
+      // Simple date display (today - tomorrow) like original hotels.html
+      const today = new Date();
+      const tomorrow = new Date(); tomorrow.setDate(today.getDate()+1);
+      function fmt(d){return String(d.getDate()).padStart(2,'0') + '/' + String(d.getMonth()+1).padStart(2,'0') + '/' + d.getFullYear();}
+      document.getElementById('dateText').textContent = fmt(today) + ' - ' + fmt(tomorrow);
+
+      // Drawer toggles
+      const openBtn = document.getElementById('openFiltersBtn');
+      const drawer = document.getElementById('mobileDrawer');
+      const closeBtn = document.getElementById('closeDrawer');
+
+      openBtn.addEventListener('click', ()=>{drawer.classList.add('open');drawer.setAttribute('aria-hidden','false')});
+      closeBtn.addEventListener('click', ()=>{drawer.classList.remove('open');drawer.setAttribute('aria-hidden','true')});
+
+      // Track and display selected filters as tags
+      const selectedFiltersContainer = document.getElementById('selectedFiltersContainer');
+      const selectedFiltersTags = document.getElementById('selectedFiltersTags');
+      const selectedFilters = new Map();
+
+      function updateSelectedFiltersDisplay() {
+        selectedFiltersTags.innerHTML = '';
+        
+        if (selectedFilters.size === 0) {
+          selectedFiltersContainer.style.display = 'none';
+          return;
+        }
+        
+        selectedFiltersContainer.style.display = 'block';
+        
+        selectedFilters.forEach((value, label) => {
+          const tag = document.createElement('div');
+          tag.style.cssText = 'display:inline-flex;align-items:center;gap:6px;background:#2c5aa0;color:white;padding:6px 12px;border-radius:20px;font-size:0.9rem;font-weight:500;cursor:pointer;transition:all 0.2s';
+          tag.innerHTML = `${label} <i class="fas fa-times" style="font-size:12px;cursor:pointer;opacity:0.8"></i>`;
+          
+          tag.addEventListener('mouseover', () => tag.style.background = '#1e3d72');
+          tag.addEventListener('mouseout', () => tag.style.background = '#2c5aa0');
+          
+          tag.addEventListener('click', () => {
+            // Find and uncheck the corresponding checkbox
+            const checkbox = document.querySelector(`input[type="checkbox"][data-filter-label="${label}"]`);
+            if (checkbox) {
+              checkbox.checked = false;
+              checkbox.dispatchEvent(new Event('change'));
+            }
+          });
+          
+          selectedFiltersTags.appendChild(tag);
+        });
+      }
+
+      // Mapping of specific names for some options (loaded from backend)
+      let subOptionsMap = {};
+
+      // Try loading from backend; fall back to a small static map if the API is unavailable
+      fetch('/api/suboptions')
+        .then(res => res.json())
+        .then(data => { subOptionsMap = data || {}; })
+        .catch(err => {
+          console.error('Failed to load suboptions from server, using fallback map:', err);
+          subOptionsMap = {
+            restaurants: ['Mephil', 'Bawachi', 'Paradise'],
+            bars: ['NightCap', 'LoungeX', 'SkyBar'],
+            private: ['ChefTable', 'PrivateRoom'],
+            infinity: ['SeaView Pool', 'Rooftop Infinity'],
+            spa: ['Spa Retreat Center', 'Aroma Therapy'],
+            beachfront: ['Sunset Bay', 'Coral Beach'],
+            historic: ['Heritage Hall', 'OldTown Estate']
+          };
+        });
+
+      // Helper: show sub-option name pills next to a checkbox label
+      function showSubOptionsFor(checkbox) {
+        const key = checkbox.value;
+        const parent = checkbox.parentElement;
+        // remove existing container if any
+        const existing = parent.querySelector('.option-names');
+        if (existing) existing.remove();
+
+        const names = subOptionsMap[key];
+        if (!names || names.length === 0) return;
+
+        const container = document.createElement('div');
+        container.className = 'option-names';
+
+        names.forEach(n => {
+          const pill = document.createElement('div');
+          pill.className = 'name-pill';
+          pill.textContent = n;
+          // when a name pill is clicked, add it to selected filters as a combined label
+          pill.addEventListener('click', (e) => {
+            e.stopPropagation();
+            const combinedLabel = `${checkbox.parentElement.textContent.trim()} — ${n}`;
+            selectedFilters.set(combinedLabel, `${checkbox.value}:${n}`);
+            updateSelectedFiltersDisplay();
+          });
+          container.appendChild(pill);
+        });
+
+        parent.appendChild(container);
+      }
+
+      // Remove sub-options container
+      function hideSubOptionsFor(checkbox) {
+        const parent = checkbox.parentElement;
+        const existing = parent.querySelector('.option-names');
+        if (existing) existing.remove();
+      }
+
+      // Add change listeners to all checkboxes
+      const allCheckboxes = document.querySelectorAll('input[type="checkbox"]');
+      allCheckboxes.forEach(checkbox => {
+        // Add data attribute for tracking
+        const label = checkbox.parentElement.textContent.trim() || checkbox.value;
+        checkbox.setAttribute('data-filter-label', label);
+
+        // Show tags on hover over checkbox
+        checkbox.parentElement.addEventListener('mouseenter', () => {
+          updateSelectedFiltersDisplay();
+        });
+
+        checkbox.addEventListener('change', function() {
+          const filterLabel = this.getAttribute('data-filter-label');
+
+          if (this.checked) {
+            selectedFilters.set(filterLabel, this.value);
+            // show sub-option names if configured
+            showSubOptionsFor(this);
+          } else {
+            selectedFilters.delete(filterLabel);
+            // remove any names previously added for this option value
+            // also remove combined selectedFilters entries that include this option value
+            Array.from(selectedFilters.keys()).forEach(k => {
+              const val = selectedFilters.get(k);
+              if (typeof val === 'string' && val.startsWith(this.value + ':')) selectedFilters.delete(k);
+            });
+            hideSubOptionsFor(this);
+          }
+
+          updateSelectedFiltersDisplay();
+        });
+      });
+
+      // Show selected filters when hovering over filter groups or summaries
+      const filterGroups = document.querySelectorAll('.filter-group');
+      filterGroups.forEach(group => {
+        group.addEventListener('mouseenter', () => {
+          updateSelectedFiltersDisplay();
+        });
+      });
+
+      // Show selected filters when expanding/collapsing details
+      const detailsElements = document.querySelectorAll('details.subfilters');
+      detailsElements.forEach(details => {
+        // Hover to open/close details
+        details.addEventListener('mouseenter', () => {
+          details.setAttribute('open', '');
+          updateSelectedFiltersDisplay();
+        });
+        
+        details.addEventListener('mouseleave', () => {
+          details.removeAttribute('open');
+          updateSelectedFiltersDisplay();
+        });
+        
+        // Also keep click functionality
+        details.addEventListener('toggle', () => {
+          updateSelectedFiltersDisplay();
+        });
+      });
+
+      // Apply filters — as this is a static page, we'll just close drawer and highlight that filters applied
+      document.querySelectorAll('#filtersForm, #mobileFiltersContainer form').forEach(f=>{
+        f.addEventListener('submit', (e)=>{e.preventDefault();alert('Filters applied — integrate with your search backend to filter results');});
+      });
+
+      document.getElementById('applyFilters').addEventListener('click', ()=>{alert('Filters applied — integrate with your search backend to filter results');});
+      
+      document.getElementById('clearFilters').addEventListener('click', ()=>{
+        filtersForm.reset();
+        selectedFilters.clear();
+        updateSelectedFiltersDisplay();
+        alert('Filters cleared');
+      });
+    });
+  </script>
+</body>
+</html>

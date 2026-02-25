@@ -1,0 +1,1072 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Responsive Navbar - Hitaishi Hospitality</title>
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Ensure body doesn't have margin that could affect 100% width */
+        body {
+            margin: 0;
+            padding-top: 140px; /* Increased padding for taller header */
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        /* Mobile responsive styles */
+        @media (max-width: 768px) {
+            body {
+                padding-top: 140px; /* Space for both header sections */
+            }
+            
+            .mobile-menu-toggle {
+                display: block !important;
+            }
+            
+            .nav-menu {
+                position: fixed !important;
+                top: 0 !important;
+                left: -100% !important;
+                width: 80% !important;
+                height: 100vh !important;
+                background: #1e3d72 !important;
+                flex-direction: column !important;
+                align-items: flex-start !important;
+                padding: 80px 20px 20px !important;
+                box-shadow: 5px 0 15px rgba(0,0,0,0.3) !important;
+                z-index: 999 !important;
+                overflow-y: auto !important;
+                transition: left 0.3s ease !important;
+                margin: 0 !important;
+            }
+            
+            .nav-menu.active {
+                left: 0 !important;
+            }
+            
+            .nav-menu li {
+                width: 100% !important;
+                margin: 8px 0 !important;
+            }
+            
+            .nav-menu li a {
+                display: block !important;
+                padding: 12px 15px !important;
+                border-radius: 5px !important;
+                font-size: 16px !important;
+                background: rgba(255, 255, 255, 0.1) !important;
+                color: white !important;
+                text-decoration: none !important;
+                position: relative !important;
+            }
+            
+            /* Main menu items */
+            .nav-menu > li > a {
+                font-size: 17px !important;
+                font-weight: 600 !important;
+                margin: 8px 0 !important;
+                border-left: 4px solid transparent !important;
+            }
+            
+            .nav-menu > li > a:hover {
+                border-left: 4px solid #4CAF50 !important;
+                background: rgba(255, 255, 255, 0.15) !important;
+            }
+            
+            /* Dropdown styling for mobile */
+            .nav-menu li ul {
+                position: static !important;
+                width: 100% !important;
+                display: none !important;
+                background: transparent !important;
+                padding: 0 !important;
+                margin: 5px 0 15px 0 !important;
+                box-shadow: none !important;
+            }
+            
+            .nav-menu li.dropdown-active > ul {
+                display: block !important;
+            }
+            
+            .nav-menu li ul li a {
+                font-size: 14px !important;
+                padding: 10px 25px !important;
+                background: rgba(255, 255, 255, 0.05) !important;
+                margin: 4px 0 !important;
+                border-left: 3px solid #4CAF50 !important;
+            }
+            
+            /* Services dropdown columns for mobile - single column */
+            .nav-menu li ul div {
+                width: 100% !important;
+                display: block !important;
+            }
+            
+            .top-bar-content {
+                flex-direction: column !important;
+                align-items: center !important;
+            }
+            
+            .welcome-text {
+                order: 1 !important;
+                margin-bottom: 8px !important;
+                text-align: center !important;
+                font-size: 14px !important;
+                line-height: 1.3 !important;
+            }
+            
+            .social-links {
+                order: 2 !important;
+                justify-content: center !important;
+                flex-wrap: wrap !important;
+                gap: 8px !important;
+            }
+            
+            .nav-container {
+                padding: 0 15px !important;
+                height: 70px !important;
+                display: flex !important;
+                align-items: center !important;
+                justify-content: space-between !important;
+                background: linear-gradient(135deg, #2c5aa0, #1e3d72) !important;
+                position: relative !important;
+            }
+            
+            /* Logo adjustments */
+            .logo .company-name {
+                font-size: 18px !important;
+            }
+            
+            .logo .tagline {
+                font-size: 8px !important;
+            }
+            
+            /* Hamburger menu in second navbar */
+            .mobile-menu-toggle {
+                position: absolute !important;
+                right: 15px !important;
+                top: 50% !important;
+                transform: translateY(-50%) !important;
+                z-index: 1000 !important;
+                background: rgba(255, 255, 255, 0.1) !important;
+                padding: 10px !important;
+                border-radius: 5px !important;
+            }
+            
+            /* Mobile menu overlay */
+            .mobile-menu-overlay {
+                display: none !important;
+                position: fixed !important;
+                top: 0 !important;
+                left: 0 !important;
+                width: 100% !important;
+                height: 100% !important;
+                background: rgba(0, 0, 0, 0.5) !important;
+                z-index: 998 !important;
+            }
+            
+            .mobile-menu-overlay.active {
+                display: block !important;
+            }
+            
+            /* Hide desktop dropdown hover effects on mobile */
+            .nav-menu li:hover ul,
+            .nav-menu li:focus-within ul {
+                display: none !important;
+            }
+            
+            .dropdown-arrow {
+                float: right !important;
+                transition: transform 0.3s ease !important;
+                margin-left: 10px !important;
+            }
+            
+            .dropdown-active .dropdown-arrow {
+                transform: rotate(180deg) !important;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            body {
+                padding-top: 130px;
+            }
+            
+            .nav-menu {
+                width: 85% !important;
+            }
+            
+            .welcome-text {
+                font-size: 12px !important;
+            }
+            
+            .social-links a {
+                font-size: 14px !important;
+            }
+            
+            .logo .company-name {
+                font-size: 16px !important;
+            }
+            
+            .logo .tagline {
+                font-size: 7px !important;
+            }
+            
+            .nav-menu > li > a {
+                font-size: 15px !important;
+                padding: 10px 12px !important;
+            }
+            
+            .nav-menu li ul li a {
+                font-size: 13px !important;
+                padding: 8px 20px !important;
+            }
+        }
+        
+        /* Desktop dropdown styling */
+        .nav-menu li ul {
+            display: none;
+            position: absolute;
+            background: #333;
+            list-style: none;
+            padding: 10px;
+            border-radius: 10px;
+            z-index: 1000;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            min-width: 200px;
+        }
+        
+        .nav-menu li:hover > ul {
+            display: block !important;
+        }
+        
+        .nav-menu li ul li {
+            width: 100%;
+            margin: 0;
+        }
+        
+        .nav-menu li ul li a {
+            display: block;
+            padding: 10px 15px;
+            color: white;
+            text-decoration: none;
+            font-size: 13px;
+            transition: background 0.3s;
+        }
+        
+        .nav-menu li ul li a:hover {
+            background: #4CAF50;
+        }
+        
+        /* Multi-column Services dropdown for desktop */
+        .services-dropdown {
+            width: 360px !important;
+            padding: 15px !important;
+        }
+        
+        .services-columns {
+            display: flex;
+            gap: 20px;
+        }
+        
+        .services-column {
+            flex: 1;
+        }
+        
+        /* Smooth transitions */
+        * {
+            transition: all 0.3s ease;
+        }
+        
+        /* Mobile Menu Overlay */
+        .mobile-menu-overlay {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <!-- Mobile Menu Overlay -->
+    <div class="mobile-menu-overlay" id="mobileOverlay"></div>
+    
+    <!-- Navbar Header -->
+    <header class="header" style="background: linear-gradient(135deg, #2c5aa0, #1e3d72); padding: 0; position: fixed; width: 100%; top: 0; left: 0; z-index: 1000; box-shadow: 0 2px 10px rgba(0,0,0,0.1);" id="mainHeader">
+        
+        <!-- Top Bar -->
+        <div class="top-bar" style="background: #000; padding: 5px 0; text-align: center;">
+            <div class="top-bar-content" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; padding: 0 20px; max-width: 1400px; margin: 0 auto;">
+                
+                <!-- Welcome Text -->
+                <div class="welcome-text" style="flex: 1; text-align: center; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; font-size: 16px; color: #fff; font-weight: bold;">
+                    WELCOME TO <span style="color: #4CAF50;">LODGENEST</span> HOSPITALITY SERVICES
+                </div>
+
+                <!-- Social Icons and Profile Button -->
+                <div class="social-links" style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap; justify-content: flex-end;">
+                    <a href="https://www.facebook.com/" aria-label="Facebook" style="color: white;"><i class="fab fa-facebook"></i></a>
+                    <a href="https://x.com/Hitaishi_HUB" aria-label="Twitter" style="color: white;"><i class="fab fa-twitter"></i></a>
+                    <a href="https://www.instagram.com/hitaishihospitalityservices/" aria-label="Instagram" style="color: white;"><i class="fab fa-instagram"></i></a>
+                    <a href="https://in.linkedin.com/" aria-label="LinkedIn" style="color: white;"><i class="fab fa-linkedin"></i></a>
+                    <a href="profile.html" aria-label="Profile" style="background-color: #4CAF50; color: white; padding: 6px 12px; border-radius: 20px; font-size: 14px; font-weight: 500; text-decoration: none;">
+                        <i class="fas fa-user-circle" style="margin-right: 5px;"></i> Profile
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Navigation -->
+        <nav class="nav-container" style="max-width: 1400px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; padding: 0 20px; height: 70px; position: relative;">
+            <div class="logo" style="display: flex; align-items: center; gap: 8px;">
+                <img src="images/hitaishi logo.jpg" alt="Hitaishi Logo" style="width: 30px; height: auto;">
+                <div>
+                    <div class="company-name" style="color: white; font-size: 20px; font-weight: bold; text-shadow: 2px 2px 4px rgba(0,0,0,0.3);">Hitaishi</div>
+                    <div class="tagline" style="color: #b8d4f1; font-size: 9px; text-transform: uppercase; letter-spacing: 1px; margin-top: 2px;">Hospitality Services</div>
+                </div>
+            </div>
+
+            <!-- Mobile Menu Toggle (Hamburger in second navbar) -->
+            <div class="mobile-menu-toggle" id="mobileToggle" style="display: none; color: white; font-size: 24px; cursor: pointer; padding: 8px; border-radius: 5px;">
+                <i class="fas fa-bars"></i>
+            </div>
+
+            <!-- Desktop Menu -->
+            <ul class="nav-menu" id="navMenu" style="display: flex; list-style: none; gap: 6px; margin: 0; padding: 0;">
+                <li><a href="index.html" style="color: white; text-decoration: none; padding: 10px 10px; border-radius: 10px; font-weight: 500; white-space: nowrap; font-size: 13px;">Home</a></li>
+                <li><a href="about.html" style="color: white; text-decoration: none; padding: 10px 10px; border-radius: 10px; font-weight: 500; white-space: nowrap; font-size: 13px;">About Us</a></li>
+                
+                <!-- Services with Automatic Dropdown -->
+                <li class="dropdown-item" style="position: relative;">
+                    <a href="services.html" style="color: white; text-decoration: none; padding: 10px 10px; border-radius: 10px; font-weight: 500; white-space: nowrap; font-size: 13px;">
+                        Services <i class="fas fa-chevron-down dropdown-arrow" style="font-size: 10px; margin-left: 5px;"></i>
+                    </a>
+                    
+                    <ul class="services-dropdown" style="width: 360px; padding: 15px;">
+                        <div class="services-columns">
+                            <!-- LEFT COLUMN -->
+                            <div class="services-column" style="width: 50%;">
+                                <li><a href="services inside.html" style="color: white; text-decoration: none; font-size: 13px; display: block; padding: 10px 15px; transition: background 0.3s;">Hostel Management</a></li>
+                                <li><a href="services inside.html" style="color: white; text-decoration: none; font-size: 13px; display: block; padding: 10px 15px; transition: background 0.3s;">Food & Beverage</a></li>
+                                <li><a href="services inside.html" style="color: white; text-decoration: none; font-size: 13px; display: block; padding: 10px 15px; transition: background 0.3s;">Event Management</a></li>
+                                <li><a href="services inside.html" style="color: white; text-decoration: none; font-size: 13px; display: block; padding: 10px 15px; transition: background 0.3s;">Banquets</a></li>
+                                <li><a href="services inside.html" style="color: white; text-decoration: none; font-size: 13px; display: block; padding: 10px 15px; transition: background 0.3s;">Catering Services</a></li>
+                                <li><a href="foodcourts.html" style="color: white; text-decoration: none; font-size: 13px; display: block; padding: 10px 15px; transition: background 0.3s;">Food Courts</a></li>
+                                <li><a href="plug and playoffice spaces..html" style="color: white; text-decoration: none; font-size: 13px; display: block; padding: 10px 15px; transition: background 0.3s;">Front Office</a></li>
+                                <li><a href="preschool to 10+2.html" style="color: white; text-decoration: none; font-size: 13px; display: block; padding: 10px 15px; transition: background 0.3s;">Preschool & 10+2</a></li>
+                            </div>
+
+                            <!-- RIGHT COLUMN -->
+                            <div class="services-column" style="width: 50%;">
+                                <li><a href="trainingprograms.html" style="color: white; text-decoration: none; font-size: 13px; display: block; padding: 10px 15px; transition: background 0.3s;">Training Programs</a></li>
+                                <li><a href="plug and playoffice spaces..html" style="color: white; text-decoration: none; font-size: 13px; display: block; padding: 10px 15px; transition: background 0.3s;">Plug & Play</a></li>
+                                <li><a href="financialfunding.html" style="color: white; text-decoration: none; font-size: 13px; display: block; padding: 10px 15px; transition: background 0.3s;">Funding Support</a></li>
+                                <li><a href="services inside.html" style="color: white; text-decoration: none; font-size: 13px; display: block; padding: 10px 15px; transition: background 0.3s;">Facility Management</a></li>
+                                <li><a href="hotels.html#spa-wellness" style="color: white; text-decoration: none; font-size: 13px; display: block; padding: 10px 15px; transition: background 0.3s;">Spa & Wellness</a></li>
+                                <li><a href="services inside.html" style="color: white; text-decoration: none; font-size: 13px; display: block; padding: 10px 15px; transition: background 0.3s;">CRM Services</a></li>
+                                <li><a href="services inside.html" style="color: white; text-decoration: none; font-size: 13px; display: block; padding: 10px 15px; transition: background 0.3s;">Travel & Tourism</a></li>
+                                <li><a href="services inside.html" style="color: white; text-decoration: none; font-size: 13px; display: block; padding: 10px 15px; transition: background 0.3s;">Sustainability</a></li>
+                                <li><a href="services inside.html" style="color: white; text-decoration: none; font-size: 13px; display: block; padding: 10px 15px; transition: background 0.3s;">Careers</a></li>
+                            </div>
+                        </div>
+                    </ul>
+                </li>
+
+                <li><a href="portfolio.html" style="color: white; text-decoration: none; padding: 10px 10px; border-radius: 10px; font-weight: 500; white-space: nowrap; font-size: 13px;">Portfolio</a></li>
+                <li><a href="plug and playoffice spaces..html" style="color: white; text-decoration: none; padding: 10px 10px; border-radius: 10px; font-weight: 500; white-space: nowrap; font-size: 13px;">Plug & Play Office</a></li>
+                <li><a href="foodcourts.html" style="color: white; text-decoration: none; padding: 10px 10px; border-radius: 10px; font-weight: 500; white-space: nowrap; font-size: 13px;">Food Courts</a></li>
+                <li><a href="hotels.html" style="color: white; text-decoration: none; padding: 10px 10px; border-radius: 10px; font-weight: 500; white-space: nowrap; font-size: 13px;">Hotels</a></li>
+                <li><a href="preschool to 10+2.html" style="color: white; text-decoration: none; padding: 10px 10px; border-radius: 10px; font-weight: 500; white-space: nowrap; font-size: 13px;">Pre-School to 10+2</a></li>
+
+                <!-- Financial Funding with Automatic Dropdown -->
+                <li class="dropdown-item" style="position: relative;">
+                    <a href="financialfunding.html" style="color: white; text-decoration: none; padding: 10px 10px; border-radius: 10px; font-weight: 500; white-space: nowrap; font-size: 13px;">
+                        Financial Funding <i class="fas fa-chevron-down dropdown-arrow" style="font-size: 10px; margin-left: 5px;"></i>
+                    </a>
+                    
+                    <ul style="width: 260px; padding: 0; border-radius: 10px;">
+                        <li><a href="startup fundingpage.html" style="color: white; text-decoration: none; font-size: 13px; display: block; padding: 10px 15px; transition: background 0.3s; border-bottom: 1px solid #444;">Startup Funding</a></li>
+                        <li><a href="business expansion loans.html" style="color: white; text-decoration: none; font-size: 13px; display: block; padding: 10px 15px; transition: background 0.3s; border-bottom: 1px solid #444;">Business Expansion Loans</a></li>
+                        <li><a href="franchise and partnership models.html" style="color: white; text-decoration: none; font-size: 13px; display: block; padding: 10px 15px; transition: background 0.3s; border-bottom: 1px solid #444;">Franchise & Partnership Models</a></li>
+                        <li><a href="training and skill development grants.html" style="color: white; text-decoration: none; font-size: 13px; display: block; padding: 10px 15px; transition: background 0.3s; border-bottom: 1px solid #444;">Training & Skill Development Grants</a></li>
+                        <li><a href="sustainability and green hospitality finance.html" style="color: white; text-decoration: none; font-size: 13px; display: block; padding: 10px 15px; transition: background 0.3s; border-bottom: 1px solid #444;">Sustainability & Green Hospitality</a></li>
+                        <li><a href="plug and play hospitality finance.html" style="color: white; text-decoration: none; font-size: 13px; display: block; padding: 10px 15px; transition: background 0.3s; border-bottom: 1px solid #444;">Plug & Play Facility Setup Finance</a></li>
+                        <li><a href="venture capital and private equity funding.html" style="color: white; text-decoration: none; font-size: 13px; display: block; padding: 10px 15px; transition: background 0.3s; border-bottom: 1px solid #444;">Private Equity & Venture Capital</a></li>
+                        <li><a href="operational and working support.html" style="color: white; text-decoration: none; font-size: 13px; display: block; padding: 10px 15px; transition: background 0.3s; border-bottom: 1px solid #444;">Operational & Working Capital Support</a></li>
+                        <li><a href="digital transformation and crm funding.html" style="color: white; text-decoration: none; font-size: 13px; display: block; padding: 10px 15px; transition: background 0.3s;">Digital Transformation & CRM Funding</a></li>
+                    </ul>
+                </li>
+
+                <li><a href="locations.html" style="color: white; text-decoration: none; padding: 10px 10px; border-radius: 10px; font-weight: 500; white-space: nowrap; font-size: 13px;">Locations</a></li>
+                <li><a href="contact.html" style="color: white; text-decoration: none; padding: 10px 10px; border-radius: 10px; font-weight: 500; white-space: nowrap; font-size: 13px;">Contact Us</a></li>
+            </ul>
+        </nav>
+    </header>
+
+ 
+
+    <script>
+        // Mobile menu functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const mobileToggle = document.getElementById('mobileToggle');
+            const navMenu = document.getElementById('navMenu');
+            const mobileOverlay = document.getElementById('mobileOverlay');
+            
+            // Show/hide mobile menu toggle based on screen size
+            function checkScreenSize() {
+                if (window.innerWidth <= 768) {
+                    mobileToggle.style.display = 'block';
+                    navMenu.style.display = 'block';
+                    navMenu.style.left = '-100%';
+                } else {
+                    mobileToggle.style.display = 'none';
+                    navMenu.style.display = 'flex';
+                    navMenu.style.left = 'auto';
+                    navMenu.classList.remove('active');
+                    mobileOverlay.classList.remove('active');
+                    
+                    // Reset all dropdowns on desktop
+                    const dropdowns = document.querySelectorAll('.nav-menu li ul');
+                    dropdowns.forEach(dropdown => {
+                        dropdown.style.display = 'none';
+                    });
+                    
+                    const dropdownParents = document.querySelectorAll('.dropdown-item');
+                    dropdownParents.forEach(parent => {
+                        parent.classList.remove('dropdown-active');
+                    });
+                }
+            }
+            
+            // Initial check
+            checkScreenSize();
+            
+            // Toggle mobile menu
+            if (mobileToggle && navMenu) {
+                mobileToggle.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    
+                    if (navMenu.classList.contains('active')) {
+                        closeMobileMenu();
+                    } else {
+                        openMobileMenu();
+                    }
+                });
+                
+                // Close menu when clicking on overlay
+                if (mobileOverlay) {
+                    mobileOverlay.addEventListener('click', function() {
+                        closeMobileMenu();
+                    });
+                }
+            }
+            
+            function openMobileMenu() {
+                navMenu.classList.add('active');
+                mobileOverlay.classList.add('active');
+                const icon = mobileToggle.querySelector('i');
+                icon.classList.remove('fa-bars');
+                icon.classList.add('fa-times');
+            }
+            
+            function closeMobileMenu() {
+                navMenu.classList.remove('active');
+                mobileOverlay.classList.remove('active');
+                const icon = mobileToggle.querySelector('i');
+                icon.classList.remove('fa-times');
+                icon.classList.add('fa-bars');
+                
+                // Close all dropdowns
+                const dropdowns = document.querySelectorAll('.nav-menu li ul');
+                dropdowns.forEach(dropdown => {
+                    dropdown.style.display = 'none';
+                });
+                
+                const dropdownParents = document.querySelectorAll('.dropdown-item');
+                dropdownParents.forEach(parent => {
+                    parent.classList.remove('dropdown-active');
+                });
+            }
+            
+            // Handle dropdown clicks on mobile - FIXED VERSION
+            const dropdownParents = document.querySelectorAll('.dropdown-item');
+            dropdownParents.forEach(parent => {
+                const link = parent.querySelector('a');
+                const dropdown = parent.querySelector('ul');
+                const arrow = parent.querySelector('.dropdown-arrow');
+                
+                if (link && dropdown) {
+                    // Prevent default on dropdown parent links
+                    link.addEventListener('click', function(e) {
+                        if (window.innerWidth <= 768) {
+                            e.preventDefault();
+                            e.stopPropagation();
+                            
+                            // Close other dropdowns
+                            dropdownParents.forEach(otherParent => {
+                                if (otherParent !== parent) {
+                                    const otherDropdown = otherParent.querySelector('ul');
+                                    if (otherDropdown) {
+                                        otherDropdown.style.display = 'none';
+                                    }
+                                    otherParent.classList.remove('dropdown-active');
+                                    const otherArrow = otherParent.querySelector('.dropdown-arrow');
+                                    if (otherArrow) {
+                                        otherArrow.style.transform = 'rotate(0deg)';
+                                    }
+                                }
+                            });
+                            
+                            // Toggle current dropdown
+                            if (dropdown.style.display === 'block') {
+                                dropdown.style.display = 'none';
+                                parent.classList.remove('dropdown-active');
+                                if (arrow) {
+                                    arrow.style.transform = 'rotate(0deg)';
+                                }
+                            } else {
+                                dropdown.style.display = 'block';
+                                parent.classList.add('dropdown-active');
+                                if (arrow) {
+                                    arrow.style.transform = 'rotate(180deg)';
+                                }
+                            }
+                        }
+                    });
+                    
+                    // FIXED: Close dropdown when clicking on sub-links
+                    const subLinks = dropdown.querySelectorAll('a');
+                    subLinks.forEach(subLink => {
+                        subLink.addEventListener('click', function(e) {
+                            if (window.innerWidth <= 768) {
+                                // Allow the link to navigate normally
+                                // Just close the mobile menu
+                                closeMobileMenu();
+                            }
+                        });
+                    });
+                }
+            });
+            
+            // Close menu when clicking on regular links
+            const regularLinks = document.querySelectorAll('.nav-menu > li:not(.dropdown-item) > a');
+            regularLinks.forEach(link => {
+                link.addEventListener('click', function() {
+                    if (window.innerWidth <= 768) {
+                        closeMobileMenu();
+                    }
+                });
+            });
+            
+            // FIXED: Close dropdowns when clicking on sub-links
+            const allSubLinks = document.querySelectorAll('.nav-menu li ul li a');
+            allSubLinks.forEach(subLink => {
+                subLink.addEventListener('click', function(e) {
+                    if (window.innerWidth <= 768) {
+                        // Close the entire mobile menu when a sub-link is clicked
+                        closeMobileMenu();
+                    }
+                });
+            });
+            
+            // Close menu when clicking outside on mobile
+            document.addEventListener('click', function(e) {
+                if (window.innerWidth <= 768 && navMenu.classList.contains('active')) {
+                    const isClickInsideMenu = navMenu.contains(e.target);
+                    const isClickOnToggle = mobileToggle.contains(e.target);
+                    
+                    if (!isClickInsideMenu && !isClickOnToggle) {
+                        closeMobileMenu();
+                    }
+                }
+            });
+            
+            // Close menu with Escape key
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape' && navMenu.classList.contains('active')) {
+                    closeMobileMenu();
+                }
+            });
+            
+            // Handle window resize
+            window.addEventListener('resize', checkScreenSize);
+            
+            // Automatic dropdowns for desktop
+            if (window.innerWidth > 768) {
+                const dropdownParents = document.querySelectorAll('.dropdown-item');
+                dropdownParents.forEach(parent => {
+                    parent.addEventListener('mouseenter', function() {
+                        const dropdown = this.querySelector('ul');
+                        if (dropdown) {
+                            dropdown.style.display = 'block';
+                        }
+                    });
+                    
+                    parent.addEventListener('mouseleave', function() {
+                        const dropdown = this.querySelector('ul');
+                        if (dropdown) {
+                            dropdown.style.display = 'none';
+                        }
+                    });
+                });
+            }
+            
+            // Initialize the page
+            checkScreenSize();
+        });
+    </script>
+</body>
+</html>
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>HITAISHI Services Menu</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body style="margin:0;font-family:'Segoe UI',sans-serif;background:#f0f4f8;overflow-x:hidden;">
+
+  <div style="max-height:500px;padding:20px 10px;background:linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%), repeating-radial-gradient(circle at center, #fff0f0 0, #fff0f0 10px, transparent 10px, transparent 20px);border-radius:12px;width:90%;max-width:1000px;margin:30px auto;box-shadow:0 8px 20px rgba(252,182,159,0.4);">
+    <div style="display:flex;flex-wrap:wrap;justify-content:center;gap:10px;">
+      <a href="services.html" style="background-color:#4ecdc4;color:#fff;text-decoration:none;padding:10px 15px;border-radius:5px;font-size:0.9rem;font-weight:600;transition:background 0.3s ease;">Home</a>
+      <a href="about.html" style="background-color:#4ecdc4;color:#fff;text-decoration:none;padding:10px 15px;border-radius:5px;font-size:0.9rem;font-weight:600;transition:background 0.3s ease;">About Us</a>
+      <a href="hotel-management.html" style="background-color:#4ecdc4;color:#fff;text-decoration:none;padding:10px 15px;border-radius:5px;font-size:0.9rem;font-weight:600;transition:background 0.3s ease;">Hotel Management</a>
+      <a href="food-beverage.html" style="background-color:#4ecdc4;color:#fff;text-decoration:none;padding:10px 15px;border-radius:5px;font-size:0.9rem;font-weight:600;transition:background 0.3s ease;">Food & Beverage</a>
+      <a href="event-management.html" style="background-color:#4ecdc4;color:#fff;text-decoration:none;padding:10px 15px;border-radius:5px;font-size:0.9rem;font-weight:600;transition:background 0.3s ease;">Event Management</a>
+      <a href="banquets-conferences.html" style="background-color:#4ecdc4;color:#fff;text-decoration:none;padding:10px 15px;border-radius:5px;font-size:0.9rem;font-weight:600;transition:background 0.3s ease;">Banquets</a>
+      <a href="catering.html" style="background-color:#4ecdc4;color:#fff;text-decoration:none;padding:10px 15px;border-radius:5px;font-size:0.9rem;font-weight:600;transition:background 0.3s ease;">Catering Services</a>
+      <a href="foodcourts.html" style="background-color:#4ecdc4;color:#fff;text-decoration:none;padding:10px 15px;border-radius:5px;font-size:0.9rem;font-weight:600;transition:background 0.3s ease;">Food Courts</a>
+      <a href="front-office.html" style="background-color:#4ecdc4;color:#fff;text-decoration:none;padding:10px 15px;border-radius:5px;font-size:0.9rem;font-weight:600;transition:background 0.3s ease;">Front Office</a>
+      <a href="education.html" style="background-color:#4ecdc4;color:#fff;text-decoration:none;padding:10px 15px;border-radius:5px;font-size:0.9rem;font-weight:600;transition:background 0.3s ease;">Preschool & 10+2</a>
+      <a href="training.html" style="background-color:#4ecdc4;color:#fff;text-decoration:none;padding:10px 15px;border-radius:5px;font-size:0.9rem;font-weight:600;transition:background 0.3s ease;">Training Programs</a>
+      <a href="plug and playoffice spaces..html" style="background-color:#4ecdc4;color:#fff;text-decoration:none;padding:10px 15px;border-radius:5px;font-size:0.9rem;font-weight:600;transition:background 0.3s ease;">Plug & Play</a>
+      <a href="financial-funding.html" style="background-color:#4ecdc4;color:#fff;text-decoration:none;padding:10px 15px;border-radius:5px;font-size:0.9rem;font-weight:600;transition:background 0.3s ease;">Funding Support</a>
+      <a href="facility-management.html" style="background-color:#4ecdc4;color:#fff;text-decoration:none;padding:10px 15px;border-radius:5px;font-size:0.9rem;font-weight:600;transition:background 0.3s ease;">Facility Management</a>
+      <a href="hotels.html#spa-we" style="background-color:#4ecdc4;color:#fff;text-decoration:none;padding:10px 15px;border-radius:5px;font-size:0.9rem;font-weight:600;transition:background 0.3s ease;">Spa & Wellness</a>
+      <a href="crm.html" style="background-color:#4ecdc4;color:#fff;text-decoration:none;padding:10px 15px;border-radius:5px;font-size:0.9rem;font-weight:600;transition:background 0.3s ease;">CRM Services</a>
+      <a href="travel-tourism.html" style="background-color:#4ecdc4;color:#fff;text-decoration:none;padding:10px 15px;border-radius:5px;font-size:0.9rem;font-weight:600;transition:background 0.3s ease;">Travel & Tourism</a>
+      <a href="sustainability.html" style="background-color:#4ecdc4;color:#fff;text-decoration:none;padding:10px 15px;border-radius:5px;font-size:0.9rem;font-weight:600;transition:background 0.3s ease;">Sustainability</a>
+      <a href="careers.html" style="background-color:#4ecdc4;color:#fff;text-decoration:none;padding:10px 15px;border-radius:5px;font-size:0.9rem;font-weight:600;transition:background 0.3s ease;">Careers</a>
+    </div>
+  </div>
+
+  <style>@media (max-width:600px){.services-menu a{width:100%;text-align:center;}}</style>
+   <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+    
+    :root {
+      --primary: #0056b3;
+      --secondary: #ff7e33;
+      --accent: #00c4cc;
+      --light: #f8f9fa;
+      --dark: #212529;
+    }
+  </style>
+</head>
+<body style="margin:0;font-family:'Poppins',sans-serif;background:#ffffff;color:#333;line-height:1.6;">
+
+<!-- Service Categories -->
+<main style="max-width:1200px;margin:50px auto;padding:0 20px;">
+
+<!-- Core Services Carousel -->
+<section style="margin-bottom:60px;text-align:center;position:relative;">
+  <h2 style="color:var(--primary);font-size:2.2rem;margin-bottom:15px;position:relative;display:inline-block;">
+    <span style="position:relative;">Core Services
+      <span style="position:absolute;bottom:-10px;left:0;width:100%;height:3px;background:var(--secondary);transform:scaleX(0.8);"></span>
+    </span>
+  </h2>
+  <p style="max-width:700px;margin:0 auto 40px;color:#666;">The foundation of our hospitality expertise, delivering operational excellence across all sectors</p>
+  
+  <div style="position:relative;">
+    <button class="carousel-prev" onclick="scrollCarousel('core-services', -1)" style="position:absolute;left:-50px;top:50%;transform:translateY(-50%);background:var(--primary);color:white;border:none;width:40px;height:40px;border-radius:50%;cursor:pointer;z-index:10;display:flex;align-items:center;justify-content:center;"><i class="fas fa-chevron-left"></i></button>
+    
+    <div id="core-services" style="display:flex;overflow-x:auto;scroll-snap-type:x mandatory;gap:30px;padding:20px 0;scrollbar-width:none;-ms-overflow-style:none;">
+      <!-- Service Card 1 -->
+      <div style="flex:0 0 300px;scroll-snap-align:start;background:white;border-radius:12px;padding-bottom:30px;box-shadow:0 10px 30px rgba(0,0,0,0.08);transition:transform 0.4s, box-shadow 0.4s;border-top:4px solid var(--primary);overflow:hidden;">
+        <img src="https://images.unsplash.com/photo-1566073771259-6a8506099945?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Hotel Management" style="width:100%;height:180px;object-fit:cover;">
+        <div style="padding:0 30px;">
+          <div style="background:linear-gradient(135deg, var(--primary), var(--accent));width:70px;height:70px;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:-35px auto 25px;">
+            <i class="fas fa-hotel" style="font-size:1.8rem;color:white;"></i>
+          </div>
+          <h3 style="margin-top:0;color:var(--primary);font-size:1.4rem;">Hotel Management</h3>
+          <p style="color:#666;margin-bottom:20px;">Complete operational management from front office to housekeeping, ensuring seamless guest experiences.</p>
+          <a href="login.html" style="color:var(--secondary);text-decoration:none;font-weight:500;display:inline-flex;align-items:center;">
+            Learn more <i class="fas fa-arrow-right" style="margin-left:8px;font-size:0.9rem;"></i>
+          </a>
+        </div>
+      </div>
+      
+      <!-- Service Card 2 -->
+      <div style="flex:0 0 300px;scroll-snap-align:start;background:white;border-radius:12px;padding-bottom:30px;box-shadow:0 10px 30px rgba(0,0,0,0.08);transition:transform 0.4s, box-shadow 0.4s;border-top:4px solid var(--accent);overflow:hidden;">
+        <img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Food & Beverage" style="width:100%;height:180px;object-fit:cover;">
+        <div style="padding:0 30px;">
+          <div style="background:linear-gradient(135deg, var(--accent), var(--secondary));width:70px;height:70px;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:-35px auto 25px;">
+            <i class="fas fa-utensils" style="font-size:1.8rem;color:white;"></i>
+          </div>
+          <h3 style="margin-top:0;color:var(--primary);font-size:1.4rem;">Food & Beverage</h3>
+          <p style="color:#666;margin-bottom:20px;">Innovative culinary solutions, menu engineering, and beverage programs that maximize profitability.</p>
+          <a href="login.html" style="color:var(--secondary);text-decoration:none;font-weight:500;display:inline-flex;align-items:center;">
+            Learn more <i class="fas fa-arrow-right" style="margin-left:8px;font-size:0.9rem;"></i>
+          </a>
+        </div>
+      </div>
+      
+      <!-- Service Card 3 -->
+      <div style="flex:0 0 300px;scroll-snap-align:start;background:white;border-radius:12px;padding-bottom:30px;box-shadow:0 10px 30px rgba(0,0,0,0.08);transition:transform 0.4s, box-shadow 0.4s;border-top:4px solid var(--secondary);overflow:hidden;">
+        <img src="https://images.unsplash.com/photo-1581578731548-c64695cc6952?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Housekeeping" style="width:100%;height:180px;object-fit:cover;">
+        <div style="padding:0 30px;">
+          <div style="background:linear-gradient(135deg, var(--secondary), #ff9a5a);width:70px;height:70px;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:-35px auto 25px;">
+            <i class="fas fa-broom" style="font-size:1.8rem;color:white;"></i>
+          </div>
+          <h3 style="margin-top:0;color:var(--primary);font-size:1.4rem;">Housekeeping</h3>
+          <p style="color:#666;margin-bottom:20px;">Sustainable cleaning protocols and staff training programs that maintain impeccable standards.</p>
+          <a href="login.html" style="color:var(--secondary);text-decoration:none;font-weight:500;display:inline-flex;align-items:center;">
+            Learn more <i class="fas fa-arrow-right" style="margin-left:8px;font-size:0.9rem;"></i>
+          </a>
+        </div>
+      </div>
+      
+      <!-- Service Card 4 -->
+      <div style="flex:0 0 300px;scroll-snap-align:start;background:white;border-radius:12px;padding-bottom:30px;box-shadow:0 10px 30px rgba(0,0,0,0.08);transition:transform 0.4s, box-shadow 0.4s;border-top:4px solid var(--primary);overflow:hidden;">
+        <img src="https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Front Office" style="width:100%;height:180px;object-fit:cover;">
+        <div style="padding:0 30px;">
+          <div style="background:linear-gradient(135deg, var(--primary), var(--accent));width:70px;height:70px;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:-35px auto 25px;">
+            <i class="fas fa-concierge-bell" style="font-size:1.8rem;color:white;"></i>
+          </div>
+          <h3 style="margin-top:0;color:var(--primary);font-size:1.4rem;">Front Office</h3>
+          <p style="color:#666;margin-bottom:20px;">Professional guest services and reception management for exceptional first impressions.</p>
+          <a href="login.html" style="color:var(--secondary);text-decoration:none;font-weight:500;display:inline-flex;align-items:center;">
+            Learn more <i class="fas fa-arrow-right" style="margin-left:8px;font-size:0.9rem;"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+    
+    <button class="carousel-next" onclick="scrollCarousel('core-services', 1)" style="position:absolute;right:-50px;top:50%;transform:translalteY(-50%);background:var(--primary);color:white;border:none;width:40px;height:40px;border-radius:50%;cursor:pointer;z-index:10;display:flex;align-items:center;justify-content:center;"><i class="fas fa-chevron-right"></i></button>
+  </div>
+  <div style="display:flex;justify-content:center;gap:8px;margin-top:20px;">
+    <span class="carousel-indicator active" onclick="goToSlide('core-services', 0)" style="width:12px;height:12px;border-radius:50%;background:var(--primary);cursor:pointer;"></span>
+    <span class="carousel-indicator" onclick="goToSlide('core-services', 1)" style="width:12px;height:12px;border-radius:50%;background:#ccc;cursor:pointer;"></span>
+    <span class="carousel-indicator" onclick="goToSlide('core-services', 2)" style="width:12px;height:12px;border-radius:50%;background:#ccc;cursor:pointer;"></span>
+    <span class="carousel-indicator" onclick="goToSlide('core-services', 3)" style="width:12px;height:12px;border-radius:50%;background:#ccc;cursor:pointer;"></span>
+  </div>
+</section>
+
+<!-- Specialized Services Carousel -->
+<section style="margin-bottom:60px;text-align:center;background:var(--light);padding:50px 30px;border-radius:12px;position:relative;">
+  <h2 style="color:var(--primary);font-size:2.2rem;margin-bottom:15px;position:relative;display:inline-block;">
+    <span style="position:relative;">Specialized Solutions
+      <span style="position:absolute;bottom:-10px;left:0;width:100%;height:3px;background:var(--secondary);transform:scaleX(0.8);"></span>
+    </span>
+  </h2>
+  <p style="max-width:700px;margin:0 auto 40px;color:#666;">Boutique services tailored to unique hospitality challenges and opportunities</p>
+  
+  <div style="position:relative;">
+    <button class="carousel-prev" onclick="scrollCarousel('specialized-services', -1)" style="position:absolute;left:-50px;top:50%;transform:translateY(-50%);background:var(--primary);color:white;border:none;width:40px;height:40px;border-radius:50%;cursor:pointer;z-index:10;display:flex;align-items:center;justify-content:center;"><i class="fas fa-chevron-left"></i></button>
+    
+    <div id="specialized-services" style="display:flex;overflow-x:auto;scroll-snap-type:x mandatory;gap:25px;padding:20px 0;scrollbar-width:none;-ms-overflow-style:none;">
+      <!-- Service Card 1 -->
+      <div style="flex:0 0 280px;scroll-snap-align:start;background:white;border-radius:12px;padding:25px;box-shadow:0 5px 20px rgba(0,0,0,0.05);transition:all 0.3s;border-left:4px solid var(--accent);overflow:hidden;">
+        <img src="https://images.unsplash.com/photo-1492684223066-81342ee5ff30?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Event Management" style="width:100%;height:160px;object-fit:cover;margin-bottom:15px;border-radius:8px;">
+        <div style="display:flex;align-items:center;gap:15px;margin-bottom:15px;">
+          <div style="background:var(--accent);color:white;width:50px;height:50px;border-radius:8px;display:flex;align-items:center;justify-content:center;">
+            <i class="fas fa-calendar-check" style="font-size:1.3rem;"></i>
+          </div>
+          <h3 style="margin:0;color:var(--primary);font-size:1.2rem;">Event Management</h3>
+        </div>
+        <p style="color:#666;margin-bottom:15px;">End-to-end event planning from intimate gatherings to large-scale conferences with flawless execution.</p>
+        <a href="login.html" style="color:var(--accent);text-decoration:none;font-size:0.9rem;font-weight:500;">Explore →</a>
+      </div>
+      
+      <!-- Service Card 2 -->
+      <div style="flex:0 0 280px;scroll-snap-align:start;background:white;border-radius:12px;padding:25px;box-shadow:0 5px 20px rgba(0,0,0,0.05);transition:all 0.3s;border-left:4px solid var(--secondary);overflow:hidden;">
+        <img src="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Education Programs" style="width:100%;height:160px;object-fit:cover;margin-bottom:15px;border-radius:8px;">
+        <div style="display:flex;align-items:center;gap:15px;margin-bottom:15px;">
+          <div style="background:var(--secondary);color:white;width:50px;height:50px;border-radius:8px;display:flex;align-items:center;justify-content:center;">
+            <i class="fas fa-school" style="font-size:1.3rem;"></i>
+          </div>
+          <h3 style="margin:0;color:var(--primary);font-size:1.2rem;">Education Programs</h3>
+        </div>
+        <p style="color:#666;margin-bottom:15px;">Hospitality-focused curriculum from preschool to professional certification courses.</p>
+        <a href="login.html" style="color:var(--secondary);text-decoration:none;font-size:0.9rem;font-weight:500;">Explore →</a>
+      </div>
+      
+      <!-- Service Card 3 -->
+      <div style="flex:0 0 280px;scroll-snap-align:start;background:white;border-radius:12px;padding:25px;box-shadow:0 5px 20px rgba(0,0,0,0.05);transition:all 0.3s;border-left:4px solid var(--primary);overflow:hidden;">
+        <img src="https://images.unsplash.com/photo-1544161515-4ab6ce6db874?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Spa & Wellness" style="width:100%;height:160px;object-fit:cover;margin-bottom:15px;border-radius:8px;">
+        <div style="display:flex;align-items:center;gap:15px;margin-bottom:15px;">
+          <div style="background:var(--primary);color:white;width:50px;height:50px;border-radius:8px;display:flex;align-items:center;justify-content:center;">
+            <i class="fas fa-spa" style="font-size:1.3rem;"></i>
+          </div>
+          <h3 style="margin:0;color:var(--primary);font-size:1.2rem;">Spa & Wellness</h3>
+        </div>
+        <p style="color:#666;margin-bottom:15px;">Holistic wellness programs and spa management services for premium guest experiences.</p>
+        <a href="login.html" style="color:var(--primary);text-decoration:none;font-size:0.9rem;font-weight:500;">Explore →</a>
+      </div>
+      
+      <!-- Service Card 4 -->
+      <div style="flex:0 0 280px;scroll-snap-align:start;background:white;border-radius:12px;padding:25px;box-shadow:0 5px 20px rgba(0,0,0,0.05);transition:all 0.3s;border-left:4px solid var(--accent);overflow:hidden;">
+        <img src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1374&q=80" alt="Travel & Tourism" style="width:100%;height:160px;object-fit:cover;margin-bottom:15px;border-radius:8px;">
+        <div style="display:flex;align-items:center;gap:15px;margin-bottom:15px;">
+          <div style="background:var(--accent);color:white;width:50px;height:50px;border-radius:8px;display:flex;align-items:center;justify-content:center;">
+            <i class="fas fa-umbrella-beach" style="font-size:1.3rem;"></i>
+          </div>
+          <h3 style="margin:0;color:var(--primary);font-size:1.2rem;">Travel & Tourism</h3>
+        </div>
+        <p style="color:#666;margin-bottom:15px;">Comprehensive travel solutions and tourism packages for memorable experiences.</p>
+        <a href="login.html" style="color:var(--accent);text-decoration:none;font-size:0.9rem;font-weight:500;">Explore →</a>
+      </div>
+    </div>
+    
+    <button class="carousel-next" onclick="scrollCarousel('specialized-services', 1)" style="position:absolute;right:-50px;top:50%;transform:translateY(-50%);background:var(--primary);color:white;border:none;width:40px;height:40px;border-radius:50%;cursor:pointer;z-index:10;display:flex;align-items:center;justify-content:center;"><i class="fas fa-chevron-right"></i></button>
+  </div>
+  <div style="display:flex;justify-content:center;gap:8px;margin-top:20px;">
+    <span class="carousel-indicator active" onclick="goToSlide('specialized-services', 0)" style="width:12px;height:12px;border-radius:50%;background:var(--primary);cursor:pointer;"></span>
+    <span class="carousel-indicator" onclick="goToSlide('specialized-services', 1)" style="width:12px;height:12px;border-radius:50%;background:#ccc;cursor:pointer;"></span>
+    <span class="carousel-indicator" onclick="goToSlide('specialized-services', 2)" style="width:12px;height:12px;border-radius:50%;background:#ccc;cursor:pointer;"></span>
+    <span class="carousel-indicator" onclick="goToSlide('specialized-services', 3)" style="width:12px;height:12px;border-radius:50%;background:#ccc;cursor:pointer;"></span>
+  </div>
+</section>
+
+<!-- Support Services -->
+<section style="margin-bottom:60px;">
+  <div style="display:flex;flex-wrap:wrap;gap:30px;align-items:center;margin-bottom:40px;">
+    <div style="flex:1 1 400px;">
+      <h2 style="color:var(--primary);font-size:2rem;margin-bottom:20px;">Comprehensive Support Services</h2>
+      <p style="color:#666;margin-bottom:25px;">Beyond traditional hospitality, we provide the essential support systems that enable your business to thrive in competitive markets.</p>
+      <div style="display:flex;flex-wrap:wrap;gap:15px;">
+        <span style="background:rgba(0,196,204,0.1);color:var(--accent);padding:8px 15px;border-radius:50px;font-size:0.9rem;font-weight:500;">Funding Solutions</span>
+        <span style="background:rgba(255,126,51,0.1);color:var(--secondary);padding:8px 15px;border-radius:50px;font-size:0.9rem;font-weight:500;">Quick Launch</span>
+        <span style="background:rgba(0,86,179,0.1);color:var(--primary);padding:8px 15px;border-radius:50px;font-size:0.9rem;font-weight:500;">Staff Training</span>
+        <span style="background:rgba(0,196,204,0.1);color:var(--accent);padding:8px 15px;border-radius:50px;font-size:0.9rem;font-weight:500;">CRM Systems</span>
+      </div>
+    </div>
+    <div style="flex:1 1 400px;position:relative;">
+      <div style="background:white;border-radius:12px;padding:30px;box-shadow:0 15px 40px rgba(0,0,0,0.1);position:relative;z-index:1;">
+        <h3 style="margin-top:0;color:var(--primary);display:flex;align-items:center;gap:10px;">
+          <i class="fas fa-lightbulb" style="color:var(--secondary);font-size:1.5rem;"></i> 
+          <span>Why Choose Our Support Services?</span>
+        </h3>
+        <ul style="padding-left:20px;color:#666;">
+          <li style="margin-bottom:10px;">Turnkey solutions that reduce operational headaches</li>
+          <li style="margin-bottom:10px;">Access to industry-leading technology and systems</li>
+          <li style="margin-bottom:10px;">Customized training for your specific needs</li>
+          <li style="margin-bottom:10px;">Financial models that maximize ROI</li>
+        </ul>
+      </div>
+      <div style="position:absolute;top:-15px;right:-15px;width:100%;height:100%;border:2px dashed rgba(0,86,179,0.3);border-radius:12px;z-index:0;"></div>
+    </div>
+  </div>
+  
+  <div style="display:grid;grid-template-columns:repeat(auto-fit, minmax(250px, 1fr));gap:20px;">
+    <div style="background:white;border-radius:8px;padding:20px;box-shadow:0 5px 15px rgba(0,0,0,0.05);border-top:3px solid var(--accent);">
+      <div style="display:flex;align-items:center;gap:15px;margin-bottom:15px;">
+        <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Plug & Play" style="width:60px;height:60px;border-radius:8px;object-fit:cover;">
+        <h3 style="margin:0;color:var(--primary);font-size:1.1rem;">Plug & Play Solutions</h3>
+      </div>
+      <p style="color:#666;font-size:0.9rem;">Ready-to-operate hospitality setups that can be launched in record time.</p>
+    </div>
+    <div style="background:white;border-radius:8px;padding:20px;box-shadow:0 5px 15px rgba(0,0,0,0.05);border-top:3px solid var(--secondary);">
+      <div style="display:flex;align-items:center;gap:15px;margin-bottom:15px;">
+        <img src="https://images.unsplash.com/photo-1450101499163-c8848c66ca85?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Financial Funding" style="width:60px;height:60px;border-radius:8px;object-fit:cover;">
+        <h3 style="margin:0;color:var(--primary);font-size:1.1rem;">Financial Funding</h3>
+      </div>
+      <p style="color:#666;font-size:0.9rem;">Tailored financial solutions for hospitality ventures at any stage.</p>
+    </div>
+    <div style="background:white;border-radius:8px;padding:20px;box-shadow:0 5px 15px rgba(0,0,0,0.05);border-top:3px solid var(--primary);">
+      <div style="display:flex;align-items:center;gap:15px;margin-bottom:15px;">
+        <img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Facility Management" style="width:60px;height:60px;border-radius:8px;object-fit:cover;">
+        <h3 style="margin:0;color:var(--primary);font-size:1.1rem;">Facility Management</h3>
+      </div>
+      <p style="color:#666;font-size:0.9rem;">Complete property maintenance and optimization services.</p>
+    </div>
+  </div>
+</section>
+
+<script>
+  function scrollCarousel(carouselId, direction) {
+    const carousel = document.getElementById(carouselId);
+    const scrollAmount = carousel.offsetWidth * 0.8 * direction;
+    carousel.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+    
+    // Update indicators after scroll completes
+    setTimeout(() => updateIndicators(carouselId), 500);
+  }
+  
+  function goToSlide(carouselId, index) {
+    const carousel = document.getElementById(carouselId);
+    const slideWidth = carousel.children[0].offsetWidth + 25; // Include gap
+    carousel.scrollTo({ left: slideWidth * index, behavior: 'smooth' });
+    updateIndicators(carouselId);
+  }
+  
+  function updateIndicators(carouselId) {
+    const carousel = document.getElementById(carouselId);
+    const slides = carousel.children;
+    const indicators = document.querySelectorAll(`#${carouselId} ~ div .carousel-indicator`);
+    
+    // Find which slide is most visible
+    let mostVisibleIndex = 0;
+    let maxVisibility = 0;
+    
+    for (let i = 0; i < slides.length; i++) {
+      const slide = slides[i];
+      const rect = slide.getBoundingClientRect();
+      const visibility = Math.min(rect.right, window.innerWidth) - Math.max(rect.left, 0);
+      
+      if (visibility > maxVisibility) {
+        maxVisibility = visibility;
+        mostVisibleIndex = i;
+      }
+    }
+    
+    // Update indicators
+    indicators.forEach((indicator, index) => {
+      if (index === mostVisibleIndex) {
+        indicator.style.background = 'var(--primary)';
+      } else {
+        indicator.style.background = '#ccc';
+      }
+    });
+  }
+  
+  // Initialize carousels and set up scroll event listeners
+  document.addEventListener('DOMContentLoaded', function() {
+    const carousels = ['core-services', 'specialized-services'];
+    
+    carousels.forEach(id => {
+      const carousel = document.getElementById(id);
+      if (carousel) {
+        carousel.addEventListener('scroll', () => updateIndicators(id));
+        // Initial indicator update
+        updateIndicators(id);
+      }
+    });
+  });
+</script>
+
+<style>
+  /* Hide scrollbar for carousels */
+  #core-services::-webkit-scrollbar, #specialized-services::-webkit-scrollbar {
+    display: none;
+  }
+  
+  /* Hover effects for cards */
+  [style*="box-shadow:0 10px 30px rgba(0,0,0,0.08)"]:hover, 
+  [style*="box-shadow:0 5px 20px rgba(0,0,0,0.05)"]:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 35px rgba(0,0,0,0.12) !important;
+  }
+  
+  /* Responsive adjustments */
+  @media (max-width: 768px) {
+    .carousel-prev, .carousel-next {
+      display: none !important;
+    }
+    
+    #core-services, #specialized-services {
+      scroll-snap-type: none !important;
+      padding-bottom: 10px !important;
+    }
+  }
+</style>
+  <!-- Testimonials -->
+  <section style="background:linear-gradient(135deg, var(--primary), #003366);color:white;padding:50px 30px;border-radius:12px;margin-bottom:60px;text-align:center;">
+    <h2 style="margin-top:0;font-size:2rem;margin-bottom:40px;">Trusted by Industry Leaders</h2>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit, minmax(300px, 1fr));gap:30px;">
+      <div style="background:rgba(255,255,255,0.1);backdrop-filter:blur(10px);padding:25px;border-radius:8px;border:1px solid rgba(255,255,255,0.2);">
+        <div style="margin-bottom:15px;">
+          <h4 style="margin:0;font-size:1.1rem;">Rajesh Mehta</h4>
+          <p style="margin:0;font-size:0.8rem;opacity:0.8;">CEO, Grand Hotels Group</p>
+        </div>
+        <p style="font-style:italic;margin-bottom:0;">"Hitaishi transformed our F&B operations, increasing profitability by 40% while enhancing guest satisfaction scores."</p>
+      </div>
+      <div style="background:rgba(255,255,255,0.1);backdrop-filter:blur(10px);padding:25px;border-radius:8px;border:1px solid rgba(255,255,255,0.2);">
+        <div style="margin-bottom:15px;">
+          <h4 style="margin:0;font-size:1.1rem;">Priya Singh</h4>
+          <p style="margin:0;font-size:0.8rem;opacity:0.8;">Director, Urban Retreat Spas</p>
+        </div>
+        <p style="font-style:italic;margin-bottom:0;">"Their spa management team implemented systems that reduced our operational costs by 25% while improving service quality."</p>
+      </div>
+      <div style="background:rgba(255,255,255,0.1);backdrop-filter:blur(10px);padding:25px;border-radius:8px;border:1px solid rgba(255,255,255,0.2);">
+        <div style="margin-bottom:15px;">
+          <h4 style="margin:0;font-size:1.1rem;">Amit Patel</h4>
+          <p style="margin:0;font-size:0.8rem;opacity:0.8;">Founder, FoodCourt Chain</p>
+        </div>
+        <p style="font-style:italic;margin-bottom:0;">"From concept to launch, Hitaishi's plug-and-play solution had our new food court operational in just 6 weeks."</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section id="contact" style="background:white;border-radius:12px;padding:50px;box-shadow:0 20px 40px rgba(0,0,0,0.1);text-align:center;margin-bottom:60px;">
+    <h2 style="color:var(--primary);font-size:2.2rem;margin-bottom:15px;">Ready to Transform Your Hospitality Business?</h2>
+    <p style="max-width:700px;margin:0 auto 30px;color:#666;font-size:1.1rem;">Schedule a consultation with our experts to discuss customized solutions for your unique requirements.</p>
+    <div style="display:flex;flex-wrap:wrap;justify-content:center;gap:20px;">
+      <a href="tel:+911234567890" style="display:inline-flex;align-items:center;background:var(--primary);color:white;padding:12px 25px;border-radius:50px;text-decoration:none;font-weight:500;transition:all 0.3s;">
+        <i class="fas fa-phone" style="margin-right:10px;"></i> Call Us Now
+      </a>
+      <a href="mailto:info@hitaishi.com" style="display:inline-flex;align-items:center;background:var(--secondary);color:white;padding:12px 25px;border-radius:50px;text-decoration:none;font-weight:500;transition:all 0.3s;">
+        <i class="fas fa-envelope" style="margin-right:10px;"></i> Email Us
+      </a>
+    </div>
+  </section>
+</main>
+
+
+
+<!-- Floating Contact Button -->
+<a href="#contact" style="position:fixed;bottom:30px;right:30px;background:var(--secondary);color:white;width:60px;height:60px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.5rem;box-shadow:0 5px 20px rgba(255,126,51,0.5);z-index:1000;text-decoration:none;">
+  <i class="fas fa-comment-dots"></i>
+</a>
+
+
+<div id="footer-container"></div>
+
+<script>
+fetch("footer.html")
+  .then(res => res.text())
+  .then(data => {
+    document.getElementById("footer-container").innerHTML = data;
+  });
+</script>
+<!-- Animation Styles -->
+<style>
+  /* Hover Effects */
+  .services-container div[style*="box-shadow"]:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 30px rgba(0,0,0,0.15) !important;
+  }
+  
+  a[style*="transition"]:hover {
+    transform: translateY(-2px);
+  }
+  
+  /* Keyframe Animations */
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  
+  /* Apply Animations */
+  header, section {
+    animation: fadeIn 0.6s ease-out forwards;
+  }
+  
+  section:nth-child(2) { animation-delay: 0.2s; }
+  section:nth-child(3) { animation-delay: 0.4s; }
+  section:nth-child(4) { animation-delay: 0.6s; }
+  
+  /* Responsive Adjustments */
+  @media (max-width: 768px) {
+    nav div { flex-direction: column; gap: 15px; }
+    header { padding: 80px 20px; }
+    header h1 { font-size: 2.2rem !important; }
+    .services-container { padding: 30px 15px !important; }
+  }
+</style>
+
+</body>
+</html>
+
+ 

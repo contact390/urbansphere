@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Hitaishi Hospitality Services - Premium hospitality solutions with exceptional service quality">
+    <meta name="keywords" content="hospitality services, hotel management, catering, event management, Hitaishi">
+    <meta name="author" content="Hitaishi Hospitality">
+    <meta property="og:title" content="Hitaishi Hospitality Services | Premium Hospitality Solutions">
+    <meta property="og:description" content="Personalized Hospitality Services Offering Premium Quality & Guest Satisfaction">
+    <meta property="og:type" content="website">
+    <meta name="twitter:card" content="summary_large_image">
+    <title>Hitaishi Hospitality Services | Premium Hospitality Solutions</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="canonical" href="https://www.hitaishihospitality.com">
+    <style>@keyframes waveAnimation{0%{opacity:0;transform:scale(1.1) translateY(10px) rotate(1deg);}10%{opacity:1;transform:scale(1) translateY(0) rotate(0);}20%{opacity:1;transform:scale(1) translateY(0) rotate(0);}30%{opacity:0;transform:scale(1.1) translateY(-10px) rotate(-1deg);}100%{opacity:0;transform:scale(1.1) translateY(10px) rotate(1deg);}}@keyframes fadeInUp{from{opacity:0;transform:translateY(20px);}to{opacity:1;transform:translateY(0);}}@keyframes waveSlide{0%{opacity:0;transform:translateX(-100px);}100%{opacity:1;transform:translateX(0);}}@keyframes floatWave{0%,100%{transform:translateY(0);}50%{transform:translateY(-10px);}}a:hover{color:#d4af37!important;}a[href*="contact.html"]:hover span:last-child{transform:translateX(100%) skewX(-15deg);}img:hover{transform:rotate(0) scale(1.05)!important;}@media (max-width:768px){header{padding:10px 0!important;}nav{display:none!important;}#hero h1{font-size:2.5rem!important;}#hero p{font-size:1rem!important;}#about, #connect{padding:60px 20px!important;}#services div[style*="flex:1"]{min-width:100%!important;padding:0 0 40px 0!important;text-align:center!important;}#services img{width:90%!important;margin:0 auto!important;bottom:0!important;right:0!important;position:relative!important;}footer div[style*="flex:1"]{min-width:100%!important;text-align:center!important;margin-bottom:20px!important;}}</style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Login - Hitaishi Hospitality Services</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+
+
+<body style="margin:0;padding:0;font-family:'Poppins',sans-serif;overflow-x:hidden;background:#f9f9f9;">
+  <div id="navbar-container"></div>
+    
+    <!-- Load Navbar Script -->
+  <script>
+  // Load shared navbar (injects navbar.html body and executes its scripts)
+  async function includeNavbar() {
+    try {
+      const res = await fetch('navbar.html');
+      const text = await res.text();
+      const parser = new DOMParser();
+      const doc = parser.parseFromString(text, 'text/html');
+      document.getElementById('navbar-container').innerHTML = doc.body.innerHTML;
+
+      // Execute scripts from navbar.html and wait for external scripts to load
+      const __createdScriptPromises = [];
+      doc.querySelectorAll('script').forEach(s => {
+        const newScript = document.createElement('script');
+        if (s.src) {
+          newScript.src = s.src;
+          newScript.async = false;
+          __createdScriptPromises.push(new Promise(resolve => {
+            newScript.addEventListener('load', resolve);
+            newScript.addEventListener('error', resolve);
+            setTimeout(resolve, 2000);
+          }));
+        } else {
+          newScript.textContent = s.textContent;
+        }
+        document.body.appendChild(newScript);
+      });
+      Promise.all(__createdScriptPromises).finally(() => {});
+
+      // Ensure navbar init functions run after dynamic injection (wait for external scripts to load)
+      const __navbarScriptPromises = [];
+      doc.querySelectorAll('script').forEach((s, i) => {
+        const existing = document.querySelectorAll('script')[document.querySelectorAll('script').length - 1 - i];
+        if (existing && existing.src) {
+          __navbarScriptPromises.push(new Promise(resolve => {
+            existing.addEventListener('load', resolve);
+            existing.addEventListener('error', resolve);
+            // also resolve after 2s as a safety
+            setTimeout(resolve, 2000);
+          }));
+        }
+      });
+      Promise.all(__navbarScriptPromises).finally(() => {
+        if (typeof checkScreenSize === 'function') checkScreenSize();
+        if (typeof addDesktopHoverEffects === 'function') addDesktopHoverEffects();
+        if (typeof updateUserUI === 'function') updateUserUI();
+        if (typeof updateCartBadge === 'function') updateCartBadge();
+        if (typeof setActiveNavLink === 'function') setActiveNavLink();
+      });
+    } catch (e) {
+      console.error('Failed to load navbar:', e);
+    }
+  }
+  includeNavbar();
+</script>
+<!-- Hero Section with Animated Background -->
+<section id="hero" style="height:100vh;position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;margin-top:0;">
+    <div style="position:absolute;top:0;left:0;width:100%;height:100%;overflow:hidden;">
+        <img src="images/services_bg1.png" alt="Luxury hotel lobby" style="position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;opacity:0;animation:waveAnimation 24s infinite 0s;transform:scale(1.1) translateY(10px) rotate(1deg);">
+        <img src="https://images.unsplash.com/photo-1566073771259-6a8506099945?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Elegant dining setup" style="position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;opacity:0;animation:waveAnimation 24s infinite 6s;transform:scale(1.1) translateY(10px) rotate(-1deg);">
+        <img src="https://images.unsplash.com/photo-1537047902294-62a40c20a6ae?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Beautiful hotel pool" style="position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;opacity:0;animation:waveAnimation 24s infinite 12s;transform:scale(1.1) translateY(10px) rotate(2deg);">
+        <img src="https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Comfortable hotel room" style="position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;opacity:0;animation:waveAnimation 24s infinite 18s;transform:scale(1.1) translateY(10px) rotate(-2deg);">
+    </div>
+    <div style="position:absolute;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.4);"></div>
+    <div style="position:relative;z-index:10;text-align:center;padding:0 20px;max-width:800px;color:white;">
+        <h1 style="font-size:3.5rem;margin-bottom:20px;font-weight:700;text-shadow:0 2px 10px rgba(0,0,0,0.3);animation:fadeInUp 1s ease;">Elevating Hospitality Experiences with Innovative Hospitality Services</h1>
+        <p style="font-size:1.2rem;margin-bottom:30px;line-height:1.6;text-shadow:0 1px 5px rgba(0,0,0,0.3);animation:fadeInUp 1s ease 0.3s forwards;opacity:0;">Personalized Hospitality Services Offering Premium Quality & Guest Satisfaction</p>
+        <!-- <a href="#connect" style="display:inline-block;paddaing:14px 30px;background-color:#d4af37;color:white;text-decoration:none;border-radius:6px;font-size:1.05rem;box-shadow:0 6px 20px rgba(0,0,0,0.1);transition:all 0.3s ease;animation:fadeInUp 1s ease 0.6s forwards;opacity:0;">Get in Touch Today</a> -->
+    </div>
+</section>
+
+<!-- Advanced Services Section -->
+<section id="services" style="padding:100px 20px;background:linear-gradient(to right, #fff, #f9f9f9);max-width:1200px;margin:0 auto;overflow:hidden;font-family:'Segoe UI',sans-serif;">
+    <div style="display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;">
+        <div style="flex:1;min-width:300px;padding:0 20px;animation:waveSlide 1s ease-out forwards;">
+            <h2 style="font-size:2.8rem;color:#222;margin-bottom:20px;font-weight:700;">Discover Our <span style="color:#d4af37;">Exclusive Services</span></h2>
+            <p style="color:#555;line-height:1.8;margin-bottom:20px;font-size:1.15rem;">Hitaishi Hospitality Services offers a complete suite of premium hospitality solutions designed to enhance guest experiences and support our clients' operational goals. Our expertise spans across luxury hospitality, events, and strategic training initiatives.</p>
+            <ul style="list-style-type:none;padding:0;margin:30px 0;">
+                <li style="margin-bottom:20px;display:flex;align-items:flex-start;animation:waveSlide 1.2s ease-out forwards;"><span style="background:#d4af37;color:white;border-radius:50%;width:28px;height:28px;display:flex;align-items:center;justify-content:center;margin-right:15px;flex-shrink:0;font-weight:bold;">✓</span><div><strong style="color:#333;">Hotel Management & Staffing:</strong> Full-service hotel operations, recruitment, and staff training for 3-star to 5-star establishments.</div></li>
+                <li style="margin-bottom:20px;display:flex;align-items:flex-start;animation:waveSlide 1.4s ease-out forwards;"><span style="background:#d4af37;color:white;border-radius:50%;width:28px;height:28px;display:flex;align-items:center;justify-content:center;margin-right:15px;flex-shrink:0;font-weight:bold;">✓</span><div><strong style="color:#333;">Event Management:</strong> Creative planning and seamless execution for weddings, MICE events, corporate functions, and themed experiences.</div></li>
+                <li style="margin-bottom:20px;display:flex;align-items:flex-start;animation:waveSlide 1.6s ease-out forwards;"><span style="background:#d4af37;color:white;border-radius:50%;width:28px;height:28px;display:flex;align-items:center;justify-content:center;margin-right:15px;flex-shrink:0;font-weight:bold;">✓</span><div><strong style="color:#333;">Signature Catering Services:</strong> Gourmet catering for all occasions—from intimate dinners to grand banquets—with customizable menus.</div></li>
+                <li style="margin-bottom:20px;display:flex;align-items:flex-start;animation:waveSlide 1.8s ease-out forwards;"><span style="background:#d4af37;color:white;border-radius:50%;width:28px;height:28px;display:flex;align-items:center;justify-content:center;margin-right:15px;flex-shrink:0;font-weight:bold;">✓</span><div><strong style="color:#333;">Hospitality Training:</strong> Professional training modules including front office, F&B service, housekeeping, and customer relationship skills.</div></li>
+                <li style="margin-bottom:20px;display:flex;align-items:flex-start;animation:waveSlide 2s ease-out forwards;"><span style="background:#d4af37;color:white;border-radius:50%;width:28px;height:28px;display:flex;align-items:center;justify-content:center;margin-right:15px;flex-shrink:0;font-weight:bold;">✓</span><div><strong style="color:#333;">Facility & Concierge Services:</strong> End-to-end property management, front desk operations, maintenance, valet, and guest support.</div></li>
+                <li style="margin-bottom:20px;display:flex;align-items:flex-start;animation:waveSlide 2.2s ease-out forwards;"><span style="background:#d4af37;color:white;border-radius:50%;width:28px;height:28px;display:flex;align-items:center;justify-content:center;margin-right:15px;flex-shrink:0;font-weight:bold;">✓</span><div><strong style="color:#333;">Digital Hospitality Solutions:</strong> Integration of smart tools, online reservations, feedback systems, and automated guest services.</div></li>
+                <li style="margin-bottom:20px;display:flex;align-items:flex-start;animation:waveSlide 2.4s ease-out forwards;"><span style="background:#d4af37;color:white;border-radius:50%;width:28px;height:28px;display:flex;align-items:center;justify-content:center;margin-right:15px;flex-shrink:0;font-weight:bold;">✓</span><div><strong style="color:#333;">Brand Development Consulting:</strong> Strategic consulting for emerging hospitality brands including SOPs, brand voice, and marketing identity.</div></li>
+            </ul>
+            <a href="services inside.html" style="display:inline-block;padding:14px 30px;background-color:#d4af37;color:white;text-decoration:none;border-radius:6px;font-size:1.05rem;box-shadow:0 6px 20px rgba(0,0,0,0.1);transition:all 0.3s ease;animation:waveSlide 2.6s ease-out forwards;">Let's Connect Our Services</a>
+        </div>
+        <div style="flex:1;min-width:300px;padding:20px;position:relative;animation:floatWave 4s ease-in-out infinite;">
+            <img src="images/service_excellance_sevices.png" alt="Hospitality team at work" style="width:100%;border-radius:12px;box-shadow:0 20px 40px rgba(0,0,0,0.1);transform:rotate(-2deg);transition:transform 0.3s;">
+            <img src="images/team_work_services page.png" alt="Service excellence in hospitality" style="position:absolute;bottom:-30px;right:0;width:60%;border-radius:12px;box-shadow:0 20px 40px rgba(0,0,0,0.1);transform:rotate(3deg);transition:transform 0.3s;z-index:-1;">
+        </div>
+    </div>
+</section>
+
+
+<div id="footer-container"></div>
+
+<script>
+fetch("footer.html")
+  .then(res => res.text())
+  .then(data => {
+    document.getElementById("footer-container").innerHTML = data;
+  });
+</script>
+<script>
+    document.addEventListener("DOMContentLoaded",function(){
+        const lazyImages=[].slice.call(document.querySelectorAll("img[loading='lazy']"));
+        if("IntersectionObserver"in window){
+            let lazyImageObserver=new IntersectionObserver(function(entries,observer){
+                entries.forEach(function(entry){
+                    if(entry.isIntersecting){
+                        let lazyImage=entry.target;
+                        lazyImage.src=lazyImage.dataset.src;
+                        lazyImageObserver.unobserve(lazyImage);
+                    }
+                });
+            });
+            lazyImages.forEach(function(lazyImage){
+                lazyImageObserver.observe(lazyImage);
+            });
+        }
+
+    });
+</script>
+</body>
+</html>
+
+
+
+

@@ -1,0 +1,1032 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hitaishi Hospitality Services - Welcome</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" rel="stylesheet">
+    <style>
+        /* REQUIRED ANIMATIONS THAT CAN'T BE INLINE */
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        @keyframes heroFadeIn {
+            from { opacity: 0; transform: translateY(80px) scale(0.9); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+        @keyframes textGlow {
+            from { filter: drop-shadow(0 0 5px rgba(255,255,255,0.3)); }
+            to { filter: drop-shadow(0 0 20px rgba(255,255,255,0.6)); }
+        }
+        @keyframes slideInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 0.95; transform: translateY(0); }
+        }
+        @keyframes floatPattern {
+            0%, 100% { transform: translateY(0px) translateX(0px); }
+            33% { transform: translateY(-30px) translateX(15px); }
+            66% { transform: translateY(15px) translateX(-20px); }
+        }
+        @keyframes rotateBackground {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        
+        /* REQUIRED PSEUDO-ELEMENTS */
+        .social-links a::before,
+        .nav-menu a::before,
+        .cta-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: left 0.5s;
+        }
+        
+        .nav-menu a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 3px;
+            background: linear-gradient(45deg, #4CAF50, #2196F3);
+            transition: width 0.3s ease;
+        }
+        
+        /* REQUIRED BACKGROUND PATTERNS */
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.1'%3E%3Ccircle cx='30' cy='30' r='2'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+            animation: floatPattern 30s ease-in-out infinite;
+        }
+        
+        .services::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%232c5aa0' fill-opacity='0.03'%3E%3Cpolygon points='50 0 60 40 100 50 60 60 50 100 40 60 0 50 40 40'/%3E%3C/g%3E%3C/svg%3E");
+        }
+        
+        .stats::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Ccircle cx='50' cy='50' r='40'/%3E%3C/g%3E%3C/svg%3E");
+            animation: rotateBackground 30s linear infinite;
+        }
+        
+        .footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Ccircle cx='30' cy='30' r='2'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+        }
+    </style>
+</head>
+    <!-- Header with adjusted margin -->
+    <header class="header" style="background: linear-gradient(135deg, #2c5aa0, #1e3d72); padding: 3px 0; position: fixed; margin-left: 40px; width: calc(100% - 40px); top: 0; z-index: 1000; box-shadow: 0 2px 10px rgba(0,0,0,0.1); transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);">
+        <div class="top-bar" style="background: #000; padding: 3px 0; text-align: center; transition: all 0.3s ease;">
+            <div class="social-links" style="display: flex; justify-content: center; gap: 10px;">
+                <a href="https://www.facebook.com/" aria-label="Facebook" style="color: white; font-size: 16px; transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); padding: 8px; border-radius: 50%; position: relative; overflow: hidden;"><i class="fab fa-facebook"></i></a>
+                <a href="https://x.com/" aria-label="Twitter" style="color: white; font-size: 16px; transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); padding: 8px; border-radius: 50%; position: relative; overflow: hidden;"><i class="fab fa-twitter"></i></a>
+                <a href="https://www.instagram.com/" aria-label="Instagram" style="color: white; font-size: 16px; transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); padding: 8px; border-radius: 50%; position: relative; overflow: hidden;"><i class="fab fa-instagram"></i></a>
+                <a href="https://in.linkedin.com/" aria-label="LinkedIn" style="color: white; font-size: 16px; transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); padding: 8px; border-radius: 50%; position: relative; overflow: hidden;"><i class="fab fa-linkedin"></i></a>
+                <a href="https://telegram.org/" aria-label="Telegram" style="color: white; font-size: 16px; transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); padding: 8px; border-radius: 50%; position: relative; overflow: hidden;"><i class="fab fa-telegram"></i></a>
+                <a href="https://www.whatsapp.com/" aria-label="WhatsApp" style="color: white; font-size: 16px; transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); padding: 8px; border-radius: 50%; position: relative; overflow: hidden;"><i class="fab fa-whatsapp"></i></a>
+                <a href="#" aria-label="Share" style="color: white; font-size: 16px; transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); padding: 8px; border-radius: 50%; position: relative; overflow: hidden;"><i class="fas fa-share-alt"></i></a>
+            </div>
+        </div>
+<nav class="nav-container" style="max-width: 1200px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; padding: 0 20px;">
+    <div class="logo" style="display: flex; align-items: center; gap: 8px; transition: all 0.3s ease;">
+        <img src="images/hitaishi logo.jpg" alt="Hitaishi Logo" style="width: 30px; height: auto;">
+        <div>
+            <div class="company-name" style="color: white; font-size: 20px; font-weight: bold; text-shadow: 2px 2px 4px rgba(0,0,0,0.3);">Hitaishi</div>
+            <div class="tagline" style="color: #b8d4f1; font-size: 9px; text-transform: uppercase; letter-spacing: 1px; margin-top: 2px;">Hospitality Services</div>
+        </div>
+    </div>
+
+    <ul class="nav-menu" id="navMenu" style="display: flex; list-style: none; gap: 6px;">
+        <li style="position: relative; overflow: hidden;"><a href="#home" style="color: white; text-decoration: none; padding: 10px 10px; border-radius: 10px; transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); font-weight: 500; white-space: nowrap; font-size: 13px; position: relative; overflow: hidden;">Home</a></li>
+        <li style="position: relative; overflow: hidden;"><a href="#about" style="color: white; text-decoration: none; padding: 10px 10px; border-radius: 10px; transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); font-weight: 500; white-space: nowrap; font-size: 13px; position: relative; overflow: hidden;">About Us</a></li>
+        
+        <!-- Services with Dropdown -->
+       <li style="position: relative; overflow: visible; margin-left: 0; padding-left: 0;" onmouseover="this.querySelector('ul').style.display='block'" onmouseout="this.querySelector('ul').style.display='none'">
+    <a href="services.html" style="color: white; text-decoration: none; padding: 10px 10px; border-radius: 10px; transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); font-weight: 500; white-space: nowrap; font-size: 13px; position: relative; overflow: hidden; display: inline-block;top: -5px;">Services</a>
+    <ul style="display: none; position: absolute; top: 100%; left: 0; background-color: #333; list-style: none; padding: 0; margin: 0; border-radius: 10px; width: 180px; z-index: 1000; border: none; box-shadow: none; outline: none; overflow: hidden;">
+        <li style="padding: 0; border-bottom: 1px solid #444; margin: 0;">
+            <a href="#" style="color: white; text-decoration: none; font-size: 13px; display: block; padding: 10px 15px;">Hotel Management</a>
+        </li>
+        <li style="padding: 0; border-bottom: 1px solid #444; margin: 0;">
+            <a href="#" style="color: white; text-decoration: none; font-size: 13px; display: block; padding: 10px 15px;">Food & Beverage</a>
+        </li>
+        <li style="padding: 0; border-bottom: 1px solid #444; margin: 0;">
+            <a href="#" style="color: white; text-decoration: none; font-size: 13px; display: block; padding: 10px 15px;">Event Management</a>
+        </li>
+        <li style="padding: 0; border-bottom: 1px solid #444; margin: 0;">
+            <a href="#" style="color: white; text-decoration: none; font-size: 13px; display: block; padding: 10px 15px;">Banquets</a>
+        </li>
+        <li style="padding: 0; border-bottom: 1px solid #444; margin: 0;">
+            <a href="#" style="color: white; text-decoration: none; font-size: 13px; display: block; padding: 10px 15px;">Catering Services</a>
+        </li>
+        <li style="padding: 0; border-bottom: 1px solid #444; margin: 0;">
+            <a href="#" style="color: white; text-decoration: none; font-size: 13px; display: block; padding: 10px 15px;">Food Courts</a>
+        </li>
+        <li style="padding: 0; border-bottom: 1px solid #444; margin: 0;">
+            <a href="#" style="color: white; text-decoration: none; font-size: 13px; display: block; padding: 10px 15px;">Front Office</a>
+        </li>
+        <li style="padding: 0; border-bottom: 1px solid #444; margin: 0;">
+            <a href="#" style="color: white; text-decoration: none; font-size: 13px; display: block; padding: 10px 15px;">Preschool & 10+2</a>
+        </li>
+        <li style="padding: 0; border-bottom: 1px solid #444; margin: 0;">
+            <a href="#" style="color: white; text-decoration: none; font-size: 13px; display: block; padding: 10px 15px;">Training Programs</a>
+        </li>
+        <li style="padding: 0; border-bottom: 1px solid #444; margin: 0;">
+            <a href="#" style="color: white; text-decoration: none; font-size: 11px; display: block; padding: 10px 15px;">Plug & Play</a>
+        </li>
+        <li style="padding: 0; border-bottom: 1px solid #444; margin: 0;">
+            <a href="#" style="color: white; text-decoration: none; font-size: 11px; display: block; padding: 10px 15px;">Funding Support</a>
+        </li>
+        <li style="padding: 0; border-bottom: 1px solid #444; margin: 0;">
+            <a href="#" style="color: white; text-decoration: none; font-size: 11px; display: block; padding: 10px 15px;">Facility Management</a>
+        </li>
+        <li style="padding: 0; border-bottom: 1px solid #444; margin: 0;">
+            <a href="#" style="color: white; text-decoration: none; font-size: 11px; display: block; padding: 10px 15px;">Spa & Wellness</a>
+        </li>
+        <li style="padding: 0; border-bottom: 1px solid #444; margin: 0;">
+            <a href="#" style="color: white; text-decoration: none; font-size: 11px; display: block; padding: 10px 15px;">CRM Services</a>
+        </li>
+        <li style="padding: 0; border-bottom: 1px solid #444; margin: 0;">
+            <a href="#" style="color: white; text-decoration: none; font-size: 11px; display: block; padding: 10px 15px;">Travel & Tourism</a>
+        </li>
+        <li style="padding: 0; border-bottom: 1px solid #444; margin: 0;">
+            <a href="#" style="color: white; text-decoration: none; font-size: 11px; display: block; padding: 10px 15px;">Sustainability</a>
+        </li>
+        <li style="padding: 0; margin: 0;"> <a href="#" style="color: white; text-decoration: none; font-size: 11px; display: block; padding: 10px 15px;">Careers</a>
+        </li>
+    </ul>
+</li>
+        <li style="position: relative; overflow: hidden;"><a href="#portfolio" style="color: white; text-decoration: none; padding: 10px 10px; border-radius: 10px; transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); font-weight: 500; white-space: nowrap; font-size: 13px; position: relative; overflow: hidden;">Portfolio</a></li>
+        <li style="position: relative; overflow: hidden;"><a href="plug and playoffice spaces..html" style="color: white; text-decoration: none; padding: 10px 10px; border-radius: 10px; transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); font-weight: 500; white-space: nowrap; font-size: 13px; position: relative; overflow: hidden;">Plug & Play Office</a></li>
+        <li style="position: relative; overflow: hidden;"><a href="foodcourts.html" style="color: white; text-decoration: none; padding: 10px 10px; border-radius: 10px; transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); font-weight: 500; white-space: nowrap; font-size: 13px; position: relative; overflow: hidden;">Food Courts</a></li>
+        <li style="position: relative; overflow: hidden;"><a href="hotels,.html" style="color: white; text-decoration: none; padding: 10px 10px; border-radius: 10px; transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); font-weight: 500; white-space: nowrap; font-size: 13px; position: relative; overflow: hidden;">Hotels</a></li>
+        <li style="position: relative; overflow: hidden;"><a href="preschool to 10+2.html" style="color: white; text-decoration: none; padding: 10px 10px; border-radius: 10px; transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); font-weight: 500; white-space: nowrap; font-size: 13px; position: relative; overflow: hidden;">Pre-School to 10+2</a></li>
+
+        <!-- Financial Funding Dropdown (unchanged) -->
+     <li style="position: relative; overflow: visible; margin-left: 0; padding-left: 0;" onmouseover="this.querySelector('ul').style.display='block'" onmouseout="this.querySelector('ul').style.display='none'">
+    <a href="financialfunding.html" onclick="localStorage.setItem('showFundingMenu', 'true');" style="color: white; text-decoration: none; padding: 10px 10px; border-radius: 10px; transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); font-weight: 500; white-space: nowrap; font-size: 13px; position: relative; overflow: hidden; display: inline-block; margin-top: -6px;">Financial Funding</a>
+    <ul style="display: none; position: absolute; top: 100%; left: 0; background-color: #333; list-style: none; padding: 0; margin: 0; border-radius: 10px; width: 180px; z-index: 1000; border: none; box-shadow: none; outline: none; overflow: hidden;">
+        <li style="padding: 0; border-bottom: 1px solid #444; margin: 0;">
+            <a href="startup fundingpage.html" style="color: white; text-decoration: none; font-size: 13px; display: block; padding: 10px 15px;">Startup Funding</a>
+        </li>
+        <li style="padding: 0; border-bottom: 1px solid #444; margin: 0;">
+            <a href="#" style="color: white; text-decoration: none; font-size: 13px; display: block; padding: 10px 15px;">Business Expansion Loans</a>
+        </li>
+        <li style="padding: 0; border-bottom: 1px solid #444; margin: 0;">
+            <a href="#" style="color: white; text-decoration: none; font-size: 13px; display: block; padding: 10px 15px;">Franchise & Partnership Models</a>
+        </li>
+        <li style="padding: 0; border-bottom: 1px solid #444; margin: 0;">
+            <a href="#" style="color: white; text-decoration: none; font-size: 13px; display: block; padding: 10px 15px;">Training & Skill Development Grants</a>
+        </li>
+        <li style="padding: 0; border-bottom: 1px solid #444; margin: 0;">
+            <a href="#" style="color: white; text-decoration: none; font-size: 13px; display: block; padding: 10px 15px;">Sustainability & Green Hospitality Finance</a>
+        </li>
+        <li style="padding: 0; border-bottom: 1px solid #444; margin: 0;">
+            <a href="#" style="color: white; text-decoration: none; font-size: 13px; display: block; padding: 10px 15px;">Plug & Play and Facility Setup Finance</a>
+        </li>
+        <li style="padding: 0; border-bottom: 1px solid #444; margin: 0;">
+            <a href="#" style="color: white; text-decoration: none; font-size: 13px; display: block; padding: 10px 15px;">Private Equity & Venture Capital</a>
+        </li>
+        <li style="padding: 0; border-bottom: 1px solid #444; margin: 0;">
+            <a href="#" style="color: white; text-decoration: none; font-size: 13px; display: block; padding: 10px 15px;">Operational & Working Capital support</a>
+        </li>
+        <li style="padding: 0; margin: 0;"> <a href="#" style="color: white; text-decoration: none; font-size: 11px; display: block; padding: 10px 15px;">Digital Transformation&nbsp;& CRM&nbsp;Funding</a>
+        </li>
+    </ul>
+</li>
+        <li style="position: relative; overflow: hidden;"><a href="#locations" style="color: white; text-decoration: none; padding: 10px 10px; border-radius: 10px; transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); font-weight: 500; white-space: nowrap; font-size: 13px; position: relative; overflow: hidden;">Locations</a></li>
+        <li style="position: relative; overflow: hidden;"><a href="#contact" style="color: white; text-decoration: none; padding: 10px 10px; border-radius: 10px; transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); font-weight: 500; white-space: nowrap; font-size: 13px; position: relative; overflow: hidden;">Contact Us</a></li>
+    </ul>
+    <div class="mobile-menu-toggle" id="mobileToggle" style="display: none; color: white; font-size: 24px; cursor: pointer; padding: 8px; border-radius: 5px; transition: all 0.3s ease;">
+        <i class="fas fa-bars"></i>
+    </div>
+</nav>
+    </header>
+<body style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; line-height: 1.6; color: #333; overflow-x: hidden; margin: 0; padding: 0; box-sizing: border-box;">
+
+    <!-- Loading Overlay -->
+    <div id="loadingOverlay" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(135deg, #2c5aa0, #1e3d72); display: flex; align-items: center; justify-content: center; z-index: 9999; transition: opacity 0.5s ease;">
+        <div style="width: 60px; height: 60px; border: 4px solid rgba(255,255,255,0.3); border-top: 4px solid #4CAF50; border-radius: 50%; animation: spin 1s linear infinite;"></div>
+    </div>
+
+    <!-- Scroll Progress Bar -->
+    <div id="scrollProgress" style="position: fixed; top: 0; left: 0; width: 0%; height: 4px; background: linear-gradient(45deg, #4CAF50, #2196F3); z-index: 9999; transition: width 0.1s ease;"></div>
+
+    <!-- Fixed Portfolio Sidebar -->
+    <div id="portfolioSidebar" style="position: fixed; top: 0; left: 0; height: 100vh; width: 40px; background-color: #000; display: flex; flex-direction: column; align-items: center; padding-top: 60px; z-index: 1100; transition: all 0.5s ease; box-shadow: 2px 0 10px rgba(0,0,0,0.1);">
+        <button onclick="togglePortfolioPanel()" style="writing-mode: vertical-rl; transform: rotate(180deg); color: white; font-weight: bold; cursor: pointer; padding: 8px 5px; border: none; background: none; outline: none; margin-bottom: 15px; font-size: 14px; letter-spacing: 2px; transition: all 0.3s ease;">PORTFOLIO</button>
+    </div>
+
+    <!-- Portfolio Panel -->
+    <div id="portfolioPanel" style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background-color: #f8f9fa; overflow-x: auto; overflow-y: hidden; white-space: nowrap; transform: translateX(-100%); transition: transform 0.5s ease; z-index: 1050; padding-top: 80px;">
+        <div style="display: inline-block; height: calc(100% - 80px); min-width: 100%; padding: 30px; white-space: normal;">
+            <h2 style="color: #2c5aa0; font-size: 2.5rem; margin-bottom: 30px; padding-bottom: 15px; border-bottom: 3px solid #4CAF50;">Our Portfolio</h2>
+            <p style="font-size: 1.2rem; color: #666; margin-bottom: 30px;">Explore our wide range of hospitality services and projects.</p>
+            
+            <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 30px;">
+                <div style="background: white; border-radius: 10px; overflow: hidden; box-shadow: 0 5px 15px rgba(0,0,0,0.1); transition: all 0.3s ease;">
+                    <img src="https://via.placeholder.com/400x300" alt="Office Space" style="width: 100%; height: 200px; object-fit: cover;">
+                    <div style="padding: 20px;">
+                        <h3 style="color: #2c5aa0; margin-bottom: 10px; font-size: 1.5rem;">Plug & Play Office Spaces</h3>
+                        <p style="color: #666; line-height: 1.6;">Fully furnished and equipped office spaces ready for immediate occupancy.</p>
+                    </div>
+                </div>
+                
+                <div style="background: white; border-radius: 10px; overflow: hidden; box-shadow: 0 5px 15px rgba(0,0,0,0.1); transition: all 0.3s ease;">
+                    <img src="https://via.placeholder.com/400x300" alt="Food Court" style="width: 100%; height: 200px; object-fit: cover;">
+                    <div style="padding: 20px;">
+                        <h3 style="color: #2c5aa0; margin-bottom: 10px; font-size: 1.5rem;">Food Courts</h3>
+                        <p style="color: #666; line-height: 1.6;">Modern and hygienic food courts with diverse culinary options.</p>
+                    </div>
+                </div>
+                
+                <div style="background: white; border-radius: 10px; overflow: hidden; box-shadow: 0 5px 15px rgba(0,0,0,0.1); transition: all 0.3s ease;">
+                    <img src="https://via.placeholder.com/400x300" alt="Hotel" style="width: 100%; height: 200px; object-fit: cover;">
+                    <div style="padding: 20px;">
+                        <h3 style="color: #2c5aa0; margin-bottom: 10px; font-size: 1.5rem;">Hotels</h3>
+                        <p style="color: #666; line-height: 1.6;">Luxurious accommodations with world-class amenities.</p>
+                    </div>
+                </div>
+                
+                <div style="background: white; border-radius: 10px; overflow: hidden; box-shadow: 0 5px 15px rgba(0,0,0,0.1); transition: all 0.3s ease;">
+                    <img src="https://via.placeholder.com/400x300" alt="Education" style="width: 100%; height: 200px; object-fit: cover;">
+                    <div style="padding: 20px;">
+                        <h3 style="color: #2c5aa0; margin-bottom: 10px; font-size: 1.5rem;">Educational Institutions</h3>
+                        <p style="color: #666; line-height: 1.6;">From pre-school to 10+2, we provide quality education infrastructure.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+  <!-- Wave Animation Hero Section -->
+<section class="hero" id="home" style="background: linear-gradient(135deg, rgba(44, 90, 160, 0.9), rgba(30, 61, 114, 0.9)); background-size: cover; background-position: center; height: 100vh; display: flex; align-items: center; justify-content: center; text-align: center; color: white; position: relative; overflow: hidden;">
+    
+    <!-- Wave Background Animation -->
+    <div class="wave-container" style="position:absolute; width:100%; height:100%; overflow:hidden;">
+        <div style="position:absolute; bottom:0; left:0; width:200%; height:100%; background:url('data:image/svg+xml;utf8,<svg viewBox=\'0 0 1200 120\' xmlns=\'http://www.w3.org/2000/svg\'><path d=\'M0,0V46.29c47.79,22.2,103.59,32.17,158,28,70.36-5.37,136.33-33.31,206.8-37.5C438.64,32.43,512.34,53.67,583,72.05c69.27,18,138.3,24.88,209.4,13.08,36.15-6,69.85-17.84,104.45-29.34C989.49,25,1113-14.29,1200,52.47V0Z\' fill=\'rgba(255,255,255,0.05)\'/><path d=\'M0,0V15.81C13,36.92,27.64,56.86,47.69,72.05,99.41,111.27,165,111,224.58,91.58c31.15-10.15,60.09-26.07,89.67-39.8,40.92-19,84.73-46,130.83-49.67,36.26-2.85,70.9,9.42,98.6,31.56,31.77,25.39,62.32,62,103.63,73,40.44,10.79,81.35-6.69,119.13-24.28s75.16-39,116.92-43.05c59.73-5.85,113.28,22.88,168.9,38.84,30.2,8.66,59,6.17,87.09-7.5,22.43-10.89,48-26.93,60.65-49.24V0Z\' fill=\'rgba(255,255,255,0.1)\'/><path d=\'M0,0V5.63C149.93,59,314.09,71.32,475.83,42.57c43-7.64,84.23-20.12,127.61-26.46,59-8.63,112.48,12.24,165.56,35.4C827.93,77.22,886,95.24,951.2,90c86.53-7,172.46-45.71,248.8-84.81V0Z\' fill=\'rgba(255,255,255,0.15)\'/></svg>') repeat-x; animation:wave 30s linear infinite; transform-origin:bottom center;"></div>
+    </div>
+    
+    <!-- Background Images -->
+    <div class="bg-slideshow" style="position:absolute; width:100%; height:100%;">
+        <div style="position:absolute; width:100%; height:100%; background:url('images/hitaishi_hospitalty_services_bg1.png') center/cover; animation:bgSlide 24s infinite;"></div>
+        <div style="position:absolute; width:100%; height:100%; background:url('https://images.unsplash.com/photo-1555396273-367ea4eb4db5') center/cover; animation:bgSlide 24s infinite 8s;"></div>
+        <div style="position:absolute; width:100%; height:100%; background:url('https://images.unsplash.com/photo-1520250497591-112f2f40a3f4') center/cover; animation:bgSlide 24s infinite 16s;"></div>
+    </div>
+    
+    <!-- Content with Wave Entrance -->
+    <div class="hero-content" style="max-width: 900px; padding: 0 20px; position:relative; z-index:2; animation: 
+        waveEntrance 2.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards,
+        floatInSpace 8s ease-in-out infinite alternate 2.5s;">
+        <h1 style="font-size: 4rem; margin-bottom: 25px; font-weight: 700; text-shadow: 3px 3px 6px rgba(0,0,0,0.4); background: linear-gradient(45deg, #fff, #b8d4f1); background-clip: text; -webkit-background-clip: text; -webkit-text-fill-color: transparent; animation: 
+            textGlow 2s ease-in-out infinite alternate,
+            rotateText 15s linear infinite 2.5s;">
+            Welcome to Hitaishi Hospitality Services
+        </h1>
+        <p style="font-size: 1.4rem; margin-bottom: 35px; opacity: 0; animation: 
+            fadeInUp 1s ease-out 1s forwards,
+            floatSubtle 6s ease-in-out infinite alternate 3s;">
+            Your Premier Partner for Comprehensive Hospitality Solutions Across All Industries
+        </p>
+        <div class="cta-buttons" style="display: flex; gap: 20px; justify-content: center; flex-wrap: wrap; opacity:0; animation: 
+            fadeInUp 0.8s ease-out 1.2s forwards,
+            buttonsFloat 5s ease-in-out infinite alternate 3s;">
+            <a href="#services" class="cta-button" style="display: inline-block; background: linear-gradient(45deg, #4CAF50, #45a049); color: white; padding: 18px 40px; text-decoration: none; border-radius: 50px; font-size: 1.2rem; font-weight: 600; transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); text-transform: uppercase; letter-spacing: 1px; box-shadow: 0 6px 20px rgba(76, 175, 80, 0.4); position: relative; overflow: hidden;">
+                Explore Our Services
+            </a>
+            <a href="#contact" class="cta-button secondary" style="display: inline-block; background: transparent; border: 2px solid white; color: white; padding: 18px 40px; text-decoration: none; border-radius: 50px; font-size: 1.2rem; font-weight: 600; transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); text-transform: uppercase; letter-spacing: 1px; box-shadow: 0 6px 20px rgba(255,255,255,0.2); position: relative; overflow: hidden;">
+                Get In Touch
+            </a>
+        </div>
+    </div>
+</section>
+
+<style>
+    /* Wave Animation */
+    @keyframes wave {
+        0% { transform:translateX(0) translateY(0) rotate(0deg); }
+        50% { transform:translateX(-25%) translateY(20px) rotate(2deg); }
+        100% { transform:translateX(-50%) translateY(0) rotate(0deg); }
+    }
+    
+    /* Wave Entrance Animation */
+    @keyframes waveEntrance {
+        0% { opacity:0; transform:translateY(100px) scale(0.9) rotate(5deg); }
+        60% { transform:translateY(-20px) scale(1.02) rotate(-2deg); }
+        100% { opacity:1; transform:translateY(0) scale(1) rotate(0deg); }
+    }
+    
+    /* Background Slideshow */
+    @keyframes bgSlide {
+        0%, 33% { opacity:1; transform:scale(1); }
+        41%, 100% { opacity:0; transform:scale(1.05); }
+    }
+    
+    /* Floating Animations */
+    @keyframes floatInSpace {
+        0%, 100% { transform:translateY(0) translateX(0) rotate(0deg); }
+        25% { transform:translateY(-10px) translateX(5px) rotate(0.5deg); }
+        50% { transform:translateY(5px) translateX(-5px) rotate(-0.5deg); }
+        75% { transform:translateY(-5px) translateX(3px) rotate(0.3deg); }
+    }
+    
+    @keyframes floatSubtle {
+        0%, 100% { transform:translateY(0); }
+        50% { transform:translateY(-8px); }
+    }
+    
+    @keyframes buttonsFloat {
+        0%, 100% { transform:translateY(0); }
+        50% { transform:translateY(-10px); }
+    }
+    
+    /* Text Animations */
+    @keyframes rotateText {
+        0% { transform:rotate(0deg); }
+        25% { transform:rotate(0.5deg); }
+        50% { transform:rotate(-0.5deg); }
+        75% { transform:rotate(0.3deg); }
+        100% { transform:rotate(0deg); }
+    }
+    
+    @keyframes fadeInUp {
+        from { opacity:0; transform:translateY(30px); }
+        to { opacity:1; transform:translateY(0); }
+    }
+    
+    /* Preserve Original Animations */
+    @keyframes textGlow {
+        from { text-shadow:0 0 10px rgba(184, 212, 241, 0.5); }
+        to { text-shadow:0 0 20px rgba(184, 212, 241, 0.8); }
+    }
+</style>
+
+    <!-- About Section -->
+    <section class="about" id="about" style="padding: 120px 0; background: white; margin-left: 40px; position: relative;">
+        <div class="container" style="max-width: 1200px; margin: 0 auto; padding: 0 20px; position: relative;">
+            <div class="about-content" style="display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center;">
+                <div class="about-text animate-slide-left" style="opacity: 0; transform: translateX(-50px); transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);">
+                    <h2 style="font-size: 3rem; color: #2c5aa0; margin-bottom: 10px; position: relative;">About Hitaishi Hospitality</h2>
+                    <p style="color: #666; margin-bottom: 25px; font-size: 1.2rem; line-height: 1.8;">With over 15 years of experience in the hospitality industry, Hitaishi Hospitality Services has established itself as a trusted partner for businesses seeking comprehensive hospitality solutions.</p>
+                    <p style="color: #666; margin-bottom: 25px; font-size: 1.2rem; line-height: 1.8;">Our commitment to excellence, attention to detail, and customer-centric approach has helped us build lasting relationships with clients across various sectors including corporate offices, educational institutions, hotels, and food service establishments.</p>
+                    <p style="color: #666; margin-bottom: 25px; font-size: 1.2rem; line-height: 1.8;">We pride ourselves on delivering innovative solutions that not only meet but exceed our clients' expectations, ensuring sustainable growth and success in today's competitive market.</p>
+                    <div class="about-features" style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; margin-top: 40px;">
+                        <div class="feature-item" style="display: flex; align-items: center; gap: 15px; padding: 15px; background: #f8f9fa; border-radius: 10px; transition: all 0.3s ease;">
+                            <div class="feature-icon" style="width: 40px; height: 40px; background: linear-gradient(45deg, #2c5aa0, #4CAF50); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-size: 1rem;">
+                                <i class="fas fa-award"></i>
+                            </div>
+                            <span>Award-Winning Service</span>
+                        </div>
+                        <div class="feature-item" style="display: flex; align-items: center; gap: 15px; padding: 15px; background: #f8f9fa; border-radius: 10px; transition: all 0.3s ease;">
+                            <div class="feature-icon" style="width: 40px; height: 40px; background: linear-gradient(45deg, #2c5aa0, #4CAF50); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-size: 1rem;">
+                                <i class="fas fa-users"></i>
+                            </div>
+                            <span>Expert Team</span>
+                        </div>
+                        <div class="feature-item" style="display: flex; align-items: center; gap: 15px; padding: 15px; background: #f8f9fa; border-radius: 10px; transition: all 0.3s ease;">
+                            <div class="feature-icon" style="width: 40px; height: 40px; background: linear-gradient(45deg, #2c5aa0, #4CAF50); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-size: 1rem;">
+                                <i class="fas fa-clock"></i>
+                            </div>
+                            <span>24/7 Support</span>
+                        </div>
+                        <div class="feature-item" style="display: flex; align-items: center; gap: 15px; padding: 15px; background: #f8f9fa; border-radius: 10px; transition: all 0.3s ease;">
+                            <div class="feature-icon" style="width: 40px; height: 40px; background: linear-gradient(45deg, #2c5aa0, #4CAF50); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-size: 1rem;">
+                                <i class="fas fa-shield-alt"></i>
+                            </div>
+                            <span>Quality Assured</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="about-image animate-slide-right" style="position: relative; border-radius: 20px; overflow: hidden; box-shadow: 0 15px 40px rgba(0,0,0,0.2); opacity: 0; transform: translateX(50px); transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);">
+                    <img src="images/hitaishi hospitality.png" alt="About Hitaishi Hospitality" style="width: 100%; height: 500px; object-fit: cover; transition: all 0.4s ease;">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section class="services" id="services" style="padding: 120px 0; background: linear-gradient(135deg, #f8f9fa, #e9ecef); position: relative; margin-left: 40px;">
+        <div class="container" style="max-width: 1200px; margin: 0 auto; padding: 0 20px; position: relative;">
+            <div class="section-title" style="text-align: center; margin-bottom: 80px;">
+                <h2 style="font-size: 3rem; color: #2c5aa0; margin-bottom: 20px; position: relative;">Our Premium Services</h2>
+                <p style="font-size: 1.2rem; color: #666; max-width: 700px; margin: 0 auto;">We provide comprehensive hospitality solutions tailored to meet your unique needs across various sectors with unmatched excellence and innovation</p>
+            </div>
+            <div class="services-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 40px; margin-top: 60px;">
+                <div class="service-card" style="background: white; padding: 50px 35px; border-radius: 20px; text-align: center; box-shadow: 0 10px 30px rgba(0,0,0,0.1); transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1); cursor: pointer; position: relative; overflow: hidden;">
+                    <div class="service-icon" style="width: 100px; height: 100px; background: linear-gradient(45deg, #2c5aa0, #4CAF50); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 30px; color: white; font-size: 2.5rem; transition: all 0.4s ease; position: relative;">
+                        <i class="fas fa-building"></i>
+                    </div>
+                    <h3 style="font-size: 1.8rem; margin-bottom: 20px; color: #2c5aa0; transition: color 0.3s ease;">Plug & Play Office</h3>
+                    <p style="color: #666; line-height: 1.8; font-size: 1.1rem;">State-of-the-art ready-to-use office spaces with premium amenities, high-speed internet, modern furniture, and flexible lease terms perfect for startups and established businesses.</p>
+                </div>
+                <div class="service-card" style="background: white; padding: 50px 35px; border-radius: 20px; text-align: center; box-shadow: 0 10px 30px rgba(0,0,0,0.1); transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1); cursor: pointer; position: relative; overflow: hidden;">
+                    <div class="service-icon" style="width: 100px; height: 100px; background: linear-gradient(45deg, #2c5aa0, #4CAF50); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 30px; color: white; font-size: 2.5rem; transition: all 0.4s ease; position: relative;">
+                        <i class="fas fa-utensils"></i>
+                    </div>
+                    <h3 style="font-size: 1.8rem; margin-bottom: 20px; color: #2c5aa0; transition: color 0.3s ease;">Food Courts & Dining</h3>
+                    <p style="color: #666; line-height: 1.8; font-size: 1.1rem;">Complete food court management, design, and operation services. We create vibrant dining experiences with diverse culinary options for shopping centers and commercial complexes.</p>
+                </div>
+                <div class="service-card" style="background: white; padding: 50px 35px; border-radius: 20px; text-align: center; box-shadow: 0 10px 30px rgba(0,0,0,0.1); transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1); cursor: pointer; position: relative; overflow: hidden;">
+                    <div class="service-icon" style="width: 100px; height: 100px; background: linear-gradient(45deg, #2c5aa0, #4CAF50); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 30px; color: white; font-size: 2.5rem; transition: all 0.4s ease; position: relative;">
+                        <i class="fas fa-hotel"></i>
+                    </div>
+                    <h3 style="font-size: 1.8rem; margin-bottom: 20px; color: #2c5aa0; transition: color 0.3s ease;">Hotel Management</h3>
+                    <p style="color: #666; line-height: 1.8; font-size: 1.1rem;">Full-spectrum hotel management services from boutique properties to luxury accommodations, ensuring exceptional guest experiences and operational excellence.</p>
+                </div>
+                <div class="service-card" style="background: white; padding: 50px 35px; border-radius: 20px; text-align: center; box-shadow: 0 10px 30px rgba(0,0,0,0.1); transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1); cursor: pointer; position: relative; overflow: hidden;">
+                    <div class="service-icon" style="width: 100px; height: 100px; background: linear-gradient(45deg, #2c5aa0, #4CAF50); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 30px; color: white; font-size: 2.5rem; transition: all 0.4s ease; position: relative;">
+                        <i class="fas fa-graduation-cap"></i>
+                    </div>
+                    <h3 style="font-size: 1.8rem; margin-bottom: 20px; color: #2c5aa0; transition: color 0.3s ease;">Educational Services</h3>
+                    <p style="color: #666; line-height: 1.8; font-size: 1.1rem;">Complete educational facility management from pre-school to 10+2, creating nurturing learning environments with modern infrastructure and expert support.</p>
+                </div>
+                <div class="service-card" style="background: white; padding: 50px 35px; border-radius: 20px; text-align: center; box-shadow: 0 10px 30px rgba(0,0,0,0.1); transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1); cursor: pointer; position: relative; overflow: hidden;">
+                    <div class="service-icon" style="width: 100px; height: 100px; background: linear-gradient(45deg, #2c5aa0, #4CAF50); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 30px; color: white; font-size: 2.5rem; transition: all 0.4s ease; position: relative;">
+                        <i class="fas fa-dollar-sign"></i>
+                    </div>
+                    <h3 style="font-size: 1.8rem; margin-bottom: 20px; color: #2c5aa0; transition: color 0.3s ease;">Financial Funding</h3>
+                    <p style="color: #666; line-height: 1.8; font-size: 1.1rem;">Strategic financial consulting and funding solutions to help businesses grow, expand, and achieve their long-term goals with customized investment plans.</p>
+                </div>
+                <div class="service-card" style="background: white; padding: 50px 35px; border-radius: 20px; text-align: center; box-shadow: 0 10px 30px rgba(0,0,0,0.1); transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1); cursor: pointer; position: relative; overflow: hidden;">
+                    <div class="service-icon" style="width: 100px; height: 100px; background: linear-gradient(45deg, #2c5aa0, #4CAF50); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 30px; color: white; font-size: 2.5rem; transition: all 0.4s ease; position: relative;">
+                        <i class="fas fa-map-marker-alt"></i>
+                    </div>
+                    <h3 style="font-size: 1.8rem; margin-bottom: 20px; color: #2c5aa0; transition: color 0.3s ease;">Multi-Location Services</h3>
+                    <p style="color: #666; line-height: 1.8; font-size: 1.1rem;">Strategic presence across key metropolitan areas, ensuring accessibility, convenience, and localized support for all our valued clients nationwide.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="testimonials" id="testimonials" style="padding: 120px 0; background: linear-gradient(135deg, #2c5aa0, #1e3d72); color: white; margin-left: 40px;">
+        <div class="container" style="max-width: 1200px; margin: 0 auto; padding: 0 20px; position: relative;">
+            <div class="section-title" style="text-align: center; margin-bottom: 80px;">
+                <h2 style="font-size: 3rem; color: white; margin-bottom: 20px; position: relative;">What Our Clients Say</h2>
+                <p style="font-size: 1.2rem; color: #b8d4f1; max-width: 700px; margin: 0 auto;">Hear from our satisfied clients about their experience with Hitaishi Hospitality Services</p>
+            </div>
+            <div class="testimonials-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 40px; margin-top: 60px;">
+                <div class="testimonial-card" style="background: rgba(255,255,255,0.1); padding: 40px; border-radius: 20px; backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.2); transition: all 0.4s ease;">
+                    <div class="testimonial-content" style="font-size: 1.1rem; line-height: 1.8; margin-bottom: 25px; font-style: italic;">
+                        "Hitaishi transformed our office space into a modern, efficient workspace. Their attention to detail and professional service exceeded our expectations."
+                    </div>
+                    <div class="testimonial-author" style="display: flex; align-items: center; gap: 15px;">
+                        <div class="author-avatar" style="width: 60px; height: 60px; background: linear-gradient(45deg, #4CAF50, #2196F3); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-size: 1.5rem; font-weight: bold;">JD</div>
+                        <div>
+                            <div style="font-weight: bold;">John Doe</div>
+                            <div style="opacity: 0.8;">CEO, Tech Solutions Inc.</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card" style="background: rgba(255,255,255,0.1); padding: 40px; border-radius: 20px; backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.2); transition: all 0.4s ease;">
+                    <div class="testimonial-content" style="font-size: 1.1rem; line-height: 1.8; margin-bottom: 25px; font-style: italic;">
+                        "The hotel management services provided by Hitaishi have significantly improved our guest satisfaction rates and operational efficiency."
+                    </div>
+                    <div class="testimonial-author" style="display: flex; align-items: center; gap: 15px;">
+                        <div class="author-avatar" style="width: 60px; height: 60px; background: linear-gradient(45deg, #4CAF50, #2196F3); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-size: 1.5rem; font-weight: bold;">SM</div>
+                        <div>
+                            <div style="font-weight: bold;">Sarah Miller</div>
+                            <div style="opacity: 0.8;">Hotel Owner</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card" style="background: rgba(255,255,255,0.1); padding: 40px; border-radius: 20px; backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.2); transition: all 0.4s ease;">
+                    <div class="testimonial-content" style="font-size: 1.1rem; line-height: 1.8; margin-bottom: 25px; font-style: italic;">
+                        "Their educational facility management has created an inspiring learning environment for our students. Highly recommended!"
+                    </div>
+                    <div class="testimonial-author" style="display: flex; align-items: center; gap: 15px;">
+                        <div class="author-avatar" style="width: 60px; height: 60px; background: linear-gradient(45deg, #4CAF50, #2196F3); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-size: 1.5rem; font-weight: bold;">RJ</div>
+                        <div>
+                            <div style="font-weight: bold;">Robert Johnson</div>
+                            <div style="opacity: 0.8;">School Principal</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Portfolio Section -->
+    <section class="portfolio" id="portfolio" style="padding: 120px 0; background: white; margin-left: 40px;">
+        <div class="container" style="max-width: 1200px; margin: 0 auto; padding: 0 20px; position: relative;">
+            <div class="section-title" style="text-align: center; margin-bottom: 80px;">
+                <h2 style="font-size: 3rem; color: #2c5aa0; margin-bottom: 20px; position: relative;">Our Success Stories</h2>
+                <p style="font-size: 1.2rem; color: #666; max-width: 700px; margin: 0 auto;">Discover our portfolio of successful projects and partnerships that showcase our commitment to excellence</p>
+            </div>
+            <div class="portfolio-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; margin-top: 60px;">
+                <div class="portfolio-item" style="position: relative; border-radius: 15px; overflow: hidden; cursor: pointer; transition: all 0.4s ease;">
+                    <img src="/api/placeholder/400/300" alt="Luxury Hotel Project" style="width: 100%; height: 250px; object-fit: cover; transition: all 0.4s ease;">
+                    <div class="portfolio-overlay" style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: linear-gradient(135deg, rgba(44, 90, 160, 0.9), rgba(76, 175, 80, 0.9)); display: flex; align-items: center; justify-content: center; opacity: 0; transition: all 0.4s ease;">
+                        <div class="portfolio-content" style="text-align: center; color: white; transform: translateY(20px); transition: all 0.4s ease;">
+                            <h3>Luxury Resort Chain</h3>
+                            <p>5-Star Hotel Management</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="portfolio-item" style="position: relative; border-radius: 15px; overflow: hidden; cursor: pointer; transition: all 0.4s ease;">
+                    <img src="/api/placeholder/400/300" alt="Corporate Office Space" style="width: 100%; height: 250px; object-fit: cover; transition: all 0.4s ease;">
+                    <div class="portfolio-overlay" style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: linear-gradient(135deg, rgba(44, 90, 160, 0.9), rgba(76, 175, 80, 0.9)); display: flex; align-items: center; justify-content: center; opacity: 0; transition: all 0.4s ease;">
+                        <div class="portfolio-content" style="text-align: center; color: white; transform: translateY(20px); transition: all 0.4s ease;">
+                            <h3>Tech Hub Offices</h3>
+                            <p>Modern Workspace Solutions</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="portfolio-item" style="position: relative; border-radius: 15px; overflow: hidden; cursor: pointer; transition: all 0.4s ease;">
+                    <img src="/api/placeholder/400/300" alt="Food Court Project" style="width: 100%; height: 250px; object-fit: cover; transition: all 0.4s ease;">
+                    <div class="portfolio-overlay" style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: linear-gradient(135deg, rgba(44, 90, 160, 0.9), rgba(76, 175, 80, 0.9)); display: flex; align-items: center; justify-content: center; opacity: 0; transition: all 0.4s ease;">
+                        <div class="portfolio-content" style="text-align: center; color: white; transform: translateY(20px); transition: all 0.4s ease;">
+                            <h3>Premium Food Courts</h3>
+                            <p>Culinary Experience Centers</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="stats" style="background: linear-gradient(135deg, #2c5aa0, #1e3d72); padding: 100px 0; color: white; position: relative; overflow: hidden; margin-left: 40px;">
+        <div class="container" style="max-width: 1200px; margin: 0 auto; padding: 0 20px; position: relative;">
+            <div class="stats-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 50px; text-align: center; position: relative;">
+                <div class="stat-item" style="background: rgba(255,255,255,0.1); padding: 40px 30px; border-radius: 20px; backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.2); transition: all 0.4s ease;">
+                    <div class="stat-number" data-target="500" style="font-size: 3.5rem; font-weight: bold; margin-bottom: 15px; color: #4CAF50; text-shadow: 0 2px 4px rgba(0,0,0,0.3);">0</div>
+                    <div class="stat-label" style="font-size: 1.2rem; opacity: 0.9; text-transform: uppercase; letter-spacing: 1px;">Happy Clients</div>
+                </div>
+                <div class="stat-item" style="background: rgba(255,255,255,0.1); padding: 40px 30px; border-radius: 20px; backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.2); transition: all 0.4s ease;">
+                    <div class="stat-number" data-target="50" style="font-size: 3.5rem; font-weight: bold; margin-bottom: 15px; color: #4CAF50; text-shadow: 0 2px 4px rgba(0,0,0,0.3);">0</div>
+                    <div class="stat-label" style="font-size: 1.2rem; opacity: 0.9; text-transform: uppercase; letter-spacing: 1px;">Locations Served</div>
+                </div>
+                <div class="stat-item" style="background: rgba(255,255,255,0.1); padding: 40px 30px; border-radius: 20px; backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.2); transition: all 0.4s ease;">
+                    <div class="stat-number" data-target="15" style="font-size: 3.5rem; font-weight: bold; margin-bottom: 15px; color: #4CAF50; text-shadow: 0 2px 4px rgba(0,0,0,0.3);">0</div>
+                    <div class="stat-label" style="font-size: 1.2rem; opacity: 0.9; text-transform: uppercase; letter-spacing: 1px;">Years Experience</div>
+                </div>
+                <div class="stat-item" style="background: rgba(255,255,255,0.1); padding: 40px 30px; border-radius: 20px; backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.2); transition: all 0.4s ease;">
+                    <div class="stat-number" data-target="1000" style="font-size: 3.5rem; font-weight: bold; margin-bottom: 15px; color: #4CAF50; text-shadow: 0 2px 4px rgba(0,0,0,0.3);">0</div>
+                    <div class="stat-label" style="font-size: 1.2rem; opacity: 0.9; text-transform: uppercase; letter-spacing: 1px;">Projects Completed</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Newsletter Section -->
+    <section class="newsletter" style="background: linear-gradient(135deg, #4CAF50, #45a049); padding: 80px 0; color: white; text-align: center; margin-left: 40px;">
+        <div class="container" style="max-width: 1200px; margin: 0 auto; padding: 0 20px; position: relative;">
+            <h3 style="font-size: 2.5rem; margin-bottom: 20px;">Stay Updated</h3>
+            <p style="font-size: 1.2rem; margin-bottom: 40px; opacity: 0.9;">Subscribe to our newsletter for the latest updates and exclusive offers</p>
+            <form class="newsletter-form" style="display: flex; max-width: 500px; margin: 0 auto; gap: 15px;">
+                <input type="email" placeholder="Enter your email address" required style="flex: 1; padding: 18px; border: none; border-radius: 50px; font-size: 16px; outline: none;">
+                <button type="submit" style="padding: 18px 35px; background: white; color: #4CAF50; border: none; border-radius: 50px; font-weight: 600; cursor: pointer; transition: all 0.3s ease; white-space: nowrap;">Subscribe</button>
+            </form>
+    <script>
+  document.querySelector('.newsletter-form').addEventListener('submit', async function (e) {
+    e.preventDefault(); // Prevent form from submitting the traditional way
+
+    const emailInput = this.querySelector('input[type="email"]');
+    const email = emailInput.value;
+
+    try {
+      const response = await fetch('https://localhost:5000/subscribe', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ email: email })
+      });
+
+      if (response.ok) {
+        alert("Thank you for subscribing!");
+        emailInput.value = ''; // Clear input
+      } else {
+        const data = await response.json();
+        alert("Subscription failed: " + (data.message || response.statusText));
+      }
+    } catch (error) {
+      alert("An error occurred: " + error.message);
+    }
+  });
+</script>
+
+
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact" id="contact" style="padding: 120px 0; background: #f8f9fa; margin-left: 40px;">
+        <div class="container" style="max-width: 1200px; margin: 0 auto; padding: 0 20px; position: relative;">
+            <div class="section-title" style="text-align: center; margin-bottom: 80px;">
+                <h2 style="font-size: 3rem; color: #2c5aa0; margin-bottom: 20px; position: relative;">Get In Touch</h2>
+                <p style="font-size: 1.2rem; color: #666; max-width: 700px; margin: 0 auto;">Ready to start your next project? Contact us today for a consultation</p>
+            </div>
+            <div class="contact-content" style="display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: start;">
+                <div class="contact-info" style="background: white; padding: 50px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.1);">
+                    <h3 style="color: #2c5aa0; margin-bottom: 30px; font-size: 1.8rem;">Contact Information</h3>
+                    <div class="contact-item" style="display: flex; align-items: center; gap: 20px; margin-bottom: 30px; padding: 20px; border-radius: 10px; transition: all 0.3s ease;">
+                        <div class="contact-icon" style="width: 60px; height: 60px; background: linear-gradient(45deg, #2c5aa0, #4CAF50); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-size: 1.5rem;">
+                            <i class="fas fa-phone"></i>
+                        </div>
+                        <div>
+                            <h4 style="font-size: 1.2rem; color: #2c5aa0; margin-bottom: 5px;">Phone</h4>
+                            <p style="color: #666;">+1 (555) 123-4567</p>
+                        </div>
+                    </div>
+                    <div class="contact-item" style="display: flex; align-items: center; gap: 20px; margin-bottom: 30px; padding: 20px; border-radius: 10px; transition: all 0.3s ease;">
+                        <div class="contact-icon" style="width: 60px; height: 60px; background: linear-gradient(45deg, #2c5aa0, #4CAF50); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-size: 1.5rem;">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <div>
+                            <h4 style="font-size: 1.2rem; color: #2c5aa0; margin-bottom: 5px;">Email</h4>
+                            <p style="color: #666;">info@hitaishihospitality.com</p>
+                        </div>
+                    </div>
+                    <div class="contact-item" style="display: flex; align-items: center; gap: 20px; margin-bottom: 30px; padding: 20px; border-radius: 10px; transition: all 0.3s ease;">
+                        <div class="contact-icon" style="width: 60px; height: 60px; background: linear-gradient(45deg, #2c5aa0, #4CAF50); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-size: 1.5rem;">
+                            <i class="fas fa-map-marker-alt"></i>
+                        </div>
+                        <div>
+                            <h4 style="font-size: 1.2rem; color: #2c5aa0; margin-bottom: 5px;">Address</h4>
+                            <p style="color: #666;">Multiple Locations Available<br>Nationwide Service</p>
+                        </div>
+                    </div>
+                    <div class="contact-item" style="display: flex; align-items: center; gap: 20px; margin-bottom: 30px; padding: 20px; border-radius: 10px; transition: all 0.3s ease;">
+                        <div class="contact-icon" style="width: 60px; height: 60px; background: linear-gradient(45deg, #2c5aa0, #4CAF50); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-size: 1.5rem;">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <div>
+                            <h4 style="font-size: 1.2rem; color: #2c5aa0; margin-bottom: 5px;">Business Hours</h4>
+                            <p style="color: #666;">Mon - Fri: 9:00 AM - 6:00 PM<br>24/7 Emergency Support</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="contact-form" style="background: white; padding: 50px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.1);">
+                    <h3 style="color: #2c5aa0; margin-bottom: 30px; font-size: 1.8rem;">Send Us a Message</h3>
+                    <form>
+                        <div class="form-group" style="margin-bottom: 25px;">
+                            <label for="name" style="display: block; margin-bottom: 8px; color: #2c5aa0; font-weight: 600;">Full Name</label>
+                            <input type="text" id="name" name="name" required style="width: 100%; padding: 15px; border: 2px solid #e9ecef; border-radius: 10px; font-size: 16px; transition: all 0.3s ease;">
+                        </div>
+                        <div class="form-group" style="margin-bottom: 25px;">
+                            <label for="email" style="display: block; margin-bottom: 8px; color: #2c5aa0; font-weight: 600;">Email Address</label>
+                            <input type="email" id="email" name="email" required style="width: 100%; padding: 15px; border: 2px solid #e9ecef; border-radius: 10px; font-size: 16px; transition: all 0.3s ease;">
+                        </div>
+                        <div class="form-group" style="margin-bottom: 25px;">
+                            <label for="phone" style="display: block; margin-bottom: 8px; color: #2c5aa0; font-weight: 600;">Phone Number</label>
+                            <input type="tel" id="phone" name="phone" style="width: 100%; padding: 15px; border: 2px solid #e9ecef; border-radius: 10px; font-size: 16px; transition: all 0.3s ease;">
+                        </div>
+                        <div class="form-group" style="margin-bottom: 25px;">
+                            <label for="service" style="display: block; margin-bottom: 8px; color: #2c5aa0; font-weight: 600;">Service Interest</label>
+                            <select id="service" name="service" style="width: 100%; padding: 15px; border: 2px solid #e9ecef; border-radius: 10px; font-size: 16px;">
+                                <option value="">Select a service</option>
+                                <option value="office">Plug & Play Office</option>
+                                <option value="food">Food Courts</option>
+                                <option value="hotel">Hotel Management</option>
+                                <option value="education">Educational Services</option>
+                                <option value="funding">Financial Funding</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+                        <div class="form-group" style="margin-bottom: 25px;">
+                            <label for="message" style="display: block; margin-bottom: 8px; color: #2c5aa0; font-weight: 600;">Message</label>
+                            <textarea id="message" name="message" rows="5" required style="width: 100%; padding: 15px; border: 2px solid #e9ecef; border-radius: 10px; font-size: 16px; transition: all 0.3s ease;"></textarea>
+                        </div>
+                        <button type="submit" class="cta-button" style="display: inline-block; background: linear-gradient(45deg, #4CAF50, #45a049); color: white; padding: 18px 40px; text-decoration: none; border-radius: 50px; font-size: 1.2rem; font-weight: 600; transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); text-transform: uppercase; letter-spacing: 1px; box-shadow: 0 6px 20px rgba(76, 175, 80, 0.4); position: relative; overflow: hidden; width: 100%; margin-top: 10px;">Send Message</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer" style="background: linear-gradient(135deg, #1e3d72, #0f1419); color: white; padding: 80px 0 30px; position: relative; margin-left: 40px;">
+        <div class="container" style="max-width: 1200px; margin: 0 auto; padding: 0 20px; position: relative;">
+            <div class="footer-content" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 50px; margin-bottom: 50px; position: relative;">
+                <div class="footer-section">
+                    <h3 style="margin-bottom: 25px; color: #4CAF50; font-size: 1.3rem; position: relative;">Hitaishi Hospitality Services</h3>
+                    <p style="color: #b8d4f1; text-decoration: none; margin-bottom: 12px; display: block; transition: all 0.3s ease; line-height: 1.6;">Your premier partner for comprehensive hospitality solutions across multiple sectors and locations. We deliver excellence in every project.</p>
+                    <div class="social-links" style="display: flex; gap: 15px; margin-top: 25px;">
+                        <a href="#" style="color: white; font-size: 18px; transition: all 0.3s ease;"><i class="fab fa-facebook"></i></a>
+                        <a href="#" style="color: white; font-size: 18px; transition: all 0.3s ease;"><i class="fab fa-twitter"></i></a>
+                        <a href="#" style="color: white; font-size: 18px; transition: all 0.3s ease;"><i class="fab fa-instagram"></i></a>
+                        <a href="#" style="color: white; font-size: 18px; transition: all 0.3s ease;"><i class="fab fa-linkedin"></i></a>
+                        <a href="#" style="color: white; font-size: 18px; transition: all 0.3s ease;"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h3 style="margin-bottom: 25px; color: #4CAF50; font-size: 1.3rem; position: relative;">Our Services</h3>
+                    <a href="#office" style="color: #b8d4f1; text-decoration: none; margin-bottom: 12px; display: block; transition: all 0.3s ease; line-height: 1.6;">Plug & Play Office Solutions</a>
+                    <a href="#food-courts" style="color: #b8d4f1; text-decoration: none; margin-bottom: 12px; display: block; transition: all 0.3s ease; line-height: 1.6;">Food Courts & Dining</a>
+                    <a href="#hotels" style="color: #b8d4f1; text-decoration: none; margin-bottom: 12px; display: block; transition: all 0.3s ease; line-height: 1.6;">Hotel Management</a>
+                    <a href="#education" style="color: #b8d4f1; text-decoration: none; margin-bottom: 12px; display: block; transition: all 0.3s ease; line-height: 1.6;">Educational Services</a>
+                    <a href="#funding" style="color: #b8d4f1; text-decoration: none; margin-bottom: 12px; display: block; transition: all 0.3s ease; line-height: 1.6;">Financial Funding</a>
+                    <a href="#portfolio" style="color: #b8d4f1; text-decoration: none; margin-bottom: 12px; display: block; transition: all 0.3s ease; line-height: 1.6;">Portfolio</a>
+                </div>
+                <div class="footer-section">
+                    <h3 style="margin-bottom: 25px; color: #4CAF50; font-size: 1.3rem; position: relative;">Quick Links</h3>
+                    <a href="#home" style="color: #b8d4f1; text-decoration: none; margin-bottom: 12px; display: block; transition: all 0.3s ease; line-height: 1.6;">Home</a>
+                    <a href="#about" style="color: #b8d4f1; text-decoration: none; margin-bottom: 12px; display: block; transition: all 0.3s ease; line-height: 1.6;">About Us</a>
+                    <a href="#services" style="color: #b8d4f1; text-decoration: none; margin-bottom: 12px; display: block; transition: all 0.3s ease; line-height: 1.6;">Services</a>
+                    <a href="#testimonials" style="color: #b8d4f1; text-decoration: none; margin-bottom: 12px; display: block; transition: all 0.3s ease; line-height: 1.6;">Testimonials</a>
+                    <a href="#locations" style="color: #b8d4f1; text-decoration: none; margin-bottom: 12px; display: block; transition: all 0.3s ease; line-height: 1.6;">Locations</a>
+                    <a href="#contact" style="color: #b8d4f1; text-decoration: none; margin-bottom: 12px; display: block; transition: all 0.3s ease; line-height: 1.6;">Contact Us</a>
+                </div>
+                <div class="footer-section">
+                    <h3 style="margin-bottom: 25px; color: #4CAF50; font-size: 1.3rem; position: relative;">Contact Info</h3>
+                    <p style="color: #b8d4f1; text-decoration: none; margin-bottom: 12px; display: block; transition: all 0.3s ease; line-height: 1.6;"><i class="fas fa-phone"></i> +1 (555) 123-4567</p>
+                    <p style="color: #b8d4f1; text-decoration: none; margin-bottom: 12px; display: block; transition: all 0.3s ease; line-height: 1.6;"><i class="fas fa-envelope"></i> info@hitaishihospitality.com</p>
+                    <p style="color: #b8d4f1; text-decoration: none; margin-bottom: 12px; display: block; transition: all 0.3s ease; line-height: 1.6;"><i class="fas fa-map-marker-alt"></i> Multiple Locations Available</p>
+                    <p style="color: #b8d4f1; text-decoration: none; margin-bottom: 12px; display: block; transition: all 0.3s ease; line-height: 1.6;"><i class="fas fa-clock"></i> 24/7 Customer Support</p>
+                </div>
+            </div>
+            <div class="footer-bottom" style="border-top: 1px solid #2c5aa0; padding-top: 30px; text-align: center; color: #b8d4f1; position: relative;">
+                <p>&copy; 2025 Hitaishi Hospitality Services. All rights reserved. | Privacy Policy | Terms of Service</p>
+            </div>
+        </div>
+    </footer>
+<!-- Back to Top Button -->
+    <button class="back-to-top" id="backToTop" style="position: fixed; bottom: 30px; right: 30px; width: 60px; height: 60px; background: linear-gradient(45deg, #2c5aa0, #4CAF50); color: white; border: none; border-radius: 50%; font-size: 1.5rem; cursor: pointer; opacity: 0; visibility: hidden; transition: all 0.3s ease; box-shadow: 0 4px 15px rgba(0,0,0,0.2);">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+    <script>
+          // Portfolio Panel Toggle Function
+        function togglePortfolioPanel() {
+            const panel = document.getElementById("portfolioPanel");
+            const sidebar = document.getElementById("portfolioSidebar");
+            
+            panel.classList.toggle("open-panel");
+            sidebar.classList.toggle("move-right");
+        }
+
+        // Close portfolio panel when clicking outside
+        document.addEventListener('click', function(event) {
+            const panel = document.getElementById("portfolioPanel");
+            const sidebar = document.getElementById("portfolioSidebar");
+            const button = document.querySelector('.portfolio-button');
+            
+            if (panel.classList.contains('open-panel') && 
+                !panel.contains(event.target) && 
+                event.target !== button) {
+                panel.classList.remove("open-panel");
+                sidebar.classList.remove("move-right");
+            }
+        });
+        // Initialize AOS
+        AOS.init({
+            duration: 1000,
+            once: true
+        }); 
+
+        // Loading animation
+        window.addEventListener('load', function() {
+            const loadingOverlay = document.getElementById('loadingOverlay');
+            setTimeout(() => {
+                loadingOverlay.style.opacity = '0';
+                setTimeout(() => {
+                    loadingOverlay.style.display = 'none';
+                }, 500);
+            }, 1000);
+        });
+
+        // Portfolio Panel Toggle Function
+        function togglePortfolioPanel() {
+            const panel = document.getElementById('portfolioPanel');
+    const sidebar = document.getElementById('portfolioSidebar');
+
+                if (panel.style.transform === 'translateX(-100%)') {
+            panel.style.transform = 'translateX(40px)';
+            sidebar.style.left = 'calc(100% - 40px)';
+        } else {
+            panel.style.transform = 'translateX(-100%)';
+            sidebar.style.left = '0';
+        }
+    }
+
+    // Scroll Progress Bar
+    window.addEventListener('scroll', function() {
+        const scrollProgress = document.getElementById('scrollProgress');
+        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+        const docHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        const scrollPercent = (scrollTop / docHeight) * 100;
+        scrollProgress.style.width = scrollPercent + '%';
+    });
+
+    // Back to Top Button
+    const backToTopBtn = document.getElementById('backToTop');
+    window.addEventListener('scroll', function() {
+        if (window.pageYOffset > 300) {
+            backToTopBtn.style.opacity = '1';
+            backToTopBtn.style.visibility = 'visible';
+        } else {
+            backToTopBtn.style.opacity = '0';
+            backToTopBtn.style.visibility = 'hidden';
+        }
+    });
+    backToTopBtn.addEventListener('click', function() {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+    });
+
+    // Animate Stats Counter
+    const statNumbers = document.querySelectorAll('.stat-number');
+    const statsSection = document.querySelector('.stats');
+
+    function animateStats() {
+        const statsPosition = statsSection.getBoundingClientRect().top;
+        const screenPosition = window.innerHeight / 1.3;
+
+        if (statsPosition < screenPosition) {
+            statNumbers.forEach(stat => {
+                const target = +stat.getAttribute('data-target');
+                const count = +stat.innerText;
+                const increment = target / 100;
+
+                if (count < target) {
+                    stat.innerText = Math.ceil(count + increment);
+                    setTimeout(animateStats, 20);
+                } else {
+                    stat.innerText = target;
+                }
+            });
+        }
+    }
+
+    window.addEventListener('scroll', animateStats);
+
+    // Mobile Menu Toggle
+    const mobileToggle = document.getElementById('mobileToggle');
+    const navMenu = document.getElementById('navMenu');
+
+    mobileToggle.addEventListener('click', function() {
+        navMenu.style.display = navMenu.style.display === 'flex' ? 'none' : 'flex';
+    });
+
+    // Check screen size and adjust menu
+    function checkScreenSize() {
+        if (window.innerWidth <= 768) {
+            navMenu.style.display = 'none';
+            mobileToggle.style.display = 'block';
+        } else {
+            navMenu.style.display = 'flex';
+            mobileToggle.style.display = 'none';
+        }
+    }
+
+    window.addEventListener('resize', checkScreenSize);
+    checkScreenSize(); // Initial check
+
+    // Smooth Scrolling for Anchor Links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+            e.preventDefault();
+            const targetId = this.getAttribute('href');
+            if (targetId === '#') return;
+            
+            const targetElement = document.querySelector(targetId);
+            if (targetElement) {
+                window.scrollTo({
+                    top: targetElement.offsetTop - 100,
+                    behavior: 'smooth'
+                });
+            }
+        });
+    });
+
+    // Animation for About Section
+    const aboutText = document.querySelector('.about-text');
+    const aboutImage = document.querySelector('.about-image');
+
+    function animateAboutSection() {
+        const aboutPosition = aboutText.getBoundingClientRect().top;
+        const screenPosition = window.innerHeight / 1.3;
+
+        if (aboutPosition < screenPosition) {
+            aboutText.style.opacity = '1';
+            aboutText.style.transform = 'translateX(0)';
+            aboutImage.style.opacity = '1';
+            aboutImage.style.transform = 'translateX(0)';
+        }
+    }
+
+    window.addEventListener('scroll', animateAboutSection);
+
+    // Hover Effects for Service Cards
+    const serviceCards = document.querySelectorAll('.service-card');
+    serviceCards.forEach(card => {
+        card.addEventListener('mouseenter', function() {
+            this.style.transform = 'translateY(-10px)';
+            this.style.boxShadow = '0 15px 40px rgba(0,0,0,0.2)';
+            const icon = this.querySelector('.service-icon');
+            icon.style.transform = 'rotate(10deg) scale(1.1)';
+            icon.style.boxShadow = '0 10px 25px rgba(0,0,0,0.2)';
+        });
+
+        card.addEventListener('mouseleave', function() {
+            this.style.transform = 'translateY(0)';
+            this.style.boxShadow = '0 10px 30px rgba(0,0,0,0.1)';
+            const icon = this.querySelector('.service-icon');
+            icon.style.transform = 'rotate(0) scale(1)';
+            icon.style.boxShadow = 'none';
+        });
+    });
+
+    // Portfolio Item Hover Effects
+    const portfolioItems = document.querySelectorAll('.portfolio-item');
+    portfolioItems.forEach(item => {
+        item.addEventListener('mouseenter', function() {
+            const overlay = this.querySelector('.portfolio-overlay');
+            overlay.style.opacity = '1';
+            const content = overlay.querySelector('.portfolio-content');
+            content.style.transform = 'translateY(0)';
+        });
+
+        item.addEventListener('mouseleave', function() {
+            const overlay = this.querySelector('.portfolio-overlay');
+            overlay.style.opacity = '0';
+            const content = overlay.querySelector('.portfolio-content');
+            content.style.transform = 'translateY(20px)';
+        });
+    });
+
+    // Form Submission
+    const contactForm = document.querySelector('.contact-form form');
+    if (contactForm) {
+        contactForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Thank you for your message! We will get back to you soon.');
+            this.reset();
+        });
+    }
+
+    const newsletterForm = document.querySelector('.newsletter-form');
+    if (newsletterForm) {
+        newsletterForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Thank you for subscribing to our newsletter!');
+            this.reset();
+        });
+    }
+    // Financial Funding Dropdown Toggle
+function toggleFinancialFundingDropdown(event) {
+    event.stopPropagation();
+    const dropdown = event.target.closest('li').querySelector('.financial-funding-dropdown');
+    dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
+    
+    // Rotate chevron icon
+    const chevron = event.target.closest('.dropdown-toggle').querySelector('i');
+    chevron.style.transform = dropdown.style.display === 'block' ? 'rotate(180deg)' : 'rotate(0)';
+}
+
+// Close dropdown when clicking elsewhere
+document.addEventListener('click', function() {
+    const dropdowns = document.querySelectorAll('.financial-funding-dropdown');
+    dropdowns.forEach(dropdown => {
+        dropdown.style.display = 'none';
+        const chevrons = dropdown.closest('li').querySelectorAll('.dropdown-toggle i');
+        chevrons.forEach(chevron => {
+            chevron.style.transform = 'rotate(0)';
+        });
+    });
+});
+
+// Prevent dropdown from closing when clicking inside it
+document.querySelectorAll('.financial-funding-dropdown').forEach(dropdown => {
+    dropdown.addEventListener('click', function(e) {
+        e.stopPropagation();
+    });
+});
+</script>
+</body>
+<script src="form-auth.js"></script>
+</html>

@@ -1,0 +1,684 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Book luxury hotels in South Africa & beyond. Best rates for Johannesburg, Cape Town, Durban hotels. Family-friendly resorts & business accommodations.">
+    <meta name="keywords" content="hotel booking, luxury hotels, South Africa accommodation, Johannesburg hotels, Cape Town stays, Durban resorts, business hotels, family resorts">
+    <title>Luxury Hotel Booking | Southern Sun Hotels</title>
+    <style>
+        *{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',Arial,sans-serif;}
+        body{background:#f8f9fa;color:#333;line-height:1.6;}
+        .container{max-width:1400px;margin:0 auto;padding:0 15px;}
+        .booking-widget{background:white;padding:0.5rem 0;box-shadow:0 5px 20px rgba(0,0,0,0.08);margin-top:30px;position:relative;z-index:100;border-radius:12px;border:1px solid #e0e0e0;}
+        .widget-row{display:flex;flex-wrap:wrap;gap:1rem;padding:0.5rem 2rem;align-items:stretch;}
+        .widget-item{flex:1 1 220px;display:flex;align-items:stretch;min-width:220px;}
+        .widget-link{display:flex;justify-content:space-between;align-items:center;width:100%;padding:0.8rem;border:1px solid #e0e0e0;border-radius:8px;font-family:inherit;background:white;color:#333;text-decoration:none;font-weight:600;font-size:0.95rem;transition:all 0.3s ease;cursor:pointer;}
+        .widget-link:hover{box-shadow:0 3px 10px rgba(0,0,0,0.1);border-color:#00CED1;}
+        .widget-link.active{border-color:#00CED1;background:#f0fafa;}
+        .search-btn{display:flex;justify-content:center;align-items:center;width:100%;padding:0.8rem 1rem;background:linear-gradient(135deg,#00CED1,#008B8B);color:white;border:none;border-radius:8px;font-weight:600;cursor:pointer;text-decoration:none;transition:all 0.3s ease;font-size:0.95rem;box-shadow:0 2px 5px rgba(0,206,209,0.3);}
+        .search-btn:hover{background:linear-gradient(135deg,#00A8A8,#007777);transform:translateY(-2px);box-shadow:0 4px 8px rgba(0,206,209,0.4);}
+        .search-section{background:white;padding:2rem;margin-top:20px;border-radius:12px;box-shadow:0 5px 15px rgba(0,0,0,0.05);border:1px solid #e0e0e0;}
+        .search-title{font-size:1.5rem;margin-bottom:1.5rem;color:#333;font-weight:700;color:#008B8B;}
+        .search-bar{display:flex;border:1px solid #e0e0e0;border-radius:8px;overflow:hidden;transition:all 0.3s ease;}
+        .search-bar:focus-within{border-color:#00CED1;box-shadow:0 0 0 2px rgba(0,206,209,0.2);}
+        .search-input{flex:1;padding:0.9rem 1.2rem;border:none;font-size:1rem;font-weight:600;color:#333;}
+        .search-input:focus{outline:none;}
+        .search-input::placeholder{color:#999;font-weight:500;}
+        .search-icon{background:linear-gradient(135deg,#00CED1,#008B8B);color:white;padding:0 1.8rem;display:flex;align-items:center;cursor:pointer;transition:all 0.3s ease;font-size:1.1rem;}
+        .search-icon:hover{background:linear-gradient(135deg,#00A8A8,#007777);}
+        .destinations-section{background:white;padding:1.5rem;border-radius:12px;margin-top:20px;box-shadow:0 5px 15px rgba(0,0,0,0.05);border:1px solid #e0e0e0;display:block;}
+        .destinations-title{font-size:1.2rem;margin-bottom:1rem;color:#333;font-weight:600;display:flex;align-items:center;color:#008B8B;}
+        .destinations-title:before{content:"●";color:#00CED1;margin-right:10px;font-size:1.5rem;}
+        .destination-item{padding:0.9rem 1rem;border-bottom:1px solid #eee;display:flex;justify-content:space-between;align-items:center;cursor:pointer;transition:all 0.2s ease;border-radius:6px;}
+        .destination-item:hover{background:#f5fdfd;transform:translateX(3px);}
+        .destination-item.selected{background:#f0fafa;border-left:3px solid #00CED1;}
+        .destination-name{font-weight:600;color:#444;}
+        .destination-count{color:#888;font-size:0.9rem;}
+        .destination-arrow{color:#00CED1;font-weight:bold;font-size:1.1rem;}
+        .no-results{padding:1.5rem;text-align:center;color:#888;font-style:italic;font-size:1.1rem;}
+        .calendar{display:none;background:white;padding:1.5rem;border-radius:12px;margin-top:20px;box-shadow:0 5px 15px rgba(0,0,0,0.05);border:1px solid #e0e0e0;}
+        .calendar-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:1.2rem;}
+        .calendar-title{font-size:1.2rem;font-weight:600;color:#008B8B;}
+        .calendar-nav{display:flex;gap:10px;}
+        .calendar-nav-btn{padding:0.4rem 0.8rem;background:#f0f0f0;border:none;border-radius:6px;cursor:pointer;transition:all 0.2s ease;font-weight:600;color:#555;}
+        .calendar-nav-btn:hover{background:#e0e0e0;}
+        .calendar-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:8px;}
+        .calendar-day-header{padding:0.7rem;text-align:center;font-weight:600;color:#666;font-size:0.9rem;}
+        .calendar-day{padding:0.9rem;text-align:center;border-radius:6px;cursor:pointer;transition:all 0.2s ease;font-weight:500;border:1px solid transparent;}
+        .calendar-day:hover{background:#00CED1;color:white;transform:scale(1.05);}
+        .calendar-day.selected{background:#008B8B;color:white;font-weight:600;}
+        .calendar-day.between{background:#b2f0f0;color:#333;}
+        .calendar-day.disabled{color:#ccc;cursor:not-allowed;}
+        .calendar-day.today{border:1px solid #00CED1;}
+        .guests-selector{display:none;background:white;padding:1.5rem;border-radius:12px;margin-top:20px;box-shadow:0 5px 15px rgba(0,0,0,0.05);border:1px solid #e0e0e0;}
+        .guest-control{display:flex;justify-content:space-between;align-items:center;margin-bottom:1.2rem;padding:0.8rem 1rem;border-radius:8px;transition:all 0.2s ease;}
+        .guest-control:hover{background:#f5fdfd;}
+        .guest-label{font-weight:600;color:#444;}
+        .guest-btns{display:flex;align-items:center;gap:12px;}
+        .guest-btn{padding:0.4rem 0.8rem;background:#f0f0f0;border:none;border-radius:6px;cursor:pointer;font-weight:bold;font-size:1rem;transition:all 0.2s ease;color:#555;}
+        .guest-btn:hover{background:#e0e0e0;}
+        .guest-btn:disabled{opacity:0.5;cursor:not-allowed;}
+        .guest-count{padding:0 1rem;font-weight:600;min-width:30px;text-align:center;}
+        .progress-steps{display:flex;justify-content:space-between;margin:1.5rem 0;position:relative;}
+        .progress-step{flex:1;text-align:center;position:relative;z-index:1;}
+        .step-number{width:30px;height:30px;background:#e0e0e0;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 0.5rem;font-weight:600;color:#888;}
+        .step-label{font-size:0.9rem;color:#888;font-weight:500;}
+        .progress-step.active .step-number{background:#00CED1;color:white;}
+        .progress-step.active .step-label{color:#008B8B;font-weight:600;}
+        .progress-step.completed .step-number{background:#008B8B;color:white;}
+        .progress-step.completed .step-label{color:#008B8B;}
+        .progress-bar{position:absolute;top:15px;left:0;right:0;height:2px;background:#e0e0e0;z-index:0;}
+        .progress-fill{height:100%;background:#00CED1;transition:width 0.3s ease;width:0%;}
+        @media (max-width:768px){
+            .widget-row{padding:0.5rem 1rem;gap:0.8rem;}
+            .widget-item{flex:1 1 100%;margin-bottom:0;}
+            .search-section{padding:1.5rem 1rem;}
+            .destinations-section{padding:1rem;}
+            .search-input{padding:0.8rem 1rem;}
+            .search-icon{padding:0 1.2rem;}
+            .destination-item{padding:0.8rem;}
+            .calendar-day{padding:0.6rem;}
+            .guest-control{padding:0.8rem 0.5rem;}
+        }
+        @media (max-width:480px){
+            .widget-link,.search-btn{padding:0.7rem;}
+            .search-title{font-size:1.3rem;}
+            .destinations-title{font-size:1.1rem;}
+            .step-label{font-size:0.8rem;}
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Progress Steps -->
+        <div class="progress-steps">
+            <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+            <div class="progress-step active" id="step1">
+                <div class="step-number">1</div>
+                <div class="step-label">Destination</div>
+            </div>
+            <div class="progress-step" id="step2">
+                <div class="step-number">2</div>
+                <div class="step-label">Dates</div>
+            </div>
+            <div class="progress-step" id="step3">
+                <div class="step-number">3</div>
+                <div class="step-label">Guests</div>
+            </div>
+            <div class="progress-step" id="step4">
+                <div class="step-number">4</div>
+                <div class="step-label">Book</div>
+            </div>
+        </div>
+
+        <!-- Booking Widget -->
+        <section class="booking-widget">
+            <div class="widget-row">
+                <div class="widget-item">
+                    <div id="destinationTrigger" class="widget-link active">
+                        <span>DESTINATION - Select Hotel, City, Region</span> <span>🔍</span>
+                    </div>
+                </div>
+                <div class="widget-item">
+                    <div id="datesTrigger" class="widget-link">
+                        <span id="datesDisplay">TRAVEL DATES - 08/08/2025 - 09/08/2025</span> <span>📅</span>
+                    </div>
+                </div>
+                <div class="widget-item">
+                    <div id="guestsTrigger" class="widget-link">
+                        <span id="guestsDisplay">ROOMS & GUESTS - 1 Room, 1 Adult</span> <span>⬇</span>
+                    </div>
+                </div>
+                <div class="widget-item">
+                    <a href="results.html" id="searchBtn" class="search-btn">Check Availability</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Search Section -->
+        <section class="search-section">
+            <h2 class="search-title">What would you like to go?</h2>
+            <div class="search-bar">
+                <input type="text" id="searchInput" class="search-input" placeholder="Hotel, City, Region" value="">
+                <div class="search-icon" id="searchIcon">🔍</div>
+            </div>
+        </section>
+
+        <!-- Destinations Section -->
+        <section class="destinations-section" id="destinationsSection">
+            <div id="destinationsList"></div>
+        </section>
+
+        <!-- Calendar Section -->
+        <section class="calendar" id="calendarSection">
+            <div class="calendar-header">
+                <h3 class="calendar-title" id="calendarMonthYear">August 2025</h3>
+                <div class="calendar-nav">
+                    <button class="calendar-nav-btn" id="prevMonth">←</button>
+                    <button class="calendar-nav-btn" id="nextMonth">→</button>
+                </div>
+            </div>
+            <div class="calendar-grid" id="calendarDaysHeader">
+                <div class="calendar-day-header">Sun</div>
+                <div class="calendar-day-header">Mon</div>
+                <div class="calendar-day-header">Tue</div>
+                <div class="calendar-day-header">Wed</div>
+                <div class="calendar-day-header">Thu</div>
+                <div class="calendar-day-header">Fri</div>
+                <div class="calendar-day-header">Sat</div>
+            </div>
+            <div class="calendar-grid" id="calendarDates"></div>
+        </section>
+
+        <!-- Guests Selector -->
+        <section class="guests-selector" id="guestsSection">
+            <div class="guest-control">
+                <span class="guest-label">Rooms</span>
+                <div class="guest-btns">
+                    <button class="guest-btn" id="decreaseRooms">-</button>
+                    <span class="guest-count" id="roomsCount">1</span>
+                    <button class="guest-btn" id="increaseRooms">+</button>
+                </div>
+            </div>
+            <div class="guest-control">
+                <span class="guest-label">Adults</span>
+                <div class="guest-btns">
+                    <button class="guest-btn" id="decreaseAdults">-</button>
+                    <span class="guest-count" id="adultsCount">1</span>
+                    <button class="guest-btn" id="increaseAdults">+</button>
+                </div>
+            </div>
+            <div class="guest-control">
+                <span class="guest-label">Children</span>
+                <div class="guest-btns">
+                    <button class="guest-btn" id="decreaseChildren">-</button>
+                    <span class="guest-count" id="childrenCount">0</span>
+                    <button class="guest-btn" id="increaseChildren">+</button>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script>
+        // API Configuration
+        const API_BASE_URL = 'http://localhost:5000';
+
+        // Current booking data
+        const bookingData = {
+            destination: '',
+            checkIn: new Date(2025, 7, 8), // August 8, 2025 (month is 0-indexed)
+            checkOut: new Date(2025, 7, 9), // August 9, 2025
+            rooms: 1,
+            adults: 1,
+            children: 0
+        };
+
+        // Destinations data - will be fetched from backend
+        let destinations = [];
+
+        // DOM Elements
+        const destinationTrigger = document.getElementById('destinationTrigger');
+        const datesTrigger = document.getElementById('datesTrigger');
+        const guestsTrigger = document.getElementById('guestsTrigger');
+        const searchBtn = document.getElementById('searchBtn');
+        const datesDisplay = document.getElementById('datesDisplay');
+        const guestsDisplay = document.getElementById('guestsDisplay');
+        const searchInput = document.getElementById('searchInput');
+        const searchIcon = document.getElementById('searchIcon');
+        const destinationsSection = document.getElementById('destinationsSection');
+        const destinationsList = document.getElementById('destinationsList');
+        const calendarSection = document.getElementById('calendarSection');
+        const guestsSection = document.getElementById('guestsSection');
+        const calendarMonthYear = document.getElementById('calendarMonthYear');
+        const calendarDates = document.getElementById('calendarDates');
+        const prevMonthBtn = document.getElementById('prevMonth');
+        const nextMonthBtn = document.getElementById('nextMonth');
+        const roomsCount = document.getElementById('roomsCount');
+        const adultsCount = document.getElementById('adultsCount');
+        const childrenCount = document.getElementById('childrenCount');
+        const increaseRooms = document.getElementById('increaseRooms');
+        const decreaseRooms = document.getElementById('decreaseRooms');
+        const increaseAdults = document.getElementById('increaseAdults');
+        const decreaseAdults = document.getElementById('decreaseAdults');
+        const increaseChildren = document.getElementById('increaseChildren');
+        const decreaseChildren = document.getElementById('decreaseChildren');
+        const progressFill = document.getElementById('progressFill');
+        const step1 = document.getElementById('step1');
+        const step2 = document.getElementById('step2');
+        const step3 = document.getElementById('step3');
+        const step4 = document.getElementById('step4');
+
+        // Initialize the page
+        document.addEventListener('DOMContentLoaded', function() {
+            // Fetch locations from backend first
+            fetchLocationsFromBackend();
+            
+            updateDatesDisplay();
+            updateGuestsDisplay();
+            updateProgressBar();
+            
+            // Set up destination items click handlers
+            document.addEventListener('click', function(e) {
+                if (e.target.closest('.destination-item')) {
+                    const item = e.target.closest('.destination-item');
+                    bookingData.destination = item.getAttribute('data-destination');
+                    searchInput.value = item.querySelector('.destination-name').textContent;
+                    
+                    // Highlight selected destination
+                    document.querySelectorAll('.destination-item').forEach(i => i.classList.remove('selected'));
+                    item.classList.add('selected');
+                    
+                    // Auto-navigate to dates selection
+                    setTimeout(() => {
+                        document.getElementById('datesTrigger').click();
+                    }, 300);
+                }
+            });
+        });
+
+        // Fetch locations from backend
+        function fetchLocationsFromBackend() {
+            fetch(`${API_BASE_URL}/api/get-locations`)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Failed to fetch locations');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    if (data.success && data.locations) {
+                        destinations = data.locations;
+                        renderDestinations(destinations);
+                        console.log('Locations loaded from backend:', destinations);
+                    }
+                })
+                .catch(error => {
+                    console.error('Error fetching locations from backend:', error);
+                    // Show error message to user
+                    destinationsList.innerHTML = '<div class="no-results">Unable to load locations. Please try again later.</div>';
+                });
+        }
+
+        // Update progress bar and steps
+        function updateProgressBar() {
+            let progress = 0;
+            if (bookingData.destination) progress += 25;
+            if (bookingData.checkIn && bookingData.checkOut) progress += 25;
+            if (bookingData.rooms > 0 && bookingData.adults > 0) progress += 25;
+            
+            progressFill.style.width = `${progress}%`;
+            
+            step1.classList.remove('completed', 'active');
+            step2.classList.remove('completed', 'active');
+            step3.classList.remove('completed', 'active');
+            step4.classList.remove('completed', 'active');
+            
+            if (bookingData.destination) {
+                step1.classList.add('completed');
+                step2.classList.add('active');
+            } else {
+                step1.classList.add('active');
+            }
+            
+            if (bookingData.checkIn && bookingData.checkOut) {
+                step2.classList.add('completed');
+                step3.classList.add('active');
+            }
+            
+            if (bookingData.rooms > 0 && bookingData.adults > 0) {
+                step3.classList.add('completed');
+                step4.classList.add('active');
+            }
+        }
+
+        // Render destinations based on filter
+        function renderDestinations(destinationsToRender) {
+            if (!destinationsToRender || destinationsToRender.length === 0) {
+                destinationsList.innerHTML = '<div class="no-results">No locations found.</div>';
+                return;
+            }
+            // Group by country, then state
+            const countryMap = {};
+            destinationsToRender.forEach(loc => {
+                if (!countryMap[loc.country]) countryMap[loc.country] = {};
+                if (!countryMap[loc.country][loc.state]) countryMap[loc.country][loc.state] = [];
+                countryMap[loc.country][loc.state].push(loc);
+            });
+
+            let html = '';
+            let stateId = 0;
+            let regionId = 0;
+            for (const country in countryMap) {
+                html += `<h2 style="margin-top:32px;">${country}</h2>`;
+                for (const state in countryMap[country]) {
+                    // Count total regions in this state
+                    let totalRegions = 0;
+                    countryMap[country][state].forEach(loc => {
+                        totalRegions += Array.isArray(loc.regions) ? loc.regions.length : 0;
+                    });
+                    const thisStateId = `state_${stateId++}`;
+                    html += `<div class="state-block" style="margin-left:16px;">
+                        <div class="state-header" data-state-id="${thisStateId}" style="cursor:pointer;font-weight:bold;font-size:1.1em;display:flex;align-items:center;">
+                            <span style="font-weight:500;">${state}</span><span class="region-count state-region-count" data-state-id="${thisStateId}" style="color:#00CED1;margin-left:4px;cursor:pointer;">${totalRegions}</span>
+                        </div>
+                        <div class="columns-view" id="${thisStateId}" style="display:none;margin-top:16px;">
+                            <div style="display:flex;gap:32px;">
+                                <div class="regions-col" style="min-width:220px;">
+                                    <div style="font-weight:600;margin-bottom:8px;">REGIONS</div>
+                                    <ul style="list-style:none;padding:0;">
+                                        `;
+                    // For each location row (should be one per state, but support multiple)
+                    countryMap[country][state].forEach(loc => {
+                        if (Array.isArray(loc.regions)) {
+                            loc.regions.forEach(region => {
+                                const thisRegionId = `region_${regionId++}`;
+                                html += `<li class="region-row" style="display:flex;align-items:center;margin-bottom:6px;position:relative;">
+                                    <span class="region-name" data-region-id="${thisRegionId}" style="cursor:pointer;font-weight:500;flex:1;">${region.regionName}</span>
+                                    <span class="region-count" data-region-id="${thisRegionId}" style="color:#00CED1;margin-left:4px;cursor:pointer;">${region.count}</span>
+                                    <div class="hotels-col" id="${thisRegionId}" style="display:none;margin-top:0;min-width:220px;position:absolute;left:100%;top:0;background:#fff;border-radius:8px;box-shadow:0 2px 8px rgba(0,0,0,0.05);padding:16px;z-index:100;">
+                                        <div style="font-weight:600;margin-bottom:8px;">HOTELS</div>
+                                        <ul style="list-style:none;padding:0;">
+                                            `;
+                                    if (Array.isArray(region.specificNames)) {
+                                        region.specificNames.forEach(name => {
+                                            html += `<li style="margin-bottom:6px;">${name}</li>`;
+                                        });
+                                    }
+                                    html += `</ul></div>
+                                </li>`;
+                            });
+                        }
+                    });
+                    html += `</ul></div></div></div></div>`;
+                }
+            }
+            destinationsList.innerHTML = html;
+
+            // Add expand/collapse handlers for state
+            document.querySelectorAll('.state-header').forEach(header => {
+                header.addEventListener('click', function() {
+                    const stateId = this.getAttribute('data-state-id');
+                    const columnsView = document.getElementById(stateId);
+                    if (columnsView.style.display === 'none') {
+                        columnsView.style.display = 'block';
+                    } else {
+                        columnsView.style.display = 'none';
+                    }
+                });
+            });
+            // Add expand/collapse handlers for region (name and count clickable)
+            document.querySelectorAll('.region-name, .region-count').forEach(regionElem => {
+                regionElem.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    const regionId = this.getAttribute('data-region-id');
+                    const hotelsCol = document.getElementById(regionId);
+                    // Hide all other hotels columns in this regions-col
+                    const allHotelsCols = this.closest('.regions-col').querySelectorAll('.hotels-col');
+                    allHotelsCols.forEach(col => { if (col !== hotelsCol) col.style.display = 'none'; });
+                    if (hotelsCol.style.display === 'none') {
+                        hotelsCol.style.display = 'block';
+                    } else {
+                        hotelsCol.style.display = 'none';
+                    }
+                });
+            });
+        }
+
+        // Filter destinations based on search input
+        function filterDestinations(searchTerm) {
+            if (!searchTerm) {
+                return destinations;
+            }
+            
+            const term = searchTerm.toLowerCase();
+            return destinations.filter(dest => 
+                dest.name.toLowerCase().includes(term) || 
+                dest.region.toLowerCase().includes(term)
+            );
+        }
+
+        // Format date as DD/MM/YYYY
+        function formatDate(date) {
+            const day = String(date.getDate()).padStart(2, '0');
+            const month = String(date.getMonth() + 1).padStart(2, '0');
+            const year = date.getFullYear();
+            return `${day}/${month}/${year}`;
+        }
+
+        // Update dates display
+        function updateDatesDisplay() {
+            datesDisplay.innerHTML = `<span>TRAVEL DATES - ${formatDate(bookingData.checkIn)} - ${formatDate(bookingData.checkOut)}</span> <span>📅</span>`;
+            updateProgressBar();
+        }
+
+        // Update guests display
+        function updateGuestsDisplay() {
+            let guestsText = `ROOMS & GUESTS - ${bookingData.rooms} Room${bookingData.rooms !== 1 ? 's' : ''}, ${bookingData.adults} Adult${bookingData.adults !== 1 ? 's' : ''}`;
+            if (bookingData.children > 0) {
+                guestsText += `, ${bookingData.children} Child${bookingData.children !== 1 ? 'ren' : ''}`;
+            }
+            guestsDisplay.textContent = guestsText;
+            updateProgressBar();
+        }
+
+        // Generate calendar for a specific month and year
+        function generateCalendar(month, year) {
+            const firstDay = new Date(year, month, 1);
+            const lastDay = new Date(year, month + 1, 0);
+            const daysInMonth = lastDay.getDate();
+            const startingDay = firstDay.getDay();
+            const today = new Date();
+            
+            calendarMonthYear.textContent = `${new Date(year, month).toLocaleString('default', { month: 'long' })} ${year}`;
+            
+            let calendarHTML = '';
+            let date = 1;
+            
+            // Create empty cells for days before the first day of the month
+            for (let i = 0; i < startingDay; i++) {
+                calendarHTML += `<div class="calendar-day disabled"></div>`;
+            }
+            
+            // Create cells for each day of the month
+            for (let i = startingDay; i < 42; i++) {
+                if (date > daysInMonth) {
+                    calendarHTML += `<div class="calendar-day disabled"></div>`;
+                    continue;
+                }
+                
+                const currentDate = new Date(year, month, date);
+                const isToday = currentDate.toDateString() === today.toDateString();
+                const isSelected = (currentDate.toDateString() === bookingData.checkIn.toDateString() || 
+                                  currentDate.toDateString() === bookingData.checkOut.toDateString());
+                const isBetween = (currentDate > bookingData.checkIn && currentDate < bookingData.checkOut);
+                const isPast = (currentDate < new Date(today.setHours(0, 0, 0, 0)));
+                
+                let dayClass = 'calendar-day';
+                if (isToday) dayClass += ' today';
+                if (isSelected) dayClass += ' selected';
+                if (isBetween) dayClass += ' between';
+                if (isPast) dayClass += ' disabled';
+                
+                calendarHTML += `<div class="${dayClass}" data-date="${date}">${date}</div>`;
+                date++;
+            }
+            
+            calendarDates.innerHTML = calendarHTML;
+            
+            // Add click handlers to calendar days
+            document.querySelectorAll('.calendar-day:not(.disabled)').forEach(day => {
+                day.addEventListener('click', function() {
+                    const selectedDate = new Date(year, month, parseInt(this.getAttribute('data-date')));
+                    
+                    if (!bookingData.checkIn || bookingData.checkOut || selectedDate < bookingData.checkIn) {
+                        // If no check-in date or selecting a date before current check-in, reset selection
+                        bookingData.checkIn = selectedDate;
+                        bookingData.checkOut = null;
+                    } else {
+                        // Set check-out date
+                        bookingData.checkOut = selectedDate;
+                        
+                        // Auto-navigate to guests selection after choosing dates
+                        setTimeout(() => {
+                            document.getElementById('guestsTrigger').click();
+                        }, 300);
+                    }
+                    
+                    updateDatesDisplay();
+                    generateCalendar(month, year);
+                });
+            });
+        }
+
+        // Event Listeners
+        destinationTrigger.addEventListener('click', function(e) {
+            e.preventDefault();
+            destinationsSection.style.display = 'block';
+            calendarSection.style.display = 'none';
+            guestsSection.style.display = 'none';
+            
+            // Update active state
+            destinationTrigger.classList.add('active');
+            datesTrigger.classList.remove('active');
+            guestsTrigger.classList.remove('active');
+        });
+
+        datesTrigger.addEventListener('click', function(e) {
+            e.preventDefault();
+            if (bookingData.destination) {
+                calendarSection.style.display = 'block';
+                destinationsSection.style.display = 'none';
+                guestsSection.style.display = 'none';
+                generateCalendar(bookingData.checkIn.getMonth(), bookingData.checkIn.getFullYear());
+                
+                // Update active state
+                destinationTrigger.classList.remove('active');
+                datesTrigger.classList.add('active');
+                guestsTrigger.classList.remove('active');
+            } else {
+                alert('Please select a destination first');
+            }
+        });
+
+        guestsTrigger.addEventListener('click', function(e) {
+            e.preventDefault();
+            if (bookingData.destination) {
+                guestsSection.style.display = 'block';
+                destinationsSection.style.display = 'none';
+                calendarSection.style.display = 'none';
+                
+                // Update active state
+                destinationTrigger.classList.remove('active');
+                datesTrigger.classList.remove('active');
+                guestsTrigger.classList.add('active');
+            } else {
+                alert('Please select a destination first');
+            }
+        });
+
+        // Real-time search filtering
+        searchInput.addEventListener('input', function() {
+            const filtered = filterDestinations(this.value);
+            renderDestinations(filtered);
+        });
+
+        searchIcon.addEventListener('click', function() {
+            if (searchInput.value.trim()) {
+                const filtered = filterDestinations(searchInput.value);
+                if (filtered.length === 1) {
+                    // Auto-select if only one result
+                    document.querySelector('.destination-item').click();
+                } else {
+                    renderDestinations(filtered);
+                }
+            }
+        });
+
+        // Calendar navigation
+        let currentMonth = bookingData.checkIn.getMonth();
+        let currentYear = bookingData.checkIn.getFullYear();
+
+        prevMonthBtn.addEventListener('click', function() {
+            currentMonth--;
+            if (currentMonth < 0) {
+                currentMonth = 11;
+                currentYear--;
+            }
+            generateCalendar(currentMonth, currentYear);
+        });
+
+        nextMonthBtn.addEventListener('click', function() {
+            currentMonth++;
+            if (currentMonth > 11) {
+                currentMonth = 0;
+                currentYear++;
+            }
+            generateCalendar(currentMonth, currentYear);
+        });
+
+        // Guests controls
+        increaseRooms.addEventListener('click', function() {
+            if (bookingData.rooms < 10) {
+                bookingData.rooms++;
+                roomsCount.textContent = bookingData.rooms;
+                updateGuestsDisplay();
+            }
+        });
+
+        decreaseRooms.addEventListener('click', function() {
+            if (bookingData.rooms > 1) {
+                bookingData.rooms--;
+                roomsCount.textContent = bookingData.rooms;
+                updateGuestsDisplay();
+            }
+        });
+
+        increaseAdults.addEventListener('click', function() {
+            if (bookingData.adults < 10) {
+                bookingData.adults++;
+                adultsCount.textContent = bookingData.adults;
+                updateGuestsDisplay();
+            }
+        });
+
+        decreaseAdults.addEventListener('click', function() {
+            if (bookingData.adults > 1) {
+                bookingData.adults--;
+                adultsCount.textContent = bookingData.adults;
+                updateGuestsDisplay();
+            }
+        });
+
+        increaseChildren.addEventListener('click', function() {
+            if (bookingData.children < 10) {
+                bookingData.children++;
+                childrenCount.textContent = bookingData.children;
+                updateGuestsDisplay();
+            }
+        });
+
+        decreaseChildren.addEventListener('click', function() {
+            if (bookingData.children > 0) {
+                bookingData.children--;
+                childrenCount.textContent = bookingData.children;
+                updateGuestsDisplay();
+            }
+        });
+    </script>
+
+
+
+<div id="footer-container"></div>
+
+<script>
+fetch("footer.html")
+  .then(res => res.text())
+  .then(data => {
+    document.getElementById("footer-container").innerHTML = data;
+  });
+</script>
+
+</body>
+<script src="form-auth.js"></script>
+</html>

@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About UrbanSphere Hospitality Services | Luxury Hospitality Solutions</title>
+    <meta name="description" content="Discover UrbanSphere Hospitality's mission, vision, and values. We redefine luxury hospitality with innovative solutions, sustainability, and unmatched guest experiences.">
+    <link rel="canonical" href="https://www.hitaishihospitality.com/about">
+          <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+</head>
+<body style="margin:0;font-family:'Arial',sans-serif;line-height:1.6;color:#333;">
+      <div id="navbar-container"></div>
+    
+    <!-- Load Navbar Script -->
+  <script>
+  // Load shared navbar (injects navbar.html body and executes its scripts)
+  async function includeNavbar() {
+    try {
+      const res = await fetch('navbar.html');
+      const text = await res.text();
+      const parser = new DOMParser();
+      const doc = parser.parseFromString(text, 'text/html');
+      document.getElementById('navbar-container').innerHTML = doc.body.innerHTML;
+
+      // Execute scripts from navbar.html and wait for external scripts to load
+      const __createdScriptPromises = [];
+      doc.querySelectorAll('script').forEach(s => {
+        const newScript = document.createElement('script');
+        if (s.src) {
+          newScript.src = s.src;
+          newScript.async = false;
+          __createdScriptPromises.push(new Promise(resolve => {
+            newScript.addEventListener('load', resolve);
+            newScript.addEventListener('error', resolve);
+            setTimeout(resolve, 2000);
+          }));
+        } else {
+          newScript.textContent = s.textContent;
+        }
+        document.body.appendChild(newScript);
+      });
+      Promise.all(__createdScriptPromises).finally(() => {});
+
+      // Ensure navbar init functions run after dynamic injection (wait for external scripts to load)
+      const __navbarScriptPromises = [];
+      doc.querySelectorAll('script').forEach((s, i) => {
+        const existing = document.querySelectorAll('script')[document.querySelectorAll('script').length - 1 - i];
+        if (existing && existing.src) {
+          __navbarScriptPromises.push(new Promise(resolve => {
+            existing.addEventListener('load', resolve);
+            existing.addEventListener('error', resolve);
+            // also resolve after 2s as a safety
+            setTimeout(resolve, 2000);
+          }));
+        }
+      });
+      Promise.all(__navbarScriptPromises).finally(() => {
+        if (typeof checkScreenSize === 'function') checkScreenSize();
+        if (typeof addDesktopHoverEffects === 'function') addDesktopHoverEffects();
+        if (typeof updateUserUI === 'function') updateUserUI();
+        if (typeof updateCartBadge === 'function') updateCartBadge();
+        if (typeof setActiveNavLink === 'function') setActiveNavLink();
+      });
+    } catch (e) {
+      console.error('Failed to load navbar:', e);
+    }
+  }
+  includeNavbar();
+</script>
+
+
+    <!-- **Animated Hero Section** (Sliding Backgrounds) -->
+    <header style="position:relative;height:90vh;overflow:hidden;margin-top: -30px;">
+        <a href="/" style="position:absolute;top:20px;left:20px;z-index:10;color:#fff;text-decoration:none;font-weight:bold;font-size:24px;background:rgba(0,0,0,0.5);padding:10px 20px;border-radius:5px;"> UrbanSphere Hospitality</a>
+        <div class="hero-slides" style="position:absolute;width:100%;height:100%;">
+            <div class="slide" style="position:absolute;width:100%;height:100%;background:url('https://images.unsplash.com/photo-1566073771259-6a8506099945?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80') center/cover;animation:slideAnimation 24s infinite;opacity:0;"></div>
+            <div class="slide" style="position:absolute;width:100%;height:100%;background:url('https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80') center/cover;animation:slideAnimation 24s infinite 8s;opacity:0;"></div>
+            <div class="slide" style="position:absolute;width:100%;height:100%;background:url('https://images.unsplash.com/photo-1535827841776-24afc1e255ac?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80') center/cover;animation:slideAnimation 24s infinite 16s;opacity:0;"></div>
+        </div>
+        <div style="position:absolute;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.4);display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:0 20px;box-sizing:border-box;">
+            <h1 style="color:#fff;font-size:4rem;margin-bottom:20px;text-shadow:2px 2px 5px rgba(0,0,0,0.5);animation:fadeIn 1.5s ease;">About UrbanSphere Hospitality</h1>
+            <p style="color:#fff;font-size:1.5rem;max-width:800px;margin-bottom:30px;text-shadow:1px 1px 3px rgba(0,0,0,0.5);animation:fadeIn 2s ease;">Redefining luxury hospitality with innovation, sustainability, and unforgettable experiences</p>
+        </div>
+    </header>
+    
+  <!-- About Section (Styled like index.html) -->
+        <section class="about" id="about" style="padding-top:0;">
+            <div class="container">
+                <div class="about-content">
+                    <div class="about-text animate-slide-left">
+                        <h2>About UrbanSphere Hospitality</h2>
+                        <p>With over 15 years of experience in the hospitality industry, UrbanSphere Hospitality Services has established itself as a trusted partner for businesses seeking comprehensive hospitality solutions.</p>
+                        <p>Our commitment to excellence, attention to detail, and customer-centric approach has helped us build lasting relationships with clients across various sectors including corporate offices, educational institutions, hotels, and food service establishments.</p>
+                        <p>We pride ourselves on delivering innovative solutions that not only meet but exceed our clients' expectations, ensuring sustainable growth and success in today's competitive market.</p>
+                        <div class="about-features">
+                            <div class="feature-item">
+                                <div class="feature-icon">
+                                    <i class="fas fa-award"></i>
+                                </div>
+                                <span>Award-Winning Service</span>
+                            </div>
+                            <div class="feature-item">
+                                <div class="feature-icon">
+                                    <i class="fas fa-users"></i>
+                                </div>
+                                <span>Expert Team</span>
+                            </div>
+                            <div class="feature-item">
+                                <div class="feature-icon">
+                                    <i class="fas fa-clock"></i>
+                                </div>
+                                <span>24/7 Support</span>
+                            </div>
+                            <div class="feature-item">
+                                <div class="feature-icon">
+                                    <i class="fas fa-shield-alt"></i>
+                                </div>
+                                <span>Quality Assured</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="about-image animate-slide-right">
+                        <img src="images/hitaishi hospitality.png" alt="UrbanSphere Hospitality Services providing professional hospitality solutions across India">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    <!-- **Section 2: Mission & Vision** -->
+    <section style="padding:50px 10px 30px 10px;background:#f8f9fa;">
+        <div style="max-width:1200px;margin:0 auto;display:flex;flex-wrap:wrap;gap:30px;justify-content:center;align-items:center;">
+            <div style="flex:1;min-width:300px;opacity:0;transform:translateX(-50px);transition:all 0.8s ease;" class="scroll-animate">
+                <h2 style="font-size:2.8rem;margin-bottom:30px;color:#2c3e50;">Our Mission</h2>
+                <p style="font-size:1.2rem;color:#7f8c8d;margin-bottom:30px;">To create <strong>exceptional hospitality experiences</strong> that blend <strong>Indian cultural warmth</strong> with <strong>global standards of luxury</strong>, while driving sustainable practices in the industry.</p>
+                <div style="background:#fff;padding:30px;border-radius:10px;box-shadow:0 5px 15px rgba(0,0,0,0.05);">
+                    <h3 style="color:#d4af37;font-size:1.5rem;margin-bottom:15px;">What Drives Us</h3>
+                    <p style="color:#34495e;">Innovation in guest services, employee empowerment, and eco-friendly operations form the core of our mission.</p>
+                </div>
+            </div>
+            <div style="flex:1;min-width:300px;opacity:0;transform:translateX(50px);transition:all 0.8s ease;" class="scroll-animate">
+                <h2 style="font-size:2.8rem;margin-bottom:30px;color:#2c3e50;">Our Vision</h2>
+                <p style="font-size:1.2rem;color:#7f8c8d;margin-bottom:30px;">To be <strong>India's most admired hospitality brand</strong>, recognized globally for <strong>redefining luxury</strong> through technology, sustainability, and authentic Indian hospitality.</p>
+                <div style="background:#fff;padding:30px;border-radius:10px;box-shadow:0 5px 15px rgba(0,0,0,0.05);">
+                    <h3 style="color:#d4af37;font-size:1.5rem;margin-bottom:15px;">Future Goals</h3>
+                    <p style="color:#34495e;">Expand to 100 properties by 2025 and achieve carbon neutrality across all operations by 2030.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- **Section 3: Our Values** -->
+    <section style="padding:50px 10px 30px 10px;max-width:1200px;margin:0 auto;text-align:center;">
+        <h2 style="font-size:2.8rem;margin-bottom:30px;color:#2c3e50;opacity:0;transition:all 0.8s ease;" class="scroll-animate">Our Core Values</h2>
+        <p style="font-size:1.2rem;color:#7f8c8d;max-width:800px;margin:0 auto 60px;opacity:0;transition:all 0.8s ease 0.2s;" class="scroll-animate">These principles guide every decision we make at  UrbanSphere Hospitality</p>
+        <div style="display:flex;justify-content:center;flex-wrap:wrap;gap:20px;">
+            <!-- Value 1 -->
+            <div style="flex:1;min-width:250px;background:#fff;padding:40px 30px;border-radius:10px;box-shadow:0 5px 15px rgba(0,0,0,0.05);opacity:0;transform:translateY(30px);transition:all 0.6s ease;" class="scroll-animate">
+                <div style="width:80px;height:80px;background:#f5e6ca;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 25px;">
+                    <span style="font-size:2rem;color:#d4af37;">❤️</span>
+                </div>
+                <h3 style="color:#2c3e50;font-size:1.5rem;margin-bottom:15px;">Guest Obsession</h3>
+                <p style="color:#7f8c8d;">Every decision starts with "what's best for our guests?"</p>
+            </div>
+            <!-- Value 2 -->
+            <div style="flex:1;min-width:250px;background:#fff;padding:40px 30px;border-radius:10px;box-shadow:0 5px 15px rgba(0,0,0,0.05);opacity:0;transform:translateY(30px);transition:all 0.6s ease 0.2s;" class="scroll-animate">
+                <div style="width:80px;height:80px;background:#f5e6ca;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 25px;">
+                    <span style="font-size:2rem;color:#d4af37;">🌱</span>
+                </div>
+                <h3 style="color:#2c3e50;font-size:1.5rem;margin-bottom:15px;">Sustainable Luxury</h3>
+                <p style="color:#7f8c8d;">We prove luxury and sustainability can coexist beautifully</p>
+            </div>
+            <!-- Value 3 -->
+            <div style="flex:1;min-width:250px;background:#fff;padding:40px 30px;border-radius:10px;box-shadow:0 5px 15px rgba(0,0,0,0.05);opacity:0;transform:translateY(30px);transition:all 0.6s ease 0.4s;" class="scroll-animate">
+                <div style="width:80px;height:80px;background:#f5e6ca;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 25px;">
+                    <span style="font-size:2rem;color:#d4af37;">🤝</span>
+                </div>
+                <h3 style="color:#2c3e50;font-size:1.5rem;margin-bottom:15px;">Community First</h3>
+                <p style="color:#7f8c8d;">We grow by uplifting local communities around our properties</p>
+            </div>
+        </div>
+    </section>
+    <!-- Section 5: Commitment to Excellence -->
+    <section style="padding:30px 5px 15px 5px;background:url('https://images.unsplash.com/photo-1445116572660-236099ec97a0?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80') center/cover;position:relative;">
+        <div style="position:absolute;top:0;left:0;width:100%;height:100%;background:rgba(44,62,80,0.9);"></div>
+        <div style="position:relative;z-index:1;max-width:1000px;margin:0 auto;text-align:center;color:#fff;">
+            <h2 style="font-size:2.2rem;margin-bottom:18px;opacity:0;transition:all 0.8s ease;" class="scroll-animate">Our Commitment to Excellence</h2>
+            <p style="font-size:1rem;max-width:700px;margin:0 auto 30px;opacity:0.9;opacity:0;transition:all 0.8s ease 0.2s;" class="scroll-animate"> UrbanSphere Hospitality is recognized globally for our unwavering standards</p>
+            <div style="display:flex;justify-content:center;flex-wrap:wrap;gap:12px;">
+                <div style="flex:1;min-width:180px;background:rgba(255,255,255,0.1);backdrop-filter:blur(10px);padding:18px;border-radius:10px;border:1px solid rgba(212,175,55,0.3);opacity:0;transform:translateY(30px);transition:all 0.6s ease;" class="scroll-animate">
+                    <div style="font-size:1.5rem;color:#d4af37;margin-bottom:10px;">⭐</div>
+                    <h3 style="font-size:1rem;margin-bottom:7px;">Luxury Travel Awards</h3>
+                    <p style="color:#ecf0f1;font-size:0.8rem;">Best Boutique Hotel Chain 2023</p>
+                </div>
+                <div style="flex:1;min-width:180px;background:rgba(255,255,255,0.1);backdrop-filter:blur(10px);padding:18px;border-radius:10px;border:1px solid rgba(212,175,55,0.3);opacity:0;transform:translateY(30px);transition:all 0.6s ease 0.2s;" class="scroll-animate">
+                    <div style="font-size:1.5rem;color:#d4af37;margin-bottom:10px;">🌍</div>
+                    <h3 style="font-size:1rem;margin-bottom:7px;">Green Globe Certified</h3>
+                    <p style="color:#ecf0f1;font-size:0.8rem;">Sustainable Hospitality Leader</p>
+                </div>
+                <div style="flex:1;min-width:180px;background:rgba(255,255,255,0.1);backdrop-filter:blur(10px);padding:18px;border-radius:10px;border:1px solid rgba(212,175,55,0.3);opacity:0;transform:translateY(30px);transition:all 0.6s ease 0.4s;" class="scroll-animate">
+                    <div style="font-size:1.5rem;color:#d4af37;margin-bottom:10px;">🏆</div>
+                    <h3 style="font-size:1rem;margin-bottom:7px;">TripAdvisor</h3>
+                    <p style="color:#ecf0f1;font-size:0.8rem;">Travelers' Choice 2024</p>
+                </div>
+                <div style="flex:1;min-width:180px;background:rgba(255,255,255,0.1);backdrop-filter:blur(10px);padding:18px;border-radius:10px;border:1px solid rgba(212,175,55,0.3);opacity:0;transform:translateY(30px);transition:all 0.6s ease 0.6s;" class="scroll-animate">
+                    <div style="font-size:1.5rem;color:#d4af37;margin-bottom:10px;">✨</div>
+                    <h3 style="font-size:1rem;margin-bottom:7px;">Condé Nast</h3>
+                    <p style="color:#ecf0f1;font-size:0.8rem;">Top 10 India Resorts</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- **Scripts for Animations & Lazy Loading** -->
+    <script>
+        // Scroll Animation Trigger
+        document.addEventListener("DOMContentLoaded", function() {
+            const scrollElements = document.querySelectorAll(".scroll-animate");
+            
+            const elementInView = (el) => {
+                const elementTop = el.getBoundingClientRect().top;
+                return (elementTop <= (window.innerHeight || document.documentElement.clientHeight));
+            };
+            
+            const displayScrollElement = (element) => {
+                element.style.opacity = "1";
+                element.style.transform = "translateY(0)";
+                if(element.querySelector("span")) {
+                    element.querySelector("span").style.transform = "scaleX(1)";
+                }
+            };
+            
+            const handleScrollAnimation = () => {
+                scrollElements.forEach((el) => {
+                    if (elementInView(el)) {
+                        displayScrollElement(el);
+                    }
+                });
+            };
+            
+            window.addEventListener("scroll", handleScrollAnimation);
+            handleScrollAnimation(); // Trigger on load
+            
+            // Lazy Loading for Images
+            if ("IntersectionObserver" in window) {
+                const lazyImages = [].slice.call(document.querySelectorAll("img.lazy"));
+                let lazyImageObserver = new IntersectionObserver(function(entries) {
+                    entries.forEach(function(entry) {
+                        if (entry.isIntersecting) {
+                            let lazyImage = entry.target;
+                            lazyImage.src = lazyImage.dataset.src;
+                            lazyImageObserver.unobserve(lazyImage);
+                        }
+                    });
+                });
+                lazyImages.forEach(function(lazyImage) {
+                    lazyImageObserver.observe(lazyImage);
+                });
+            }
+        });
+    </script>
+
+    <!-- About Section Styles (from index.html) -->
+    <style>
+        /* Enhanced About Section */
+        .about {
+            padding: 120px 0;
+            background: white;
+            /* margin-left removed to prevent horizontal scroll */
+            position: relative;
+            box-sizing: border-box;
+        }
+        section, header, .about, .about-content, .about-image, .about-text {
+            box-sizing: border-box;
+        }
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            align-items: center;
+        }
+        .about-text h2 {
+            font-size: 3rem;
+            color: #2c5aa0;
+            margin-bottom: 10px;
+            position: relative;
+        }
+        .about-text h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(45deg, #4CAF50, #2196F3);
+            border-radius: 2px;
+        }
+        .about-text p {
+            color: #666;
+            margin-bottom: 25px;
+            font-size: 1.2rem;
+            line-height: 1.8;
+        }
+        .about-features {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            margin-top: 40px;
+        }
+        .feature-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            transition: all 0.3s ease;
+        }
+        .feature-item:hover {
+            background: #e9ecef;
+            transform: translateX(10px);
+        }
+        .feature-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(45deg, #2c5aa0, #4CAF50);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1rem;
+        }
+        .about-image {
+            position: relative;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+        }
+        .about-image img {
+            width: 100%;
+            height: 500px;
+            object-fit: cover;
+            transition: all 0.4s ease;
+        }
+        .about-image:hover img {
+            transform: scale(1.05);
+        }
+        @keyframes slideAnimation {
+            0% { opacity: 0; }
+            8% { opacity: 1; }
+            33% { opacity: 1; }
+            41% { opacity: 0; }
+            100% { opacity: 0; }
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</body>
+
+<div id="footer-container"></div>
+
+<script>
+fetch("footer.html")
+  .then(res => res.text())
+  .then(data => {
+    document.getElementById("footer-container").innerHTML = data;
+  });
+</script>
+<script src="form-auth.js"></script>
+</html>

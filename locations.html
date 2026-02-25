@@ -1,0 +1,1607 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Responsive Navbar - UrbanSphere Hospitality</title>
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Ensure body doesn't have margin that could affect 100% width */
+        body {
+            margin: 0;
+            padding-top: 140px; /* Increased padding for taller header */
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        /* Mobile responsive styles */
+        @media (max-width: 768px) {
+            body {
+                padding-top: 140px; /* Space for both header sections */
+            }
+            
+            .mobile-menu-toggle {
+                display: block !important;
+            }
+            
+            .nav-menu {
+                position: fixed !important;
+                top: 0 !important;
+                left: -100% !important;
+                width: 80% !important;
+                height: 100vh !important;
+                background: #1e3d72 !important;
+                flex-direction: column !important;
+                align-items: flex-start !important;
+                padding: 80px 20px 20px !important;
+                box-shadow: 5px 0 15px rgba(0,0,0,0.3) !important;
+                z-index: 999 !important;
+                overflow-y: auto !important;
+                transition: left 0.3s ease !important;
+                margin: 0 !important;
+            }
+            
+            .nav-menu.active {
+                left: 0 !important;
+            }
+            
+            .nav-menu li {
+                width: 100% !important;
+                margin: 8px 0 !important;
+            }
+            
+            .nav-menu li a {
+                display: block !important;
+                padding: 12px 15px !important;
+                border-radius: 5px !important;
+                font-size: 16px !important;
+                background: rgba(255, 255, 255, 0.1) !important;
+                color: white !important;
+                text-decoration: none !important;
+                position: relative !important;
+            }
+            
+            /* Main menu items */
+            .nav-menu > li > a {
+                font-size: 17px !important;
+                font-weight: 600 !important;
+                margin: 8px 0 !important;
+                border-left: 4px solid transparent !important;
+            }
+            
+            .nav-menu > li > a:hover {
+                border-left: 4px solid #4CAF50 !important;
+                background: rgba(255, 255, 255, 0.15) !important;
+            }
+            
+            /* Dropdown styling for mobile */
+            .nav-menu li ul {
+                position: static !important;
+                width: 100% !important;
+                display: none !important;
+                background: transparent !important;
+                padding: 0 !important;
+                margin: 5px 0 15px 0 !important;
+                box-shadow: none !important;
+            }
+            
+            .nav-menu li.dropdown-active > ul {
+                display: block !important;
+            }
+            
+            .nav-menu li ul li a {
+                font-size: 14px !important;
+                padding: 10px 25px !important;
+                background: rgba(255, 255, 255, 0.05) !important;
+                margin: 4px 0 !important;
+                border-left: 3px solid #4CAF50 !important;
+            }
+            
+            /* Services dropdown columns for mobile - single column */
+            .nav-menu li ul div {
+                width: 100% !important;
+                display: block !important;
+            }
+            
+            .top-bar-content {
+                flex-direction: column !important;
+                align-items: center !important;
+            }
+            
+            .welcome-text {
+                order: 1 !important;
+                margin-bottom: 8px !important;
+                text-align: center !important;
+                font-size: 14px !important;
+                line-height: 1.3 !important;
+            }
+            
+            .social-links {
+                order: 2 !important;
+                justify-content: center !important;
+                flex-wrap: wrap !important;
+                gap: 8px !important;
+            }
+            
+            .nav-container {
+                padding: 0 15px !important;
+                height: 70px !important;
+                display: flex !important;
+                align-items: center !important;
+                justify-content: space-between !important;
+                background: linear-gradient(135deg, #2c5aa0, #1e3d72) !important;
+                position: relative !important;
+            }
+            
+            /* Logo adjustments */
+            .logo .company-name {
+                font-size: 18px !important;
+            }
+            
+            .logo .tagline {
+                font-size: 8px !important;
+            }
+            
+            /* Hamburger menu in second navbar */
+            .mobile-menu-toggle {
+                position: absolute !important;
+                right: 15px !important;
+                top: 50% !important;
+                transform: translateY(-50%) !important;
+                z-index: 1000 !important;
+                background: rgba(255, 255, 255, 0.1) !important;
+                padding: 10px !important;
+                border-radius: 5px !important;
+            }
+            
+            /* Mobile menu overlay */
+            .mobile-menu-overlay {
+                display: none !important;
+                position: fixed !important;
+                top: 0 !important;
+                left: 0 !important;
+                width: 100% !important;
+                height: 100% !important;
+                background: rgba(0, 0, 0, 0.5) !important;
+                z-index: 998 !important;
+            }
+            
+            .mobile-menu-overlay.active {
+                display: block !important;
+            }
+            
+            /* Hide desktop dropdown hover effects on mobile */
+            .nav-menu li:hover ul,
+            .nav-menu li:focus-within ul {
+                display: none !important;
+            }
+            
+            .dropdown-arrow {
+                float: right !important;
+                transition: transform 0.3s ease !important;
+                margin-left: 10px !important;
+            }
+            
+            .dropdown-active .dropdown-arrow {
+                transform: rotate(180deg) !important;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            body {
+                padding-top: 130px;
+            }
+            
+            .nav-menu {
+                width: 85% !important;
+            }
+            
+            .welcome-text {
+                font-size: 12px !important;
+            }
+            
+            .social-links a {
+                font-size: 14px !important;
+            }
+            
+            .logo .company-name {
+                font-size: 16px !important;
+            }
+            
+            .logo .tagline {
+                font-size: 7px !important;
+            }
+            
+            .nav-menu > li > a {
+                font-size: 15px !important;
+                padding: 10px 12px !important;
+            }
+            
+            .nav-menu li ul li a {
+                font-size: 13px !important;
+                padding: 8px 20px !important;
+            }
+        }
+        
+        /* Desktop dropdown styling */
+        .nav-menu li ul {
+            display: none;
+            position: absolute;
+            background: #333;
+            list-style: none;
+            padding: 10px;
+            border-radius: 10px;
+            z-index: 1000;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            min-width: 200px;
+        }
+        
+        .nav-menu li:hover > ul {
+            display: block !important;
+        }
+        
+        .nav-menu li ul li {
+            width: 100%;
+            margin: 0;
+        }
+        
+        .nav-menu li ul li a {
+            display: block;
+            padding: 10px 15px;
+            color: white;
+            text-decoration: none;
+            font-size: 13px;
+            transition: background 0.3s;
+        }
+        
+        .nav-menu li ul li a:hover {
+            background: #4CAF50;
+        }
+        
+        /* Multi-column Services dropdown for desktop */
+        .services-dropdown {
+            width: 360px !important;
+            padding: 15px !important;
+        }
+        
+        .services-columns {
+            display: flex;
+            gap: 20px;
+        }
+        
+        .services-column {
+            flex: 1;
+        }
+        
+        /* Smooth transitions */
+        * {
+            transition: all 0.3s ease;
+        }
+        
+        /* Mobile Menu Overlay */
+        .mobile-menu-overlay {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+      <div id="navbar-container"></div>
+    
+    <!-- Load Navbar Script -->
+  <script>
+  // Load shared navbar (injects navbar.html body and executes its scripts)
+  async function includeNavbar() {
+    try {
+      const res = await fetch('navbar.html');
+      const text = await res.text();
+      const parser = new DOMParser();
+      const doc = parser.parseFromString(text, 'text/html');
+      document.getElementById('navbar-container').innerHTML = doc.body.innerHTML;
+
+      // Execute scripts from navbar.html and wait for external scripts to load
+      const __createdScriptPromises = [];
+      doc.querySelectorAll('script').forEach(s => {
+        const newScript = document.createElement('script');
+        if (s.src) {
+          newScript.src = s.src;
+          newScript.async = false;
+          __createdScriptPromises.push(new Promise(resolve => {
+            newScript.addEventListener('load', resolve);
+            newScript.addEventListener('error', resolve);
+            setTimeout(resolve, 2000);
+          }));
+        } else {
+          newScript.textContent = s.textContent;
+        }
+        document.body.appendChild(newScript);
+      });
+      Promise.all(__createdScriptPromises).finally(() => {});
+
+      // Ensure navbar init functions run after dynamic injection (wait for external scripts to load)
+      const __navbarScriptPromises = [];
+      doc.querySelectorAll('script').forEach((s, i) => {
+        const existing = document.querySelectorAll('script')[document.querySelectorAll('script').length - 1 - i];
+        if (existing && existing.src) {
+          __navbarScriptPromises.push(new Promise(resolve => {
+            existing.addEventListener('load', resolve);
+            existing.addEventListener('error', resolve);
+            // also resolve after 2s as a safety
+            setTimeout(resolve, 2000);
+          }));
+        }
+      });
+      Promise.all(__navbarScriptPromises).finally(() => {
+        if (typeof checkScreenSize === 'function') checkScreenSize();
+        if (typeof addDesktopHoverEffects === 'function') addDesktopHoverEffects();
+        if (typeof updateUserUI === 'function') updateUserUI();
+        if (typeof updateCartBadge === 'function') updateCartBadge();
+        if (typeof setActiveNavLink === 'function') setActiveNavLink();
+      });
+    } catch (e) {
+      console.error('Failed to load navbar:', e);
+    }
+  }
+  includeNavbar();
+</script>
+   
+</body>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Discover Lodge Nest Hospitality's global network of luxury hotels, office spaces, banquet halls, and wellness centers across 35+ prime locations worldwide.">
+    <meta name="keywords" content="Lodge Nest, global locations, luxury hotels, serviced offices, banquet halls, hospitality management, worldwide properties">
+    <title>Global Locations | Lodge Nest Hospitality</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lazysizes/5.3.2/lazysizes.min.js" async></script>
+    <style>
+        /* ===== Global Styles ===== */
+        :root {
+            --primary: #ff6b6b;
+            --secondary: #4ecdc4;
+            --dark: #222;
+            --light: #f9f9f9;
+            --gray: #777;
+            --light-gray: #eee;
+        }
+        * { margin:0; padding:0; box-sizing:border-box }
+        body { font-family:'Poppins', sans-serif; line-height:1.6; color:#333; background:#f9f9f9 }
+        .container { width:90%; max-width:1200px; margin:0 auto }
+        .section { padding:100px 0 }
+        .section-title { text-align:center; margin-bottom:60px; font-size:2.8rem; color:var(--dark); position:relative }
+        .section-title:after { content:''; position:absolute; bottom:-15px; left:50%; transform:translateX(-50%); width:100px; height:5px; background:linear-gradient(90deg,var(--primary),var(--secondary)) }
+        .btn { display:inline-block; padding:15px 35px; background:linear-gradient(90deg,var(--primary),var(--secondary)); color:#fff; border-radius:50px; font-weight:600; transition:all 0.3s; border:none; cursor:pointer; text-transform:uppercase; letter-spacing:1px; font-size:0.9rem }
+        .btn:hover { transform:translateY(-5px); box-shadow:0 10px 25px rgba(0,0,0,0.15) }
+        .text-center { text-align:center }
+        
+        /* ===== Header ===== */
+        header { position:absolute; top:0; left:0; width:100%; z-index:1000; padding:25px 0; transition:all 0.4s }
+        .sticky { position:fixed; background:rgba(255,255,255,0.98); box-shadow:0 5px 30px rgba(0,0,0,0.1); padding:15px 0 }
+        .logo { font-size:2rem; font-weight:700; color:#fff; display:flex; align-items:center }
+        .sticky .logo { color:var(--dark) }
+        .logo img { height:40px; margin-right:10px }
+        .nav-container { display:flex; justify-content:space-between; align-items:center }
+        .nav-links { display:flex; list-style:none }
+        .nav-links li { margin-left:30px }
+        .nav-links a { color:#fff; font-weight:500; transition:all 0.3s; position:relative; font-size:1.1rem }
+        .sticky .nav-links a { color:var(--dark) }
+        .nav-links a:after { content:''; position:absolute; bottom:-5px; left:0; width:0; height:2px; background:var(--secondary); transition:width 0.3s }
+        .nav-links a:hover:after { width:100% }
+        .mobile-menu-btn { display:none; font-size:1.8rem; cursor:pointer; color:#fff }
+        .sticky .mobile-menu-btn { color:var(--dark) }
+        
+        /* ===== Hero Section ===== */
+        .hero { height:100vh; min-height:800px; background:linear-gradient(rgba(0,0,0,0.7),rgba(0,0,0,0.7)), url('https://images.unsplash.com/photo-1566073771259-6a8506099945?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80') no-repeat center center/cover; display:flex; align-items:center; justify-content:center; text-align:center; position:relative; overflow:hidden }
+        .hero-content { max-width:900px; padding:0 20px; z-index:10 }
+        .hero h1 { font-size:4rem; margin-bottom:25px; animation:fadeInUp 1s ease; color:#fff; line-height:1.2 }
+        .hero p { font-size:1.3rem; margin-bottom:40px; animation:fadeInUp 1.2s ease; color:rgba(255,255,255,0.9); max-width:700px; margin-left:auto; margin-right:auto }
+        .hero-btns { display:flex; justify-content:center; gap:25px; animation:fadeInUp 1.4s ease }
+        .hero-btns .btn-outline { background:transparent; border:2px solid #fff; color:#fff }
+        .hero-btns .btn-outline:hover { background:#fff; color:var(--dark) }
+        .scroll-down { position:absolute; bottom:40px; left:50%; transform:translateX(-50%); color:#fff; font-size:2rem; animation:bounce 2s infinite }
+        
+        @keyframes fadeInUp {
+            from { opacity:0; transform:translateY(30px) }
+            to { opacity:1; transform:translateY(0) }
+        }
+        @keyframes bounce {
+            0%,20%,50%,80%,100% { transform:translateY(0) translateX(-50%) }
+            40% { transform:translateY(-25px) translateX(-50%) }
+            60% { transform:translateY(-15px) translateX(-50%) }
+        }
+        
+        /* ===== Locations Grid ===== */
+        .locations-intro { text-align:center; max-width:800px; margin:0 auto 60px }
+        .locations-intro p { font-size:1.2rem; color:var(--gray); line-height:1.8 }
+        .locations-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(350px,1fr)); gap:40px; margin-top:50px }
+        .location-card { background:#fff; border-radius:15px; overflow:hidden; box-shadow:0 10px 30px rgba(0,0,0,0.08); transition:all 0.4s; position:relative }
+        .location-card:hover { transform:translateY(-15px); box-shadow:0 20px 40px rgba(0,0,0,0.15) }
+        .location-img { height:250px; overflow:hidden; position:relative }
+        .location-img img { width:100%; height:100%; object-fit:cover; transition:transform 0.8s ease }
+        .location-card:hover .location-img img { transform:scale(1.1) }
+        .location-content { padding:25px }
+        .location-content h3 { font-size:1.6rem; margin-bottom:15px; color:var(--dark) }
+        .location-content p { margin-bottom:20px; color:var(--gray); line-height:1.7 }
+        .location-badge { position:absolute; top:25px; right:25px; background:linear-gradient(90deg,var(--primary),var(--secondary)); color:#fff; padding:8px 20px; border-radius:50px; font-size:0.9rem; font-weight:600; box-shadow:0 5px 15px rgba(0,0,0,0.1) }
+        .location-meta { display:flex; justify-content:space-between; margin-top:20px; padding-top:20px; border-top:1px solid var(--light-gray) }
+        .location-meta span { font-size:0.9rem; color:var(--gray) }
+        
+        /* ===== World Map Section ===== */
+        .world-map-section { background:linear-gradient(135deg,#f8fafc,#e8f4f8); padding:100px 0 }
+        .map-container { position:relative; margin-top:50px }
+        .map-controls { display:flex; gap:15px; flex-wrap:wrap; justify-content:center; margin-bottom:30px }
+        .map-controls select { padding:12px 25px; border-radius:8px; border:1px solid #ddd; background:#fff; min-width:220px; font-size:1rem; cursor:pointer; appearance:none; background-image:url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e"); background-repeat:no-repeat; background-position:right 15px center; background-size:15px }
+        #world-map { height:700px; border-radius:15px; box-shadow:0 20px 50px rgba(0,0,0,0.1); border:1px solid rgba(0,0,0,0.05) }
+        .location-info { position:absolute; bottom:40px; left:40px; z-index:1000; background:#fff; padding:30px; border-radius:15px; box-shadow:0 15px 40px rgba(0,0,0,0.15); max-width:380px; display:none; animation:fadeInUp 0.4s ease }
+        .close-info { position:absolute; top:15px; right:20px; cursor:pointer; font-size:1.5rem; color:#999; transition:all 0.3s }
+        .close-info:hover { color:var(--primary) }
+        .info-title { color:var(--primary); margin-bottom:15px; font-size:1.5rem; line-height:1.3 }
+        .info-text { margin-bottom:10px; color:#555; font-size:0.95rem }
+        .info-text strong { color:#333 }
+        
+        /* ===== Services Section ===== */
+        .services-section { background:#fff; padding:100px 0 }
+        .services-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(280px,1fr)); gap:40px; margin-top:60px }
+        .service-card { background:#fff; padding:40px 30px; border-radius:15px; text-align:center; box-shadow:0 10px 30px rgba(0,0,0,0.05); transition:all 0.4s; border:1px solid rgba(0,0,0,0.03) }
+        .service-card:hover { transform:translateY(-10px); box-shadow:0 20px 40px rgba(0,0,0,0.1) }
+        .service-icon { width:90px; height:90px; margin:0 auto 25px; background:linear-gradient(135deg,var(--primary),var(--secondary)); border-radius:50%; display:flex; align-items:center; justify-content:center; color:#fff; font-size:2.5rem; transition:all 0.4s }
+        .service-card:hover .service-icon { transform:rotateY(180deg) }
+        .service-card h3 { font-size:1.4rem; margin-bottom:15px; color:var(--dark) }
+        .service-card p { color:var(--gray); line-height:1.7 }
+        
+        /* ===== Testimonials ===== */
+        .testimonials-section { background:linear-gradient(rgba(0,0,0,0.85),rgba(0,0,0,0.85)), url('https://images.unsplash.com/photo-1551632811-561732d1e306?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80') no-repeat center center/cover; color:#fff; padding:120px 0 }
+        .testimonials-section .section-title { color:#fff }
+        .testimonials-section .section-title:after { background:#fff }
+        .testimonial-slider { max-width:900px; margin:60px auto 0; position:relative }
+        .testimonial-item { text-align:center; padding:0 60px; display:none }
+        .testimonial-item.active { display:block; animation:fadeIn 0.8s ease }
+        .testimonial-content { font-size:1.4rem; font-style:italic; margin-bottom:40px; position:relative; line-height:1.8; color:rgba(255,255,255,0.9) }
+        .testimonial-content:before, .testimonial-content:after { content:'"'; font-size:4rem; color:rgba(255,255,255,0.1); position:absolute }
+        .testimonial-content:before { top:-30px; left:-40px }
+        .testimonial-content:after { bottom:-50px; right:-40px }
+        .testimonial-author { display:flex; align-items:center; justify-content:center }
+        .testimonial-author img { width:70px; height:70px; border-radius:50%; margin-right:20px; object-fit:cover; border:3px solid rgba(255,255,255,0.2) }
+        .author-info h4 { font-size:1.3rem; margin-bottom:5px }
+        .author-info p { font-size:0.95rem; opacity:0.8 }
+        .testimonial-nav { display:flex; justify-content:center; margin-top:40px }
+        .testimonial-nav span { width:15px; height:15px; border-radius:50%; background:rgba(255,255,255,0.3); margin:0 8px; cursor:pointer; transition:all 0.3s }
+        .testimonial-nav span.active { background:#fff; transform:scale(1.2) }
+        
+        @keyframes fadeIn {
+            from { opacity:0 }
+            to { opacity:1 }
+        }
+        
+        /* ===== Contact CTA ===== */
+        .contact-cta { background:linear-gradient(135deg,var(--primary),var(--secondary)); color:#fff; padding:100px 0; text-align:center }
+        .contact-cta h2 { font-size:2.8rem; margin-bottom:25px }
+        .contact-cta p { font-size:1.3rem; margin-bottom:40px; max-width:700px; margin-left:auto; margin-right:auto; opacity:0.9 }
+        .contact-cta .btn { background:#fff; color:var(--primary); font-weight:700; padding:18px 45px }
+        
+        /* ===== Footer ===== */
+        footer { background:#222; color:#fff; padding:100px 0 40px }
+        .footer-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:50px; margin-bottom:60px }
+        .footer-col h3 { font-size:1.4rem; margin-bottom:25px; position:relative; padding-bottom:15px }
+        .footer-col h3:after { content:''; position:absolute; bottom:0; left:0; width:50px; height:3px; background:var(--secondary) }
+        .footer-col p { margin-bottom:20px; color:#bbb; line-height:1.8 }
+        .footer-links { list-style:none }
+        .footer-links li { margin-bottom:12px }
+        .footer-links a { color:#bbb; transition:all 0.3s; font-size:0.95rem }
+        .footer-links a:hover { color:var(--secondary); padding-left:5px }
+        .social-links { display:flex; gap:15px; margin-top:25px }
+        .social-links a { display:flex; align-items:center; justify-content:center; width:45px; height:45px; background:rgba(255,255,255,0.1); border-radius:50%; color:#fff; transition:all 0.3s; font-size:1.2rem }
+        .social-links a:hover { background:var(--secondary); transform:translateY(-5px) }
+        .footer-bottom { text-align:center; padding-top:40px; border-top:1px solid rgba(255,255,255,0.1); color:#bbb; font-size:0.9rem }
+        .footer-bottom a { color:#fff; transition:all 0.3s }
+        .footer-bottom a:hover { color:var(--secondary) }
+        
+        /* ===== Custom Map Markers ===== */
+        .hotel-marker { background:var(--primary); border:2px solid #d43f3f; color:#fff }
+        .office-marker { background:var(--secondary); border:2px solid #2ca89e; color:#fff }
+        .food-marker { background:#ffbe76; border:2px solid #e67e22; color:#fff }
+        .banquet-marker { background:#a55eea; border:2px solid #8247c9; color:#fff }
+        .wellness-marker { background:#2ecc71; border:2px solid #27ae60; color:#fff }
+        .education-marker { background:#3498db; border:2px solid #2980b9; color:#fff }
+        .crm-marker { background:#9b59b6; border:2px solid #8e44ad; color:#fff }
+        .resort-marker { background:#f39c12; border:2px solid #d35400; color:#fff }
+        .convention-marker { background:#e74c3c; border:2px solid #c0392b; color:#fff }
+        .mixed-marker { background:#1abc9c; border:2px solid #16a085; color:#fff }
+        .hq-marker { 
+            background:#e74c3c; 
+            border:3px solid #fff;
+            box-shadow: 0 0 0 3px #c0392b;
+            animation: pulse 2s infinite;
+            color:#fff;
+            font-size:20px;
+            line-height:36px;
+        }
+        
+        @keyframes pulse {
+            0% { transform:scale(1) }
+            50% { transform:scale(1.2) }
+            100% { transform:scale(1) }
+        }
+        
+        /* ===== Map Legend ===== */
+        .map-legend { display:flex; justify-content:center; flex-wrap:wrap; gap:15px; margin-top:40px; padding:20px; background:rgba(255,255,255,0.95); border-radius:15px; box-shadow:0 10px 30px rgba(0,0,0,0.1); max-width:900px; margin-left:auto; margin-right:auto }
+        .legend-item { display:flex; align-items:center; padding:8px 15px; background:rgba(0,0,0,0.03); border-radius:50px }
+        .legend-color { width:20px; height:20px; border-radius:50%; margin-right:12px }
+        .legend-text { font-size:0.95rem; font-weight:500 }
+        
+        /* ===== Responsive Styles ===== */
+        @media (max-width:1200px) {
+            .section { padding:80px 0 }
+            .section-title { font-size:2.5rem }
+            .hero h1 { font-size:3.5rem }
+            .locations-grid { grid-template-columns:repeat(auto-fill,minmax(300px,1fr)) }
+        }
+        @media (max-width:992px) {
+            .section { padding:70px 0 }
+            .section-title { font-size:2.2rem }
+            .hero h1 { font-size:3rem }
+            .hero p { font-size:1.2rem }
+            .services-grid { grid-template-columns:repeat(auto-fill,minmax(250px,1fr)) }
+        }
+        @media (max-width:768px) {
+            .section { padding:60px 0 }
+            .section-title { font-size:2rem; margin-bottom:50px }
+            .nav-links { position:fixed; top:0; right:-100%; width:80%; height:100vh; background:#fff; flex-direction:column; align-items:center; justify-content:center; transition:all 0.5s; z-index:1000; box-shadow:-5px 0 15px rgba(0,0,0,0.1) }
+            .nav-links.active { right:0 }
+            .nav-links li { margin:20px 0 }
+            .nav-links a { color:#333; font-size:1.2rem }
+            .mobile-menu-btn { display:block }
+            .hero { min-height:700px }
+            .hero h1 { font-size:2.5rem }
+            .hero p { font-size:1.1rem }
+            .hero-btns { flex-direction:column; gap:20px }
+            .locations-grid { grid-template-columns:1fr; gap:30px }
+            #world-map { height:500px }
+            .location-info { max-width:300px; padding:20px }
+        }
+        @media (max-width:576px) {
+            .section { padding:50px 0 }
+            .section-title { font-size:1.8rem }
+            .hero h1 { font-size:2.2rem }
+            .contact-cta h2 { font-size:2.2rem }
+            .contact-cta p { font-size:1.1rem }
+            .testimonial-content { font-size:1.2rem; padding:0 20px }
+            .footer-grid { grid-template-columns:1fr; gap:40px }
+            .map-legend { flex-direction:column; align-items:flex-start; gap:10px }
+        }
+    </style>
+</head>
+<body>
+
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Discover Our Global Hospitality Network</h1>
+            <p>Experience unparalleled service across 35+ premium locations worldwide. From urban business hubs to tranquil resort destinations, Lodge Nest Hospitality brings consistent excellence to every corner of the globe.</p>
+            <div class="hero-btns">
+                <a href="#locations-map" class="btn">Explore Our Map</a>
+                <a href="#featured-locations" class="btn btn-outline">Featured Locations</a>
+            </div>
+        </div>
+        <div class="scroll-down">↓</div>
+    </section>
+
+    <!-- Featured Locations Section -->
+    <section class="section" style="background:#fff;padding:80px 0" id="featured-locations">
+        <div class="container">
+            <h2 class="section-title">Featured Locations</h2>
+            
+            <div style="text-align:center;margin-bottom:40px">
+                <label style="font-weight:600;color:#333;margin-right:15px">Filter by Region:</label>
+                <select id="featured-region-filter" style="padding:10px 15px;border:2px solid #4ecdc4;border-radius:8px;font-size:1rem;cursor:pointer;background:#fff;min-width:200px">
+                    <option value="">All Regions</option>
+                    <option value="asia">Asia</option>
+                    <option value="europe">Europe</option>
+                    <option value="americas">Americas</option>
+                    <option value="middleeast">Middle East</option>
+                    <option value="africa">Africa</option>
+                    <option value="oceania">Oceania</option>
+                </select>
+            </div>
+            
+            <div class="locations-grid" id="featuredLocations" style="min-height:200px"></div>
+        </div>
+    </section>
+
+<script>
+let allFeaturedLocations = [];
+
+async function loadFeaturedLocations() {
+  try {
+    console.log('📍 Loading all featured locations...');
+    const res = await fetch('http://localhost:5000/api/featured-locations');
+    const data = await res.json();
+    console.log('✅ Fetched', data.length, 'locations');
+    
+    allFeaturedLocations = data;
+    displayFeaturedLocations(allFeaturedLocations);
+  } catch (error) {
+    console.error('❌ Error loading locations:', error);
+    document.getElementById('featuredLocations').innerHTML = '<p style="text-align:center;color:#999;grid-column:1/-1;padding:20px">Unable to load locations. Please try again later.</p>';
+  }
+}
+
+function displayFeaturedLocations(locations) {
+  const container = document.getElementById('featuredLocations');
+  
+  console.log('📺 Displaying', locations.length, 'locations');
+  
+  if (locations.length === 0) {
+    container.innerHTML = '<p style="text-align:center;color:#999;grid-column:1/-1;padding:20px">📍 No locations found. Submit one to get started!</p>';
+    return;
+  }
+  
+  container.innerHTML = '';
+  locations.forEach((loc, index) => {
+    console.log(`Location ${index + 1}:`, loc.title);
+    container.innerHTML += `
+      <div class="location-card">
+        <div class="location-img">
+          <img src="http://localhost:5000/uploads/${loc.image}" alt="${loc.title}" style="width:100%;height:100%;object-fit:cover;background:#f0f0f0">
+        </div>
+        <div class="location-content">
+          <h3>${loc.title}</h3>
+          <p>${loc.description}</p>
+        </div>
+        <div class="location-badge">${loc.region ? loc.region.charAt(0).toUpperCase() + loc.region.slice(1) : 'Unknown'}</div>
+      </div>
+    `;
+  });
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+  console.log('🚀 Page loaded, loading locations...');
+  loadFeaturedLocations();
+  
+  // Filter event listener
+  const filterSelect = document.getElementById('featured-region-filter');
+  if (filterSelect) {
+    filterSelect.addEventListener('change', function() {
+      const selectedRegion = this.value;
+      console.log('🔍 Filtering by region:', selectedRegion || 'All');
+      
+      if (selectedRegion === '') {
+        displayFeaturedLocations(allFeaturedLocations);
+      } else {
+        const filtered = allFeaturedLocations.filter(loc => loc.region === selectedRegion);
+        console.log('📊 Found', filtered.length, 'locations in', selectedRegion);
+        displayFeaturedLocations(filtered);
+      }
+    });
+  }
+});
+</script>
+
+   
+    <!-- World Map Section -->
+    <section class="section world-map-section" id="locations-map">
+        <div class="container">
+            <h2 class="section-title">Our Global Presence</h2>
+            <p class="text-center" style="max-width:800px;margin:0 auto 50px;font-size:1.1rem;line-height:1.8">
+                Lodge Nest Hospitality spans 6 continents with 35+ premium properties in key business and leisure destinations worldwide. 
+                Use our interactive map to explore locations by region or service type.
+            </p>
+            
+            <div class="map-container">
+                <div class="map-controls">
+                    <select id="region-filter">
+                        <option value="world">All Regions</option>
+                        <option value="asia">Asia</option>
+                        <option value="europe">Europe</option>
+                        <option value="americas">Americas</option>
+                        <option value="middleeast">Middle East</option>
+                        <option value="africa">Africa</option>
+                        <option value="oceania">Oceania</option>
+                    </select>
+                    <select id="service-filter">
+                        <option value="all">All Services</option>
+                        <option value="hotel">Hotels & Resorts</option>
+                        <option value="office">Office Spaces</option>
+                        <option value="food">Food Courts</option>
+                        <option value="banquet">Banquet Halls</option>
+                        <option value="wellness">Spa & Wellness</option>
+                        <option value="education">Education</option>
+                        <option value="crm">CRM Services</option>
+                        <option value="resort">Resorts</option>
+                        <option value="convention">Convention Centers</option>
+                        <option value="mixed">Mixed-Use</option>
+                        <option value="hq">Headquarters</option>
+                    </select>
+                </div>
+                <div id="world-map"></div>
+                <div class="location-info" id="location-info">
+                    <span class="close-info" id="close-info">×</span>
+                    <h3 class="info-title" id="info-title">Location Name</h3>
+                    <p class="info-text" id="info-address"><strong>Address:</strong> <span>Loading...</span></p>
+                    <p class="info-text" id="info-services"><strong>Services:</strong> <span>Loading...</span></p>
+                    <p class="info-text" id="info-contact"><strong>Contact:</strong> <span>Loading...</span></p>
+                    <a href="#" class="btn" id="info-link">View Property</a>
+                </div>
+            </div>
+            
+            <div class="map-legend">
+                <div class="legend-item">
+                    <div class="legend-color" style="background:#e74c3c;animation:pulse 2s infinite"></div>
+                    <span class="legend-text">Headquarters</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color" style="background:#ff6b6b"></div>
+                    <span class="legend-text">Hotels</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color" style="background:#f39c12"></div>
+                    <span class="legend-text">Resorts</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color" style="background:#4ecdc4"></div>
+                    <span class="legend-text">Office Spaces</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color" style="background:#ffbe76"></div>
+                    <span class="legend-text">Food Courts</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color" style="background:#a55eea"></div>
+                    <span class="legend-text">Banquets</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color" style="background:#e74c3c"></div>
+                    <span class="legend-text">Convention</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color" style="background:#2ecc71"></div>
+                    <span class="legend-text">Wellness</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color" style="background:#3498db"></div>
+                    <span class="legend-text">Education</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color" style="background:#9b59b6"></div>
+                    <span class="legend-text">CRM</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color" style="background:#1abc9c"></div>
+                    <span class="legend-text">Mixed-Use</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- Services Section -->
+    <section class="section services-section">
+        <div class="container">
+            <h2 class="section-title">Our Hospitality Services</h2>
+            <p class="text-center" style="max-width:800px;margin:0 auto 60px;font-size:1.1rem;line-height:1.8">
+                At every Lodge Nest location, we offer a comprehensive range of premium services tailored to meet the needs of 
+                modern travelers, businesses, and event planners.
+            </p>
+            
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-icon">🏨</div>
+                    <h3>Luxury Hotels</h3>
+                    <p>Premium accommodation with world-class amenities for business and leisure travelers.</p>
+                </div>
+                
+                <div class="service-card">
+                    <div class="service-icon">🏢</div>
+                    <h3>Office Spaces</h3>
+                    <p>Flexible, serviced offices with premium amenities and business support services.</p>
+                </div>
+                
+                <div class="service-card">
+                    <div class="service-icon">🍽️</div>
+                    <h3>Food Courts</h3>
+                    <p>Diverse culinary experiences featuring local and international cuisine concepts.</p>
+                </div>
+                
+                <div class="service-card">
+                    <div class="service-icon">🎉</div>
+                    <h3>Banquet Halls</h3>
+                    <p>Elegant venues for weddings, corporate events and social gatherings of all sizes.</p>
+                </div>
+                
+                <div class="service-card">
+                    <div class="service-icon">🧖</div>
+                    <h3>Spa & Wellness</h3>
+                    <p>Rejuvenating treatments and holistic wellness programs for complete relaxation.</p>
+                </div>
+                
+                <div class="service-card">
+                    <div class="service-icon">🎓</div>
+                    <h3>Education</h3>
+                    <p>Premium preschool and 10+2 educational facilities with modern infrastructure.</p>
+                </div>
+                
+                <div class="service-card">
+                    <div class="service-icon">🏛️</div>
+                    <h3>Convention Centers</h3>
+                    <p>State-of-the-art venues for conferences, exhibitions and large-scale events.</p>
+                </div>
+                
+                <div class="service-card">
+                    <div class="service-icon">🏝️</div>
+                    <h3>Resort Properties</h3>
+                    <p>Luxury leisure destinations featuring premium amenities and activities.</p>
+                </div>
+                
+                <div class="service-card">
+                    <div class="service-icon">📊</div>
+                    <h3>CRM Services</h3>
+                    <p>Comprehensive customer relationship management solutions for businesses.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials
+    <section class="section testimonials-section">
+        <div class="container">
+            <h2 class="section-title">What Our Guests Say</h2>
+            
+            <div class="testimonial-slider">
+                <div class="testimonial-item active">
+                    <div class="testimonial-content">
+                        The consistency of service across Lodge Nest properties worldwide is unmatched. Whether I'm in Singapore or New York, I know I'll receive the same high standards of hospitality, which is invaluable for frequent business travelers.
+                    </div>
+                    <div class="testimonial-author">
+                        <img src="https://randomuser.me/api/portraits/women/65.jpg" alt="Sarah Johnson">
+                        <div class="author-info">
+                            <h4>Sarah Johnson</h4>
+                            <p>Global Sales Director, TechCorp</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="testimonial-item">
+                    <div class="testimonial-content">
+                        Our company chose Lodge Nest office spaces in three different countries for our expansion, and the seamless transition was remarkable. Their plug-and-play model saved us months of setup time in each location.
+                    </div>
+                    <div class="testimonial-author">
+                        <img src="https://randomuser.me/api/portraits/men/42.jpg" alt="Michael Chen">
+                        <div class="author-info">
+                            <h4>Michael Chen</h4>
+                            <p>CEO, ExpandGlobal</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="testimonial-item">
+                    <div class="testimonial-content">
+                        We hosted our annual conference at the Lodge Nest Dubai convention center, and the attention to detail was exceptional. From the tech setup to the catering, everything was executed flawlessly for our 1,200 attendees.
+                    </div>
+                    <div class="testimonial-author">
+                        <img src="https://randomuser.me/api/portraits/women/32.jpg" alt="Aisha Al-Mansoori">
+                        <div class="author-info">
+                            <h4>Aisha Al-Mansoori</h4>
+                            <p>Event Director, Global Summit</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="testimonial-nav">
+                <span class="active"></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </section> -->
+
+<div id="footer-container"></div>
+
+<script>
+fetch("footer.html")
+  .then(res => res.text())
+  .then(data => {
+    document.getElementById("footer-container").innerHTML = data;
+  });
+</script>
+
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+    <script>
+        console.log('📜 Script loading...');
+        
+        // Mobile Menu Toggle
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const navLinks = document.getElementById('nav-links');
+        
+        if (mobileMenuBtn && navLinks) {
+            mobileMenuBtn.addEventListener('click', () => {
+                navLinks.classList.toggle('active');
+                mobileMenuBtn.textContent = navLinks.classList.contains('active') ? '✕' : '☰';
+            });
+        }
+        
+        // Sticky Header
+        window.addEventListener('scroll', () => {
+            const header = document.getElementById('header');
+            if (header) {
+                header.classList.toggle('sticky', window.scrollY > 100);
+            }
+        });
+        
+        // Testimonial Slider
+        let currentTestimonial = 0;
+        const testimonials = document.querySelectorAll('.testimonial-item');
+        const dots = document.querySelectorAll('.testimonial-nav span');
+        let testimonialInterval;
+        
+        function showTestimonial(index) {
+            if (testimonials.length === 0) return;
+            
+            testimonials.forEach(item => item.classList.remove('active'));
+            dots.forEach(dot => dot.classList.remove('active'));
+            
+            if (testimonials[index]) {
+                testimonials[index].classList.add('active');
+                dots[index].classList.add('active');
+                currentTestimonial = index;
+                
+                clearInterval(testimonialInterval);
+                testimonialInterval = setInterval(nextTestimonial, 8000);
+            }
+        }
+        
+        function nextTestimonial() {
+            currentTestimonial = (currentTestimonial + 1) % testimonials.length;
+            showTestimonial(currentTestimonial);
+        }
+        
+        dots.forEach((dot, index) => {
+            dot.addEventListener('click', () => {
+                showTestimonial(index);
+            });
+        });
+        
+        if (dots.length > 0) {
+            testimonialInterval = setInterval(nextTestimonial, 8000);
+        }
+        
+        // Initialize World Map on DOMContentLoaded
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('🗺️ Initializing world map...');
+            
+            // Check if map container exists
+            const mapContainer = document.getElementById('world-map');
+            if (!mapContainer) {
+                console.error('❌ Map container not found!');
+                return;
+            }
+            
+            console.log('✅ Map container found');
+            
+            // Initialize Leaflet map
+            const worldMap = L.map('world-map', {
+                center: [20, 0],
+                zoom: 2,
+                scrollWheelZoom: true
+            });
+            
+            console.log('📍 Map initialized at zoom level 2');
+            
+            // Add tile layer
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+                maxZoom: 19
+            }).addTo(worldMap);
+            
+            console.log('🌍 Tile layer added');
+
+            // Custom icon creation
+            function createCustomIcon(serviceType) {
+                const iconSize = serviceType === 'hq' ? 36 : 30;
+                return L.divIcon({
+                    className: `custom-marker ${serviceType}-marker`,
+                    html: serviceType === 'hq' ? '🏢' : 
+                          serviceType === 'hotel' ? '🏨' :
+                          serviceType === 'office' ? '💼' :
+                          serviceType === 'food' ? '🍽️' :
+                          serviceType === 'banquet' ? '🎉' :
+                          serviceType === 'wellness' ? '🧖' :
+                          serviceType === 'education' ? '🎓' :
+                          serviceType === 'resort' ? '🏝️' :
+                          serviceType === 'convention' ? '🏛️' :
+                          serviceType === 'mixed' ? '🏙️' : '📊',
+                    iconSize: [iconSize, iconSize],
+                    popupAnchor: [0, -15]
+                });
+            }
+            
+            // Global locations data (35+ locations)
+            const globalLocations = [
+                // Headquarters
+                {
+                    name: "Lodge Nest Global HQ",
+                    city: "Hyderabad",
+                    country: "India",
+                    address: "Pragathi Nagar, Hyderabad, Telangana 500090",
+                    coords: [17.4484, 78.3905],
+                    services: ["hotel", "office", "food", "banquet", "wellness", "education", "crm", "convention"],
+                    contact: "+91 40 1234 5678",
+                    link: "#hyderabad",
+                    region: "asia",
+                    type: "hq"
+                },
+                
+                // Asia (12 locations)
+                {
+                    name: "Lodge Nest Bangalore Tech Hub",
+                    city: "Bangalore",
+                    country: "India",
+                    address: "Whitefield, Bangalore, Karnataka 560066",
+                    coords: [12.9716, 77.5946],
+                    services: ["hotel", "office", "food"],
+                    contact: "+91 80 2345 6789",
+                    link: "#bangalore",
+                    region: "asia"
+                },
+                {
+                    name: "Lodge Nest Mumbai Luxury",
+                    city: "Mumbai",
+                    country: "India",
+                    address: "Bandra Kurla Complex, Mumbai 400051",
+                    coords: [19.0760, 72.8777],
+                    services: ["hotel", "banquet", "wellness"],
+                    contact: "+91 22 3456 7890",
+                    link: "#mumbai",
+                    region: "asia"
+                },
+                {
+                    name: "Lodge Nest Singapore Marina",
+                    city: "Singapore",
+                    country: "Singapore",
+                    address: "Marina Bay Financial Centre, Singapore 018981",
+                    coords: [1.2801, 103.8509],
+                    services: ["hotel", "office", "food", "banquet"],
+                    contact: "+65 6123 4567",
+                    link: "#singapore",
+                    region: "asia"
+                },
+                {
+                    name: "Lodge Nest Hong Kong",
+                    city: "Hong Kong",
+                    country: "China",
+                    address: "Central District, Hong Kong",
+                    coords: [22.3193, 114.1694],
+                    services: ["hotel", "office", "convention"],
+                    contact: "+852 2345 6789",
+                    link: "#hongkong",
+                    region: "asia"
+                },
+                {
+                    name: "Lodge Nest Tokyo Bay",
+                    city: "Tokyo",
+                    country: "Japan",
+                    address: "Chuo City, Tokyo 104-0061",
+                    coords: [35.6762, 139.6503],
+                    services: ["hotel", "wellness", "food"],
+                    contact: "+81 3 1234 5678",
+                    link: "#tokyo",
+                    region: "asia"
+                },
+                {
+                    name: "Lodge Nest Shanghai",
+                    city: "Shanghai",
+                    country: "China",
+                    address: "Pudong District, Shanghai",
+                    coords: [31.2304, 121.4737],
+                    services: ["hotel", "office", "food", "banquet"],
+                    contact: "+86 21 2345 6789",
+                    link: "#shanghai",
+                    region: "asia"
+                },
+                {
+                    name: "Lodge Nest Bangkok",
+                    city: "Bangkok",
+                    country: "Thailand",
+                    address: "Sukhumvit Road, Bangkok 10110",
+                    coords: [13.7563, 100.5018],
+                    services: ["hotel", "wellness", "food"],
+                    contact: "+66 2 345 6789",
+                    link: "#bangkok",
+                    region: "asia"
+                },
+                {
+                    name: "Lodge Nest Kuala Lumpur",
+                    city: "Kuala Lumpur",
+                    country: "Malaysia",
+                    address: "KLCC, Kuala Lumpur 50088",
+                    coords: [3.1390, 101.6869],
+                    services: ["hotel", "office", "food"],
+                    contact: "+60 3 2345 6789",
+                    link: "#kualalumpur",
+                    region: "asia"
+                },
+                {
+                    name: "Lodge Nest Seoul",
+                    city: "Seoul",
+                    country: "South Korea",
+                    address: "Gangnam-gu, Seoul",
+                    coords: [37.5665, 126.9780],
+                    services: ["hotel", "office", "wellness"],
+                    contact: "+82 2 2345 6789",
+                    link: "#seoul",
+                    region: "asia"
+                },
+                {
+                    name: "Lodge Nest Manila",
+                    city: "Manila",
+                    country: "Philippines",
+                    address: "Makati City, Metro Manila",
+                    coords: [14.5995, 120.9842],
+                    services: ["hotel", "food", "banquet"],
+                    contact: "+63 2 234 5678",
+                    link: "#manila",
+                    region: "asia"
+                },
+                {
+                    name: "Lodge Nest Jakarta",
+                    city: "Jakarta",
+                    country: "Indonesia",
+                    address: "Central Jakarta 10110",
+                    coords: [-6.2088, 106.8456],
+                    services: ["hotel", "office", "food"],
+                    contact: "+62 21 2345 6789",
+                    link: "#jakarta",
+                    region: "asia"
+                },
+                
+                // Middle East (5 locations)
+                {
+                    name: "Lodge Nest Dubai Marina",
+                    city: "Dubai",
+                    country: "UAE",
+                    address: "Downtown Dubai, UAE",
+                    coords: [25.2048, 55.2708],
+                    services: ["hotel", "banquet", "wellness", "convention"],
+                    contact: "+971 4 567 8901",
+                    link: "#dubai",
+                    region: "middleeast"
+                },
+                {
+                    name: "Lodge Nest Riyadh",
+                    city: "Riyadh",
+                    country: "Saudi Arabia",
+                    address: "King Abdullah Financial District",
+                    coords: [24.7136, 46.6753],
+                    services: ["hotel", "office", "wellness"],
+                    contact: "+966 11 234 5678",
+                    link: "#riyadh",
+                    region: "middleeast"
+                },
+                {
+                    name: "Lodge Nest Doha",
+                    city: "Doha",
+                    country: "Qatar",
+                    address: "West Bay, Doha",
+                    coords: [25.2769, 51.5200],
+                    services: ["hotel", "banquet", "education"],
+                    contact: "+974 4456 7890",
+                    link: "#doha",
+                    region: "middleeast"
+                },
+                {
+                    name: "Lodge Nest Abu Dhabi",
+                    city: "Abu Dhabi",
+                    country: "UAE",
+                    address: "Corniche Road, Abu Dhabi",
+                    coords: [24.4539, 54.3773],
+                    services: ["hotel", "convention", "wellness"],
+                    contact: "+971 2 345 6789",
+                    link: "#abudhabi",
+                    region: "middleeast"
+                },
+                {
+                    name: "Lodge Nest Istanbul",
+                    city: "Istanbul",
+                    country: "Turkey",
+                    address: "Levent, Istanbul 34330",
+                    coords: [41.0082, 28.9784],
+                    services: ["hotel", "office", "food", "banquet"],
+                    contact: "+90 212 345 6789",
+                    link: "#istanbul",
+                    region: "middleeast"
+                },
+                
+                // Europe (6 locations)
+                {
+                    name: "Lodge Nest London",
+                    city: "London",
+                    country: "UK",
+                    address: "Canary Wharf, London E14 5AB",
+                    coords: [51.5054, -0.0235],
+                    services: ["hotel", "office", "food", "convention"],
+                    contact: "+44 20 7890 1234",
+                    link: "#london",
+                    region: "europe"
+                },
+                {
+                    name: "Lodge Nest Paris",
+                    city: "Paris",
+                    country: "France",
+                    address: "La Défense, Paris",
+                    coords: [48.8566, 2.3522],
+                    services: ["hotel", "banquet", "wellness"],
+                    contact: "+33 1 23 45 67 89",
+                    link: "#paris",
+                    region: "europe"
+                },
+                {
+                    name: "Lodge Nest Berlin",
+                    city: "Berlin",
+                    country: "Germany",
+                    address: "Potsdamer Platz, Berlin",
+                    coords: [52.5200, 13.4050],
+                    services: ["office", "food", "crm"],
+                    contact: "+49 30 123 4567",
+                    link: "#berlin",
+                    region: "europe"
+                },
+                {
+                    name: "Lodge Nest Barcelona",
+                    city: "Barcelona",
+                    country: "Spain",
+                    address: "22@ District, Barcelona",
+                    coords: [41.3851, 2.1734],
+                    services: ["hotel", "resort", "wellness"],
+                    contact: "+34 93 123 4567",
+                    link: "#barcelona",
+                    region: "europe"
+                },
+                {
+                    name: "Lodge Nest Amsterdam",
+                    city: "Amsterdam",
+                    country: "Netherlands",
+                    address: "Zuidas, Amsterdam 1082",
+                    coords: [52.3676, 4.9041],
+                    services: ["office", "food", "education"],
+                    contact: "+31 20 123 4567",
+                    link: "#amsterdam",
+                    region: "europe"
+                },
+                {
+                    name: "Lodge Nest Moscow",
+                    city: "Moscow",
+                    country: "Russia",
+                    address: "Moscow City Business District",
+                    coords: [55.7558, 37.6173],
+                    services: ["hotel", "office", "banquet"],
+                    contact: "+7 495 123 4567",
+                    link: "#moscow",
+                    region: "europe"
+                },
+                
+                // Americas (7 locations)
+                {
+                    name: "Lodge Nest New York",
+                    city: "New York",
+                    country: "USA",
+                    address: "Times Square, Manhattan, NY 10036",
+                    coords: [40.7580, -73.9855],
+                    services: ["hotel", "office", "food", "banquet", "convention"],
+                    contact: "+1 212 555 1234",
+                    link: "#newyork",
+                    region: "americas"
+                },
+                {
+                    name: "Lodge Nest Toronto",
+                    city: "Toronto",
+                    country: "Canada",
+                    address: "Financial District, Toronto, ON",
+                    coords: [43.6532, -79.3832],
+                    services: ["hotel", "office", "education"],
+                    contact: "+1 416 555 6789",
+                    link: "#toronto",
+                    region: "americas"
+                },
+                {
+                    name: "Lodge Nest São Paulo",
+                    city: "São Paulo",
+                    country: "Brazil",
+                    address: "Paulista Avenue, São Paulo",
+                    coords: [-23.5505, -46.6333],
+                    services: ["hotel", "food", "banquet"],
+                    contact: "+55 11 98765 4321",
+                    link: "#saopaulo",
+                    region: "americas"
+                },
+                {
+                    name: "Lodge Nest Mexico City",
+                    city: "Mexico City",
+                    country: "Mexico",
+                    address: "Santa Fe, Mexico City 01210",
+                    coords: [19.4326, -99.1332],
+                    services: ["hotel", "office", "food"],
+                    contact: "+52 55 1234 5678",
+                    link: "#mexicocity",
+                    region: "americas"
+                },
+                {
+                    name: "Lodge Nest Miami Beach",
+                    city: "Miami",
+                    country: "USA",
+                    address: "South Beach, Miami, FL 33139",
+                    coords: [25.7617, -80.1918],
+                    services: ["resort", "wellness", "banquet"],
+                    contact: "+1 305 555 6789",
+                    link: "#miami",
+                    region: "americas"
+                },
+                {
+                    name: "Lodge Nest Los Angeles",
+                    city: "Los Angeles",
+                    country: "USA",
+                    address: "Downtown LA, California 90015",
+                    coords: [34.0522, -118.2437],
+                    services: ["hotel", "convention", "food"],
+                    contact: "+1 213 555 1234",
+                    link: "#losangeles",
+                    region: "americas"
+                },
+                {
+                    name: "Lodge Nest Buenos Aires",
+                    city: "Buenos Aires",
+                    country: "Argentina",
+                    address: "Puerto Madero, Buenos Aires",
+                    coords: [-34.6037, -58.3816],
+                    services: ["hotel", "food", "wellness"],
+                    contact: "+54 11 2345 6789",
+                    link: "#buenosaires",
+                    region: "americas"
+                },
+                
+                // Africa (3 locations)
+                {
+                    name: "Lodge Nest Cape Town",
+                    city: "Cape Town",
+                    country: "South Africa",
+                    address: "Waterfront, Cape Town 8001",
+                    coords: [-33.9249, 18.4241],
+                    services: ["hotel", "resort", "wellness"],
+                    contact: "+27 21 123 4567",
+                    link: "#capetown",
+                    region: "africa"
+                },
+                {
+                    name: "Lodge Nest Nairobi",
+                    city: "Nairobi",
+                    country: "Kenya",
+                    address: "Westlands, Nairobi",
+                    coords: [-1.2921, 36.8219],
+                    services: ["hotel", "office", "food"],
+                    contact: "+254 20 234 5678",
+                    link: "#nairobi",
+                    region: "africa"
+                },
+                {
+                    name: "Lodge Nest Marrakech",
+                    city: "Marrakech",
+                    country: "Morocco",
+                    address: "Hivernage, Marrakech 40000",
+                    coords: [31.6295, -7.9811],
+                    services: ["resort", "wellness", "banquet"],
+                    contact: "+212 524 123 456",
+                    link: "#marrakech",
+                    region: "africa"
+                },
+                
+                // Oceania (2 locations)
+                {
+                    name: "Lodge Nest Sydney",
+                    city: "Sydney",
+                    country: "Australia",
+                    address: "Circular Quay, Sydney NSW 2000",
+                    coords: [-33.8688, 151.2093],
+                    services: ["hotel", "convention", "food"],
+                    contact: "+61 2 1234 5678",
+                    link: "#sydney",
+                    region: "oceania"
+                },
+                {
+                    name: "Lodge Nest Auckland",
+                    city: "Auckland",
+                    country: "New Zealand",
+                    address: "CBD, Auckland 1010",
+                    coords: [-36.8485, 174.7633],
+                    services: ["hotel", "office", "wellness"],
+                    contact: "+64 9 123 4567",
+                    link: "#auckland",
+                    region: "oceania"
+                }
+            ];
+            
+            console.log('📌 Total locations to display:', globalLocations.length);
+            
+            // Add markers to world map
+            const globalMarkers = [];
+            globalLocations.forEach((location, idx) => {
+                const primaryService = location.type || location.services[0];
+                const marker = L.marker(location.coords, {
+                    icon: createCustomIcon(primaryService)
+                }).addTo(worldMap);
+                
+                let popupContent = `
+                    <div style="min-width:240px;font-family:'Poppins',sans-serif">
+                        <h3 style="margin:0 0 10px;color:#ff6b6b;font-size:1.3rem">${location.name}</h3>
+                        <p style="margin:0 0 8px;font-size:0.95rem;color:#555"><strong>${location.city}, ${location.country}</strong></p>
+                        <div style="margin:10px 0;font-size:0.85rem;color:#666;line-height:1.6">
+                            ${location.services.map(s => 
+                                s === 'hotel' ? '<span style="display:inline-block;margin:2px;padding:3px 8px;background:#ff6b6b;color:#fff;border-radius:4px;font-size:0.75rem">🏨 Hotel</span>' :
+                                s === 'office' ? '<span style="display:inline-block;margin:2px;padding:3px 8px;background:#4ecdc4;color:#fff;border-radius:4px;font-size:0.75rem">💼 Office</span>' :
+                                s === 'food' ? '<span style="display:inline-block;margin:2px;padding:3px 8px;background:#ffbe76;color:#fff;border-radius:4px;font-size:0.75rem">🍽️ Food</span>' :
+                                s === 'banquet' ? '<span style="display:inline-block;margin:2px;padding:3px 8px;background:#a55eea;color:#fff;border-radius:4px;font-size:0.75rem">🎉 Banquet</span>' :
+                                s === 'wellness' ? '<span style="display:inline-block;margin:2px;padding:3px 8px;background:#2ecc71;color:#fff;border-radius:4px;font-size:0.75rem">🧖 Wellness</span>' :
+                                s === 'education' ? '<span style="display:inline-block;margin:2px;padding:3px 8px;background:#3498db;color:#fff;border-radius:4px;font-size:0.75rem">🎓 Education</span>' :
+                                s === 'resort' ? '<span style="display:inline-block;margin:2px;padding:3px 8px;background:#f39c12;color:#fff;border-radius:4px;font-size:0.75rem">🏝️ Resort</span>' :
+                                s === 'convention' ? '<span style="display:inline-block;margin:2px;padding:3px 8px;background:#e74c3c;color:#fff;border-radius:4px;font-size:0.75rem">🏛️ Convention</span>' :
+                                s === 'mixed' ? '<span style="display:inline-block;margin:2px;padding:3px 8px;background:#1abc9c;color:#fff;border-radius:4px;font-size:0.75rem">🏙️ Mixed</span>' :
+                                '<span style="display:inline-block;margin:2px;padding:3px 8px;background:#9b59b6;color:#fff;border-radius:4px;font-size:0.75rem">📊 CRM</span>'
+                            ).join('')}
+                        </div>
+                    </div>
+                `;
+                
+                marker.bindPopup(popupContent);
+                marker.locationData = location;
+                globalMarkers.push(marker);
+                
+                marker.on('click', function() {
+                    const locationInfo = document.getElementById('location-info');
+                    if (locationInfo) {
+                        document.getElementById('info-title').textContent = this.locationData.name;
+                        document.getElementById('info-address').innerHTML = `
+                            <strong>Address:</strong> ${this.locationData.address}<br>
+                            <strong>City:</strong> ${this.locationData.city}, ${this.locationData.country}
+                        `;
+                        
+                        let servicesText = this.locationData.services.map(s => 
+                            s === 'hotel' ? '🏨 Hotel' :
+                            s === 'office' ? '💼 Office Space' :
+                            s === 'food' ? '🍽️ Food Court' :
+                            s === 'banquet' ? '🎉 Banquet Hall' :
+                            s === 'wellness' ? '🧖 Spa & Wellness' :
+                            s === 'education' ? '🎓 Education Center' :
+                            s === 'resort' ? '🏝️ Luxury Resort' :
+                            s === 'convention' ? '🏛️ Convention Center' :
+                            s === 'mixed' ? '🏙️ Mixed-Use Complex' : '📊 CRM Services'
+                        ).join(', ');
+                        document.getElementById('info-services').innerHTML = `<strong>Services:</strong> ${servicesText}`;
+                        document.getElementById('info-contact').innerHTML = `<strong>Contact:</strong> ${this.locationData.contact}`;
+                        document.getElementById('info-link').href = this.locationData.link;
+                        
+                        locationInfo.style.display = 'block';
+                    }
+                });
+            });
+            
+            console.log('✅ Added', globalMarkers.length, 'markers to map');
+            
+            // Close info box
+            const closeInfoBtn = document.getElementById('close-info');
+            if (closeInfoBtn) {
+                closeInfoBtn.addEventListener('click', function() {
+                    const locationInfo = document.getElementById('location-info');
+                    if (locationInfo) {
+                        locationInfo.style.display = 'none';
+                    }
+                });
+            }
+            
+            // Enhanced filtering system
+            function updateMapFilters() {
+                const selectedRegion = document.getElementById('region-filter');
+                const selectedService = document.getElementById('service-filter');
+                
+                if (!selectedRegion || !selectedService) return;
+                
+                const regionValue = selectedRegion.value;
+                const serviceValue = selectedService.value;
+                
+                let visibleCount = 0;
+                
+                globalMarkers.forEach(marker => {
+                    if (!marker.locationData) return;
+                    const location = marker.locationData;
+                    let showMarker = true;
+                    
+                    if (regionValue !== 'world' && location.region !== regionValue) {
+                        showMarker = false;
+                    }
+                    
+                    if (serviceValue !== 'all') {
+                        if (serviceValue === 'hq') {
+                            if (!location.type || location.type !== 'hq') {
+                                showMarker = false;
+                            }
+                        } else if (!location.services.includes(serviceValue)) {
+                            showMarker = false;
+                        }
+                    }
+                    
+                    if (showMarker) {
+                        if (!worldMap.hasLayer(marker)) {
+                            marker.addTo(worldMap);
+                        }
+                        visibleCount++;
+                    } else {
+                        if (worldMap.hasLayer(marker)) {
+                            worldMap.removeLayer(marker);
+                        }
+                    }
+                });
+                
+                console.log('👀 Visible markers:', visibleCount);
+                
+                if (regionValue !== 'world') {
+                    const regionLocations = globalLocations.filter(loc => loc.region === regionValue);
+                    if (regionLocations.length > 0) {
+                        const regionCoords = regionLocations.map(loc => loc.coords);
+                        const regionBounds = L.latLngBounds(regionCoords);
+                        worldMap.flyToBounds(regionBounds, {padding: [50, 50]});
+                    }
+                } else {
+                    worldMap.flyTo([20, 0], 2);
+                }
+            }
+            
+            // Filter event listeners
+            const regionFilter = document.getElementById('region-filter');
+            const serviceFilter = document.getElementById('service-filter');
+            
+            if (regionFilter) regionFilter.addEventListener('change', updateMapFilters);
+            if (serviceFilter) serviceFilter.addEventListener('change', updateMapFilters);
+            
+            // Smooth scrolling for anchor links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    if (this.getAttribute('href') === '#') return;
+                    
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        window.scrollTo({
+                            top: target.offsetTop - 100,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+            
+            console.log('🎉 Map setup complete!');
+        });
+        
+        // Lazy loading for images
+        if ('IntersectionObserver' in window) {
+            const lazyImageObserver = new IntersectionObserver(function(entries) {
+                entries.forEach(function(entry) {
+                    if (entry.isIntersecting) {
+                        const lazyImage = entry.target;
+                        lazyImage.src = lazyImage.dataset.src;
+                        lazyImage.classList.remove('lazyload');
+                        lazyImageObserver.unobserve(lazyImage);
+                    }
+                });
+            });
+            
+            document.querySelectorAll('img.lazyload').forEach(function(lazyImage) {
+                lazyImageObserver.observe(lazyImage);
+            });
+        }
+    </script>
+                  
+       
+    </script>
+</body>
+<script src="form-auth.js"></script>
+</html>       

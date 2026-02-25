@@ -1,0 +1,295 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hospitality Financial Solutions | UrbanSphere Funding Services</title>
+  <meta name="description" content="UrbanSphere Hospitality offers tailored financial solutions including startup funding, business expansion loans, venture capital, and digital transformation funding for hospitality businesses.">
+  <meta name="keywords" content="hospitality funding, startup loans, business expansion finance, venture capital hospitality, hotel financing, restaurant funding">
+</head>
+<body style="margin:0;padding:0;font-family:'Poppins',sans-serif;line-height:1.6;color:#333;background-color:#f9f9f9;">
+
+     <div id="navbar-container"></div>
+    
+    <!-- Load Navbar Script -->
+  <script>
+  // Load shared navbar (injects navbar.html body and executes its scripts)
+  async function includeNavbar() {
+    try {
+      const res = await fetch('navbar.html');
+      const text = await res.text();
+      const parser = new DOMParser();
+      const doc = parser.parseFromString(text, 'text/html');
+      document.getElementById('navbar-container').innerHTML = doc.body.innerHTML;
+
+      // Execute scripts from navbar.html and wait for external scripts to load
+      const __createdScriptPromises = [];
+      doc.querySelectorAll('script').forEach(s => {
+        const newScript = document.createElement('script');
+        if (s.src) {
+          newScript.src = s.src;
+          newScript.async = false;
+          __createdScriptPromises.push(new Promise(resolve => {
+            newScript.addEventListener('load', resolve);
+            newScript.addEventListener('error', resolve);
+            setTimeout(resolve, 2000);
+          }));
+        } else {
+          newScript.textContent = s.textContent;
+        }
+        document.body.appendChild(newScript);
+      });
+      Promise.all(__createdScriptPromises).finally(() => {});
+
+      // Ensure navbar init functions run after dynamic injection (wait for external scripts to load)
+      const __navbarScriptPromises = [];
+      doc.querySelectorAll('script').forEach((s, i) => {
+        const existing = document.querySelectorAll('script')[document.querySelectorAll('script').length - 1 - i];
+        if (existing && existing.src) {
+          __navbarScriptPromises.push(new Promise(resolve => {
+            existing.addEventListener('load', resolve);
+            existing.addEventListener('error', resolve);
+            // also resolve after 2s as a safety
+            setTimeout(resolve, 2000);
+          }));
+        }
+      });
+      Promise.all(__navbarScriptPromises).finally(() => {
+        if (typeof checkScreenSize === 'function') checkScreenSize();
+        if (typeof addDesktopHoverEffects === 'function') addDesktopHoverEffects();
+        if (typeof updateUserUI === 'function') updateUserUI();
+        if (typeof updateCartBadge === 'function') updateCartBadge();
+        if (typeof setActiveNavLink === 'function') setActiveNavLink();
+      });
+    } catch (e) {
+      console.error('Failed to load navbar:', e);
+    }
+  }
+  includeNavbar();
+</script>
+
+
+
+ 
+  <main style="padding-top:60px;">
+    <!-- Hero Section -->
+    <section style="background:linear-gradient(rgba(15,76,129,0.8),rgba(15,76,129,0.9)),url('https://example.com/hospitality-hero.jpg') center/cover no-repeat;color:white;padding:4rem 0;text-align:center;">
+      <div style="max-width:1000px;margin:0 auto;padding:0 15px;">
+        <h1 style="font-size:2.5rem;margin-bottom:1rem;font-family:'Playfair Display',serif;animation:fadeInDown 1s ease;">Financial Solutions for Hospitality Excellence</h1>
+        <p style="font-size:1.1rem;max-width:700px;margin:0 auto;animation:fadeInUp 1s ease 0.3s forwards;opacity:0;">Tailored funding options to fuel every stage of your hospitality business growth</p>
+      </div>
+    </section>
+<section id="services" style="padding:3rem 0;background:white;overflow:hidden;">
+  <div style="width:100%;max-width:1200px;margin:0 auto;padding:0 20px;">
+    <div style="display:flex;flex-wrap:wrap;align-items:stretch;gap:2rem;">
+
+      <!-- LEFT IMAGE -->
+      <div style="flex:1 1 45%;min-width:280px;position:relative;">
+        <img 
+          src="images/funding.png" 
+          alt="Financial Funding"
+          style="
+            width:100%;
+            height:100%;
+            min-height:520px;
+            object-fit:cover;
+            border-radius:10px;
+            box-shadow:0 8px 20px rgba(0,0,0,0.12);
+            animation:floatImage 7s ease-in-out infinite alternate;
+          ">
+      </div>
+
+      <!-- RIGHT CONTENT (UNCHANGED TEXT) -->
+      <div style="flex:1 1 50%;min-width:280px;">
+        <h2 style="font-size:1.8rem;margin-bottom:1rem;color:#0f4c81;font-family:'Playfair Display',serif;">
+          Funding Solutions for Hospitality Businesses
+        </h2>
+
+        <div style="background:#f8f9fa;padding:1rem;border-radius:8px;margin-bottom:1.5rem;">
+          <p style="font-size:1rem;line-height:1.5;color:#555;margin-bottom:0.8rem;">
+            Our financial solutions are tailored specifically for the hospitality industry, helping you navigate every stage of business growth with customized funding options.
+          </p>
+          <p style="font-size:1rem;line-height:1.5;color:#555;margin-bottom:0;">
+            Whether you're launching a new venture or expanding an established brand, we provide the capital and strategic support to make your vision a reality.
+          </p>
+        </div>
+
+        <div style="display:flex;flex-direction:column;gap:0.6rem;margin-bottom:1.5rem;">
+
+          <a href="/startup fundingpage.html" style="display:block;font-size:1rem;color:#0f4c81;text-decoration:none;padding:0.6rem 1rem;background:#f8f9fa;border-radius:4px;transition:all 0.3s;position:relative;padding-left:1.8rem;">
+            <span style="position:absolute;left:1rem;top:50%;transform:translateY(-50%);width:6px;height:6px;background:#0f4c81;border-radius:50%;"></span>
+            Startup Funding
+          </a>
+
+          <a href="/Business Expansion Loans.html" style="display:block;font-size:1rem;color:#0f4c81;text-decoration:none;padding:0.6rem 1rem;background:#f8f9fa;border-radius:4px;transition:all 0.3s;position:relative;padding-left:1.8rem;">
+            <span style="position:absolute;left:1rem;top:50%;transform:translateY(-50%);width:6px;height:6px;background:#0f4c81;border-radius:50%;"></span>
+            Business Expansion Loans
+          </a>
+
+          <a href="/franchise and partnership models.html" style="display:block;font-size:1rem;color:#0f4c81;text-decoration:none;padding:0.6rem 1rem;background:#f8f9fa;border-radius:4px;transition:all 0.3s;position:relative;padding-left:1.8rem;">
+            <span style="position:absolute;left:1rem;top:50%;transform:translateY(-50%);width:6px;height:6px;background:#0f4c81;border-radius:50%;"></span>
+            Franchise & Partnership Models
+          </a>
+
+          <a href="/Training and skill developmentgrants.html" style="display:block;font-size:1rem;color:#0f4c81;text-decoration:none;padding:0.6rem 1rem;background:#f8f9fa;border-radius:4px;transition:all 0.3s;position:relative;padding-left:1.8rem;">
+            <span style="position:absolute;left:1rem;top:50%;transform:translateY(-50%);width:6px;height:6px;background:#0f4c81;border-radius:50%;"></span>
+            Training & Skill Development Grants
+          </a>
+
+          <a href="/sustainability and green hospitality finance.html" style="display:block;font-size:1rem;color:#0f4c81;text-decoration:none;padding:0.6rem 1rem;background:#f8f9fa;border-radius:4px;transition:all 0.3s;position:relative;padding-left:1.8rem;">
+            <span style="position:absolute;left:1rem;top:50%;transform:translateY(-50%);width:6px;height:6px;background:#0f4c81;border-radius:50%;"></span>
+            Sustainability & Green Finance
+          </a>
+
+          <a href="/plug and play hospitality finance.html" style="display:block;font-size:1rem;color:#0f4c81;text-decoration:none;padding:0.6rem 1rem;background:#f8f9fa;border-radius:4px;transition:all 0.3s;position:relative;padding-left:1.8rem;">
+            <span style="position:absolute;left:1rem;top:50%;transform:translateY(-50%);width:6px;height:6px;background:#0f4c81;border-radius:50%;"></span>
+            Plug & Play Facility Finance
+          </a>
+
+          <a href="/venture capital and private equity funding.html" style="display:block;font-size:1rem;color:#0f4c81;text-decoration:none;padding:0.6rem 1rem;background:#f8f9fa;border-radius:4px;transition:all 0.3s;position:relative;padding-left:1.8rem;">
+            <span style="position:absolute;left:1rem;top:50%;transform:translateY(-50%);width:6px;height:6px;background:#0f4c81;border-radius:50%;"></span>
+            Private Equity & Venture Capital
+          </a>
+
+          <a href="/operational and working support.html" style="display:block;font-size:1rem;color:#0f4c81;text-decoration:none;padding:0.6rem 1rem;background:#f8f9fa;border-radius:4px;transition:all 0.3s;position:relative;padding-left:1.8rem;">
+            <span style="position:absolute;left:1rem;top:50%;transform:translateY(-50%);width:6px;height:6px;background:#0f4c81;border-radius:50%;"></span>
+            Operational Capital Support
+          </a>
+
+          <a href="/digital transformation and crm funding.html" style="display:block;font-size:1rem;color:#0f4c81;text-decoration:none;padding:0.6rem 1rem;background:#f8f9fa;border-radius:4px;transition:all 0.3s;position:relative;padding-left:1.8rem;">
+            <span style="position:absolute;left:1rem;top:50%;transform:translateY(-50%);width:6px;height:6px;background:#0f4c81;border-radius:50%;"></span>
+            Digital Transformation Funding
+          </a>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+
+<style>
+@keyframes floatImage {
+  0% { transform: rotate(-5deg) translateX(-10px) translateY(0); }
+  100% { transform: rotate(-5deg) translateX(-10px) translateY(-10px); }
+}
+</style>
+
+    <!-- Process Section -->
+    <section id="process" style="padding:3rem 0;background:linear-gradient(135deg,#f5f7fa,#e4e8eb);">
+      <div style="max-width:1200px;margin:0 auto;padding:0 20px;">
+        <h2 style="text-align:center;font-size:2rem;margin-bottom:2rem;font-family:'Playfair Display',serif;color:#0f4c81;">Our Simple Funding Process</h2>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1.5rem;position:relative;">
+          <div style="background:white;border-radius:8px;padding:1.5rem;text-align:center;box-shadow:0 3px 10px rgba(0,0,0,0.05);position:relative;z-index:1;transform:translateY(15px);opacity:0;animation:fadeInUp 0.5s ease forwards;" data-delay="0">
+            <div style="background:#0f4c81;width:50px;height:50px;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 1rem;color:white;font-size:1.2rem;font-weight:bold;">1</div>
+            <h3 style="font-size:1.2rem;margin-bottom:0.8rem;color:#0f4c81;">Application</h3>
+            <p style="font-size:0.9rem;">Complete our streamlined online application.</p>
+          </div>
+          <div style="background:white;border-radius:8px;padding:1.5rem;text-align:center;box-shadow:0 3px 10px rgba(0,0,0,0.05);position:relative;z-index:1;transform:translateY(15px);opacity:0;animation:fadeInUp 0.5s ease 0.2s forwards;" data-delay="200">
+            <div style="background:#4b8bb8;width:50px;height:50px;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 1rem;color:white;font-size:1.2rem;font-weight:bold;">2</div>
+            <h3 style="font-size:1.2rem;margin-bottom:0.8rem;color:#4b8bb8;">Consultation</h3>
+            <p style="font-size:0.9rem;">Personalized consultation with experts.</p>
+          </div>
+          <div style="background:white;border-radius:8px;padding:1.5rem;text-align:center;box-shadow:0 3px 10px rgba(0,0,0,0.05);position:relative;z-index:1;transform:translateY(15px);opacity:0;animation:fadeInUp 0.5s ease 0.4s forwards;" data-delay="400">
+            <div style="background:#ff6b6b;width:50px;height:50px;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 1rem;color:white;font-size:1.2rem;font-weight:bold;">3</div>
+            <h3 style="font-size:1.2rem;margin-bottom:0.8rem;color:#ff6b6b;">Custom Solution</h3>
+            <p style="font-size:0.9rem;">Tailored financial package.</p>
+          </div>
+          <div style="background:white;border-radius:8px;padding:1.5rem;text-align:center;box-shadow:0 3px 10px rgba(0,0,0,0.05);position:relative;z-index:1;transform:translateY(15px);opacity:0;animation:fadeInUp 0.5s ease 0.6s forwards;" data-delay="600">
+            <div style="background:#00b894;width:50px;height:50px;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 1rem;color:white;font-size:1.2rem;font-weight:bold;">4</div>
+            <h3 style="font-size:1.2rem;margin-bottom:0.8rem;color:#00b894;">Funding</h3>
+            <p style="font-size:0.9rem;">Quick approval and disbursement.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Consultation Section -->
+    <section id="consultation" style="padding:3rem 0;background:#0f4c81;color:white;text-align:center;">
+      <div style="max-width:800px;margin:0 auto;padding:0 20px;">
+        <h2 style="font-size:1.8rem;margin-bottom:1rem;">Ready to Discuss Your Funding Needs?</h2>
+        <p style="font-size:1rem;line-height:1.5;margin-bottom:1.5rem;max-width:600px;margin-left:auto;margin-right:auto;">Our hospitality funding experts are ready to help you find the perfect financial solution for your business.</p>
+        <a href="/get-funding-consultation" style="display:inline-block;background:white;color:#0f4c81;padding:12px 30px;border-radius:50px;text-decoration:none;font-weight:600;font-size:1rem;transition:all 0.3s;box-shadow:0 5px 15px rgba(0,0,0,0.1);">Get Funding Consultation</a>
+      </div>
+    </section>
+  </main>
+
+  <style>
+    @keyframes fadeInDown{from{opacity:0;transform:translateY(-20px);}to{opacity:1;transform:translateY(0);}}
+    @keyframes fadeInUp{from{opacity:0;transform:translateY(20px);}to{opacity:1;transform:translateY(0);}}
+    @keyframes floatImage{0%{transform:rotate(-5deg) translateX(-10px) translateY(0);}50%{transform:rotate(2deg) translateX(5px) translateY(-10px);}100%{transform:rotate(-3deg) translateX(-5px) translateY(5px);}}
+    #services a:hover{background:#e9f0f7!important;transform:translateX(5px);}
+    #consultation a:hover{transform:translateY(-3px);box-shadow:0 8px 20px rgba(0,0,0,0.15);background:#f8f9fa!important;}
+    @media (max-width:768px){
+      header{padding:15px;}
+      #navMenu{display:none;flex-direction:column;position:fixed;top:80px;left:0;width:100%;background:#2c5aa0;padding:20px;box-shadow:0 5px 10px rgba(0,0,0,0.2);}
+      #navMenu.show{display:flex;}
+      #mobileToggle{display:block;}
+      #services>div{flex-direction:column;}
+      #services img{height:300px!important;}
+      #portfolioPanel{width:100%;}
+      #portfolioSidebar{width:30px;}
+    }
+  </style>
+
+  <script>
+    // Mobile Menu Toggle
+    document.getElementById('mobileToggle').addEventListener('click',function(){
+      document.getElementById('navMenu').classList.toggle('show');
+    });
+
+    // Portfolio Panel Toggle
+    function togglePortfolioPanel(){
+      const panel=document.getElementById('portfolioPanel');
+      const sidebar=document.getElementById('portfolioSidebar');
+      if(panel.style.transform==='translateX(-100%)'){
+        panel.style.transform='translateX(40px)';
+        sidebar.style.left='calc(100% - 40px)';
+      }else{
+        panel.style.transform='translateX(-100%)';
+        sidebar.style.left='0';
+      }
+    }
+
+    // Scroll Progress Bar
+    window.addEventListener('scroll',function(){
+      const scrollProgress=document.getElementById('scrollProgress');
+      const scrollTop=window.pageYOffset||document.documentElement.scrollTop;
+      const docHeight=document.documentElement.scrollHeight-document.documentElement.clientHeight;
+      const scrollPercent=(scrollTop/docHeight)*100;
+      scrollProgress.style.width=scrollPercent+'%';
+    });
+
+    // Animate elements on scroll
+    function animateOnScroll(){
+      const elements=document.querySelectorAll('[data-delay]');
+      elements.forEach(el=>{
+        const elementPosition=el.getBoundingClientRect().top;
+        const windowHeight=window.innerHeight;
+        if(elementPosition<windowHeight-100){
+          const delay=el.getAttribute('data-delay')||0;
+          el.style.animation=`fadeInUp 0.6s ease ${delay}ms forwards`;
+        }
+      });
+    }
+    window.addEventListener('scroll',animateOnScroll);
+    window.addEventListener('load',animateOnScroll);
+
+    // Header scroll effect
+    const header=document.querySelector('header');
+    window.addEventListener('scroll',function(){
+      if(window.scrollY>100){
+        header.style.padding='0.5rem 0';
+        header.style.background='rgba(15,76,129,0.95)';
+      }else{
+        header.style.padding='1rem 0';
+        header.style.background='linear-gradient(135deg,#0f4c81,#4b8bb8)';
+      }
+    });
+  </script>
+</body>
+<script src="form-auth.js"></script>
+</html>

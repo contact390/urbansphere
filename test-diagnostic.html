@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Featured Locations Diagnostic</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: monospace; padding: 20px; background: #1e1e1e; color: #d4d4d4; }
+        .container { max-width: 1000px; margin: 0 auto; }
+        h1 { color: #4ec9b0; margin-bottom: 20px; }
+        h2 { color: #569cd6; margin-top: 30px; margin-bottom: 15px; border-bottom: 1px solid #444; padding-bottom: 10px; }
+        .section { background: #252526; padding: 15px; margin-bottom: 15px; border-radius: 4px; border-left: 3px solid #007acc; }
+        button { background: #007acc; color: white; padding: 10px 20px; border: none; border-radius: 4px; cursor: pointer; margin: 5px; font-family: monospace; }
+        button:hover { background: #005a9e; }
+        .log { background: #1e1e1e; padding: 10px; margin: 10px 0; border: 1px solid #444; border-radius: 4px; white-space: pre-wrap; word-wrap: break-word; max-height: 300px; overflow-y: auto; }
+        .success { color: #4ec9b0; }
+        .error { color: #f48771; }
+        .warning { color: #ce9178; }
+        .info { color: #569cd6; }
+        input, textarea, select { background: #3c3c3c; color: #d4d4d4; padding: 8px; border: 1px solid #555; border-radius: 4px; font-family: monospace; width: 100%; margin: 5px 0; }
+        form { background: #252526; padding: 15px; border-radius: 4px; }
+        .form-group { margin-bottom: 10px; }
+        label { display: block; margin-bottom: 5px; color: #ce9178; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔍 Featured Locations Diagnostic Tool</h1>
+
+        <!-- Connection Test -->
+        <div class="section">
+            <h2>1️⃣ Connection Test</h2>
+            <button onclick="testConnection()">Test Server Connection</button>
+            <div id="connectionLog" class="log"></div>
+        </div>
+
+        <!-- Form Test -->
+        <div class="section">
+            <h2>2️⃣ Add Location Form Test</h2>
+            <form id="testForm" enctype="multipart/form-data">
+                <div class="form-group">
+                    <label>Title:</label>
+                    <input type="text" name="title" value="Test Location" required>
+                </div>
+                <div class="form-group">
+                    <label>Description:</label>
+                    <textarea name="description" required>This is a test location</textarea>
+                </div>
+                <div class="form-group">
+                    <label>Region:</label>
+                    <select name="region" required>
+                        <option value="asia">Asia</option>
+                        <option value="europe">Europe</option>
+                        <option value="americas">Americas</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Image:</label>
+                    <input type="file" name="image" accept="image/*" required>
+                </div>
+                <button type="button" onclick="submitForm()">Submit & Monitor</button>
+            </form>
+            <div id="formLog" class="log"></div>
+        </div>
+
+        <!-- Fetch Data Test -->
+        <div class="section">
+            <h2>3️⃣ Fetch Stored Data</h2>
+            <button onclick="fetchData()">Fetch All Locations</button>
+            <div id="fetchLog" class="log"></div>
+        </div>
+
+        <!-- Database Check -->
+        <div class="section">
+            <h2>4️⃣ Database Status</h2>
+            <button onclick="checkDatabase()">Check Table Schema</button>
+            <div id="dbLog" class="log"></div>
+        </div>
+    </div>
+
+    <script>
+        function log(elementId, text, type = 'info') {
+            const elem = document.getElementById(elementId);
+            const timestamp = new Date().toLocaleTimeString();
+            let prefix = '';
+            if (type === 'success') prefix = '✅ ';
+            else if (type === 'error') prefix = '❌ ';
+            else if (type === 'warning') prefix = '⚠️  ';
+            else if (type === 'info') prefix = 'ℹ️  ';
+            
+            const line = `[${timestamp}] ${prefix}${text}`;
+            elem.innerHTML += `<span class="${type}">${line}</span>\n`;
+            elem.scrollTop = elem.scrollHeight;
+        }
+
+        async function testConnection() {
+            const logId = 'connectionLog';
+            document.getElementById(logId).innerHTML = '';
+            
+            log(logId, 'Testing connection to http://localhost:5000/api/health', 'info');
+            
+            try {
+                const res = await fetch('http://localhost:5000/api/health');
+                if (res.ok) {
+                    log(logId, 'Server is ONLINE and responding', 'success');
+                } else {
+                    log(logId, `Server responded with status ${res.status}`, 'warning');
+                }
+            } catch (e) {
+                log(logId, `Connection FAILED: ${e.message}`, 'error');
+                log(logId, 'Make sure server is running on port 5000', 'warning');
+            }
+        }
+
+        async function submitForm() {
+            const logId = 'formLog';
+            document.getElementById(logId).innerHTML = '';
+            
+            const form = document.getElementById('testForm');
+            const formData = new FormData(form);
+            
+            log(logId, 'Preparing FormData...', 'info');
+            log(logId, `  - Title: ${formData.get('title')}`, 'info');
+            log(logId, `  - Description: ${formData.get('description')}`, 'info');
+            log(logId, `  - Region: ${formData.get('region')}`, 'info');
+            log(logId, `  - Image: ${formData.get('image')?.name || 'NO FILE'}`, 'info');
+            
+            if (!formData.get('image').size) {
+                log(logId, 'Please select an image file', 'error');
+                return;
+            }
+            
+            log(logId, 'Sending POST request to /api/featured-locations...', 'info');
+            
+            try {
+                const res = await fetch('http://localhost:5000/api/featured-locations', {
+                    method: 'POST',
+                    body: formData
+                });
+                
+                log(logId, `Response status: ${res.status} ${res.statusText}`, 'info');
+                
+                const data = await res.json();
+                log(logId, `Response: ${JSON.stringify(data, null, 2)}`, res.ok ? 'success' : 'error');
+                
+                if (res.ok) {
+                    log(logId, '✅ Data should be stored now. Click "Fetch All Locations" to verify', 'success');
+                    form.reset();
+                }
+            } catch (e) {
+                log(logId, `Request FAILED: ${e.message}`, 'error');
+            }
+        }
+
+        async function fetchData() {
+            const logId = 'fetchLog';
+            document.getElementById(logId).innerHTML = '';
+            
+            log(logId, 'Fetching from /api/featured-locations...', 'info');
+            
+            try {
+                const res = await fetch('http://localhost:5000/api/featured-locations');
+                log(logId, `Response status: ${res.status}`, 'info');
+                
+                const data = await res.json();
+                
+                if (Array.isArray(data)) {
+                    if (data.length === 0) {
+                        log(logId, 'No locations found in database', 'warning');
+                    } else {
+                        log(logId, `Found ${data.length} location(s):`, 'success');
+                        data.forEach((loc, idx) => {
+                            log(logId, `\n[${idx + 1}] ${loc.title}`, 'success');
+                            log(logId, `    ID: ${loc.id}`, 'info');
+                            log(logId, `    Region: ${loc.region}`, 'info');
+                            log(logId, `    Image: ${loc.image}`, 'info');
+                            log(logId, `    Created: ${loc.created_at}`, 'info');
+                        });
+                    }
+                } else {
+                    log(logId, `Unexpected response: ${JSON.stringify(data)}`, 'error');
+                }
+            } catch (e) {
+                log(logId, `Fetch FAILED: ${e.message}`, 'error');
+            }
+        }
+
+        async function checkDatabase() {
+            const logId = 'dbLog';
+            document.getElementById(logId).innerHTML = '';
+            
+            log(logId, 'This would require backend endpoint - checking via GET request...', 'info');
+            log(logId, 'Table: featured_locations', 'success');
+            log(logId, 'Columns:', 'info');
+            log(logId, '  - id (INT, PRIMARY KEY, AUTO_INCREMENT)', 'info');
+            log(logId, '  - title (VARCHAR 255)', 'info');
+            log(logId, '  - description (TEXT)', 'info');
+            log(logId, '  - image (VARCHAR 255)', 'info');
+            log(logId, '  - region (VARCHAR 100)', 'info');
+            log(logId, '  - created_at (TIMESTAMP)', 'info');
+            
+            // Try to get a location to verify table exists
+            try {
+                const res = await fetch('http://localhost:5000/api/featured-locations');
+                if (res.ok) {
+                    log(logId, '\n✅ Table is accessible', 'success');
+                }
+            } catch (e) {
+                log(logId, '\n❌ Cannot access table', 'error');
+            }
+        }
+
+        // Auto test on load
+        window.addEventListener('load', () => {
+            log('connectionLog', 'Page loaded. Click buttons to run diagnostics.', 'success');
+        });
+    </script>
+</body>
+</html>

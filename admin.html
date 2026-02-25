@@ -1,0 +1,1863 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Dashboard - Complete Management</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      padding: 20px;
+    }
+
+    .container {
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    .header {
+      background: white;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+      margin-bottom: 30px;
+      text-align: center;
+    }
+
+    .header h1 {
+      color: #2c3e50;
+      font-size: 2.5em;
+      margin-bottom: 10px;
+    }
+
+    .header p {
+      color: #7f8c8d;
+      font-size: 1.1em;
+    }
+
+    .nav-tabs {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 30px;
+      flex-wrap: wrap;
+      background: white;
+      padding: 15px;
+      border-radius: 10px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    }
+
+    .nav-tabs button {
+      padding: 12px 20px;
+      background: #ecf0f1;
+      border: 2px solid #bdc3c7;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      color: #2c3e50;
+    }
+
+    .nav-tabs button:hover {
+      background: #bdc3c7;
+      transform: translateY(-2px);
+    }
+
+    .nav-tabs button.active {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      border-color: transparent;
+    }
+
+    .section {
+      display: none;
+    }
+
+    .section.active {
+      display: block;
+      animation: fadeIn 0.3s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    .section-content {
+      background: white;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    }
+
+    .section-content h2 {
+      color: #2c3e50;
+      margin-bottom: 20px;
+      font-size: 1.8em;
+      border-bottom: 3px solid #667eea;
+      padding-bottom: 10px;
+    }
+
+    .message {
+      padding: 15px;
+      border-radius: 6px;
+      margin-bottom: 20px;
+      display: none;
+      animation: slideDown 0.3s ease;
+    }
+
+    .message.show {
+      display: block;
+    }
+
+    .message.success {
+      background: #d4edda;
+      color: #155724;
+      border: 1px solid #c3e6cb;
+    }
+
+    .message.error {
+      background: #f8d7da;
+      color: #721c24;
+      border: 1px solid #f5c6cb;
+    }
+
+    @keyframes slideDown {
+      from {
+        opacity: 0;
+        transform: translateY(-10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* Table Styles */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background: white;
+      margin-top: 15px;
+    }
+
+    thead tr {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+    }
+
+    th, td {
+      padding: 15px;
+      text-align: left;
+      border-bottom: 1px solid #ecf0f1;
+    }
+
+    tbody tr:hover {
+      background: #f8f9fa;
+    }
+
+    tbody tr:nth-child(even) {
+      background: #f5f5f5;
+    }
+
+    img {
+      max-width: 80px;
+      height: auto;
+      border-radius: 4px;
+    }
+
+    /* Button Styles */
+    button {
+      padding: 10px 15px;
+      margin: 3px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 13px;
+      font-weight: 600;
+      transition: all 0.3s ease;
+    }
+
+    .edit-btn {
+      background: #ffc107;
+      color: #333;
+    }
+
+    .edit-btn:hover {
+      background: #e0a800;
+      transform: translateY(-2px);
+      box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    }
+
+    .delete-btn {
+      background: #dc3545;
+      color: white;
+    }
+
+    .delete-btn:hover {
+      background: #c82333;
+      transform: translateY(-2px);
+      box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    }
+
+    .accept-btn {
+      background: #28a745;
+      color: white;
+    }
+
+    .accept-btn:hover {
+      background: #218838;
+      transform: translateY(-2px);
+    }
+
+    .reject-btn {
+      background: #dc3545;
+      color: white;
+    }
+
+    .reject-btn:hover {
+      background: #c82333;
+      transform: translateY(-2px);
+    }
+
+    .download-btn {
+      background: #0077cc;
+      color: white;
+    }
+
+    .download-btn:hover {
+      background: #005fa3;
+      transform: translateY(-2px);
+    }
+
+    /* Modal Styles */
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.5);
+      z-index: 1000;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .modal.active {
+      display: flex;
+    }
+
+    .modal-content {
+      background: white;
+      padding: 30px;
+      border-radius: 10px;
+      max-width: 600px;
+      width: 90%;
+      max-height: 90vh;
+      overflow-y: auto;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+    }
+
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+      border-bottom: 2px solid #667eea;
+      padding-bottom: 15px;
+    }
+
+    .modal-header h2 {
+      color: #2c3e50;
+      margin: 0;
+    }
+
+    .close-btn {
+      background: none;
+      border: none;
+      font-size: 28px;
+      cursor: pointer;
+      color: #7f8c8d;
+      padding: 0;
+    }
+
+    .close-btn:hover {
+      color: #2c3e50;
+    }
+
+    .form-group {
+      margin-bottom: 15px;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 600;
+      color: #2c3e50;
+    }
+
+    .form-group input,
+    .form-group textarea,
+    .form-group select {
+      width: 100%;
+      padding: 12px;
+      border: 2px solid #ecf0f1;
+      border-radius: 6px;
+      font-family: inherit;
+      font-size: 14px;
+      transition: border-color 0.3s ease;
+    }
+
+    .form-group input:focus,
+    .form-group textarea:focus,
+    .form-group select:focus {
+      outline: none;
+      border-color: #667eea;
+      box-shadow: 0 0 5px rgba(102, 126, 234, 0.3);
+    }
+
+    .form-group textarea {
+      resize: vertical;
+      min-height: 100px;
+    }
+
+    .modal-actions {
+      display: flex;
+      gap: 10px;
+      margin-top: 20px;
+    }
+
+    .modal-actions button {
+      flex: 1;
+      padding: 12px;
+    }
+
+    .save-btn {
+      background: #28a745;
+      color: white;
+    }
+
+    .save-btn:hover {
+      background: #218838;
+    }
+
+    .cancel-btn {
+      background: #6c757d;
+      color: white;
+    }
+
+    .cancel-btn:hover {
+      background: #5a6268;
+    }
+
+    /* Card Grid Styles */
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+      gap: 20px;
+      margin-top: 20px;
+    }
+
+    .card {
+      background: white;
+      border-radius: 8px;
+      padding: 20px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      border-left: 4px solid #667eea;
+      transition: all 0.3s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+    }
+
+    .card.pending {
+      border-left-color: #ffc107;
+    }
+
+    .card.accepted {
+      border-left-color: #28a745;
+    }
+
+    .card.rejected {
+      border-left-color: #dc3545;
+    }
+
+    .card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: start;
+      margin-bottom: 15px;
+    }
+
+    .card-header h3 {
+      color: #2c3e50;
+      margin: 0 0 5px 0;
+      font-size: 1.2em;
+    }
+
+    .status-badge {
+      padding: 5px 12px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: bold;
+      white-space: nowrap;
+    }
+
+    .status-pending {
+      background: #fff3cd;
+      color: #856404;
+    }
+
+    .status-accepted {
+      background: #d4edda;
+      color: #155724;
+    }
+
+    .status-rejected {
+      background: #f8d7da;
+      color: #721c24;
+    }
+
+    .card-body {
+      color: #666;
+      font-size: 13px;
+      line-height: 1.6;
+    }
+
+    .card-body p {
+      margin: 5px 0;
+    }
+
+    .card-footer {
+      margin-top: 15px;
+      padding-top: 15px;
+      border-top: 1px solid #ecf0f1;
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .card-footer button {
+      flex: 1;
+      min-width: 120px;
+      padding: 8px;
+      font-size: 12px;
+    }
+
+    .items-list {
+      list-style: none;
+      padding: 0;
+      margin: 10px 0;
+    }
+
+    .items-list li {
+      background: #f8f9fa;
+      padding: 8px;
+      margin: 5px 0;
+      border-radius: 4px;
+      border-left: 3px solid #667eea;
+      padding-left: 12px;
+    }
+
+    .empty-state {
+      text-align: center;
+      color: #999;
+      padding: 40px;
+      font-size: 16px;
+    }
+
+    /* Search Bar Styles */
+    .search-container {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 20px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .search-input {
+      flex: 1;
+      min-width: 250px;
+      padding: 12px 15px;
+      border: 2px solid #ecf0f1;
+      border-radius: 6px;
+      font-size: 14px;
+      transition: border-color 0.3s ease;
+    }
+
+    .search-input:focus {
+      outline: none;
+      border-color: #667eea;
+      box-shadow: 0 0 5px rgba(102, 126, 234, 0.3);
+    }
+
+    .search-btn {
+      padding: 12px 20px;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: all 0.3s ease;
+    }
+
+    .search-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 10px rgba(102, 126, 234, 0.4);
+    }
+
+    .clear-search-btn {
+      padding: 12px 20px;
+      background: #ecf0f1;
+      color: #2c3e50;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: all 0.3s ease;
+    }
+
+    .clear-search-btn:hover {
+      background: #bdc3c7;
+      transform: translateY(-2px);
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- Header -->
+    <div class="header">
+      <h1>🔧 Admin Dashboard</h1>
+      <p>Manage all your content from here</p>
+    </div>
+
+    <!-- Navigation Tabs -->
+    <div class="nav-tabs">
+      <button class="active" onclick="switchTab('specials')">🍽️ Restaurant Specials</button>
+      <button onclick="switchTab('locations')">📍 Locations</button>
+      <button onclick="switchTab('messages')">💬 Messages</button>
+      <button onclick="switchTab('inquiries')">❓ Inquiries</button>
+      <button onclick="switchTab('bookings')">📌 Bookings</button>
+      <button onclick="switchTab('orders')">🧾 Orders</button>
+      <button onclick="switchTab('registrations')">📝 Registrations</button>
+    </div>
+
+    <!-- SECTION 1: RESTAURANT SPECIALS -->
+    <div id="specials" class="section active">
+      <div class="section-content">
+        <h2>🍽️ Restaurant Specials</h2>
+        <div id="specialsMessage" class="message"></div>
+        <div class="search-container">
+          <input 
+            type="text" 
+            id="specialsSearchInput" 
+            class="search-input" 
+            placeholder="🔍 Search by restaurant, dish, cuisine, offer..."
+          />
+          <button class="search-btn" onclick="searchSpecials()">🔍 Search</button>
+          <button class="clear-search-btn" onclick="clearSpecialsSearch()">Clear</button>
+        </div>
+        <table>
+          <thead>
+            <tr>
+              <th>Image</th>
+              <th>Restaurant</th>
+              <th>Special Dish</th>
+              <th>Price</th>
+              <th>Cuisine</th>
+              <th>Offer</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="specialsTable"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- SECTION 2: LOCATIONS -->
+    <div id="locations" class="section">
+      <div class="section-content">
+        <h2>📍 Locations</h2>
+        <div id="locationsMessage" class="message"></div>
+        <table>
+          <thead>
+            <tr>
+              <th>Image</th>
+              <th>Title</th>
+              <th>Description</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="locationsTable"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- SECTION 3: MESSAGES -->
+    <div id="messages" class="section">
+      <div class="section-content">
+        <h2>💬 Contact Messages</h2>
+        <div id="messagesMessage" class="message"></div>
+        <table>
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Name</th>
+              <th>Email</th>
+              <th>Phone</th>
+              <th>Subject</th>
+              <th>Message</th>
+              <th>Submitted At</th>
+            </tr>
+          </thead>
+          <tbody id="messagesTable"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- SECTION 4: INQUIRIES -->
+    <div id="inquiries" class="section">
+      <div class="section-content">
+        <h2>❓ Inquiries</h2>
+        <div id="inquiriesMessage" class="message"></div>
+        <table>
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Email</th>
+              <th>Phone</th>
+              <th>Interest</th>
+              <th>Location</th>
+              <th>Message</th>
+              <th>Submitted At</th>
+            </tr>
+          </thead>
+          <tbody id="inquiriesTable"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- SECTION 5: BOOKINGS -->
+    <div id="bookings" class="section">
+      <div class="section-content">
+        <h2>📌 Bookings</h2>
+        <div id="bookingsMessage" class="message"></div>
+        <div id="bookingsContainer" class="card-grid"></div>
+      </div>
+    </div>
+
+    <!-- SECTION 6: ORDERS -->
+    <div id="orders" class="section">
+      <div class="section-content">
+        <h2>🧾 Orders Management</h2>
+        <div id="ordersMessage" class="message"></div>
+        <div id="ordersContainer" class="card-grid"></div>
+      </div>
+    </div>
+
+    <!-- SECTION 7: REGISTRATIONS -->
+    <div id="registrations" class="section">
+      <div class="section-content">
+        <h2>📝 Registrations</h2>
+        <div id="registrationsMessage" class="message"></div>
+        <div id="registrationsContainer" class="card-grid"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL: EDIT SPECIAL -->
+  <div id="editSpecialModal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2>Edit Restaurant Special</h2>
+        <button class="close-btn" onclick="closeModal('editSpecialModal')">&times;</button>
+      </div>
+      <form id="editSpecialForm" enctype="multipart/form-data">
+        <input type="hidden" id="editSpecialId" />
+        <div class="form-group">
+          <label>Restaurant Name</label>
+          <input type="text" id="editName" required />
+        </div>
+        <div class="form-group">
+          <label>Special Dish Title</label>
+          <input type="text" id="editSpecial" required />
+        </div>
+        <div class="form-group">
+          <label>Description</label>
+          <textarea id="editDescription" required></textarea>
+        </div>
+        <div class="form-group">
+          <label>Current Price (₹)</label>
+          <input type="number" id="editPrice" step="0.01" required />
+        </div>
+        <div class="form-group">
+          <label>Original Price (₹)</label>
+          <input type="number" id="editOriginalPrice" step="0.01" />
+        </div>
+        <div class="form-group">
+          <label>Cuisine Type</label>
+          <input type="text" id="editCuisine" required />
+        </div>
+        <div class="form-group">
+          <label>Offer Percentage</label>
+          <input type="text" id="editOffer" required />
+        </div>
+        <div class="form-group">
+          <label>Search Terms</label>
+          <input type="text" id="editSearchTerms" />
+        </div>
+        <div class="form-group">
+          <label>Upload New Image (Optional)</label>
+          <input type="file" id="editImage" accept="image/*" />
+          <small style="color:#999;">Leave empty to keep current image</small>
+        </div>
+        <div class="form-group">
+          <label>Current Image Preview</label>
+          <img id="currentImagePreview" src="" alt="Current image" style="max-width:150px; height:auto; border-radius:4px; margin-top:10px;" />
+        </div>
+        <div class="modal-actions">
+          <button type="submit" class="save-btn">💾 Save Changes</button>
+          <button type="button" class="cancel-btn" onclick="closeModal('editSpecialModal')">Cancel</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- MODAL: EDIT LOCATION -->
+  <div id="editLocationModal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2>Edit Location</h2>
+        <button class="close-btn" onclick="closeModal('editLocationModal')">&times;</button>
+      </div>
+      <form id="editLocationForm">
+        <input type="hidden" id="editLocationId" />
+        <div class="form-group">
+          <label>Title</label>
+          <input type="text" id="editLocationTitle" required />
+        </div>
+        <div class="form-group">
+          <label>Description</label>
+          <textarea id="editLocationDescription" required></textarea>
+        </div>
+        <div class="modal-actions">
+          <button type="submit" class="save-btn">💾 Save Changes</button>
+          <button type="button" class="cancel-btn" onclick="closeModal('editLocationModal')">Cancel</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <h2 style="text-align: center; margin-bottom: 30px;">Admin Dashboard - Locations</h2>
+
+  <table id="locationsTable" style="width: 100%; border-collapse: collapse;">
+    <thead>
+      <tr style="background-color: #f2f2f2;">
+        <th style="padding: 10px; border: 1px solid #ccc;">Image</th>
+        <th style="padding: 10px; border: 1px solid #ccc;">Title</th>
+        <th style="padding: 10px; border: 1px solid #ccc;">Description</th>
+        <th style="padding: 10px; border: 1px solid #ccc;">Actions</th>
+      </tr>
+    </thead>
+    <tbody></tbody>
+  </table>
+
+  <!-- Edit Form Modal -->
+  <div id="editModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.5); align-items:center; justify-content:center;">
+    <div style="background:white; padding:20px; border-radius:8px; width:400px;">
+      <h3>Edit Location</h3>
+      <form id="editForm">
+        <input type="hidden" name="id" id="editId">
+        <input type="text" name="title" id="editTitle" placeholder="Title" style="width:100%; margin-bottom:10px; padding:8px;" required>
+        <textarea name="description" id="editDescription" placeholder="Description" style="width:100%; margin-bottom:10px; padding:8px;" required></textarea>
+        <button type="submit" style="padding:8px 15px; background:green; color:white; border:none; border-radius:4px;">Save</button>
+        <button type="button" onclick="closeModal()" style="padding:8px 15px; margin-left:10px;">Cancel</button>
+      </form>
+    </div>
+  </div>
+
+  <script>
+  async function loadLocations() {
+    const res = await fetch('http://localhost:5000/api/add_location_plug_play_office');
+    const locations = await res.json();
+
+    const tbody = document.querySelector("#locationsTable tbody");
+    tbody.innerHTML = "";
+
+    locations.forEach(loc => {
+      const row = document.createElement("tr");
+
+      // Fix image path by prepending server URL
+      const imageUrl = `http://localhost:5000${loc.imagePath}`;
+
+      row.innerHTML = `
+        <td style="padding: 10px; border: 1px solid #ccc;">
+          <img src="${imageUrl}" alt="image" style="width:80px; height:auto;" onerror="this.src='https://via.placeholder.com/80x60?text=No+Image'" />
+        </td>
+        <td style="padding: 10px; border: 1px solid #ccc;">${loc.title}</td>
+        <td style="padding: 10px; border: 1px solid #ccc;">${loc.description}</td>
+        <td style="padding: 10px; border: 1px solid #ccc;">
+          <button onclick="showEditModal(${loc.id}, '${loc.title}', \`${loc.description.replace(/`/g, '\\`')}\`)" style="padding:5px 10px;">Edit</button>
+          <button onclick="deleteLocation(${loc.id})" style="padding:5px 10px; background:red; color:white; border:none; border-radius:4px;">Delete</button>
+        </td>
+      `;
+      tbody.appendChild(row);
+    });
+  }
+
+  function showEditModal(id, title, description) {
+    document.getElementById('editId').value = id;
+    document.getElementById('editTitle').value = title;
+    document.getElementById('editDescription').value = description;
+    document.getElementById('editModal').style.display = 'flex';
+  }
+
+  function closeModal() {
+    document.getElementById('editModal').style.display = 'none';
+  }
+
+  document.getElementById('editForm').addEventListener('submit', async function(e) {
+    e.preventDefault();
+    const id = document.getElementById('editId').value;
+    const title = document.getElementById('editTitle').value;
+    const description = document.getElementById('editDescription').value;
+
+    const res = await fetch(`http://localhost:5000/api/add_location_plug_play_office/${id}`, {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ title, description })
+    });
+
+    if (res.ok) {
+      alert("Location updated successfully");
+      closeModal();
+      loadLocations();
+    } else {
+      alert("Update failed");
+    }
+  });
+
+  async function deleteLocation(id) {
+    if (!confirm("Are you sure you want to delete this location?")) return;
+
+    const res = await fetch(`http://localhost:5000/api/add_location_plug_play_office/${id}`, {
+      method: 'DELETE'
+    });
+
+    if (res.ok) {
+      alert("Location deleted");
+      loadLocations();
+    } else {
+      alert("Delete failed");
+    }
+  }
+
+  window.addEventListener('DOMContentLoaded', function() {
+    loadLocations();
+    loadSpecials();
+  });
+  
+  // ==================================================
+  // SPECIALS/PRODUCTS MANAGEMENT
+  // ==================================================
+  let allSpecials = [];
+
+  function displaySpecials(specials) {
+    const tbody = document.getElementById('specialsTable');
+    if (!tbody) return;
+    tbody.innerHTML = '';
+    
+    if (specials.length === 0) {
+      tbody.innerHTML = '<tr><td colspan="7" style="text-align:center; padding:20px; color:#999;">No specials found</td></tr>';
+      return;
+    }
+    
+    specials.forEach(special => {
+      const row = document.createElement('tr');
+      const imageUrl = special.image ? `http://localhost:5000/uploads/${special.image}` : 'https://via.placeholder.com/80x60?text=No+Image';
+      
+      row.innerHTML = `
+        <td style="padding: 15px; text-align:left;">
+          <img src="${imageUrl}" alt="${special.name}" style="max-width:80px; height:auto; border-radius:4px;" onerror="this.src='https://via.placeholder.com/80x60?text=No+Image'" />
+        </td>
+        <td style="padding: 15px;">${special.name}</td>
+        <td style="padding: 15px;">${special.special}</td>
+        <td style="padding: 15px;">₹${parseFloat(special.price).toFixed(2)}</td>
+        <td style="padding: 15px;">${special.cuisine}</td>
+        <td style="padding: 15px;">${special.offer}</td>
+        <td style="padding: 15px;">
+          <button class="edit-btn" onclick="openEditSpecialModal(${special.id})" style="padding:8px 12px; background:#ffc107; color:#333; border:none; border-radius:4px; cursor:pointer; font-weight:bold;">✏️ Edit</button>
+          <button class="delete-btn" onclick="deleteSpecial(${special.id})" style="padding:8px 12px; background:#dc3545; color:white; border:none; border-radius:4px; cursor:pointer; font-weight:bold; margin-left:5px;">🗑️ Delete</button>
+        </td>
+      `;
+      tbody.appendChild(row);
+    });
+  }
+
+  function searchSpecials() {
+    const searchValue = document.getElementById('specialsSearchInput').value.toLowerCase().trim();
+    
+    if (!searchValue) {
+      displaySpecials(allSpecials);
+      return;
+    }
+    
+    const filtered = allSpecials.filter(special => {
+      const name = (special.name || '').toLowerCase();
+      const specialDish = (special.special || '').toLowerCase();
+      const cuisine = (special.cuisine || '').toLowerCase();
+      const offer = (special.offer || '').toLowerCase();
+      const description = (special.description || '').toLowerCase();
+      
+      return (
+        name.includes(searchValue) ||
+        specialDish.includes(searchValue) ||
+        cuisine.includes(searchValue) ||
+        offer.includes(searchValue) ||
+        description.includes(searchValue)
+      );
+    });
+    
+    displaySpecials(filtered);
+  }
+
+  function clearSpecialsSearch() {
+    document.getElementById('specialsSearchInput').value = '';
+    displaySpecials(allSpecials);
+  }
+
+  async function loadSpecials() {
+    try {
+      const response = await fetch('http://localhost:5000/api/specials');
+      allSpecials = await response.json();
+      displaySpecials(allSpecials);
+    } catch (error) {
+      console.error('Error loading specials:', error);
+      showMessage('specialsMessage', 'Failed to load specials', false);
+    }
+  }
+
+  setTimeout(function() {
+    const searchInput = document.getElementById('specialsSearchInput');
+    if (searchInput) {
+      searchInput.addEventListener('keypress', function(event) {
+        if (event.key === 'Enter') {
+          searchSpecials();
+        }
+      });
+    }
+  }, 100);
+
+  function openEditSpecialModal(id) {
+    fetch(`http://localhost:5000/api/specials`)
+      .then(res => res.json())
+      .then(specials => {
+        const special = specials.find(s => s.id === id);
+        if (!special) return;
+        
+        document.getElementById('editSpecialId').value = special.id;
+        document.getElementById('editName').value = special.name;
+        document.getElementById('editSpecial').value = special.special;
+        document.getElementById('editDescription').value = special.description;
+        document.getElementById('editPrice').value = special.price;
+        document.getElementById('editOriginalPrice').value = special.originalPrice || '';
+        document.getElementById('editCuisine').value = special.cuisine;
+        document.getElementById('editOffer').value = special.offer;
+        document.getElementById('editSearchTerms').value = special.searchTerms || '';
+        
+        // Show current image preview
+        const currentImagePreview = document.getElementById('currentImagePreview');
+        if (special.image) {
+          currentImagePreview.src = `http://localhost:5000/uploads/${special.image}`;
+          currentImagePreview.style.display = 'block';
+        } else {
+          currentImagePreview.src = 'https://via.placeholder.com/150x100?text=No+Image';
+          currentImagePreview.style.display = 'block';
+        }
+        
+        // Clear file input
+        document.getElementById('editImage').value = '';
+        
+        document.getElementById('editSpecialModal').classList.add('active');
+      });
+  }
+
+  function closeModal(modalId) {
+    const modal = document.getElementById(modalId);
+    if (modal) modal.classList.remove('active');
+  }
+
+  const editForm = document.getElementById('editSpecialForm');
+  if (editForm) {
+    editForm.addEventListener('submit', async function(e) {
+      e.preventDefault();
+      
+      const id = document.getElementById('editSpecialId').value;
+      const formData = new FormData();
+      
+      formData.append('id', parseInt(id));
+      formData.append('name', document.getElementById('editName').value);
+      formData.append('special', document.getElementById('editSpecial').value);
+      formData.append('description', document.getElementById('editDescription').value);
+      formData.append('price', parseFloat(document.getElementById('editPrice').value));
+      formData.append('originalPrice', parseFloat(document.getElementById('editOriginalPrice').value) || 0);
+      formData.append('cuisine', document.getElementById('editCuisine').value);
+      formData.append('offer', document.getElementById('editOffer').value);
+      formData.append('rating', 5);
+      formData.append('searchTerms', document.getElementById('editSearchTerms').value);
+      
+      // Add image if selected
+      const imageFile = document.getElementById('editImage').files[0];
+      if (imageFile) {
+        formData.append('image', imageFile);
+      }
+      
+      try {
+        const response = await fetch('http://localhost:5000/api/specials/update', {
+          method: 'PUT',
+          body: formData
+        });
+        
+        if (response.ok) {
+          showMessage('specialsMessage', 'Special updated successfully!', true);
+          closeModal('editSpecialModal');
+          loadSpecials();
+        } else {
+          const error = await response.json();
+          showMessage('specialsMessage', error.error || 'Failed to update special', false);
+        }
+      } catch (error) {
+        console.error('Error:', error);
+        showMessage('specialsMessage', 'Error updating special', false);
+      }
+    });
+  }
+
+  async function deleteSpecial(id) {
+    if (!confirm('Are you sure you want to delete this special?')) return;
+    
+    try {
+      const response = await fetch('http://localhost:5000/api/specials/delete', {
+        method: 'DELETE',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ id })
+      });
+      
+      if (response.ok) {
+        showMessage('specialsMessage', 'Special deleted successfully!', true);
+        loadSpecials();
+      } else {
+        const error = await response.json();
+        showMessage('specialsMessage', error.error || 'Failed to delete special', false);
+      }
+    } catch (error) {
+      console.error('Error:', error);
+      showMessage('specialsMessage', 'Error deleting special', false);
+    }
+  }
+
+  function showMessage(elementId, message, isSuccess) {
+    const msgDiv = document.getElementById(elementId);
+    if (!msgDiv) return;
+    msgDiv.textContent = (isSuccess ? '✅ ' : '❌ ') + message;
+    msgDiv.className = 'message show ' + (isSuccess ? 'success' : 'error');
+    setTimeout(() => {
+      msgDiv.classList.remove('show');
+    }, 5000);
+  }
+
+  function switchTab(tabName) {
+    // Hide all sections
+    const sections = document.querySelectorAll('.section');
+    sections.forEach(section => section.classList.remove('active'));
+    
+    // Remove active class from all buttons
+    const buttons = document.querySelectorAll('.nav-tabs button');
+    buttons.forEach(button => button.classList.remove('active'));
+    
+    // Show selected section
+    const activeSection = document.getElementById(tabName);
+    if (activeSection) activeSection.classList.add('active');
+    
+    // Add active class to clicked button
+    if (event && event.target) event.target.classList.add('active');
+    
+    // Load data based on tab
+    if (tabName === 'specials') loadSpecials();
+  }
+  </script>
+
+</body>
+<script src="form-auth.js"></script>
+</html>
+      font-family: Arial, sans-serif;
+      margin: 30px;
+      background: #f9f9f9;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+      background: white;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    th, td {
+      border: 1px solid #ddd;
+      padding: 12px 15px;
+      text-align: left;
+    }
+    th {
+      background-color: #0077cc;
+      color: white;
+    }
+    tr:nth-child(even) {
+      background-color: #f2f2f2;
+    }
+    h1 {
+      color: #333;
+    }
+  </style>
+</head>
+<body>
+  <h1>All Submitted Messages</h1>
+  <table id="messagesTable">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Phone</th>
+        <th>Subject</th>
+        <th>Message</th>
+        <th>Submitted At</th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- Messages will be inserted here -->
+    </tbody>
+  </table>
+
+  <script>
+    async function fetchMessages() {
+      try {
+        const response = await fetch("http://localhost:5000/api/send_message");
+        if (!response.ok) throw new Error("Failed to fetch messages");
+        const messages = await response.json();
+
+        const tbody = document.querySelector("#messagesTable tbody");
+        tbody.innerHTML = "";
+
+        messages.forEach(msg => {
+          const tr = document.createElement("tr");
+          tr.innerHTML = `
+            <td>${msg.id}</td>
+            <td>${msg.name}</td>
+            <td>${msg.email}</td>
+            <td>${msg.phone || "N/A"}</td>
+            <td>${msg.subject}</td>
+            <td>${msg.message.replace(/\n/g, "<br>")}</td>
+            <td>${new Date(msg.submitted_at).toLocaleString()}</td>
+          `;
+          tbody.appendChild(tr);
+        });
+      } catch (err) {
+        alert("Error loading messages: " + err.message);
+      }
+    }
+
+    fetchMessages();
+  </script>
+
+
+
+
+
+  <!----bookings---->
+  <h2 style="color:#34495e;">📌 Bookings</h2>
+  <ul id="bookings" style="padding-left:20px; background:white; padding:20px; border-radius:10px; box-shadow:0 2px 10px rgba(0,0,0,0.1);"></ul>
+
+  <h2 style="color:#34495e; margin-top:40px;">🧾 Orders</h2>
+  <ul id="orders" style="padding-left:20px; background:white; padding:20px; border-radius:10px; box-shadow:0 2px 10px rgba(0,0,0,0.1);"></ul>
+
+  <script>
+    async function loadBookings() {
+      const res = await fetch('http://localhost:5000/api/admin/bookings');
+      const data = await res.json();
+      const list = document.getElementById('bookings');
+      if (data.length === 0) list.innerHTML = '<li>No bookings yet.</li>';
+
+      data.forEach(b => {
+        const li = document.createElement('li');
+        li.innerHTML = `<strong>${b.customerName}</strong> booked Special #${b.specialId} <br>📞 ${b.phone} – ${new Date(b.createdAt).toLocaleString()}`;
+        li.style = "margin-bottom:15px; padding:10px; border-bottom:1px solid #ddd;";
+        list.appendChild(li);
+      });
+    }
+  async function loadOrders() {
+    const res = await fetch('http://localhost:5000/api/admin/orders');
+    const data = await res.json();
+    const list = document.getElementById('orders');
+    if (data.length === 0) list.innerHTML = '<li>No orders placed.</li>';
+
+    data.forEach(o => {
+      const li = document.createElement('li');
+      const items = JSON.parse(o.items);
+      li.innerHTML = `
+        <div style="display:flex; justify-content:space-between; align-items:center;">
+          <div>
+            <strong>${o.customerName}</strong> (📞 ${o.phone})<br>
+            ${items.map(i => i.name + ' – ' + i.special).join(', ')}<br>
+            Status: <span style="color:${
+              o.status === 'accepted' ? 'green' : 
+              o.status === 'rejected' ? 'red' : 'orange'
+            }">${o.status}</span>
+            ${o.rejectionReason ? `<br>Reason: ${o.rejectionReason}` : ''}
+            <div style="font-size:0.85rem; color:#999;">${new Date(o.createdAt).toLocaleString()}</div>
+          </div>
+          <div>
+            ${o.status === 'pending' ? `
+              <button onclick="updateOrderStatus(${o.id}, 'accepted')" style="background:#27ae60; color:white; border:none; padding:5px 10px; margin:2px;">Accept</button>
+              <button onclick="rejectOrder(${o.id})" style="background:#e74c3c; color:white; border:none; padding:5px 10px; margin:2px;">Reject</button>
+            ` : ''}
+            <br>
+            <a href="/receipts/order_${o.id}.pdf" download style="font-size:0.85rem;">Download Receipt</a>
+          </div>
+        </div>
+      `;
+      li.style = "margin-bottom:15px; padding:10px; border-bottom:1px solid #ddd;";
+      list.appendChild(li);
+    });
+  }
+  async function updateOrderStatus(orderId, status) {
+    let rejectionReason = '';
+    if (status === 'rejected') {
+      rejectionReason = prompt('Enter rejection reason:');
+      if (!rejectionReason) return;
+    }
+
+    try {
+      const res = await fetch(`http://localhost:5000/api/orders/${orderId}/status`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ status, rejectionReason })
+      });
+
+      if (res.ok) {
+        alert(`Order ${status}`);
+        loadOrders(); // Refresh the list
+      } else {
+        alert('Failed to update order status');
+      }
+    } catch (err) {
+      console.error(err);
+      alert('Error updating order status');
+    }
+  }
+
+  function rejectOrder(orderId) {
+    updateOrderStatus(orderId, 'rejected');
+  }
+
+
+    loadBookings();
+    loadOrders();
+  </script>
+</body>
+</html>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>All Inquiries</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f4f4;
+      padding: 30px;
+    }
+    h1 {
+      text-align: center;
+      color: #1d3557;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background: white;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    th, td {
+      border: 1px solid #ddd;
+      padding: 12px;
+      text-align: left;
+    }
+    th {
+      background-color: #457b9d;
+      color: white;
+    }
+    tr:nth-child(even) {
+      background-color: #f9f9f9;
+    }
+  </style>
+</head>
+<body>
+  <h1>Submitted Inquiries</h1>
+  <table id="inquiryTable">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Phone</th>
+        <th>Interest</th>
+        <th>Location</th>
+        <th>Message</th>
+        <th>Submitted At</th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- Data will be populated here -->
+    </tbody>
+  </table>
+
+  <script>
+    fetch("http://localhost:5000/api/send_inquiry")
+      .then(response => response.json())
+      .then(data => {
+        const tbody = document.querySelector("#inquiryTable tbody");
+        data.forEach(row => {
+          const tr = document.createElement("tr");
+          tr.innerHTML = `
+            <td>${row.name}</td>
+            <td>${row.email}</td>
+            <td>${row.phone}</td>
+            <td>${row.interest}</td>
+            <td>${row.location}</td>
+            <td>${row.message}</td>
+            <td>${new Date(row.created_at).toLocaleString()}</td>
+          `;
+          tbody.appendChild(tr);
+        });
+      })
+      .catch(error => {
+        console.error("Error fetching inquiries:", error);
+      });
+  </script>
+</body>
+</html>
+
+<!--order management-->
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Order Management</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 20px;
+      background-color: #f5f5f5;
+    }
+    h1 {
+      color: #333;
+      text-align: center;
+      margin-bottom: 30px;
+    }
+    .order-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 20px;
+    }
+    .order-card {
+      background: white;
+      border-radius: 8px;
+      padding: 15px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    .order-header {
+      display: flex;
+      justify-content: space-between;
+      border-bottom: 1px solid #eee;
+      padding-bottom: 10px;
+      margin-bottom: 10px;
+    }
+    .order-status {
+      padding: 3px 8px;
+      border-radius: 4px;
+      font-size: 12px;
+      font-weight: bold;
+    }
+    .status-pending {
+      background-color: #FFF3CD;
+      color: #856404;
+    }
+    .status-accepted {
+      background-color: #D4EDDA;
+      color: #155724;
+    }
+    .status-rejected {
+      background-color: #F8D7DA;
+      color: #721C24;
+    }
+    .order-item {
+      margin: 5px 0;
+      padding: 5px;
+      background-color: #f9f9f9;
+      border-radius: 4px;
+    }
+    .order-date {
+      font-size: 12px;
+      color: #666;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Order Management</h1>
+  <div class="order-container" id="ordersList"></div>
+
+  <script>
+    fetch('http://localhost:5000/api/orders')
+      .then(response => response.json())
+      .then(orders => {
+        const container = document.getElementById('ordersList');
+        
+        orders.forEach(order => {
+          const statusClass = `status-${order.status}`;
+          let orderHTML = `
+            <div class="order-card">
+              <div class="order-header">
+                <h3>Order #${order.id}</h3>
+                <span class="order-status ${statusClass}">${order.status}</span>
+              </div>
+              <p><strong>Customer:</strong> ${order.customerName}</p>
+              <p><strong>Phone:</strong> ${order.phone}</p>
+              <p><strong>Email:</strong> ${order.email}</p>
+              <div class="order-items">
+                <p><strong>Items:</strong></p>`;
+          
+          order.items.forEach(item => {
+            orderHTML += `
+                <div class="order-item">
+                  ${item.name} - ${item.special || ''} (₹${item.price})
+                </div>`;
+          });
+          
+          if (order.rejectionReason) {
+            orderHTML += `
+                <p><strong>Rejection Reason:</strong> ${order.rejectionReason}</p>`;
+          }
+          
+          orderHTML += `
+              </div>
+              <p class="order-date">Ordered on: ${new Date(order.createdAt).toLocaleString()}</p>
+            </div>`;
+          
+          container.innerHTML += orderHTML;
+        });
+      })
+      .catch(error => {
+        console.error('Error fetching orders:', error);
+        document.getElementById('ordersList').innerHTML = '<p>Error loading orders. Please try again.</p>';
+      });
+  </script>
+</body>
+</html>
+
+
+
+<!--contact-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Contact Messages</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f6f8fa;
+      padding: 20px;
+    }
+    h1 {
+      color: #333;
+    }
+    .message-card {
+      background: white;
+      border-radius: 8px;
+      padding: 15px;
+      margin-bottom: 15px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    }
+    .message-card h3 {
+      margin: 0 0 5px;
+      color: #2c3e50;
+    }
+    .message-card p {
+      margin: 5px 0;
+      font-size: 14px;
+    }
+    .timestamp {
+      font-size: 12px;
+      color: #777;
+    }
+  </style>
+</head>
+<body>
+  <h1>Contact Messages</h1>
+  <div id="messages-container"></div>
+<h2 style="color:#34495e; margin-top:40px;">📝 Registrations</h2>
+<ul id="registrations" style="padding-left:20px; background:white; padding:20px; border-radius:10px; box-shadow:0 2px 10px rgba(0,0,0,0.1);"></ul>
+
+  <script>
+    async function fetchMessages() {
+      try {
+        const response = await fetch('http://localhost:5000/api/contact');
+        const messages = await response.json();
+
+        const container = document.getElementById('messages-container');
+        container.innerHTML = '';
+
+        messages.forEach(msg => {
+          const card = document.createElement('div');
+          card.className = 'message-card';
+
+          card.innerHTML = `
+            <h3>${msg.name} (${msg.email})</h3>
+            <p><strong>Phone:</strong> ${msg.phone || 'N/A'}</p>
+            <p><strong>Service:</strong> ${msg.service || 'General Inquiry'}</p>
+            <p><strong>Message:</strong><br>${msg.message}</p>
+            <p class="timestamp">Received on: ${new Date(msg.created_at).toLocaleString()}</p>
+          `;
+
+          container.appendChild(card);
+        });
+      } catch (error) {
+        console.error('Error fetching messages:', error);
+        document.getElementById('messages-container').innerHTML = 'Failed to load messages.';
+      }
+    }
+    async function loadRegistrations() {
+  const res = await fetch('http://localhost:5000/api/admin/registrations');
+  const data = await res.json();
+  const list = document.getElementById('registrations');
+  if (data.length === 0) list.innerHTML = '<li>No registrations yet.</li>';
+
+  data.forEach(r => {
+    const li = document.createElement('li');
+    li.innerHTML = `
+      <strong>${r.fullName}</strong> (${r.email})<br>
+      📞 ${r.phone} | 📍 ${r.city}, ${r.state} <br>
+      Services: ${JSON.parse(r.services).join(', ')}<br>
+      Submitted: ${new Date(r.submitted_at).toLocaleString()}
+    `;
+    li.style = "margin-bottom:15px; padding:10px; border-bottom:1px solid #ddd;";
+    list.appendChild(li);
+  });
+}
+
+    fetchMessages();
+    loadBookings();
+    loadOrders();
+    loadRegistrations();
+
+  </script>
+</body>
+</html>
+
+
+<!--registrations-->
+
+
+  <div id="ordersContainer" style="display: flex; flex-wrap: wrap; gap: 20px; justify-content: center;"></div>
+
+  <script>
+    async function loadOrders() {
+      const res = await fetch('http://localhost:5000/api/orders');
+      const orders = await res.json();
+
+      const container = document.getElementById('ordersContainer');
+      container.innerHTML = '';
+
+      orders.forEach(order => {
+        const items = JSON.parse(order.items || '[]');
+        const itemList = items.map(i => `<li>${i.name} - ${i.special} @ ₹${i.price}</li>`).join('');
+
+        const card = document.createElement('div');
+        card.setAttribute('style',
+          "background: #fff;" +
+          "border-radius: 8px;" +
+          "box-shadow: 0 4px 10px rgba(0,0,0,0.1);" +
+          "padding: 20px;" +
+          "width: 300px;" +
+          "box-sizing: border-box;"
+        );
+
+        card.innerHTML = `
+          <h3 style="margin: 0 0 10px 0; color: #2c3e50;">${order.customerName}</h3>
+          <p style="margin: 5px 0;"><strong>Phone:</strong> ${order.phone}</p>
+          <p style="margin: 5px 0;"><strong>Email:</strong> ${order.email}</p>
+          <p style="margin: 5px 0;"><strong>Status:</strong> <span style="font-weight: bold;">${order.status}</span></p>
+          ${order.rejectionReason ? `<p style="color: red; margin: 5px 0;"><strong>Reason:</strong> ${order.rejectionReason}</p>` : ''}
+          <p style="margin: 10px 0 5px 0;"><strong>Items:</strong></p>
+          <ul style="margin-top: 0; padding-left: 20px;">${itemList}</ul>
+          <p style="margin-top: 10px; font-size: 12px; color: #777;">Placed on: ${new Date(order.createdAt).toLocaleString()}</p>
+        `;
+
+        container.appendChild(card);
+      });
+    }
+
+    loadOrders();
+  </script>
+
+</body>
+
+</html>
+
+
+  <h2 style="text-align: center; margin-bottom: 30px;">Admin Dashboard - Locations</h2>
+
+  <table id="locationsTable" style="width: 100%; border-collapse: collapse;">
+    <thead>
+      <tr style="background-color: #f2f2f2;">
+        <th style="padding: 10px; border: 1px solid #ccc;">Image</th>
+        <th style="padding: 10px; border: 1px solid #ccc;">Title</th>
+        <th style="padding: 10px; border: 1px solid #ccc;">Description</th>
+        <th style="padding: 10px; border: 1px solid #ccc;">Actions</th>
+      </tr>
+    </thead>
+    <tbody></tbody>
+  </table>
+
+
+
+
+
+  <!-- Edit Form Modal -->
+  <div id="editModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.5); align-items:center; justify-content:center;">
+    <div style="background:white; padding:20px; border-radius:8px; width:400px;">
+      <h3>Edit Location</h3>
+      <form id="editForm">
+        <input type="hidden" name="id" id="editId">
+        <input type="text" name="title" id="editTitle" placeholder="Title" style="width:100%; margin-bottom:10px; padding:8px;" required>
+        <textarea name="description" id="editDescription" placeholder="Description" style="width:100%; margin-bottom:10px; padding:8px;" required></textarea>
+        <button type="submit" style="padding:8px 15px; background:green; color:white; border:none; border-radius:4px;">Save</button>
+        <button type="button" onclick="closeModal()" style="padding:8px 15px; margin-left:10px;">Cancel</button>
+      </form>
+    </div>
+  </div>
+
+  <script>
+  async function loadLocations() {
+    const res = await fetch('http://localhost:5000/api/add_location_plug_play_office');
+    const locations = await res.json();
+
+    const tbody = document.querySelector("#locationsTable tbody");
+    tbody.innerHTML = "";
+
+    locations.forEach(loc => {
+      const row = document.createElement("tr");
+
+      row.innerHTML = `
+        <td style="padding: 10px; border: 1px solid #ccc;"><img src="${loc.imagePath}" alt="" style="width:80px; height:auto;"></td>
+        <td style="padding: 10px; border: 1px solid #ccc;">${loc.title}</td>
+        <td style="padding: 10px; border: 1px solid #ccc;">${loc.description}</td>
+        <td style="padding: 10px; border: 1px solid #ccc;">
+          <button onclick="showEditModal(${loc.id}, '${loc.title}', \`${loc.description.replace(/`/g, '\\`')}\`)" style="padding:5px 10px;">Edit</button>
+          <button onclick="deleteLocation(${loc.id})" style="padding:5px 10px; background:red; color:white; border:none; border-radius:4px;">Delete</button>
+        </td>
+      `;
+      tbody.appendChild(row);
+    });
+  }
+
+  function showEditModal(id, title, description) {
+    document.getElementById('editId').value = id;
+    document.getElementById('editTitle').value = title;
+    document.getElementById('editDescription').value = description;
+    document.getElementById('editModal').style.display = 'flex';
+  }
+
+  function closeModal() {
+    document.getElementById('editModal').style.display = 'none';
+  }
+
+  document.getElementById('editForm').addEventListener('submit', async function(e) {
+    e.preventDefault();
+    const id = document.getElementById('editId').value;
+    const title = document.getElementById('editTitle').value;
+    const description = document.getElementById('editDescription').value;
+
+    const res = await fetch(`http://localhost:5000/api/locations/${id}`, {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ title, description })
+    });
+
+    if (res.ok) {
+      alert("Location updated successfully");
+      closeModal();
+      loadLocations();
+    } else {
+      alert("Update failed");
+    }
+  });
+
+  async function deleteLocation(id) {
+    if (!confirm("Are you sure you want to delete this location?")) return;
+
+    const res = await fetch(`http://localhost:5000/api/locations/${id}`, {
+      method: 'DELETE'
+    });
+
+    if (res.ok) {
+      alert("Location deleted");
+      loadLocations();
+    } else {
+      alert("Delete failed");
+    }
+  }
+
+  window.addEventListener('DOMContentLoaded', loadLocations);
+  </script>
+
+  <script>
+  // ==================================================
+  // SPECIALS/PRODUCTS MANAGEMENT
+  // ==================================================
+  async function loadSpecials() {
+    try {
+      const response = await fetch('http://localhost:5000/api/specials');
+      const specials = await response.json();
+      
+      const tbody = document.getElementById('specialsTable');
+      if (!tbody) return;
+      tbody.innerHTML = '';
+      
+      if (specials.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="7" style="text-align:center; padding:20px; color:#999;">No specials found</td></tr>';
+        return;
+      }
+      
+      specials.forEach(special => {
+        const row = document.createElement('tr');
+        const imageUrl = special.image ? `http://localhost:5000/uploads/${special.image}` : 'https://via.placeholder.com/80x60?text=No+Image';
+        
+        row.innerHTML = `
+          <td style="padding: 15px; text-align:left;">
+            <img src="${imageUrl}" alt="${special.name}" style="max-width:80px; height:auto; border-radius:4px;" onerror="this.src='https://via.placeholder.com/80x60?text=No+Image'" />
+          </td>
+          <td style="padding: 15px;">${special.name}</td>
+          <td style="padding: 15px;">${special.special}</td>
+          <td style="padding: 15px;">₹${parseFloat(special.price).toFixed(2)}</td>
+          <td style="padding: 15px;">${special.cuisine}</td>
+          <td style="padding: 15px;">${special.offer}</td>
+          <td style="padding: 15px;">
+            <button class="edit-btn" onclick="openEditSpecialModal(${special.id})" style="padding:8px 12px; background:#ffc107; color:#333; border:none; border-radius:4px; cursor:pointer; font-weight:bold;">✏️ Edit</button>
+            <button class="delete-btn" onclick="deleteSpecial(${special.id})" style="padding:8px 12px; background:#dc3545; color:white; border:none; border-radius:4px; cursor:pointer; font-weight:bold; margin-left:5px;">🗑️ Delete</button>
+          </td>
+        `;
+        tbody.appendChild(row);
+      });
+    } catch (error) {
+      console.error('Error loading specials:', error);
+      showMessage('specialsMessage', 'Failed to load specials', false);
+    }
+  }
+
+  function openEditSpecialModal(id) {
+    fetch(`http://localhost:5000/api/specials`)
+      .then(res => res.json())
+      .then(specials => {
+        const special = specials.find(s => s.id === id);
+        if (!special) return;
+        
+        document.getElementById('editSpecialId').value = special.id;
+        document.getElementById('editName').value = special.name;
+        document.getElementById('editSpecial').value = special.special;
+        document.getElementById('editDescription').value = special.description;
+        document.getElementById('editPrice').value = special.price;
+        document.getElementById('editOriginalPrice').value = special.originalPrice || '';
+        document.getElementById('editCuisine').value = special.cuisine;
+        document.getElementById('editOffer').value = special.offer;
+        document.getElementById('editSearchTerms').value = special.searchTerms || '';
+        
+        document.getElementById('editSpecialModal').classList.add('active');
+      });
+  }
+
+  function closeModal(modalId) {
+    const modal = document.getElementById(modalId);
+    if (modal) modal.classList.remove('active');
+  }
+
+  async function deleteSpecial(id) {
+    if (!confirm('Are you sure you want to delete this special?')) return;
+    
+    try {
+      const response = await fetch('http://localhost:5000/api/specials/delete', {
+        method: 'DELETE',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ id })
+      });
+      
+      if (response.ok) {
+        showMessage('specialsMessage', 'Special deleted successfully!', true);
+        loadSpecials();
+      } else {
+        const error = await response.json();
+        showMessage('specialsMessage', error.error || 'Failed to delete special', false);
+      }
+    } catch (error) {
+      console.error('Error:', error);
+      showMessage('specialsMessage', 'Error deleting special', false);
+    }
+  }
+
+  function showMessage(elementId, message, isSuccess) {
+    const msgDiv = document.getElementById(elementId);
+    if (!msgDiv) return;
+    msgDiv.textContent = (isSuccess ? '✅ ' : '❌ ') + message;
+    msgDiv.className = 'message show ' + (isSuccess ? 'success' : 'error');
+    setTimeout(() => {
+      msgDiv.classList.remove('show');
+    }, 5000);
+  }
+
+  function switchTab(tabName) {
+    // Hide all sections
+    const sections = document.querySelectorAll('.section');
+    sections.forEach(section => section.classList.remove('active'));
+    
+    // Remove active class from all buttons
+    const buttons = document.querySelectorAll('.nav-tabs button');
+    buttons.forEach(button => button.classList.remove('active'));
+    
+    // Show selected section
+    const activeSection = document.getElementById(tabName);
+    if (activeSection) activeSection.classList.add('active');
+    
+    // Add active class to clicked button
+    if (event && event.target) event.target.classList.add('active');
+    
+    // Load data based on tab
+    if (tabName === 'specials') loadSpecials();
+  }
+  </script>
+
+
+

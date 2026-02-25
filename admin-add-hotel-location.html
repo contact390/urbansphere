@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Add Hotel Location</title>
+</head>
+<body>
+
+<h2>Add Hotel Location</h2>
+
+<form id="locationForm">
+    <input type="text" id="country" placeholder="Country" required />
+    <br><br>
+    <input type="text" id="state" placeholder="State" required />
+    <br><br>
+    <input type="number" id="regionCount" placeholder="No. of Regions" required />
+    <br><br>
+    <div id="regionsContainer"></div>
+    <button type="submit">Add Location</button>
+</form>
+<p id="msg"></p>
+
+<script>
+
+const regionCountInput = document.getElementById("regionCount");
+const regionsContainer = document.getElementById("regionsContainer");
+
+regionCountInput.addEventListener("input", function() {
+    const regionCount = parseInt(regionCountInput.value, 10);
+    regionsContainer.innerHTML = "";
+    if (!isNaN(regionCount) && regionCount > 0) {
+        for (let i = 1; i <= regionCount; i++) {
+            const regionDiv = document.createElement("div");
+            regionDiv.style.marginBottom = "16px";
+            regionDiv.style.border = "1px solid #ccc";
+            regionDiv.style.padding = "10px";
+            regionDiv.style.borderRadius = "8px";
+
+            // Region Name
+            const regionLabel = document.createElement("label");
+            regionLabel.textContent = `Region Name ${i}`;
+            regionLabel.setAttribute("for", `regionName${i}`);
+            const regionInput = document.createElement("input");
+            regionInput.type = "text";
+            regionInput.id = `regionName${i}`;
+            regionInput.name = `regionName${i}`;
+            regionInput.placeholder = "Enter region name";
+            regionInput.required = true;
+            regionInput.style.marginLeft = "8px";
+
+            // Count of hotels/spas/anything for this region
+            const countLabel = document.createElement("label");
+            countLabel.textContent = `  Count in Region ${i}`;
+            countLabel.setAttribute("for", `regionCount${i}`);
+            countLabel.style.marginLeft = "16px";
+            const countInput = document.createElement("input");
+            countInput.type = "number";
+            countInput.id = `regionCount${i}`;
+            countInput.name = `regionCount${i}`;
+            countInput.placeholder = "No. of Hotels/Spas";
+            countInput.required = true;
+            countInput.style.marginLeft = "8px";
+            countInput.min = 1;
+
+            // Container for specific names in this region
+            const specificNamesDiv = document.createElement("div");
+            specificNamesDiv.id = `specificNamesContainer${i}`;
+            specificNamesDiv.style.marginTop = "10px";
+
+            // When count changes, show specific name fields
+            countInput.addEventListener("input", function() {
+                const count = parseInt(countInput.value, 10);
+                specificNamesDiv.innerHTML = "";
+                if (!isNaN(count) && count > 0) {
+                    for (let j = 1; j <= count; j++) {
+                        const wrapper = document.createElement("div");
+                        wrapper.style.marginBottom = "8px";
+                        const label = document.createElement("label");
+                        label.textContent = `Specific Name ${j}`;
+                        label.setAttribute("for", `specificName${i}_${j}`);
+                        const input = document.createElement("input");
+                        input.type = "text";
+                        input.id = `specificName${i}_${j}`;
+                        input.name = `specificName${i}_${j}`;
+                        input.placeholder = "Enter hotel, spa, etc.";
+                        input.required = true;
+                        input.style.marginLeft = "8px";
+                        wrapper.appendChild(label);
+                        wrapper.appendChild(input);
+                        specificNamesDiv.appendChild(wrapper);
+                    }
+                }
+            });
+
+            regionDiv.appendChild(regionLabel);
+            regionDiv.appendChild(regionInput);
+            regionDiv.appendChild(countLabel);
+            regionDiv.appendChild(countInput);
+            regionDiv.appendChild(specificNamesDiv);
+            regionsContainer.appendChild(regionDiv);
+        }
+    }
+});
+
+document.getElementById("locationForm").addEventListener("submit", async function(e){
+    e.preventDefault();
+
+    const country = document.getElementById("country").value;
+    const state = document.getElementById("state").value;
+    const regionCount = document.getElementById("regionCount").value;
+
+    // Gather all regions and their hotels/spas/anything
+    const regions = [];
+    for (let i = 1; i <= regionCount; i++) {
+        const regionName = document.getElementById(`regionName${i}`)?.value;
+        const count = document.getElementById(`regionCount${i}`)?.value;
+        const specificNames = [];
+        for (let j = 1; j <= count; j++) {
+            const val = document.getElementById(`specificName${i}_${j}`)?.value;
+            if (val) specificNames.push(val);
+        }
+        regions.push({ regionName, count, specificNames });
+    }
+
+    const res = await fetch("http://localhost:5000/api/hotels_fetch_location", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            country,
+            state,
+            regionCount,
+            regions
+        })
+    });
+
+    const data = await res.json();
+
+    if(data.success){
+        document.getElementById("msg").innerText = "Location Added Successfully ✅";
+        document.getElementById("locationForm").reset();
+        regionsContainer.innerHTML = "";
+    }
+    else{
+        document.getElementById("msg").innerText = "Error ❌";
+    }
+});
+</script>
+
+
+</body>
+</html>

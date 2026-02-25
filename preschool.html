@@ -1,0 +1,72 @@
+    <form class="contact-form" id="contactForm">
+    <div class="form-group">
+        <input type="text" name="name" class="form-control" placeholder="Your Name" required>
+    </div>
+
+    <div class="form-group">
+        <input type="email" name="email" class="form-control" placeholder="Your Email" required>
+    </div>
+
+    <div class="form-group">
+        <input type="tel" name="phone" class="form-control" placeholder="Your Phone">
+    </div>
+
+    <div class="form-group">
+        <select name="interest" class="form-control" required>
+            <option value="">Interested In...</option>
+            <option>Preschool Program</option>
+            <option>Elementary Program</option>
+            <option>Middle School Program</option>
+            <option>10+2 Program</option>
+            <option>Summer Camps</option>
+            <option>Other Inquiry</option>
+        </select>
+    </div>
+
+    <div class="form-group">
+        <textarea name="message" class="form-control textarea" placeholder="Your Message" required></textarea>
+    </div>
+
+    <button type="submit" class="btn" style="width:100%;padding:15px;font-size:1rem">
+        Send Message
+    </button>
+                </form>
+
+                <script>
+document.getElementById("contactForm").addEventListener("submit", async function (e) {
+    e.preventDefault();
+
+    const form = e.target;
+
+    const data = {
+        name: form.name.value.trim(),
+        email: form.email.value.trim(),
+        phone: form.phone.value.trim(),
+        interest: form.interest.value,
+        message: form.message.value.trim()
+    };
+
+    try {
+        const response = await fetch("http://localhost:5000/api/preschool", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(data)
+        });
+
+        const result = await response.json();
+
+        if (response.ok) {
+            alert("✅ Message sent successfully!");
+            form.reset();
+        } else {
+            alert("❌ " + (result.message || "Something went wrong"));
+        }
+
+    } catch (error) {
+        console.error("API Error:", error);
+        alert("❌ Server not reachable");
+    }
+});
+               </script>
