@@ -1,10 +1,10 @@
 const mysql = require('mysql2');
 
 const db = mysql.createConnection({
-    host: 'localhost',        // or your database host (e.g., '127.0.0.1' or remote host)
-    user: 'root',    // your MySQL username
-    password: '2142',// your MySQL password
-    database: 'hospitalityservices' // your database name
+  host: "localhost",
+  user: "urbanuser",
+  password: "StrongPassword123",
+  database: "urbansphere"
 });
 
 // Connect to MySQL
