@@ -2,6 +2,19 @@ const express = require('express');
 const cors = require('cors');
 const bodyParser = require('body-parser');
 const path = require('path');
+const app = express();
+
+
+
+
+
+app.use(express.static(__dirname));
+
+app.get("/", (req, res) => {
+  res.sendFile(path.join(__dirname, "index.html"));
+});
+
+
 // We'll load route modules using a safeRequire helper so a single failing route
 // won't crash the entire server at startup.
 function safeRequire(modulePath) {
@@ -38,7 +51,6 @@ const hotels_fetch_locationRoutes = safeRequire('./routes/hotels_fetch_location'
 const db = require('./db');
 const { request } = require('http');
 
-const app = express();
 const PORT = 5000;
 
 // Global error handlers to surface unexpected errors during startup
