@@ -131,7 +131,9 @@ app.post('/api/register-user', (req, res) => {
 });
 
 // Start Server
-
+app.get("/", (req, res) => {
+    res.send("UrbanSphere Server Running 🚀");
+});
 
 
 // Print registered routes for debugging
@@ -176,4 +178,4 @@ setTimeout(() => {
     console.error('Failed to start server:', err);
     process.exit(1);
   }
-}, 2000);
+}, 5000);
