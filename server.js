@@ -56,10 +56,8 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
-
-// Serve uploaded images
-app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
-app.use(express.static(path.join(__dirname, 'public')));
+// serve statiuc files from the root directory
+app.use(express.static(path.join(__dirname)));
 
 // Lightweight health check for quick diagnostics
 app.get('/api/health', (req, res) => {
