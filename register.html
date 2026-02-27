@@ -618,7 +618,7 @@
             submitBtn.disabled = true;
 
             try {
-                const res = await fetch("http://localhost:5000/api/register-user", {
+                const res = await fetch("https://urbansphere.co.in/api/register-user", {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify({ fullName, email, phone, password, confirmPassword })
