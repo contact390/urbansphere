@@ -227,7 +227,7 @@
     let currentSpecialId = null;
 
     async function fetchSpecials() {
-      const res = await fetch('http://127.0.0.1:5000/api/specials');
+      const res = await fetch('https://urbansphere.co.in/api/specials');
       allSpecials = await res.json();
       renderSpecials(allSpecials);
     }
@@ -279,7 +279,7 @@
         div.className = 'special-card';
 
         div.innerHTML = `
-          ${item.image ? `<img src="http://127.0.0.1:5000/uploads/${item.image}" alt="${item.name}" onerror="this.src='https://via.placeholder.com/300x200?text=No+Image'">` : '<img src="https://via.placeholder.com/300x200?text=No+Image" alt="">'}
+          ${item.image ? `<img src="https://urbansphere.co.in/uploads/${item.image}" alt="${item.name}" onerror="this.src='https://via.placeholder.com/300x200?text=No+Image'">` : '<img src="https://via.placeholder.com/300x200?text=No+Image" alt="">'}
           <div class="special-card-content">
             <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
               <h3 style="margin:0;">${item.name} – ${item.special}</h3>
@@ -352,7 +352,7 @@
         const li = document.createElement('li');
         const itemTotal = parseFloat(item.price) * (item.quantity || 1);
         li.innerHTML = `
-          ${item.image ? `<img src="http://127.0.0.1:5000/uploads/${item.image}" alt="${item.name}" onerror="this.src='https://via.placeholder.com/300x200?text=No+Image'">` : '<img src="https://via.placeholder.com/300x200?text=No+Image" alt="">'}
+          ${item.image ? `<img src="https://urbansphere.co.in/uploads/${item.image}" alt="${item.name}" onerror="this.src='https://via.placeholder.com/300x200?text=No+Image'">` : '<img src="https://via.placeholder.com/300x200?text=No+Image" alt="">'}
           <div style="display:flex; justify-content:space-between; align-items:center;">
             <strong>${item.name}</strong>
             <span style="font-size:0.85rem; color:#f39c12; font-weight:bold;">★ ${item.rating ? item.rating : 'N/A'}</span>
@@ -573,7 +573,7 @@
       data.address = address; // Include address in booking data
 
       try {
-        const res = await fetch('http://127.0.0.1:5000/api/bookings', {
+        const res = await fetch('https://urbansphere.co.in/api/bookings', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(data)
@@ -635,7 +635,7 @@
       };
 
       try {
-        const res = await fetch('http://127.0.0.1:5000/api/orders', {
+        const res = await fetch('https://urbansphere.co.in/api/orders', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(orderData)
