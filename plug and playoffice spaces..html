@@ -159,7 +159,7 @@
 <script>
 async function loadLocations() {
   try {
-    const res = await fetch('http://localhost:5000/api/add_location_plug_play_office');
+    const res = await fetch('https://urbansphere.co.in/api/add_location_plug_play_office');
     if (!res.ok) throw new Error("Failed to load locations");
 
     const data = await res.json();
@@ -495,7 +495,7 @@ window.addEventListener('DOMContentLoaded', loadLocations);
 
   async function loadTestimonials() {
     try {
-      const res = await fetch("http://localhost:5000/api/testimonials_plug_play_office");
+      const res = await fetch("https://urbansphere.co.in/api/testimonials_plug_play_office");
       const data = await res.json();
       allTestimonials = data;
       currentPage = 1;
@@ -533,7 +533,7 @@ window.addEventListener('DOMContentLoaded', loadLocations);
         <div style="font-style:italic; color:#333; font-size:1rem; line-height:1.6; white-space:normal; word-break:break-word;">"${t.text}"</div>
         <div style="display:flex; align-items:center; margin-top:20px;">
           <div style="flex-shrink:0;">
-            <img src="http://localhost:5000/uploads/${t.image}" alt="${t.name}" style="width:60px; height:60px; border-radius:50%; object-fit:cover; border:2px solid #2a5a78;">
+            <img src="https://urbansphere.co.in/uploads/${t.image}" alt="${t.name}" style="width:60px; height:60px; border-radius:50%; object-fit:cover; border:2px solid #2a5a78;">
           </div>
           <div style="margin-left:15px;">
             <h4 style="margin:0; font-size:1.1rem; color:#2a5a78;">${t.name}</h4>
@@ -755,7 +755,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const formData = { name, email, phone, interest, location, message };
 
     try {
-      const response = await fetch("http://localhost:5000/api/send_inquiry", {
+      const response = await fetch("https://urbansphere.co.in/api/send_inquiry", {
         method: "POST",
         headers: {
           "Content-Type": "application/json"

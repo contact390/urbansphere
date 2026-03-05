@@ -2832,7 +2832,7 @@ window.addEventListener('resize', handleCollapseButtonResponsive);
       message: document.getElementById("message").value.trim(),
     };
 
-    fetch("http://localhost:5000/api/contact", {
+    fetch("https://urbansphere.co.in/api/contact", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(formData),
@@ -2906,7 +2906,7 @@ window.addEventListener('resize', handleCollapseButtonResponsive);
         const email = emailInput.value;
 
         try {
-          const response = await fetch('http://localhost:5000/api/subscribe', {
+          const response = await fetch('https://urbansphere.co.in/api/subscribe', {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json'

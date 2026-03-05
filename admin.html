@@ -790,7 +790,7 @@
 
   <script>
   async function loadLocations() {
-    const res = await fetch('http://localhost:5000/api/add_location_plug_play_office');
+    const res = await fetch('https://urbansphere.co.in/api/add_location_plug_play_office');
     const locations = await res.json();
 
     const tbody = document.querySelector("#locationsTable tbody");
@@ -834,7 +834,7 @@
     const title = document.getElementById('editTitle').value;
     const description = document.getElementById('editDescription').value;
 
-    const res = await fetch(`http://localhost:5000/api/add_location_plug_play_office/${id}`, {
+    const res = await fetch(`https://urbansphere.co.in/api/add_location_plug_play_office/${id}`, {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ title, description })
@@ -852,7 +852,7 @@
   async function deleteLocation(id) {
     if (!confirm("Are you sure you want to delete this location?")) return;
 
-    const res = await fetch(`http://localhost:5000/api/add_location_plug_play_office/${id}`, {
+    const res = await fetch(`https://urbansphere.co.in/api/add_location_plug_play_office/${id}`, {
       method: 'DELETE'
     });
 
@@ -886,7 +886,7 @@
     
     specials.forEach(special => {
       const row = document.createElement('tr');
-      const imageUrl = special.image ? `http://localhost:5000/uploads/${special.image}` : 'https://via.placeholder.com/80x60?text=No+Image';
+      const imageUrl = special.image ? `https://urbansphere.co.in/uploads/${special.image}` : 'https://via.placeholder.com/80x60?text=No+Image';
       
       row.innerHTML = `
         <td style="padding: 15px; text-align:left;">
@@ -940,7 +940,7 @@
 
   async function loadSpecials() {
     try {
-      const response = await fetch('http://localhost:5000/api/specials');
+      const response = await fetch('https://urbansphere.co.in/api/specials');
       allSpecials = await response.json();
       displaySpecials(allSpecials);
     } catch (error) {
@@ -961,7 +961,7 @@
   }, 100);
 
   function openEditSpecialModal(id) {
-    fetch(`http://localhost:5000/api/specials`)
+    fetch(`https://urbansphere.co.in/api/specials`)
       .then(res => res.json())
       .then(specials => {
         const special = specials.find(s => s.id === id);
@@ -980,7 +980,7 @@
         // Show current image preview
         const currentImagePreview = document.getElementById('currentImagePreview');
         if (special.image) {
-          currentImagePreview.src = `http://localhost:5000/uploads/${special.image}`;
+          currentImagePreview.src = `https://urbansphere.co.in/uploads/${special.image}`;
           currentImagePreview.style.display = 'block';
         } else {
           currentImagePreview.src = 'https://via.placeholder.com/150x100?text=No+Image';
@@ -1025,7 +1025,7 @@
       }
       
       try {
-        const response = await fetch('http://localhost:5000/api/specials/update', {
+        const response = await fetch('https://urbansphere.co.in/api/specials/update', {
           method: 'PUT',
           body: formData
         });
@@ -1049,7 +1049,7 @@
     if (!confirm('Are you sure you want to delete this special?')) return;
     
     try {
-      const response = await fetch('http://localhost:5000/api/specials/delete', {
+      const response = await fetch('https://urbansphere.co.in/api/specials/delete', {
         method: 'DELETE',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ id })
@@ -1152,7 +1152,7 @@
   <script>
     async function fetchMessages() {
       try {
-        const response = await fetch("http://localhost:5000/api/send_message");
+        const response = await fetch("https://urbansphere.co.in/api/send_message");
         if (!response.ok) throw new Error("Failed to fetch messages");
         const messages = await response.json();
 
@@ -1193,7 +1193,7 @@
 
   <script>
     async function loadBookings() {
-      const res = await fetch('http://localhost:5000/api/admin/bookings');
+      const res = await fetch('https://urbansphere.co.in/api/admin/bookings');
       const data = await res.json();
       const list = document.getElementById('bookings');
       if (data.length === 0) list.innerHTML = '<li>No bookings yet.</li>';
@@ -1206,7 +1206,7 @@
       });
     }
   async function loadOrders() {
-    const res = await fetch('http://localhost:5000/api/admin/orders');
+    const res = await fetch('https://urbansphere.co.in/api/admin/orders');
     const data = await res.json();
     const list = document.getElementById('orders');
     if (data.length === 0) list.innerHTML = '<li>No orders placed.</li>';
@@ -1248,7 +1248,7 @@
     }
 
     try {
-      const res = await fetch(`http://localhost:5000/api/orders/${orderId}/status`, {
+      const res = await fetch(`https://urbansphere.co.in/api/orders/${orderId}/status`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ status, rejectionReason })
@@ -1332,7 +1332,7 @@
   </table>
 
   <script>
-    fetch("http://localhost:5000/api/send_inquiry")
+    fetch("https://urbansphere.co.in/api/send_inquiry")
       .then(response => response.json())
       .then(data => {
         const tbody = document.querySelector("#inquiryTable tbody");
@@ -1429,7 +1429,7 @@
   <div class="order-container" id="ordersList"></div>
 
   <script>
-    fetch('http://localhost:5000/api/orders')
+    fetch('https://urbansphere.co.in/api/orders')
       .then(response => response.json())
       .then(orders => {
         const container = document.getElementById('ordersList');
@@ -1525,7 +1525,7 @@
   <script>
     async function fetchMessages() {
       try {
-        const response = await fetch('http://localhost:5000/api/contact');
+        const response = await fetch('https://urbansphere.co.in/api/contact');
         const messages = await response.json();
 
         const container = document.getElementById('messages-container');
@@ -1551,7 +1551,7 @@
       }
     }
     async function loadRegistrations() {
-  const res = await fetch('http://localhost:5000/api/admin/registrations');
+  const res = await fetch('https://urbansphere.co.in/api/admin/registrations');
   const data = await res.json();
   const list = document.getElementById('registrations');
   if (data.length === 0) list.innerHTML = '<li>No registrations yet.</li>';
@@ -1586,7 +1586,7 @@
 
   <script>
     async function loadOrders() {
-      const res = await fetch('http://localhost:5000/api/orders');
+      const res = await fetch('https://urbansphere.co.in/api/orders');
       const orders = await res.json();
 
       const container = document.getElementById('ordersContainer');
@@ -1663,7 +1663,7 @@
 
   <script>
   async function loadLocations() {
-    const res = await fetch('http://localhost:5000/api/add_location_plug_play_office');
+    const res = await fetch('https://urbansphere.co.in/api/add_location_plug_play_office');
     const locations = await res.json();
 
     const tbody = document.querySelector("#locationsTable tbody");
@@ -1702,7 +1702,7 @@
     const title = document.getElementById('editTitle').value;
     const description = document.getElementById('editDescription').value;
 
-    const res = await fetch(`http://localhost:5000/api/locations/${id}`, {
+    const res = await fetch(`https://urbansphere.co.in/api/locations/${id}`, {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ title, description })
@@ -1720,7 +1720,7 @@
   async function deleteLocation(id) {
     if (!confirm("Are you sure you want to delete this location?")) return;
 
-    const res = await fetch(`http://localhost:5000/api/locations/${id}`, {
+    const res = await fetch(`https://urbansphere.co.in/api/locations/${id}`, {
       method: 'DELETE'
     });
 
@@ -1741,7 +1741,7 @@
   // ==================================================
   async function loadSpecials() {
     try {
-      const response = await fetch('http://localhost:5000/api/specials');
+      const response = await fetch('https://urbansphere.co.in/api/specials');
       const specials = await response.json();
       
       const tbody = document.getElementById('specialsTable');
@@ -1755,7 +1755,7 @@
       
       specials.forEach(special => {
         const row = document.createElement('tr');
-        const imageUrl = special.image ? `http://localhost:5000/uploads/${special.image}` : 'https://via.placeholder.com/80x60?text=No+Image';
+        const imageUrl = special.image ? `https://urbansphere.co.in/uploads/${special.image}` : 'https://via.placeholder.com/80x60?text=No+Image';
         
         row.innerHTML = `
           <td style="padding: 15px; text-align:left;">
@@ -1780,7 +1780,7 @@
   }
 
   function openEditSpecialModal(id) {
-    fetch(`http://localhost:5000/api/specials`)
+    fetch(`https://urbansphere.co.in/api/specials`)
       .then(res => res.json())
       .then(specials => {
         const special = specials.find(s => s.id === id);
@@ -1809,7 +1809,7 @@
     if (!confirm('Are you sure you want to delete this special?')) return;
     
     try {
-      const response = await fetch('http://localhost:5000/api/specials/delete', {
+      const response = await fetch('https://urbansphere.co.in/api/specials/delete', {
         method: 'DELETE',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ id })

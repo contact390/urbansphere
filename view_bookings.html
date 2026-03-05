@@ -681,7 +681,7 @@
         // Load bookings from backend
         async function loadBookings() {
             try {
-                const response = await fetch('http://localhost:5000/api/bookings');
+                const response = await fetch('https://urbansphere.co.in/api/bookings');
                 if (!response.ok) throw new Error('Failed to fetch bookings');
                 
                 allBookings = await response.json();

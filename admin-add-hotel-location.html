@@ -121,7 +121,7 @@ document.getElementById("locationForm").addEventListener("submit", async functio
         regions.push({ regionName, count, specificNames });
     }
 
-    const res = await fetch("http://localhost:5000/api/hotels_fetch_location", {
+    const res = await fetch("https://urbansphere.co.in/api/hotels_fetch_location", {
         method: "POST",
         headers: {
             "Content-Type": "application/json"

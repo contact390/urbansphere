@@ -96,10 +96,10 @@
             const logId = 'connectionLog';
             document.getElementById(logId).innerHTML = '';
             
-            log(logId, 'Testing connection to http://localhost:5000/api/health', 'info');
+            log(logId, 'Testing connection to https://urbansphere.co.in/api/health', 'info');
             
             try {
-                const res = await fetch('http://localhost:5000/api/health');
+                const res = await fetch('https://urbansphere.co.in/api/health');
                 if (res.ok) {
                     log(logId, 'Server is ONLINE and responding', 'success');
                 } else {
@@ -132,7 +132,7 @@
             log(logId, 'Sending POST request to /api/featured-locations...', 'info');
             
             try {
-                const res = await fetch('http://localhost:5000/api/featured-locations', {
+                const res = await fetch('https://urbansphere.co.in/api/featured-locations', {
                     method: 'POST',
                     body: formData
                 });
@@ -158,7 +158,7 @@
             log(logId, 'Fetching from /api/featured-locations...', 'info');
             
             try {
-                const res = await fetch('http://localhost:5000/api/featured-locations');
+                const res = await fetch('https://urbansphere.co.in/api/featured-locations');
                 log(logId, `Response status: ${res.status}`, 'info');
                 
                 const data = await res.json();
@@ -200,7 +200,7 @@
             
             // Try to get a location to verify table exists
             try {
-                const res = await fetch('http://localhost:5000/api/featured-locations');
+                const res = await fetch('https://urbansphere.co.in/api/featured-locations');
                 if (res.ok) {
                     log(logId, '\n✅ Table is accessible', 'success');
                 }
